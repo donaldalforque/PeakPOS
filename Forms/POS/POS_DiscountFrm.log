@@ -1,0 +1,17 @@
+Line 56: Class MSComctlLib.ListView of control lvDiscount was not a loaded control class.
+Line 62: The property name _ExtentX in lvDiscount is invalid.
+Line 63: The property name _ExtentY in lvDiscount is invalid.
+Line 64: The property name View in lvDiscount is invalid.
+Line 65: The property name LabelEdit in lvDiscount is invalid.
+Line 66: The property name LabelWrap in lvDiscount is invalid.
+Line 67: The property name HideSelection in lvDiscount is invalid.
+Line 68: The property name Checkboxes in lvDiscount is invalid.
+Line 69: The property name FullRowSelect in lvDiscount is invalid.
+Line 70: The property name GridLines in lvDiscount is invalid.
+Line 71: The property name _Version in lvDiscount is invalid.
+Line 85: The property name NumItems in lvDiscount is invalid.
+Line 88: The property name ColumnHeader(1) in lvDiscount is invalid.
+Line 93: The property name ColumnHeader(2) in lvDiscount is invalid.
+Line 98: The property name ColumnHeader(3) in lvDiscount is invalid.
+Line 103: The property name ColumnHeader(4) in lvDiscount is invalid.
+Line 108: The property name ColumnHeader(5) in lvDiscount is invalid.

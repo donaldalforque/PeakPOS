@@ -1,0 +1,4 @@
+[Hostname]
+.
+[Datbasename]
+Peak
