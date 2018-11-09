@@ -1,9 +1,0 @@
-[PharmacyMode]
-OFF
-[OrderSlipMode]
-OFF
-[DualPharmacyMode]
-FALSE
-[Preferred]
-Percentage
-4
