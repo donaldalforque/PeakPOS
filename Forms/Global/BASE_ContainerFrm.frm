@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.MDIForm BASE_ContainerFrm 
    BackColor       =   &H8000000C&
    Caption         =   "PeakPOS"
@@ -321,7 +321,7 @@ Begin VB.MDIForm BASE_ContainerFrm
             ImageIndex      =   9
             Style           =   5
             BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
-               NumButtonMenus  =   38
+               NumButtonMenus  =   41
                BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "GeneralSalesTransaction"
                   Text            =   "General Transaction Summary"
@@ -338,133 +338,143 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Inventory by Location"
                EndProperty
                BeginProperty ButtonMenu5 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "ProductPricing"
-                  Text            =   "Product Pricing"
+                  Text            =   "-"
                EndProperty
                BeginProperty ButtonMenu6 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "ProductExpiry"
-                  Text            =   "Product Expiry"
+                  Key             =   "NewStockSummary"
+                  Text            =   "New Stock Summary"
                EndProperty
                BeginProperty ButtonMenu7 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
                BeginProperty ButtonMenu8 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "ProductPricing"
+                  Text            =   "Product Pricing"
+               EndProperty
+               BeginProperty ButtonMenu9 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "ProductExpiry"
+                  Text            =   "Product Expiry"
+               EndProperty
+               BeginProperty ButtonMenu10 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Text            =   "-"
+               EndProperty
+               BeginProperty ButtonMenu11 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "PurchaseOrderSummary"
                   Text            =   "Purchase Order Summary"
                EndProperty
-               BeginProperty ButtonMenu9 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu12 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "PurchaseOrderbyProduct"
                   Text            =   "Purchase Order by Product"
                EndProperty
-               BeginProperty ButtonMenu10 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu13 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "SupplierPaymentHistory"
                   Text            =   "Supplier Payment History"
                EndProperty
-               BeginProperty ButtonMenu11 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu14 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "SupplierStatement"
                   Text            =   "Supplier Statement of Account"
                EndProperty
-               BeginProperty ButtonMenu12 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu15 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu13 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu16 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu14 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu17 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "SalesOrderSummary"
                   Text            =   "Sales Order Summary"
                EndProperty
-               BeginProperty ButtonMenu15 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu18 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "SalesbyProductDetails"
                   Text            =   "Sales Order by Product"
                EndProperty
-               BeginProperty ButtonMenu16 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu19 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "SalesAdjustmentSummary"
                   Text            =   "Sales Adjustment Summary"
                EndProperty
-               BeginProperty ButtonMenu17 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu20 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu18 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu21 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CustomerPaymentHistory"
                   Text            =   "Customer Payment History"
                EndProperty
-               BeginProperty ButtonMenu19 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu22 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "StatementofAccount"
                   Text            =   "Customer Statement of Account"
                EndProperty
-               BeginProperty ButtonMenu20 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu23 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CustomerInvoiceTransactions"
                   Text            =   "Customer Invoice Transactions"
                EndProperty
-               BeginProperty ButtonMenu21 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu24 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CustomerSalesVolume"
                   Text            =   "Customer by Sales Volume"
                EndProperty
-               BeginProperty ButtonMenu22 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu25 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CustomerListReport"
                   Text            =   "Customer List"
                EndProperty
-               BeginProperty ButtonMenu23 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu26 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu24 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu27 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CashSalesByProduct"
                   Text            =   "POS Sales by Product"
                EndProperty
-               BeginProperty ButtonMenu25 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu28 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesByCashier"
                   Text            =   "POS Sales by Cashier"
                EndProperty
-               BeginProperty ButtonMenu26 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu29 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesbyInvoice"
                   Text            =   "POS Sales by Invoice"
                EndProperty
-               BeginProperty ButtonMenu27 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu30 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesByCustomer"
                   Text            =   "POS Sales by Customer"
                EndProperty
-               BeginProperty ButtonMenu28 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu31 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesSummary"
                   Text            =   "POS Sales Summary"
                EndProperty
-               BeginProperty ButtonMenu29 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu32 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesReturnReport"
                   Text            =   "POS Sales Return"
                EndProperty
-               BeginProperty ButtonMenu30 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu33 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu31 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu34 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "AccountsReceivableReport"
                   Text            =   "Accounts Receivable Summary"
                EndProperty
-               BeginProperty ButtonMenu32 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu35 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CollectionSummary"
                   Text            =   "Collection Summary"
                EndProperty
-               BeginProperty ButtonMenu33 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu36 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Key             =   "AccountsPayableReport"
                   Text            =   "Accounts Payable Summary"
                EndProperty
-               BeginProperty ButtonMenu34 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu37 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "-"
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu35 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu38 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "ExpensesReport"
                   Text            =   "Expenses Report"
                EndProperty
-               BeginProperty ButtonMenu36 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu39 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CheckRegistry"
                   Text            =   "Check Registry"
                EndProperty
-               BeginProperty ButtonMenu37 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu40 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu38 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu41 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSUserAuditTrail"
                   Text            =   "User Audit Trail"
                EndProperty
@@ -587,6 +597,10 @@ Private Sub Toolbar_Main_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonM
             CornerChildForm INV_TransferStockFrm
             INV_TransferStockFrm.Show
             INV_TransferStockFrm.ZOrder 0
+         Case "NewStockSummary"
+            CornerChildForm RPT_INV_NewStockSummaryFrm
+            RPT_INV_NewStockSummaryFrm.Show
+            RPT_INV_NewStockSummaryFrm.ZOrder 0
         Case "SystemSettings"
             If EditAccessRights(25) = False Then
                 MsgBox ErrorCodes(74), vbCritical, "Limited Rights"
