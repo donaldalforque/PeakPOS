@@ -17,8 +17,8 @@ Sub Main()
         DeleteReserves WorkstationId, 3 'PR
         DeleteReserves WorkstationId, 4 'Transfer Stock
         
-        BASE_UserLoginFrm.Show
-        'POS_UserLoginFrm.Show
+        'BASE_UserLoginFrm.Show
+        POS_UserLoginFrm.Show
 '    Else
 '        MsgBox "Invalid license.", vbCritical, "PeakPOS"
 '    End If
