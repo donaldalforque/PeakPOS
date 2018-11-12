@@ -516,7 +516,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-
+Dim PayEventChecker As Boolean
 Public Sub ComputeChange()
     Dim change As Double
     change = Val(Replace(lblAmountDue.Caption, ",", "")) - Val(Replace(txtCash.Text, ",", "")) - Val(Replace(txtCard.Text, ",", "")) _
@@ -525,9 +525,13 @@ Public Sub ComputeChange()
 End Sub
 
 Private Sub btnAccept_Click()
+    If btnAccept.Enabled = False Then Exit Sub
+    
     POS_ConfirmPaymentFrm.Show (1)
     If AllowAccess = False Then Exit Sub
   On Error GoTo ErrMessage
+    btnAccept.Enabled = False
+    
     'SAVE CASH DETAILS
     Dim due, cash, Card, Check, Loyalty, OtherPayment, SumPayment, SalesTax, TaxExempt, TotalDiscount As Double
     Dim item As MSComctlLib.ListItem
@@ -817,13 +821,14 @@ Private Sub btnAccept_Click()
         con.Close
         
         Unload POS_SavingFrm
+        
         Dim x As Variant
         x = MsgBox("Do you want to print a receipt?", vbQuestion + vbYesNo)
         If x = vbYes Then
             '**PRINT RECEIPT******
             Dim crxApp As New CRAXDRT.Application
             Dim crxRpt As New CRAXDRT.Report
-            Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_Receipt.rpt")
+            Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt.rpt")
             'crxRpt.RecordSelectionFormula = "{POS_Sales.POS_SalesId}= " & Val(POS_SalesId) & ""
             crxRpt.DiscardSavedData
             crxRpt.EnableParameterPrompting = False
@@ -849,18 +854,20 @@ Private Sub btnAccept_Click()
     End If
     Exit Sub
 ErrMessage:
-    con.RollbackTrans
+'    con.RollbackTrans
     Unload POS_SavingFrm
     txtCash.Enabled = True
+    btnAccept.Enabled = True
     If IsNumeric(Err.Description) = True Then
         GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(Err.Description)
-        BASE_ContainerFrm.statusBar_Main.Panels(1).Text = ErrorCodes(0) & " " & ErrorCodes(Err.Description)
+        'BASE_ContainerFrm.statusBar_Main.Panels(1).Text = ErrorCodes(0) & " " & ErrorCodes(Err.Description)
     Else
         GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & Err.Description
-        BASE_ContainerFrm.statusBar_Main.Panels(1).Text = ErrorCodes(0) & " " & Err.Description
+        'BASE_ContainerFrm.statusBar_Main.Panels(1).Text = ErrorCodes(0) & " " & Err.Description
     End If
-        GLOBAL_MessageFrm.Show (1)
+    GLOBAL_MessageFrm.Show (1)
     SYS_ErrorLog UserId, WorkstationId, Err.Description
+    Unload Me
 End Sub
 
 Private Sub btnCancel_Click()
@@ -926,15 +933,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Form_Load()
-    'Get ini settings
-    'isTrainingMode = ReadIniValue(App.Path & "\GeneralSettings.ini", "Default", "TrainingMode")
-    
-'    If isTrainingMode = "True" Then
-'         MsgBox "You are currently in Training Mode. Any transaction " & _
-'        "you do will not affect your real time data." _
-'        , vbExclamation + vbOKOnly, "Training Mode"
-'    End If
-'WebBrowser1.Navigate "http://www.new.jadelivesmarketing.com"
+   btnAccept.Enabled = True
 End Sub
 
 Private Sub txtCard_Change()

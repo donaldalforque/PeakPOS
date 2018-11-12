@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form POS_CashierFrm 
    BackColor       =   &H00E0E0E0&
    BorderStyle     =   0  'None
@@ -1119,6 +1119,7 @@ Public Sub CountTax()
     Next
 End Sub
 Public Sub PriceTrigger(ByVal id As Long)
+    Exit Sub 'Feature not applicable to large scale operations
     On Error Resume Next
     Dim con As New ADODB.Connection
     Set rec = New ADODB.Recordset
@@ -1141,6 +1142,7 @@ Public Sub PriceTrigger(ByVal id As Long)
             'If rec!price <> 0 Then
                 lvList.SelectedItem.SubItems(3) = FormatNumber(rec!price, 2, vbTrue, vbFalse)
             'End If
+            
             rec.MoveNext
         Loop
     Else
