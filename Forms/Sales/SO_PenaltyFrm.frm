@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form SO_SalesAdjustmentFrm 
    BorderStyle     =   1  'Fixed Single
@@ -111,7 +111,7 @@ Begin VB.Form SO_SalesAdjustmentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   95551489
+            Format          =   143327233
             CurrentDate     =   41509
          End
          Begin VB.Label Label14 
@@ -812,7 +812,7 @@ Begin VB.Form SO_SalesAdjustmentFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   36569089
+         Format          =   143327233
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -833,7 +833,7 @@ Begin VB.Form SO_SalesAdjustmentFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   36569089
+         Format          =   143327233
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -1007,7 +1007,7 @@ Dim StatusId As Integer
 Dim item As MSComctlLib.ListItem
 Private Sub Initialize()
     picStatus.Visible = False
-    dtOrder.value = Format(Now, "MM/DD/YY")
+    dtOrder.value = Format(Now, "MM/DD/YY hh:mm:ss")
 
     StatusId = 0
     lvItems.ListItems.Clear

@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form SO_SalesReturnFrm 
    BorderStyle     =   1  'Fixed Single
@@ -935,7 +935,7 @@ Begin VB.Form SO_SalesReturnFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   97386497
+            Format          =   143196161
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtDue 
@@ -957,7 +957,7 @@ Begin VB.Form SO_SalesReturnFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   97386497
+            Format          =   143196161
             CurrentDate     =   41509
          End
          Begin VB.Label Label5 
@@ -1575,7 +1575,7 @@ Begin VB.Form SO_SalesReturnFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   97386497
+         Format          =   143196161
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -1596,7 +1596,7 @@ Begin VB.Form SO_SalesReturnFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   97386497
+         Format          =   143196161
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -1816,8 +1816,8 @@ Public Sub Initialize()
     cmbCustomer.Text = ""
     cmbCustomer.BackColor = &HC0C0FF
     'cmbTerms.BackColor = &HC0C0FF
-    dtOrder.value = Format(Now, "MM/DD/YY")
-    dtDue.value = Format(Now, "MM/DD/YY")
+    dtOrder.value = Format(Now, "MM/DD/YY hh:mm:ss")
+    dtDue.value = Format(Now, "MM/DD/YY hh:mm:ss")
     btnStatus.Caption = "Pick && Invoice"
     lvItems.ListItems.Clear
     lvCustomer.ListItems.Clear

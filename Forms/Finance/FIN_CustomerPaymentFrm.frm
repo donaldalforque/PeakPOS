@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form FIN_CustomerPaymentFrm 
    BackColor       =   &H00FFFFFF&
@@ -237,7 +237,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   51183617
+            Format          =   143065089
             CurrentDate     =   41646
          End
          Begin VB.Label Label10 
@@ -370,7 +370,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   51183617
+            Format          =   143065089
             CurrentDate     =   41646
          End
          Begin VB.Label Label9 
@@ -1188,8 +1188,8 @@ Private Sub Form_Load()
     
     con.Close
     
-    dtDate.value = Format(Now, "MM/DD/YY")
-    dtCheckDate.value = Format(Now, "MM/DD/YY")
+    dtDate.value = Format(Now, "MM/DD/YY hh:mm:ss")
+    dtCheckDate.value = Format(Now, "MM/DD/YY hh:mm:ss")
     
     Populate "Bank"
     CountTotal

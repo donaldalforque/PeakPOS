@@ -321,7 +321,7 @@ Begin VB.MDIForm BASE_ContainerFrm
             ImageIndex      =   9
             Style           =   5
             BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
-               NumButtonMenus  =   41
+               NumButtonMenus  =   42
                BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "GeneralSalesTransaction"
                   Text            =   "General Transaction Summary"
@@ -413,68 +413,72 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Customer by Sales Volume"
                EndProperty
                BeginProperty ButtonMenu25 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "CustomerLedger"
+                  Text            =   "Customer Ledger"
+               EndProperty
+               BeginProperty ButtonMenu26 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CustomerListReport"
                   Text            =   "Customer List"
                EndProperty
-               BeginProperty ButtonMenu26 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu27 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu27 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu28 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CashSalesByProduct"
                   Text            =   "POS Sales by Product"
                EndProperty
-               BeginProperty ButtonMenu28 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu29 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesByCashier"
                   Text            =   "POS Sales by Cashier"
                EndProperty
-               BeginProperty ButtonMenu29 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu30 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesbyInvoice"
                   Text            =   "POS Sales by Invoice"
                EndProperty
-               BeginProperty ButtonMenu30 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu31 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesByCustomer"
                   Text            =   "POS Sales by Customer"
                EndProperty
-               BeginProperty ButtonMenu31 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu32 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesSummary"
                   Text            =   "POS Sales Summary"
                EndProperty
-               BeginProperty ButtonMenu32 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu33 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSSalesReturnReport"
                   Text            =   "POS Sales Return"
                EndProperty
-               BeginProperty ButtonMenu33 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu34 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu34 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu35 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "AccountsReceivableReport"
                   Text            =   "Accounts Receivable Summary"
                EndProperty
-               BeginProperty ButtonMenu35 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu36 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CollectionSummary"
                   Text            =   "Collection Summary"
                EndProperty
-               BeginProperty ButtonMenu36 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu37 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Key             =   "AccountsPayableReport"
                   Text            =   "Accounts Payable Summary"
                EndProperty
-               BeginProperty ButtonMenu37 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu38 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "-"
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu38 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu39 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "ExpensesReport"
                   Text            =   "Expenses Report"
                EndProperty
-               BeginProperty ButtonMenu39 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu40 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CheckRegistry"
                   Text            =   "Check Registry"
                EndProperty
-               BeginProperty ButtonMenu40 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu41 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu41 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu42 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSUserAuditTrail"
                   Text            =   "User Audit Trail"
                EndProperty
@@ -696,9 +700,12 @@ Private Sub Toolbar_Main_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonM
             FIN_AccountFundingFrm.Show
             FIN_AccountFundingFrm.ZOrder 0
         Case "CustomerLedger"
-            CenterChildForm FIN_CustomerLedgerFrm
-            FIN_CustomerLedgerFrm.Show
-            FIN_CustomerLedgerFrm.ZOrder 0
+'            CenterChildForm FIN_CustomerLedgerFrm
+'            FIN_CustomerLedgerFrm.Show
+'            FIN_CustomerLedgerFrm.ZOrder 0
+            CornerChildForm RPT_SO_CustomerLedgerFrm
+            RPT_SO_CustomerLedgerFrm.Show
+            RPT_SO_CustomerLedgerFrm.ZOrder 0
         Case "CollectionbyCustomer"
             CornerChildForm RPT_CollectionListbyCustomerFrm
             RPT_CollectionListbyCustomerFrm.Show
