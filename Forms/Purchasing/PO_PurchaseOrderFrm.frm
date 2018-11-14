@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form PO_PurchaseOrderFrm 
    BorderStyle     =   1  'Fixed Single
@@ -337,7 +337,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   96731137
+         Format          =   143065089
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -358,7 +358,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   96731137
+         Format          =   143065089
          CurrentDate     =   41686
       End
       Begin VB.Label Label19 
@@ -1188,7 +1188,7 @@ Begin VB.Form PO_PurchaseOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   96731137
+            Format          =   143065089
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtReceived 
@@ -1210,7 +1210,7 @@ Begin VB.Form PO_PurchaseOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   96731137
+            Format          =   143065089
             CurrentDate     =   41509
          End
          Begin VB.Label Label20 
@@ -1538,8 +1538,8 @@ Public Sub Initialize()
     cmbVendor.Text = ""
     cmbVendor.BackColor = &HC0C0FF
     'cmbTerms.BackColor = &HC0C0FF
-    dtOrder.value = Format(Now, "MM/DD/YY")
-    dtReceived.value = Format(Now, "MM/DD/YY")
+    dtOrder.value = Format(Now, "MM/DD/YY hh:mm:ss")
+    dtReceived.value = Format(Now, "MM/DD/YY hh:mm:ss")
     'btnStatus.Caption = "Complete Order"
     lvItems.ListItems.Clear
     lvVendor.ListItems.Clear
@@ -1555,7 +1555,7 @@ Public Sub Initialize()
     tb_Standard.Buttons(4).Image = 3
     
     lblSubTotal.Caption = "0.00"
-    lblTotal.Caption = "0.00"
+    lbltotal.Caption = "0.00"
     lblRemainingBalance.Caption = "0.00"
     
     id = 1
@@ -1596,7 +1596,7 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
         cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(lblSubTotal.Caption, ",", "")))
                               cmd.Parameters("@Subtotal").Precision = 18
                               cmd.Parameters("@Subtotal").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lblTotal.Caption, ",", "")))
+        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lbltotal.Caption, ",", "")))
                               cmd.Parameters("@Total").Precision = 18
                               cmd.Parameters("@Total").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 250, txtRemarks.Text)
@@ -1781,8 +1781,8 @@ Public Sub CountTotal()
     Total = Total + Val(Replace(txtFreight.Text, ",", "")) - Val(Replace(txtAdjustment.Text, ",", ""))
     
     lblSubTotal.Caption = FormatNumber(gSubTotal, 2, vbTrue, vbFalse)
-    lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
-    lblRemainingBalance.Caption = lblTotal.Caption
+    lbltotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblRemainingBalance.Caption = lbltotal.Caption
     lblTotalPayment.Caption = FormatNumber(NVAL(lblBalance.Caption) - NVAL(lblInvoice.Caption), 2, vbTrue)
 End Sub
 Public Sub Populate(ByVal data As String)
@@ -2510,7 +2510,7 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 BASE_PrintPreviewFrm.Show
                 Dim crxApp As New CRAXDRT.Application
                 Dim crxRpt As New CRAXDRT.Report
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\PO_PurchaseOrder.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\PO_PurchaseOrder.rpt")
                 crxRpt.RecordSelectionFormula = "{PO_PurchaseOrder.PurchaseOrderId}= " & PurchaseOrderId & ""
                 crxRpt.DiscardSavedData
 

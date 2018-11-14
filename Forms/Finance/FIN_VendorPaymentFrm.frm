@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form FIN_VendorPaymentFrm 
    BackColor       =   &H00FFFFFF&
@@ -226,7 +226,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   96731137
+            Format          =   142868481
             CurrentDate     =   41646
          End
          Begin VB.Label Label4 
@@ -378,7 +378,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   96731137
+            Format          =   142868481
             CurrentDate     =   41646
          End
          Begin VB.Label Label11 
@@ -881,7 +881,12 @@ Private Sub btnSave_Click()
             Exit Sub
         End If
     End If
-
+    
+    If Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) Then
+        MsgBox "Cannot overpay.", vbCritical, "PeakPOS"
+        Exit Sub
+    End If
+        
     Dim x As Variant
     x = MsgBox("Are you sure all information are correct?", vbQuestion + vbYesNo, "Verify")
     If x = vbNo Then
@@ -1255,8 +1260,8 @@ Private Sub Form_Load()
     
     con.Close
     
-    dtDate.value = Format(Now, "MM/DD/YY")
-    dtCheckDate.value = Format(Now, "MM/DD/YY")
+    dtDate.value = Format(Now, "MM/DD/YY hh:mm:ss")
+    dtCheckDate.value = Format(Now, "MM/DD/YY hh:mm:ss")
     
     Populate "Bank"
     CountTotal

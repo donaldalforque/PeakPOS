@@ -237,7 +237,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143065089
+            Format          =   142606337
             CurrentDate     =   41646
          End
          Begin VB.Label Label10 
@@ -370,7 +370,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143065089
+            Format          =   142606337
             CurrentDate     =   41646
          End
          Begin VB.Label Label9 
@@ -845,7 +845,12 @@ Private Sub btnSave_Click()
             Exit Sub
         End If
     End If
-                
+     
+    If Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) Then
+        MsgBox "Cannot overpay.", vbCritical, "PeakPOS"
+        Exit Sub
+    End If
+     
     Dim x As Variant
     x = MsgBox("Are you sure all information are correct?", vbQuestion + vbYesNo, "Verify")
     If x = vbNo Then

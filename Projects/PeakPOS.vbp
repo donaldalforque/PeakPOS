@@ -216,6 +216,7 @@ Form=..\Forms\Reports\RPT_SO_SalesAdjustmentSummaryFrm.frm
 Form=..\Forms\Reports\RPT_FIN_CheckRegistry.frm
 Form=..\Forms\Reports\RPT_INV_NewStockSummaryFrm.frm
 Form=..\Forms\Reports\RPT_SO_CustomerLedgerFrm.frm
+Form=..\Forms\Reports\RPT_PO_SupplierLedgerFrm.frm
 IconForm="BASE_ContainerFrm"
 Startup="Sub Main"
 HelpFile=""

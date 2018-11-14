@@ -172,7 +172,7 @@ Begin VB.Form PO_PurchaseReturnFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   95944705
+         Format          =   142606337
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -193,7 +193,7 @@ Begin VB.Form PO_PurchaseReturnFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   95944705
+         Format          =   142606337
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -776,7 +776,7 @@ Begin VB.Form PO_PurchaseReturnFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   95944705
+            Format          =   142606337
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtReceived 
@@ -798,7 +798,7 @@ Begin VB.Form PO_PurchaseReturnFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   95944705
+            Format          =   142606337
             CurrentDate     =   41509
          End
          Begin VB.Label Label11 
@@ -1473,8 +1473,8 @@ Public Sub Initialize()
     cmbVendor.Text = ""
     cmbVendor.BackColor = &HC0C0FF
     'cmbTerms.BackColor = &HC0C0FF
-    dtOrder.value = Format(Now, "MM/DD/YY")
-    dtReceived.value = Format(Now, "MM/DD/YY")
+    dtOrder.value = Format(Now, "MM/DD/YY hh:mm:ss")
+    dtReceived.value = Format(Now, "MM/DD/YY hh:mm:ss")
     btnStatus.Caption = "Complete Order"
     btnStatus.Visible = True
     lvItems.ListItems.Clear
@@ -1489,7 +1489,7 @@ Public Sub Initialize()
     btnPaid.Visible = False
     
     lblSubTotal.Caption = "0.00"
-    lblTotal.Caption = "0.00"
+    lbltotal.Caption = "0.00"
     lblRemainingBalance.Caption = "0.00"
     
     id = 1
@@ -1532,7 +1532,7 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
         cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(lblSubTotal.Caption, ",", "")))
                               cmd.Parameters("@Subtotal").Precision = 18
                               cmd.Parameters("@Subtotal").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lblTotal.Caption, ",", "")))
+        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lbltotal.Caption, ",", "")))
                               cmd.Parameters("@Total").Precision = 18
                               cmd.Parameters("@Total").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 250, txtRemarks.Text)
@@ -1763,8 +1763,8 @@ Public Sub CountTotal()
     Total = Total + Val(Replace(txtFreight.Text, ",", "")) - Val(Replace(txtAdjustment.Text, ",", ""))
     
     lblSubTotal.Caption = FormatNumber(gSubTotal, 2, vbTrue, vbFalse)
-    lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
-    lblRemainingBalance.Caption = lblTotal.Caption
+    lbltotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblRemainingBalance.Caption = lbltotal.Caption
 End Sub
 Public Sub Populate(ByVal data As String)
     Select Case data
@@ -2551,7 +2551,7 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 BASE_PrintPreviewFrm.Show
                 Dim crxApp As New CRAXDRT.Application
                 Dim crxRpt As New CRAXDRT.Report
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\PO_PurchaseReturn.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\PO_PurchaseReturn.rpt")
                 
                 Call ResetRptDB(crxRpt)
                 
