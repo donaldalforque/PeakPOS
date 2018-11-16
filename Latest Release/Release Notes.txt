@@ -1,4 +1,0 @@
-Version 1.0.74
-
-1. Added New Report - New Stock Summary
-2. Minor bug fixes
