@@ -492,7 +492,7 @@ Private Sub btnGenerate_Click()
     Dim Status, Customer, Terms, DateRange As Variant
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_NewStockSummary.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\SO_SalesOrderSummary.rpt")
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
     Call ResetRptDB(crxRpt)
