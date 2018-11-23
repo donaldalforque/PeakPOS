@@ -237,7 +237,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   142606337
+            Format          =   142147585
             CurrentDate     =   41646
          End
          Begin VB.Label Label10 
@@ -370,7 +370,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   142606337
+            Format          =   142147585
             CurrentDate     =   41646
          End
          Begin VB.Label Label9 
@@ -846,7 +846,7 @@ Private Sub btnSave_Click()
         End If
     End If
      
-    If Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) Then
+    If Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) Then
         MsgBox "Cannot overpay.", vbCritical, "PeakPOS"
         Exit Sub
     End If
@@ -1148,6 +1148,10 @@ Private Sub cmbBank_Click()
     con.Close
 End Sub
 
+Private Sub dtDate_CallbackKeyDown(ByVal KeyCode As Integer, ByVal Shift As Integer, ByVal CallbackField As String, CallbackDate As Date)
+
+End Sub
+
 Private Sub Form_Load()
     lvOrders.ColumnHeaders(1).width = lvOrders.width * 0.025
     lvOrders.ColumnHeaders(3).width = lvOrders.width * 0.1633
@@ -1210,7 +1214,7 @@ Private Sub CountTotal()
             Total = Total + Val(Replace(item.SubItems(6), ",", ""))
         End If
     Next
-    lbltotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblTotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)
     lblTotalBalance.Caption = "Total Balance: " & FormatNumber(balance, 2, vbTrue, vbFalse)
 '    CountTotal
 End Sub
@@ -1239,8 +1243,8 @@ Private Sub txtCash_Change()
     If IsNumeric(txtCash.Text) = False Then
         txtCash.Text = "0.00"
         selectText txtCash
-    ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtCash.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", ""))), 2, vbTrue)
+    ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtCash.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", ""))), 2, vbTrue)
     End If
 End Sub
 
@@ -1248,8 +1252,8 @@ Private Sub txtCheckAmount_Change()
     If IsNumeric(txtCheckAmount.Text) = False Then
         txtCheckAmount.Text = "0.00"
         selectText txtCheckAmount
-     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtCheckAmount.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", ""))), 2, vbTrue, vbFalse)
+     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtCheckAmount.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", ""))), 2, vbTrue, vbFalse)
     End If
 End Sub
 
@@ -1257,7 +1261,7 @@ Private Sub txtSalesReturn_Change()
     If IsNumeric(txtSalesReturn.Text) = False Then
         txtSalesReturn.Text = "0.00"
         selectText txtSalesReturn
-     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtSalesReturn.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", ""))), 2, vbTrue, vbFalse)
+     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtSalesReturn.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtSalesReturn.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", ""))), 2, vbTrue, vbFalse)
     End If
 End Sub
