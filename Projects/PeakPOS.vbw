@@ -1,6 +1,6 @@
 BASE_ContainerFrm = 156, 156, 1008, 572, C, 26, 26, 913, 442, C
 INV_NewProductFrm = 0, 0, 0, 0, C, 78, 78, 965, 494, C
-AppConfig = 66, 71, 949, 490, C
+AppConfig = 66, 71, 949, 490, 
 Datasource = 0, 0, 0, 0, C
 UserFunctions = 0, 0, 0, 0, C
 GLOBAL_MessageFrm = 0, 0, 0, 0, C, 104, 104, 991, 520, C
@@ -72,7 +72,7 @@ INV_AdjustStockOptFrm = 0, 0, 0, 0, C, 156, 156, 1043, 572, C
 PO_ItemSelectOptFrm = 0, 0, 0, 0, C, 182, 182, 1069, 598, C
 PO_VendorFrm = 0, 0, 0, 0, C, 208, 208, 1095, 624, C
 PO_VendorListFrm = 0, 0, 0, 0, C, 0, 0, 887, 416, C
-FIN_CustomerPaymentFrm = 208, 208, 998, 624, Z, 26, 26, 913, 442, C
+FIN_CustomerPaymentFrm = 208, 208, 998, 624, C, 26, 26, 913, 442, C
 FIN_VendorPaymentFrm = 26, 26, 816, 442, C, 52, 52, 939, 468, C
 PO_ProductBySupplierFrm = 0, 0, 0, 0, C, 78, 78, 965, 494, C
 FIN_CustomerLedgerFrm = 0, 0, 0, 0, C, 104, 104, 991, 520, C
