@@ -1,39 +1,19 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form INV_UomPricingFrm 
    BorderStyle     =   3  'Fixed Dialog
    ClientHeight    =   6045
    ClientLeft      =   45
    ClientTop       =   330
-   ClientWidth     =   7695
+   ClientWidth     =   5295
    Icon            =   "INV_UomPricingFrm.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   6045
-   ScaleWidth      =   7695
+   ScaleWidth      =   5295
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.TextBox txtbyQuantity 
-      Alignment       =   1  'Right Justify
-      Appearance      =   0  'Flat
-      BackColor       =   &H00FFFFFF&
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   330
-      Left            =   6720
-      MaxLength       =   50
-      TabIndex        =   1
-      Top             =   5400
-      Width           =   735
-   End
    Begin VB.ComboBox cmbUom 
       BeginProperty Font 
          Name            =   "Calibri"
@@ -47,9 +27,9 @@ Begin VB.Form INV_UomPricingFrm
       Height          =   345
       Left            =   240
       Style           =   2  'Dropdown List
-      TabIndex        =   7
+      TabIndex        =   6
       Top             =   5400
-      Width           =   3495
+      Width           =   3015
    End
    Begin VB.CheckBox chkShow 
       Appearance      =   0  'Flat
@@ -66,8 +46,8 @@ Begin VB.Form INV_UomPricingFrm
       EndProperty
       ForeColor       =   &H80000008&
       Height          =   255
-      Left            =   6480
-      TabIndex        =   3
+      Left            =   4080
+      TabIndex        =   2
       Top             =   1800
       Visible         =   0   'False
       Width           =   1000
@@ -86,7 +66,7 @@ Begin VB.Form INV_UomPricingFrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      Left            =   4320
+      Left            =   3840
       MaxLength       =   50
       TabIndex        =   0
       Top             =   5400
@@ -95,10 +75,10 @@ Begin VB.Form INV_UomPricingFrm
    Begin MSComctlLib.ListView lvConversion 
       Height          =   3135
       Left            =   240
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   2160
-      Width           =   7215
-      _ExtentX        =   12726
+      Width           =   4815
+      _ExtentX        =   8493
       _ExtentY        =   5530
       View            =   3
       LabelEdit       =   1
@@ -121,7 +101,7 @@ Begin VB.Form INV_UomPricingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      NumItems        =   5
+      NumItems        =   4
       BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          Object.Width           =   0
       EndProperty
@@ -141,17 +121,11 @@ Begin VB.Form INV_UomPricingFrm
          Text            =   "Price"
          Object.Width           =   2540
       EndProperty
-      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Alignment       =   1
-         SubItemIndex    =   4
-         Text            =   "Price by Qty"
-         Object.Width           =   2540
-      EndProperty
    End
    Begin MSComctlLib.Toolbar tb_Standard 
       Height          =   330
       Left            =   0
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   0
       Width           =   11775
       _ExtentX        =   20770
@@ -211,26 +185,6 @@ Begin VB.Form INV_UomPricingFrm
          EndProperty
       EndProperty
    End
-   Begin VB.Label Label2 
-      AutoSize        =   -1  'True
-      BackStyle       =   0  'Transparent
-      Caption         =   "Qty required:"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00000000&
-      Height          =   210
-      Left            =   5640
-      TabIndex        =   9
-      Top             =   5445
-      Width           =   1050
-   End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
@@ -246,9 +200,9 @@ Begin VB.Form INV_UomPricingFrm
       EndProperty
       ForeColor       =   &H00000000&
       Height          =   210
-      Left            =   3840
-      TabIndex        =   8
-      Top             =   5450
+      Left            =   3360
+      TabIndex        =   7
+      Top             =   5445
       Width           =   435
    End
    Begin VB.Image Image1 
@@ -273,7 +227,7 @@ Begin VB.Form INV_UomPricingFrm
       ForeColor       =   &H00808080&
       Height          =   450
       Left            =   240
-      TabIndex        =   6
+      TabIndex        =   5
       Top             =   1250
       Width           =   4815
    End
@@ -293,7 +247,7 @@ Begin VB.Form INV_UomPricingFrm
       ForeColor       =   &H00404040&
       Height          =   345
       Left            =   840
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   720
       Width           =   1665
    End
@@ -302,7 +256,7 @@ Begin VB.Form INV_UomPricingFrm
       Height          =   5415
       Left            =   120
       Top             =   480
-      Width           =   7455
+      Width           =   5055
    End
 End
 Attribute VB_Name = "INV_UomPricingFrm"
@@ -316,7 +270,6 @@ Public Sub Initialize()
     'cmbUom.text = ""
     ConversionId = 0
     cmbUom.SetFocus
-    txtbyQuantity.Text = "1"
     txtToQTY.Text = "1"
 End Sub
 Public Sub Populate(ByVal data As String)
@@ -345,8 +298,6 @@ Public Sub Populate(ByVal data As String)
                             Else
                                 item.SubItems(3) = FormatNumber(rec!price, 2, vbTrue, vbFalse)
                             End If
-                            item.SubItems(4) = FormatNumber(rec!byQuantity, 2, vbTrue, vbFalse)
-                        
                     rec.MoveNext
                 Loop
             End If
@@ -403,9 +354,8 @@ End Sub
 
 Private Sub Form_Load()
     lvConversion.ColumnHeaders(1).width = lvConversion.width * 0
-    lvConversion.ColumnHeaders(3).width = lvConversion.width * 0.31
-    lvConversion.ColumnHeaders(4).width = lvConversion.width * 0.31
-    lvConversion.ColumnHeaders(5).width = lvConversion.width * 0.31
+    lvConversion.ColumnHeaders(3).width = lvConversion.width * 0.47
+    lvConversion.ColumnHeaders(4).width = lvConversion.width * 0.47
     Populate "Uom"
     Populate "ConversionLoad"
 End Sub
@@ -420,7 +370,6 @@ Private Sub lvConversion_ItemClick(ByVal item As MSComctlLib.ListItem)
     On Error Resume Next
     cmbUom.Text = item.SubItems(2)
     txtToQTY.Text = item.SubItems(3)
-    txtbyQuantity.Text = item.SubItems(4)
     cmbUom.SetFocus
 End Sub
 
@@ -474,10 +423,6 @@ On Error GoTo ErrorHandler:
             cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , Val(Replace(txtToQTY.Text, ",", "")))
                                   cmd.Parameters("@Price").NumericScale = 2
                                   cmd.Parameters("@Price").Precision = 18
-            If NVAL(txtbyQuantity.Text) = 0 Then txtbyQuantity.Text = "1"
-            cmd.Parameters.Append cmd.CreateParameter("@byQuantity", adDecimal, adParamInput, , Val(Replace(txtbyQuantity.Text, ",", "")))
-                                  cmd.Parameters("@byQuantity").NumericScale = 2
-                                  cmd.Parameters("@byQuantity").Precision = 18
             
             If ConversionId = 0 Then
                 cmd.CommandText = "INV_UomConversion_Insert"
@@ -491,7 +436,6 @@ On Error GoTo ErrorHandler:
                     If item.SubItems(1) = ConversionId Then
                         item.SubItems(2) = cmbUom.Text
                         item.SubItems(3) = FormatNumber(Val(txtToQTY.Text), 2, vbTrue, vbFalse)
-                        item.SubItems(4) = FormatNumber(Val(txtbyQuantity.Text), 2, vbTrue, vbFalse)
                         item.Selected = True
                         item.EnsureVisible
                     End If

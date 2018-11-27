@@ -1,6 +1,6 @@
 BASE_ContainerFrm = 156, 156, 1008, 572, C, 26, 26, 913, 442, C
-INV_NewProductFrm = 0, 0, 0, 0, C, 78, 78, 965, 494, C
-AppConfig = 66, 71, 949, 490, 
+INV_NewProductFrm = 182, 182, 972, 598, C, 78, 78, 965, 494, C
+AppConfig = 66, 71, 949, 490, C
 Datasource = 0, 0, 0, 0, C
 UserFunctions = 0, 0, 0, 0, C
 GLOBAL_MessageFrm = 0, 0, 0, 0, C, 104, 104, 991, 520, C
@@ -160,7 +160,7 @@ RPT_INV_ProductExpiry = 0, 0, 0, 0, C, 208, 208, 1095, 624, C
 BASE_DiscountSettingsFrm = 0, 0, 0, 0, C, 0, 0, 887, 416, C
 POS_SalesClerkNumberFrm = 0, 0, 0, 0, C, 26, 26, 913, 442, C
 POS_ConfirmOrderFrm = 0, 0, 0, 0, C, 52, 52, 939, 468, C
-INV_NewStockFrm = 0, 0, 0, 0, C, 78, 78, 965, 494, C
+INV_NewStockFrm = 130, 130, 920, 546, Z, 78, 78, 965, 494, C
 INV_NewStockOptFrm = 0, 0, 0, 0, C, 104, 104, 991, 520, C
 INV_AuditStockFrm = 0, 0, 0, 0, C, 130, 130, 1017, 546, C
 INV_AuditStockOptFrm = 0, 0, 0, 0, C, 156, 156, 1043, 572, C

@@ -297,7 +297,7 @@ Begin VB.Form INV_NewStockFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   88604673
+            Format          =   133955585
             CurrentDate     =   41509
          End
          Begin VB.Label Label11 
@@ -938,7 +938,7 @@ Begin VB.Form INV_NewStockFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   88604673
+         Format          =   133955585
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -959,7 +959,7 @@ Begin VB.Form INV_NewStockFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   88604673
+         Format          =   133955585
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -1069,7 +1069,7 @@ Dim StatusId As Integer
 Dim item As MSComctlLib.ListItem
 Private Sub Initialize()
     picStatus.Visible = False
-    dtOrder.value = Format(Now, "MM/DD/YY")
+    dtOrder.value = Format(Now, "MM/DD/YY hh:mm:ss")
     'picCompleted.Visible = False
     ''pic_Cancelled.Visible = False
     
@@ -1092,7 +1092,7 @@ Public Sub CountTotal()
         item.SubItems(11) = FormatNumber(NVAL(item.SubItems(6)) * NVAL(item.SubItems(10)), 2, vbTrue, vbFalse)
         Total = Total + NVAL(item.SubItems(11))
     Next
-    lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
+    lbltotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
 End Sub
 Private Sub btnComplete_Click()
     If EditAccessRights(28) = False Then
@@ -1405,7 +1405,7 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 BASE_PrintPreviewFrm.Show
                 Dim crxApp As New CRAXDRT.Application
                 Dim crxRpt As New CRAXDRT.Report
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_NewStock.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_NewStock.rpt")
                 Call ResetRptDB(crxRpt)
                 crxRpt.DiscardSavedData
                 crxRpt.RecordSelectionFormula = "{INV_NewStock.NewStockId}= " & NewStockId & ""
@@ -1430,7 +1430,7 @@ End Sub
 Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
     If lvItems.ListItems.Count > 0 Then
         
-        'On Error GoTo ErrorHandler
+        On Error GoTo ErrorHandler
         
         Dim item As MSComctlLib.ListItem
         Set con = New ADODB.Connection
@@ -1451,7 +1451,7 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
         End If
         cmd.Parameters.Append cmd.CreateParameter("@Date", adDBDate, adParamInput, , dtOrder.value)
         cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , iStatusId)
-        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , NVAL(lblTotal.Caption))
+        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , NVAL(lbltotal.Caption))
                                   cmd.Parameters("@Total").Precision = 18
                                   cmd.Parameters("@Total").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@UserId", adInteger, adParamInput, , UserId)
@@ -1464,8 +1464,8 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
             cmd.CommandText = "INV_NewStock_Update"
         End If
         
-        cmd.Execute
-        
+        cmd.Execute , , adExecuteNoRecords
+    
         If NewStockId = 0 Then 'ADD TO SEARCH
             Set item = lvSearch.ListItems.add(, , cmd.Parameters("@NewStockId"))
                 item.SubItems(1) = cmd.Parameters("@OrderNumber")
@@ -1496,14 +1496,13 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
             If iStatusId = 7 Then auditstatus = "Cancelled"
             SavePOSAuditTrail UserId, WorkstationId, "", "Updated new stock order: " & txtOrderNumber.Text & " - Status: " & auditstatus, "INVENTORY"
         End If
-        
-        
-        
+    
         'SAVE ORDER LINE
         For Each item In lvItems.ListItems
             Set cmd = New ADODB.Command
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
+            
 
             cmd.Parameters.Append cmd.CreateParameter("@NewStockLineId", adInteger, adParamInputOutput, , NVAL(item.SubItems(3)))
             cmd.Parameters.Append cmd.CreateParameter("@NewStockId", adInteger, adParamInput, , NewStockId)
@@ -1533,10 +1532,10 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
             
             If item.SubItems(3) = "" Then
                 cmd.CommandText = "INV_NewStockLine_Insert"
-                cmd.Execute
+                cmd.Execute , , adExecuteNoRecords
             Else
                 cmd.CommandText = "INV_NewStockLine_Update"
-                cmd.Execute
+                cmd.Execute , , adExecuteNoRecords
             End If
             'cmd.Execute
             item.SubItems(3) = cmd.Parameters("@NewStockLineId")
@@ -1556,8 +1555,9 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
         If iStatusId = 7 Then
             txtStatus.Text = "Cancelled"
             StatusId = 7
-            On Error Resume Next
-            lvSearch.SelectedItem.SubItems(2) = "Cancelled"
+            If lvSearch.SelectedItem.Index <> -1 Then
+                lvSearch.SelectedItem.SubItems(2) = "Cancelled"
+            End If
         End If
     Else
         MsgBox "Save failed. No data found.", vbCritical, "PeakPOS"
@@ -1572,6 +1572,7 @@ ErrorHandler:
         GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & Err.Description
     End If
     GLOBAL_MessageFrm.Show (1)
+    Exit Sub
 End Sub
 
 Public Sub Populate(ByVal data As String)

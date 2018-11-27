@@ -358,7 +358,7 @@ Begin VB.Form SO_SalesOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   143196161
+         Format          =   143785985
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -379,7 +379,7 @@ Begin VB.Form SO_SalesOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   143196161
+         Format          =   143785985
          CurrentDate     =   41686
       End
       Begin VB.Label Label32 
@@ -1019,7 +1019,7 @@ Begin VB.Form SO_SalesOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143196161
+            Format          =   143785985
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtDue 
@@ -1040,7 +1040,7 @@ Begin VB.Form SO_SalesOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143196161
+            Format          =   143785985
             CurrentDate     =   41509
          End
          Begin VB.Label Label22 
@@ -2557,10 +2557,16 @@ Public Sub btnSearch_Click()
     Dim item As MSComctlLib.ListItem
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
+    
+    Dim strdatefrom, strdateto As String
+    strdatefrom = datefrom.value & " 00:00:00"
+    strdateto = dateto.value & " 23:59:59"
+    
     If Not rec.EOF Then
         Do Until rec.EOF
             If rec!isCashAdvance = "False" Then
-                If rec!Date >= DateFrom.value And rec!Date <= DateTo.value Then
+                'If rec!Date >= datefrom.value And rec!Date <= dateto.value Then
+                If rec!Date >= CDate(strdatefrom) And rec!Date <= CDate(strdateto) Then
                     Set item = lvSearch.ListItems.add(, , rec!SalesOrderId)
                         item.SubItems(1) = rec!OrderNumber
                         item.SubItems(2) = rec!ReferenceNumber
@@ -2815,8 +2821,8 @@ Private Sub Form_Load()
     Populate "PricingScheme"
     'Populate "SalesOrderLoad"
     
-    DateFrom.value = Format(Now - 30, "MM/DD/YY")
-    DateTo.value = Format(Now, "MM/DD/YY")
+    datefrom.value = Format(Now - 30, "MM/DD/YY")
+    dateto.value = Format(Now, "MM/DD/YY")
     
     On Error Resume Next
     cmbSearch_Status.ListIndex = 1
