@@ -107,7 +107,7 @@ Begin VB.Form RPT_SO_CustomerStatementofAccountFrm
             Strikethrough   =   0   'False
          EndProperty
          CustomFormat    =   "MMMM"
-         Format          =   97320963
+         Format          =   142606339
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateTo 
@@ -128,7 +128,7 @@ Begin VB.Form RPT_SO_CustomerStatementofAccountFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   97320961
+         Format          =   142606337
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -149,7 +149,7 @@ Begin VB.Form RPT_SO_CustomerStatementofAccountFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   97320961
+         Format          =   142606337
          CurrentDate     =   41686
       End
       Begin VB.Label Label7 
@@ -360,17 +360,18 @@ Private Sub btnGenerate_Click()
     
     Screen.MousePointer = vbHourglass
     
-    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\SO_CustomerStatement.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\SO_CustomerStatement.rpt")
     
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
     Call ResetRptDB(crxRpt)
           
     crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.Text
-    crxRpt.ParameterFields.GetItemByName("@CustomerId").AddCurrentValue cmbCustomer.ItemData(cmbCustomer.ListIndex)
     crxRpt.ParameterFields.GetItemByName("@DateFrom").AddCurrentValue DateFrom.value
     crxRpt.ParameterFields.GetItemByName("@DateTo").AddCurrentValue DateTo.value
+    crxRpt.ParameterFields.GetItemByName("@CustomerId").AddCurrentValue cmbCustomer.ItemData(cmbCustomer.ListIndex)
     crxRpt.ParameterFields.GetItemByName("@TemplateId").AddCurrentValue StatementTemplateId
+
     
 
     CRViewer.ReportSource = crxRpt
