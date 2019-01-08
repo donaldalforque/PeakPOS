@@ -56,7 +56,7 @@ Begin VB.Form SO_CustomerFrm
       BorderStyle     =   0  'None
       Height          =   9015
       Left            =   4640
-      TabIndex        =   28
+      TabIndex        =   29
       Top             =   0
       Width           =   10485
       Begin VB.Frame FRE_Info 
@@ -65,9 +65,26 @@ Begin VB.Form SO_CustomerFrm
          Caption         =   "Frame1"
          Height          =   4695
          Left            =   120
-         TabIndex        =   35
+         TabIndex        =   36
          Top             =   600
          Width           =   10095
+         Begin VB.CheckBox chkMember 
+            Caption         =   "Member of an organization"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   11.25
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   375
+            Left            =   7080
+            TabIndex        =   11
+            Top             =   3240
+            Width           =   2895
+         End
          Begin VB.TextBox txtSalesman 
             BackColor       =   &H00FFFFFF&
             BeginProperty Font 
@@ -100,7 +117,7 @@ Begin VB.Form SO_CustomerFrm
             Height          =   345
             Left            =   1440
             Style           =   2  'Dropdown List
-            TabIndex        =   52
+            TabIndex        =   53
             Top             =   4200
             Width           =   3375
          End
@@ -157,7 +174,7 @@ Begin VB.Form SO_CustomerFrm
             Left            =   7080
             List            =   "SO_CustomerFrm.frx":1AA78
             Style           =   2  'Dropdown List
-            TabIndex        =   11
+            TabIndex        =   12
             Top             =   1200
             Width           =   2655
          End
@@ -292,6 +309,26 @@ Begin VB.Form SO_CustomerFrm
             Top             =   3120
             Width           =   3375
          End
+         Begin VB.Label Label24 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Other Info"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   14.25
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H0000C000&
+            Height          =   345
+            Left            =   5160
+            TabIndex        =   56
+            Top             =   2880
+            Width           =   1215
+         End
          Begin VB.Label Label23 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
@@ -307,7 +344,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   54
+            TabIndex        =   55
             Top             =   1515
             Width           =   885
          End
@@ -326,7 +363,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   53
+            TabIndex        =   54
             Top             =   4200
             Width           =   360
          End
@@ -346,7 +383,7 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   5160
-            TabIndex        =   51
+            TabIndex        =   52
             Top             =   1800
             Width           =   1230
          End
@@ -365,7 +402,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   5400
-            TabIndex        =   50
+            TabIndex        =   51
             Top             =   2280
             Width           =   1005
          End
@@ -384,7 +421,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   5400
-            TabIndex        =   49
+            TabIndex        =   50
             Top             =   1200
             Width           =   1410
          End
@@ -403,7 +440,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   5400
-            TabIndex        =   48
+            TabIndex        =   49
             Top             =   840
             Width           =   1500
          End
@@ -422,7 +459,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   5400
-            TabIndex        =   47
+            TabIndex        =   48
             Top             =   480
             Width           =   1230
          End
@@ -441,7 +478,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   -9999
-            TabIndex        =   46
+            TabIndex        =   47
             Top             =   1560
             Visible         =   0   'False
             Width           =   840
@@ -462,7 +499,7 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   5160
-            TabIndex        =   45
+            TabIndex        =   46
             Top             =   0
             Width           =   1125
          End
@@ -482,7 +519,7 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   120
-            TabIndex        =   44
+            TabIndex        =   45
             Top             =   0
             Width           =   1125
          End
@@ -501,7 +538,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   43
+            TabIndex        =   44
             Top             =   480
             Width           =   480
          End
@@ -520,7 +557,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   42
+            TabIndex        =   43
             Top             =   840
             Width           =   555
          End
@@ -538,7 +575,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   1440
-            TabIndex        =   41
+            TabIndex        =   42
             Top             =   1200
             Width           =   3375
          End
@@ -557,7 +594,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   40
+            TabIndex        =   41
             Top             =   1200
             Width           =   720
          End
@@ -577,7 +614,7 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   120
-            TabIndex        =   39
+            TabIndex        =   40
             Top             =   1920
             Width           =   1425
          End
@@ -596,7 +633,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   38
+            TabIndex        =   39
             Top             =   2400
             Width           =   600
          End
@@ -615,7 +652,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   37
+            TabIndex        =   38
             Top             =   2760
             Width           =   660
          End
@@ -634,7 +671,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   36
+            TabIndex        =   37
             Top             =   3120
             Width           =   750
          End
@@ -652,7 +689,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   345
          Left            =   3600
-         TabIndex        =   13
+         TabIndex        =   14
          Top             =   5745
          Width           =   1095
       End
@@ -671,14 +708,14 @@ Begin VB.Form SO_CustomerFrm
          Left            =   1680
          List            =   "SO_CustomerFrm.frx":1AAAB
          Style           =   2  'Dropdown List
-         TabIndex        =   12
+         TabIndex        =   13
          Top             =   5760
          Width           =   1815
       End
       Begin MSComctlLib.ListView lvCustomer 
          Height          =   2655
          Left            =   -9999
-         TabIndex        =   29
+         TabIndex        =   30
          Top             =   930
          Width           =   5775
          _ExtentX        =   10186
@@ -737,7 +774,7 @@ Begin VB.Form SO_CustomerFrm
       Begin MSComctlLib.Toolbar tb_Standard 
          Height          =   330
          Left            =   0
-         TabIndex        =   30
+         TabIndex        =   31
          Top             =   0
          Width           =   11775
          _ExtentX        =   20770
@@ -770,7 +807,7 @@ Begin VB.Form SO_CustomerFrm
       Begin MSComctlLib.ListView lvOrderHistory 
          Height          =   2655
          Left            =   360
-         TabIndex        =   14
+         TabIndex        =   15
          Top             =   6240
          Width           =   9900
          _ExtentX        =   17463
@@ -860,7 +897,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   270
          Left            =   600
-         TabIndex        =   32
+         TabIndex        =   33
          Top             =   5760
          Width           =   570
       End
@@ -880,7 +917,7 @@ Begin VB.Form SO_CustomerFrm
          ForeColor       =   &H0000C000&
          Height          =   345
          Left            =   360
-         TabIndex        =   31
+         TabIndex        =   32
          Top             =   5280
          Width           =   1590
       End
@@ -890,7 +927,7 @@ Begin VB.Form SO_CustomerFrm
       BorderStyle     =   0  'None
       Height          =   9015
       Left            =   0
-      TabIndex        =   25
+      TabIndex        =   26
       Top             =   0
       Width           =   4575
       Begin VB.TextBox txtSearch_Code 
@@ -905,7 +942,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   330
          Left            =   1320
-         TabIndex        =   15
+         TabIndex        =   16
          Top             =   2520
          Visible         =   0   'False
          Width           =   3015
@@ -923,7 +960,7 @@ Begin VB.Form SO_CustomerFrm
          Height          =   345
          Left            =   1440
          Style           =   2  'Dropdown List
-         TabIndex        =   17
+         TabIndex        =   18
          Top             =   840
          Width           =   3015
       End
@@ -939,7 +976,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   330
          Left            =   1440
-         TabIndex        =   16
+         TabIndex        =   17
          Top             =   480
          Width           =   3015
       End
@@ -956,14 +993,14 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   375
          Left            =   3240
-         TabIndex        =   18
+         TabIndex        =   19
          Top             =   1320
          Width           =   1215
       End
       Begin MSComctlLib.ListView lvSearch 
          Height          =   7095
          Left            =   120
-         TabIndex        =   19
+         TabIndex        =   20
          Top             =   1800
          Width           =   4335
          _ExtentX        =   7646
@@ -1019,7 +1056,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   34
+         TabIndex        =   35
          Top             =   2520
          Visible         =   0   'False
          Width           =   480
@@ -1039,7 +1076,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   33
+         TabIndex        =   34
          Top             =   840
          Width           =   570
       End
@@ -1058,7 +1095,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   27
+         TabIndex        =   28
          Top             =   480
          Width           =   1125
       End
@@ -1077,7 +1114,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   345
          Left            =   120
-         TabIndex        =   26
+         TabIndex        =   27
          Top             =   80
          Width           =   795
       End
@@ -1093,7 +1130,7 @@ Begin VB.Form SO_CustomerFrm
       Picture         =   "SO_CustomerFrm.frx":1AAAD
       ScaleHeight     =   2295
       ScaleWidth      =   6195
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   2640
       Width           =   6195
    End
@@ -1104,7 +1141,7 @@ Begin VB.Form SO_CustomerFrm
       Picture         =   "SO_CustomerFrm.frx":2313B
       ScaleHeight     =   2295
       ScaleWidth      =   6195
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   2640
       Width           =   6195
    End
@@ -1123,7 +1160,7 @@ Begin VB.Form SO_CustomerFrm
       Height          =   375
       Left            =   9285
       Style           =   1  'Graphical
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   7605
       Visible         =   0   'False
       Width           =   2535
@@ -1142,7 +1179,7 @@ Begin VB.Form SO_CustomerFrm
       EndProperty
       Height          =   375
       Left            =   9285
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   7200
       Width           =   2535
    End
@@ -1165,7 +1202,7 @@ Begin VB.Form SO_CustomerFrm
    Begin MSComctlLib.ListView lvItemList 
       Height          =   2655
       Left            =   -9960
-      TabIndex        =   24
+      TabIndex        =   25
       Top             =   3240
       Width           =   5415
       _ExtentX        =   9551

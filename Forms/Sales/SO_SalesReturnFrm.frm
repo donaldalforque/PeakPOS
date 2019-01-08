@@ -222,7 +222,6 @@ Begin VB.Form SO_SalesReturnFrm
       End
       Begin VB.ComboBox cmbLocation 
          BackColor       =   &H00FFFFFF&
-         Enabled         =   0   'False
          BeginProperty Font 
             Name            =   "Calibri"
             Size            =   9.75
@@ -935,7 +934,7 @@ Begin VB.Form SO_SalesReturnFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143196161
+            Format          =   143654913
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtDue 
@@ -957,7 +956,7 @@ Begin VB.Form SO_SalesReturnFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143196161
+            Format          =   143654913
             CurrentDate     =   41509
          End
          Begin VB.Label Label5 
@@ -1575,7 +1574,7 @@ Begin VB.Form SO_SalesReturnFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   143196161
+         Format          =   143654913
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -1596,7 +1595,7 @@ Begin VB.Form SO_SalesReturnFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   143196161
+         Format          =   143654913
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -1831,7 +1830,7 @@ Public Sub Initialize()
     btnPaid.Visible = False
     
     lblSubTotal.Caption = "0.00"
-    lbltotal.Caption = "0.00"
+    lblTotal.Caption = "0.00"
     lblRemainingBalance.Caption = "0.00"
     
     id = 1
@@ -1847,6 +1846,8 @@ Public Sub Initialize()
     On Error Resume Next
     cmbCustomer.SetFocus
     isModify = False
+    
+    
     
     
 End Sub
@@ -1888,7 +1889,7 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Boolean)
         cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(lblSubTotal.Caption, ",", "")))
                               cmd.Parameters("@Subtotal").Precision = 18
                               cmd.Parameters("@Subtotal").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lbltotal.Caption, ",", "")))
+        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lblTotal.Caption, ",", "")))
                               cmd.Parameters("@Total").Precision = 18
                               cmd.Parameters("@Total").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 500, txtRemarks.Text)
@@ -2085,7 +2086,7 @@ Public Sub CountTotal()
     lblInterest.Caption = FormatNumber(Interest, 2, vbTrue, vbFalse)
     
     Total = Interest + subtotal1
-    lbltotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
     'lblRemainingBalance.Caption = lblTotal.Caption
 End Sub
 Public Sub Populate(ByVal data As String)
@@ -2134,6 +2135,8 @@ Public Sub Populate(ByVal data As String)
                 Loop
             End If
             cmbLocation.ListIndex = 0
+            On Error Resume Next
+            cmbLocation.Text = "WAREHOUSE"
         Case "Customer"
             Set rec = New ADODB.Recordset
             Set cmd = New ADODB.Command
@@ -2248,7 +2251,7 @@ Public Sub Populate(ByVal data As String)
                         btnStatus.Caption = "Pick && Invoice"
                     End If
                     lblRemainingBalance.Caption = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
-                    lbltotal.Caption = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
+                    lblTotal.Caption = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
                     'PREVENT ERROR ON DISPLAY FOR cmbCustomer_Change Event
                     On Error Resume Next
                     cmbCustomer.Text = rec!Name
@@ -2677,16 +2680,11 @@ Private Sub Form_Load()
     DateTo.value = Format(Now, "MM/DD/YY")
     
     On Error Resume Next
-    cmbLocation.ListIndex = 1
+    cmbLocation.ListIndex = 0
     cmbSearch_Status.ListIndex = 1
     cmbPricing.ListIndex = 0
     btnSearch_Click
 End Sub
-
-
-
-
-
 
 Private Sub lblGrossAmount_Click()
 
@@ -2708,8 +2706,8 @@ Private Sub lblRemainingBalance_Change()
 End Sub
 
 Private Sub lblTotal_Change()
-    If IsNumeric(Val(Replace(lbltotal.Caption, ",", ""))) = False Then
-        lbltotal.Caption = "0.00"
+    If IsNumeric(Val(Replace(lblTotal.Caption, ",", ""))) = False Then
+        lblTotal.Caption = "0.00"
     Else
         'lblRemainingBalance.Caption = lblTotal.Caption
     End If
