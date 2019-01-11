@@ -69,6 +69,7 @@ Begin VB.Form SO_CustomerFrm
          Top             =   600
          Width           =   10095
          Begin VB.CheckBox chkMember 
+            BackColor       =   &H00FFFFFF&
             Caption         =   "Member of an organization"
             BeginProperty Font 
                Name            =   "Calibri"
@@ -930,6 +931,50 @@ Begin VB.Form SO_CustomerFrm
       TabIndex        =   26
       Top             =   0
       Width           =   4575
+      Begin MSComctlLib.ListView lvSearch 
+         Height          =   7095
+         Left            =   120
+         TabIndex        =   20
+         Top             =   1800
+         Width           =   4335
+         _ExtentX        =   7646
+         _ExtentY        =   12515
+         View            =   3
+         LabelEdit       =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   0   'False
+         FullRowSelect   =   -1  'True
+         GridLines       =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         NumItems        =   3
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "CustomerId"
+            Object.Width           =   2540
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Code"
+            Object.Width           =   2540
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Name"
+            Object.Width           =   2540
+         EndProperty
+      End
       Begin VB.TextBox txtSearch_Code 
          BeginProperty Font 
             Name            =   "Calibri"
@@ -996,50 +1041,6 @@ Begin VB.Form SO_CustomerFrm
          TabIndex        =   19
          Top             =   1320
          Width           =   1215
-      End
-      Begin MSComctlLib.ListView lvSearch 
-         Height          =   7095
-         Left            =   120
-         TabIndex        =   20
-         Top             =   1800
-         Width           =   4335
-         _ExtentX        =   7646
-         _ExtentY        =   12515
-         View            =   3
-         LabelEdit       =   1
-         LabelWrap       =   -1  'True
-         HideSelection   =   0   'False
-         FullRowSelect   =   -1  'True
-         GridLines       =   -1  'True
-         _Version        =   393217
-         ForeColor       =   -2147483640
-         BackColor       =   -2147483643
-         BorderStyle     =   1
-         Appearance      =   0
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Calibri"
-            Size            =   11.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         NumItems        =   3
-         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            Text            =   "CustomerId"
-            Object.Width           =   2540
-         EndProperty
-         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            SubItemIndex    =   1
-            Text            =   "Code"
-            Object.Width           =   2540
-         EndProperty
-         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-            SubItemIndex    =   2
-            Text            =   "Name"
-            Object.Width           =   2540
-         EndProperty
       End
       Begin VB.Label Label14 
          AutoSize        =   -1  'True
@@ -1292,7 +1293,7 @@ Private Sub Initialize()
     On Error Resume Next
     txtCode.SetFocus
     cmbCity.ListIndex = 0
-    
+    chkMember.value = Checked
 End Sub
 Private Sub isActivated(value As Boolean)
     txtCode.Enabled = value
@@ -1390,6 +1391,10 @@ Public Sub Populate(ByVal data As String)
                 Else
                     cmbPricingScheme.Text = rec!PricingScheme
                 End If
+                
+                If rec!memberid = 1 Then chkMember.value = Checked
+                If rec!memberid = 2 Then chkMember.value = Unchecked
+                
                 If rec!isActive = "False" Then
                     tb_Standard.Buttons(4).Caption = "Activate"
                     tb_Standard.Buttons(4).Image = 6
@@ -1590,44 +1595,6 @@ Private Sub lblInventory_MoreLocations_Click()
     CenterChildForm INV_LocationFrm
     INV_LocationFrm.Show
 End Sub
-
-'Private Sub lvOrderHistory_DblClick()
-'    With lvOrderHistory
-'        If .ListItems.Count > 0 Then
-'            Dim i As String
-'            i = InputBox("Input quantity.", "Quantity", lvOrderHistory.SelectedItem.SubItems(5))
-'            If i = "" Then
-'                Exit Sub
-'            ElseIf IsNumeric(i) = False Then
-'                Exit Sub
-'            Else
-'                .SelectedItem.SubItems(5) = FormatNumber(i, 2, vbFalse, vbFalse)
-'                .SetFocus
-'                CountQuantity
-'            End If
-'        End If
-'    End With
-'End Sub
-
-'Private Sub lvOrderHistory_KeyDown(KeyCode As Integer, Shift As Integer)
-'    Select Case KeyCode
-'    Case vbKeyDelete
-'        If lvOrderHistory.ListItems.Count > 0 Then
-'            If lvOrderHistory.SelectedItem.SubItems(1) <> "1" Then 'NOT Default Location
-'                If lvOrderHistory.SelectedItem.text <> "" Then 'Existing data
-'                        deleteCtr(ctr) = Val(lvOrderHistory.SelectedItem.text)
-'                        ctr = ctr + 1
-'                        lvOrderHistory.ListItems.Remove (lvOrderHistory.SelectedItem.Index)
-'                Else
-'                    lvOrderHistory.ListItems.Remove (lvOrderHistory.SelectedItem.Index)
-'                End If
-'            End If
-'        End If
-'    Case 13
-'        Call lvOrderHistory_DblClick
-'    End Select
-'End Sub
-
 Private Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
     With lvSearch
         If .ListItems.Count > 0 Then
@@ -1698,6 +1665,12 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                                       cmd.Parameters("@CardPoints").NumericScale = 2
                                       cmd.Parameters("@CardPoints").Precision = 18
                 cmd.Parameters.Append cmd.CreateParameter("@PricingSchemeId", adInteger, adParamInput, , cmbPricingScheme.ItemData(cmbPricingScheme.ListIndex))
+                If chkMember.value = Checked Then
+                    cmd.Parameters.Append cmd.CreateParameter("@MemberId", adInteger, adParamInput, , 1)
+                Else
+                    cmd.Parameters.Append cmd.CreateParameter("@MemberId", adInteger, adParamInput, , 2)
+                End If
+                
                 If CustomerId = 0 Then
                     cmd.CommandText = "BASE_Customer_Insert"
                     cmd.Execute

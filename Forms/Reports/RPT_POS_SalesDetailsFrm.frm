@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0"; "crviewer.dll"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form RPT_POS_SalesDetailsFrm 
    Caption         =   "POS Sales Report by Product"
@@ -74,7 +74,7 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
       TabIndex        =   0
       Top             =   0
       Width           =   3855
-      Begin VB.ComboBox cmbCashier 
+      Begin VB.ComboBox cmbMember 
          BeginProperty Font 
             Name            =   "Calibri"
             Size            =   9.75
@@ -87,7 +87,27 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
          Height          =   345
          ItemData        =   "RPT_POS_SalesDetailsFrm.frx":0000
          Left            =   1320
-         List            =   "RPT_POS_SalesDetailsFrm.frx":0002
+         List            =   "RPT_POS_SalesDetailsFrm.frx":000D
+         Style           =   2  'Dropdown List
+         TabIndex        =   32
+         Top             =   5400
+         Visible         =   0   'False
+         Width           =   2415
+      End
+      Begin VB.ComboBox cmbCashier 
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   345
+         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":003D
+         Left            =   1320
+         List            =   "RPT_POS_SalesDetailsFrm.frx":003F
          Style           =   2  'Dropdown List
          TabIndex        =   4
          Top             =   1800
@@ -104,9 +124,9 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":0004
+         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":0041
          Left            =   1320
-         List            =   "RPT_POS_SalesDetailsFrm.frx":0011
+         List            =   "RPT_POS_SalesDetailsFrm.frx":0051
          Style           =   2  'Dropdown List
          TabIndex        =   28
          Top             =   5040
@@ -123,9 +143,9 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":002C
+         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":0076
          Left            =   1320
-         List            =   "RPT_POS_SalesDetailsFrm.frx":002E
+         List            =   "RPT_POS_SalesDetailsFrm.frx":0078
          Style           =   2  'Dropdown List
          TabIndex        =   3
          Top             =   1440
@@ -142,9 +162,9 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":0030
+         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":007A
          Left            =   1320
-         List            =   "RPT_POS_SalesDetailsFrm.frx":0032
+         List            =   "RPT_POS_SalesDetailsFrm.frx":007C
          Style           =   2  'Dropdown List
          TabIndex        =   2
          Top             =   1080
@@ -200,9 +220,9 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":0034
+         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":007E
          Left            =   1320
-         List            =   "RPT_POS_SalesDetailsFrm.frx":0036
+         List            =   "RPT_POS_SalesDetailsFrm.frx":0080
          TabIndex        =   1
          Top             =   720
          Width           =   2415
@@ -225,7 +245,7 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   95485954
+         Format          =   150470658
          UpDown          =   -1  'True
          CurrentDate     =   42217
       End
@@ -273,9 +293,9 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":0038
+         ItemData        =   "RPT_POS_SalesDetailsFrm.frx":0082
          Left            =   1320
-         List            =   "RPT_POS_SalesDetailsFrm.frx":0053
+         List            =   "RPT_POS_SalesDetailsFrm.frx":009D
          Style           =   2  'Dropdown List
          TabIndex        =   9
          Top             =   6480
@@ -335,7 +355,7 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   95485953
+         Format          =   150470657
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -356,7 +376,7 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   95485953
+         Format          =   150470657
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker TimeTo 
@@ -377,9 +397,29 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   95485954
+         Format          =   150470658
          UpDown          =   -1  'True
          CurrentDate     =   42217
+      End
+      Begin VB.Label lblMember 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Other"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   120
+         TabIndex        =   33
+         Top             =   5400
+         Visible         =   0   'False
+         Width           =   540
       End
       Begin VB.Label Label13 
          AutoSize        =   -1  'True
@@ -684,6 +724,8 @@ Private Sub btnGenerate_Click()
             Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_SalesByProductBySupplier.rpt")
         Case 2 ' category
             Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_SalesByProductByCategory.rpt")
+        Case 3 ' customer
+            Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_SalesByProductByCustomer.rpt")
     End Select
     
     crxRpt.EnableParameterPrompting = False
@@ -702,7 +744,13 @@ Private Sub btnGenerate_Click()
     crxRpt.ParameterFields.GetItemByName("@TimeTo").AddCurrentValue Str(TimeTo.value)
     crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.Text
     crxRpt.ParameterFields.GetItemByName("@UserId").AddCurrentValue cmbCashier.ItemData(cmbCashier.ListIndex)
-        
+    If cmbMember.Visible = True Then
+        If cmbMember.ListIndex = 1 Then
+            crxRpt.ParameterFields.GetItemByName("@MemberId").AddCurrentValue 1
+        Else
+            crxRpt.ParameterFields.GetItemByName("@MemberId").AddCurrentValue 2
+        End If
+    End If
     
     
     CRViewer.ReportSource = crxRpt
@@ -712,6 +760,17 @@ Private Sub btnGenerate_Click()
 End Sub
 
 
+
+Private Sub cmbGroup_Click()
+    If cmbGroup.Text = "Customer" Then
+        cmbMember.Visible = True
+        lblMember.Visible = True
+        cmbMember.ListIndex = 0
+    Else
+        cmbMember.Visible = False
+        lblMember.Visible = False
+    End If
+End Sub
 
 Private Sub cmbProduct_Change()
     If Trim(cmbProduct.Text) = "" Then
