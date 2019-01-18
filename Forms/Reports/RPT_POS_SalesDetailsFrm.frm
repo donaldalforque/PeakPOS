@@ -245,7 +245,7 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   150470658
+         Format          =   149749762
          UpDown          =   -1  'True
          CurrentDate     =   42217
       End
@@ -355,7 +355,7 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   150470657
+         Format          =   149749761
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -376,7 +376,7 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   150470657
+         Format          =   149749761
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker TimeTo 
@@ -397,7 +397,7 @@ Begin VB.Form RPT_POS_SalesDetailsFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   150470658
+         Format          =   149749762
          UpDown          =   -1  'True
          CurrentDate     =   42217
       End
@@ -712,6 +712,8 @@ Dim crxRpt As New CRAXDRT.Report
 Dim ProductId As Long
 
 Private Sub btnGenerate_Click()
+    UpdateCustomerIdonPOSSales
+
     Dim sql, OrderBy As String
     Dim Status, Customer, Terms, DateRange As Variant
     
@@ -745,11 +747,7 @@ Private Sub btnGenerate_Click()
     crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.Text
     crxRpt.ParameterFields.GetItemByName("@UserId").AddCurrentValue cmbCashier.ItemData(cmbCashier.ListIndex)
     If cmbMember.Visible = True Then
-        If cmbMember.ListIndex = 1 Then
-            crxRpt.ParameterFields.GetItemByName("@MemberId").AddCurrentValue 1
-        Else
-            crxRpt.ParameterFields.GetItemByName("@MemberId").AddCurrentValue 2
-        End If
+        crxRpt.ParameterFields.GetItemByName("@MemberId").AddCurrentValue cmbMember.ItemData(cmbMember.ListIndex)
     End If
     
     
@@ -927,6 +925,15 @@ Private Sub Form_Load()
     End If
     
     cmbSupplier.ListIndex = 0
+    
+    cmbMember.Clear
+    cmbMember.AddItem "All Customers"
+    cmbMember.ItemData(cmbMember.NewIndex) = 0
+    cmbMember.AddItem "Members Only"
+    cmbMember.ItemData(cmbMember.NewIndex) = 1
+    cmbMember.AddItem "Non-members only"
+    cmbMember.ItemData(cmbMember.NewIndex) = 2
+    cmbMember.ListIndex = 0
 End Sub
 
 

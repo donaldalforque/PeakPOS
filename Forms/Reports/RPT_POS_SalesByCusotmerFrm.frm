@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0"; "crviewer.dll"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form RPT_POS_SalesByCustomerFrm 
    Caption         =   "POS Sales by Customer"
@@ -197,7 +197,7 @@ Begin VB.Form RPT_POS_SalesByCustomerFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   87621634
+         Format          =   149618690
          UpDown          =   -1  'True
          CurrentDate     =   42217
       End
@@ -219,7 +219,7 @@ Begin VB.Form RPT_POS_SalesByCustomerFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   87621633
+         Format          =   149618689
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -240,7 +240,7 @@ Begin VB.Form RPT_POS_SalesByCustomerFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   87621633
+         Format          =   149618689
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker TimeTo 
@@ -261,7 +261,7 @@ Begin VB.Form RPT_POS_SalesByCustomerFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   87621634
+         Format          =   149618690
          UpDown          =   -1  'True
          CurrentDate     =   42217
       End
@@ -461,22 +461,24 @@ Dim crxRpt As New CRAXDRT.Report
 Dim CustomerId As Long
 
 Private Sub btnGenerate_Click()
+    UpdateCustomerIdonPOSSales
+
     Dim sql, OrderBy As String
     Dim Status, Customer, Terms, DateRange As Variant
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_SalesByCustomer.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_SalesByCustomer.rpt")
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
     Call ResetRptDB(crxRpt)
     
-    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.text
+    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.Text
     crxRpt.ParameterFields.GetItemByName("DateFrom").AddCurrentValue DateFrom.value & " " & TimeFrom.value
     crxRpt.ParameterFields.GetItemByName("DateTo").AddCurrentValue DateTo.value & " " & TimeTo.value
-    If cmbCustomer.text = "" Then
+    If cmbCustomer.Text = "" Then
         crxRpt.ParameterFields.GetItemByName("SelectedCashier").AddCurrentValue "All"
     Else
-        crxRpt.ParameterFields.GetItemByName("SelectedCashier").AddCurrentValue cmbCustomer.text
+        crxRpt.ParameterFields.GetItemByName("SelectedCashier").AddCurrentValue cmbCustomer.Text
     End If
     
     crxRpt.ParameterFields.GetItemByName("@CustomerId").AddCurrentValue CustomerId
@@ -484,7 +486,7 @@ Private Sub btnGenerate_Click()
     crxRpt.ParameterFields.GetItemByName("@DateTo").AddCurrentValue DateTo.value
     crxRpt.ParameterFields.GetItemByName("@TimeFrom").AddCurrentValue Str(TimeFrom.value)
     crxRpt.ParameterFields.GetItemByName("@TimeTo").AddCurrentValue Str(TimeTo.value)
-    crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.text
+    crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.Text
     
     CRViewer.ReportSource = crxRpt
     CRViewer.ViewReport
@@ -510,7 +512,7 @@ Private Sub cmbCustomer_KeyDown(KeyCode As Integer, Shift As Integer)
     End Select
 End Sub
 Private Sub cmbCustomer_Change()
-    If Trim(cmbCustomer.text) = "" Then
+    If Trim(cmbCustomer.Text) = "" Then
         CustomerId = 0
         lvItemList.Left = -9999
         Exit Sub
@@ -526,7 +528,7 @@ Private Sub cmbCustomer_Change()
     cmd.ActiveConnection = con
     cmd.CommandType = adCmdStoredProc
     cmd.CommandText = "BASE_Customer_Search"
-    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, cmbCustomer.text)
+    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, cmbCustomer.Text)
     Dim LastCustomerId As Long
     Set rec = cmd.Execute
     If Not rec.EOF Then
@@ -557,7 +559,7 @@ Private Sub cmbCustomer_Change()
         lvItemList.Left = -9999
     End If
     
-    If Trim(cmbCustomer.text) = "" Then CustomerId = 0
+    If Trim(cmbCustomer.Text) = "" Then CustomerId = 0
     
     con.Close
 End Sub
@@ -591,7 +593,7 @@ Private Sub Form_Load()
     TimeFrom.value = Format("00:00:00", "hh:mm:ss")
     TimeTo.value = Format("23:59:59", "hh:mm:ss")
     
-    txtTitle.text = Me.Caption
+    txtTitle.Text = Me.Caption
     
     lvItemList.ColumnHeaders(1).width = 0
     lvItemList.ColumnHeaders(2).width = lvItemList.width * 0.2
@@ -609,8 +611,8 @@ End Sub
 
 Private Sub lvItemList_DblClick()
     If lvItemList.ListItems.Count > 0 Then
-        CustomerId = lvItemList.SelectedItem.text
-        cmbCustomer.text = lvItemList.SelectedItem.SubItems(2)
+        CustomerId = lvItemList.SelectedItem.Text
+        cmbCustomer.Text = lvItemList.SelectedItem.SubItems(2)
         lvItemList.Left = -9999
         cmbCustomer.SetFocus
     End If

@@ -1029,3 +1029,16 @@ Public Sub RemoveDuplicates(ByVal lv As ListView, ByVal ColumntoEvaluate As Inte
         Next
     Next
 End Sub
+
+
+Public Sub UpdateCustomerIdonPOSSales()
+    Dim con As New ADODB.Connection
+    Dim cmd As New ADODB.Command
+    
+    con.ConnectionString = ConnString
+    con.Open
+    cmd.ActiveConnection = con
+    cmd.CommandType = adCmdStoredProc
+    cmd.CommandText = "POS_SalesCustomerId_Update"
+    cmd.Execute
+End Sub
