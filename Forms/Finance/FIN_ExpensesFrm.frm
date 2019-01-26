@@ -3,7 +3,7 @@ Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form FIN_ExpensesFrm 
    BackColor       =   &H00FFFFFF&
    BorderStyle     =   3  'Fixed Dialog
-   ClientHeight    =   5775
+   ClientHeight    =   6525
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   5295
@@ -11,7 +11,7 @@ Begin VB.Form FIN_ExpensesFrm
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5775
+   ScaleHeight     =   6525
    ScaleWidth      =   5295
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
@@ -29,7 +29,7 @@ Begin VB.Form FIN_ExpensesFrm
       Height          =   375
       Left            =   2400
       TabIndex        =   13
-      Top             =   5280
+      Top             =   6000
       Width           =   1335
    End
    Begin VB.CommandButton btnCancel 
@@ -46,12 +46,12 @@ Begin VB.Form FIN_ExpensesFrm
       Height          =   375
       Left            =   3840
       TabIndex        =   12
-      Top             =   5280
+      Top             =   6000
       Width           =   1335
    End
    Begin VB.Frame Frame1 
       BackColor       =   &H00FFFFFF&
-      Height          =   5175
+      Height          =   5895
       Left            =   120
       TabIndex        =   0
       Top             =   0
@@ -71,7 +71,6 @@ Begin VB.Form FIN_ExpensesFrm
          Left            =   1800
          TabIndex        =   5
          Top             =   3120
-         Visible         =   0   'False
          Width           =   3015
       End
       Begin VB.TextBox txtCheckAmount 
@@ -122,11 +121,12 @@ Begin VB.Form FIN_ExpensesFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
+         ItemData        =   "FIN_ExpensesFrm.frx":000C
          Left            =   1800
+         List            =   "FIN_ExpensesFrm.frx":000E
          Style           =   2  'Dropdown List
          TabIndex        =   7
          Top             =   5040
-         Visible         =   0   'False
          Width           =   3015
       End
       Begin VB.ComboBox cmbAccount 
@@ -200,7 +200,7 @@ Begin VB.Form FIN_ExpensesFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   97320961
+         Format          =   75694081
          CurrentDate     =   41509
       End
       Begin MSComCtl2.DTPicker dtCheckDate 
@@ -208,7 +208,6 @@ Begin VB.Form FIN_ExpensesFrm
          Left            =   1800
          TabIndex        =   6
          Top             =   3480
-         Visible         =   0   'False
          Width           =   3015
          _ExtentX        =   5318
          _ExtentY        =   582
@@ -222,7 +221,7 @@ Begin VB.Form FIN_ExpensesFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   97320961
+         Format          =   75694081
          CurrentDate     =   41509
       End
       Begin VB.Label Label25 
@@ -262,7 +261,6 @@ Begin VB.Form FIN_ExpensesFrm
          Left            =   240
          TabIndex        =   24
          Top             =   3480
-         Visible         =   0   'False
          Width           =   1035
       End
       Begin VB.Label Label4 
@@ -282,7 +280,6 @@ Begin VB.Form FIN_ExpensesFrm
          Left            =   240
          TabIndex        =   23
          Top             =   3120
-         Visible         =   0   'False
          Width           =   705
       End
       Begin VB.Label Label2 
@@ -321,11 +318,12 @@ Begin VB.Form FIN_ExpensesFrm
          EndProperty
          ForeColor       =   &H00000000&
          Height          =   210
-         Left            =   4440
-         MouseIcon       =   "FIN_ExpensesFrm.frx":000C
+         Left            =   360
+         MouseIcon       =   "FIN_ExpensesFrm.frx":0010
          MousePointer    =   99  'Custom
          TabIndex        =   21
-         Top             =   3840
+         Top             =   1320
+         Visible         =   0   'False
          Width           =   315
       End
       Begin VB.Label Label1 
@@ -345,7 +343,7 @@ Begin VB.Form FIN_ExpensesFrm
          ForeColor       =   &H00808080&
          Height          =   210
          Left            =   3360
-         MouseIcon       =   "FIN_ExpensesFrm.frx":015E
+         MouseIcon       =   "FIN_ExpensesFrm.frx":0162
          MousePointer    =   99  'Custom
          TabIndex        =   20
          Top             =   1320
@@ -387,7 +385,6 @@ Begin VB.Form FIN_ExpensesFrm
          Left            =   240
          TabIndex        =   18
          Top             =   5040
-         Visible         =   0   'False
          Width           =   450
       End
       Begin VB.Label Label16 
@@ -528,6 +525,7 @@ Public Sub Populate(ByVal data As String)
             Set rec = New ADODB.Recordset
             Set rec = Global_Data("Bank")
             cmbBank.Clear
+            cmbBank.AddItem ""
             If Not rec.EOF Then
                 Do Until rec.EOF
                     If rec!isActive = "True" Then
@@ -578,12 +576,9 @@ Private Sub Save()
                           cmd.Parameters("@CheckAmount").NumericScale = 2
     cmd.Parameters.Append cmd.CreateParameter("@CheckNumber", adVarChar, adParamInput, 50, txtCheckNumber.Text)
     cmd.Parameters.Append cmd.CreateParameter("@CheckDate", adDate, adParamInput, , dtCheckDate.value)
+    cmd.Parameters.Append cmd.CreateParameter("@Bank", adVarChar, adParamInput, 250, cmbBank.Text)
     cmd.Parameters.Append cmd.CreateParameter("@FundId", adInteger, adParamInput, , 1)
-    If Val(Replace(txtCheckAmount.Text, ",", "")) > 0 Or Trim(txtCheckNumber.Text) <> "" Then
-        cmd.Parameters.Append cmd.CreateParameter("@AccountId", adInteger, adParamInput, , cmbAccount.ItemData(cmbAccount.ListIndex))
-    Else
-        cmd.Parameters.Append cmd.CreateParameter("@AccountId", adInteger, adParamInput, , Null)
-    End If
+    cmd.Parameters.Append cmd.CreateParameter("@AccountId", adInteger, adParamInput, , Null)
     cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 255, txtRemarks.Text)
     cmd.Parameters.Append cmd.CreateParameter("@WorkStationId", adInteger, adParamInput, , WorkstationId)
     cmd.Parameters.Append cmd.CreateParameter("@UserId", adInteger, adParamInput, , UserId)
@@ -656,7 +651,7 @@ Private Sub Save()
         cmd.Parameters.Append cmd.CreateParameter("@POS_SalesId", adInteger, adParamInput, , Null)
         cmd.Parameters.Append cmd.CreateParameter("@SOPaymentId", adInteger, adParamInput, , Null)
         cmd.Parameters.Append cmd.CreateParameter("@POPaymentId", adInteger, adParamInput, , Null)
-        cmd.Parameters.Append cmd.CreateParameter("@AccountId", adInteger, adParamInput, , cmbAccount.ItemData(cmbAccount.ListIndex))
+        cmd.Parameters.Append cmd.CreateParameter("@AccountId", adInteger, adParamInput, , 1)
         
         cmd.Execute
         'con.Close
@@ -685,14 +680,6 @@ Private Sub btnSave_Click()
         cmbExpense.SetFocus
         GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(26)
         GLOBAL_MessageFrm.Show (1)
-    ElseIf Trim(txtCheckNumber.Text) <> "" Or Val(Replace(txtCheckAmount.Text, ",", "")) > 0 Then
-        If cmbAccount.Text = "" Then
-            cmbAccount.SetFocus
-            GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(16)
-            GLOBAL_MessageFrm.Show (1)
-        Else
-            Save
-        End If
     Else
         Save
     End If

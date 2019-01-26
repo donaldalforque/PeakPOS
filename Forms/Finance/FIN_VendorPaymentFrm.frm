@@ -8,12 +8,12 @@ Begin VB.Form FIN_VendorPaymentFrm
    ClientHeight    =   10125
    ClientLeft      =   45
    ClientTop       =   330
-   ClientWidth     =   11910
+   ClientWidth     =   11880
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   10125
-   ScaleWidth      =   11910
+   ScaleWidth      =   11880
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton btnCash 
       Caption         =   "CASH"
@@ -53,11 +53,110 @@ Begin VB.Form FIN_VendorPaymentFrm
       Top             =   5040
       Width           =   975
    End
+   Begin VB.CommandButton btnSave 
+      Caption         =   "Save"
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   8520
+      TabIndex        =   14
+      Top             =   9600
+      Width           =   1575
+   End
+   Begin VB.CommandButton btnCancel 
+      Caption         =   "Cancel"
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   10140
+      TabIndex        =   15
+      Top             =   9600
+      Width           =   1575
+   End
+   Begin MSComctlLib.ListView lvOrders 
+      Height          =   3735
+      Left            =   120
+      TabIndex        =   0
+      Top             =   840
+      Width           =   11655
+      _ExtentX        =   20558
+      _ExtentY        =   6588
+      View            =   3
+      LabelEdit       =   1
+      LabelWrap       =   -1  'True
+      HideSelection   =   0   'False
+      Checkboxes      =   -1  'True
+      FullRowSelect   =   -1  'True
+      GridLines       =   -1  'True
+      _Version        =   393217
+      ForeColor       =   -2147483640
+      BackColor       =   -2147483643
+      BorderStyle     =   1
+      Appearance      =   0
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   11.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      NumItems        =   7
+      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Object.Width           =   882
+      EndProperty
+      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   1
+         Text            =   "SalesOrderId"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   2
+         Text            =   "Order #"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   3
+         Text            =   "Date"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   4
+         Text            =   "Due Date"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   5
+         Text            =   "Terms"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Alignment       =   1
+         SubItemIndex    =   6
+         Text            =   "Balance"
+         Object.Width           =   2716
+      EndProperty
+   End
    Begin VB.Frame Frame2 
       BackColor       =   &H00FFFFFF&
       Height          =   3495
       Left            =   120
-      TabIndex        =   15
+      TabIndex        =   18
       Top             =   6000
       Width           =   11655
       Begin VB.Frame FRE_REMARKS 
@@ -74,7 +173,7 @@ Begin VB.Form FIN_VendorPaymentFrm
          EndProperty
          Height          =   855
          Left            =   120
-         TabIndex        =   38
+         TabIndex        =   12
          Top             =   2520
          Width           =   11415
          Begin VB.TextBox txtRemarks 
@@ -90,7 +189,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             Height          =   330
             Left            =   1680
             MultiLine       =   -1  'True
-            TabIndex        =   10
+            TabIndex        =   13
             Top             =   360
             Width           =   9615
          End
@@ -109,7 +208,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   270
             Left            =   240
-            TabIndex        =   39
+            TabIndex        =   38
             Top             =   360
             Width           =   975
          End
@@ -128,12 +227,10 @@ Begin VB.Form FIN_VendorPaymentFrm
          EndProperty
          Height          =   2295
          Left            =   6000
-         TabIndex        =   33
+         TabIndex        =   6
          Top             =   240
          Width           =   5535
-         Begin VB.TextBox txtBank 
-            Alignment       =   1  'Right Justify
-            BackColor       =   &H00FFFFFF&
+         Begin VB.ComboBox txtBank 
             BeginProperty Font 
                Name            =   "Calibri"
                Size            =   9.75
@@ -143,12 +240,13 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            ForeColor       =   &H00000000&
-            Height          =   330
+            Height          =   345
+            ItemData        =   "FIN_VendorPaymentFrm.frx":0BC4
             Left            =   1560
-            TabIndex        =   9
-            TabStop         =   0   'False
-            Top             =   1815
+            List            =   "FIN_VendorPaymentFrm.frx":0BC6
+            Style           =   2  'Dropdown List
+            TabIndex        =   11
+            Top             =   1800
             Width           =   3855
          End
          Begin VB.TextBox txtCheckNumber 
@@ -165,7 +263,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   330
             Left            =   1560
-            TabIndex        =   6
+            TabIndex        =   8
             Top             =   720
             Width           =   3855
          End
@@ -183,7 +281,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   330
             Left            =   1560
-            TabIndex        =   5
+            TabIndex        =   7
             Text            =   "0.00"
             Top             =   375
             Width           =   3855
@@ -203,7 +301,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             ForeColor       =   &H000000FF&
             Height          =   330
             Left            =   1560
-            TabIndex        =   8
+            TabIndex        =   10
             TabStop         =   0   'False
             Top             =   1455
             Width           =   3855
@@ -211,7 +309,7 @@ Begin VB.Form FIN_VendorPaymentFrm
          Begin MSComCtl2.DTPicker dtCheckDate 
             Height          =   345
             Left            =   1560
-            TabIndex        =   7
+            TabIndex        =   9
             Top             =   1080
             Width           =   3855
             _ExtentX        =   6800
@@ -226,7 +324,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   142868481
+            Format          =   148570113
             CurrentDate     =   41646
          End
          Begin VB.Label Label4 
@@ -244,7 +342,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   40
+            TabIndex        =   39
             Top             =   1800
             Width           =   450
          End
@@ -339,7 +437,7 @@ Begin VB.Form FIN_VendorPaymentFrm
          EndProperty
          Height          =   2295
          Left            =   120
-         TabIndex        =   30
+         TabIndex        =   3
          Top             =   240
          Width           =   5775
          Begin VB.TextBox txtCash 
@@ -355,7 +453,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   330
             Left            =   1680
-            TabIndex        =   4
+            TabIndex        =   5
             Text            =   "0.00"
             Top             =   720
             Width           =   3855
@@ -363,7 +461,7 @@ Begin VB.Form FIN_VendorPaymentFrm
          Begin MSComCtl2.DTPicker dtDate 
             Height          =   345
             Left            =   1680
-            TabIndex        =   3
+            TabIndex        =   4
             Top             =   360
             Width           =   3855
             _ExtentX        =   6800
@@ -378,7 +476,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   142868481
+            Format          =   148570113
             CurrentDate     =   41646
          End
          Begin VB.Label Label11 
@@ -396,7 +494,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   270
             Left            =   240
-            TabIndex        =   32
+            TabIndex        =   33
             Top             =   360
             Width           =   435
          End
@@ -415,7 +513,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   270
             Left            =   240
-            TabIndex        =   31
+            TabIndex        =   32
             Top             =   720
             Width           =   435
          End
@@ -424,7 +522,7 @@ Begin VB.Form FIN_VendorPaymentFrm
          Caption         =   "Frame1"
          Height          =   2175
          Left            =   -9999
-         TabIndex        =   22
+         TabIndex        =   25
          Top             =   480
          Width           =   3855
          Begin VB.ComboBox cmbAccount 
@@ -440,26 +538,8 @@ Begin VB.Form FIN_VendorPaymentFrm
             Height          =   345
             Left            =   1440
             Style           =   2  'Dropdown List
-            TabIndex        =   26
+            TabIndex        =   28
             Top             =   360
-            Visible         =   0   'False
-            Width           =   3855
-         End
-         Begin VB.ComboBox cmbBank 
-            BeginProperty Font 
-               Name            =   "Calibri"
-               Size            =   9.75
-               Charset         =   0
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Height          =   345
-            Left            =   1440
-            Style           =   2  'Dropdown List
-            TabIndex        =   25
-            Top             =   0
             Visible         =   0   'False
             Width           =   3855
          End
@@ -477,7 +557,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   330
             Left            =   1440
-            TabIndex        =   24
+            TabIndex        =   27
             Top             =   720
             Visible         =   0   'False
             Width           =   3855
@@ -495,7 +575,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             Height          =   330
             Left            =   0
             MultiLine       =   -1  'True
-            TabIndex        =   23
+            TabIndex        =   26
             Top             =   1920
             Visible         =   0   'False
             Width           =   5655
@@ -515,7 +595,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   270
             Left            =   0
-            TabIndex        =   29
+            TabIndex        =   31
             Top             =   360
             Visible         =   0   'False
             Width           =   750
@@ -535,7 +615,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   270
             Left            =   0
-            TabIndex        =   28
+            TabIndex        =   30
             Top             =   0
             Visible         =   0   'False
             Width           =   450
@@ -555,7 +635,7 @@ Begin VB.Form FIN_VendorPaymentFrm
             EndProperty
             Height          =   270
             Left            =   0
-            TabIndex        =   27
+            TabIndex        =   29
             Top             =   1560
             Visible         =   0   'False
             Width           =   3615
@@ -574,7 +654,7 @@ Begin VB.Form FIN_VendorPaymentFrm
          Height          =   345
          Left            =   -9999
          Style           =   2  'Dropdown List
-         TabIndex        =   16
+         TabIndex        =   19
          Top             =   960
          Visible         =   0   'False
          Width           =   2175
@@ -594,109 +674,10 @@ Begin VB.Form FIN_VendorPaymentFrm
          EndProperty
          Height          =   270
          Left            =   -9999
-         TabIndex        =   17
+         TabIndex        =   20
          Top             =   960
          Width           =   735
       End
-   End
-   Begin VB.CommandButton btnSave 
-      Caption         =   "Save"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   8520
-      TabIndex        =   11
-      Top             =   9600
-      Width           =   1575
-   End
-   Begin VB.CommandButton btnCancel 
-      Caption         =   "Cancel"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   10140
-      TabIndex        =   12
-      Top             =   9600
-      Width           =   1575
-   End
-   Begin MSComctlLib.ListView lvOrders 
-      Height          =   3735
-      Left            =   120
-      TabIndex        =   0
-      Top             =   840
-      Width           =   11655
-      _ExtentX        =   20558
-      _ExtentY        =   6588
-      View            =   3
-      LabelEdit       =   1
-      LabelWrap       =   -1  'True
-      HideSelection   =   0   'False
-      Checkboxes      =   -1  'True
-      FullRowSelect   =   -1  'True
-      GridLines       =   -1  'True
-      _Version        =   393217
-      ForeColor       =   -2147483640
-      BackColor       =   -2147483643
-      BorderStyle     =   1
-      Appearance      =   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Calibri"
-         Size            =   11.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      NumItems        =   7
-      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Object.Width           =   882
-      EndProperty
-      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   1
-         Text            =   "SalesOrderId"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   2
-         Text            =   "Order #"
-         Object.Width           =   2540
-      EndProperty
-      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   3
-         Text            =   "Date"
-         Object.Width           =   2540
-      EndProperty
-      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   4
-         Text            =   "Due Date"
-         Object.Width           =   2540
-      EndProperty
-      BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   5
-         Text            =   "Terms"
-         Object.Width           =   2540
-      EndProperty
-      BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Alignment       =   1
-         SubItemIndex    =   6
-         Text            =   "Balance"
-         Object.Width           =   2716
-      EndProperty
    End
    Begin VB.Label lblPayable 
       Alignment       =   1  'Right Justify
@@ -714,14 +695,14 @@ Begin VB.Form FIN_VendorPaymentFrm
       ForeColor       =   &H000000FF&
       Height          =   270
       Left            =   7200
-      TabIndex        =   21
+      TabIndex        =   24
       Top             =   5400
       Width           =   4335
    End
    Begin VB.Image Image1 
       Height          =   480
       Left            =   120
-      Picture         =   "FIN_VendorPaymentFrm.frx":0BC4
+      Picture         =   "FIN_VendorPaymentFrm.frx":0BC8
       Top             =   240
       Width           =   480
    End
@@ -742,7 +723,7 @@ Begin VB.Form FIN_VendorPaymentFrm
       ForeColor       =   &H000080FF&
       Height          =   345
       Left            =   720
-      TabIndex        =   20
+      TabIndex        =   23
       Top             =   240
       Width           =   2025
    End
@@ -762,9 +743,9 @@ Begin VB.Form FIN_VendorPaymentFrm
       ForeColor       =   &H00FF0000&
       Height          =   225
       Left            =   120
-      MouseIcon       =   "FIN_VendorPaymentFrm.frx":11DC
+      MouseIcon       =   "FIN_VendorPaymentFrm.frx":11E0
       MousePointer    =   99  'Custom
-      TabIndex        =   13
+      TabIndex        =   16
       Top             =   4680
       Width           =   750
    End
@@ -784,9 +765,9 @@ Begin VB.Form FIN_VendorPaymentFrm
       ForeColor       =   &H00FF0000&
       Height          =   225
       Left            =   1080
-      MouseIcon       =   "FIN_VendorPaymentFrm.frx":132E
+      MouseIcon       =   "FIN_VendorPaymentFrm.frx":1332
       MousePointer    =   99  'Custom
-      TabIndex        =   14
+      TabIndex        =   17
       Top             =   4680
       Width           =   975
    End
@@ -806,7 +787,7 @@ Begin VB.Form FIN_VendorPaymentFrm
       ForeColor       =   &H00FF0000&
       Height          =   270
       Left            =   7200
-      TabIndex        =   19
+      TabIndex        =   22
       Top             =   5040
       Width           =   4335
    End
@@ -826,7 +807,7 @@ Begin VB.Form FIN_VendorPaymentFrm
       ForeColor       =   &H00000000&
       Height          =   270
       Left            =   7200
-      TabIndex        =   18
+      TabIndex        =   21
       Top             =   4680
       Width           =   4335
    End
@@ -847,18 +828,19 @@ Public Sub Populate(ByVal data As String)
         Case "Bank"
             Set rec = New ADODB.Recordset
             Set rec = Global_Data("Bank")
-            cmbBank.Clear
+            txtBank.Clear
+            txtBank.AddItem ""
             If Not rec.EOF Then
                 Do Until rec.EOF
                     If rec!isActive = "True" Then
-                        cmbBank.AddItem rec!bankname
-                        cmbBank.ItemData(cmbBank.NewIndex) = rec!BankId
+                        txtBank.AddItem rec!bankname
+                        txtBank.ItemData(txtBank.NewIndex) = rec!BankId
                     End If
                     rec.MoveNext
                 Loop
             End If
             On Error Resume Next
-            cmbBank.ListIndex = 0
+            txtBank.ListIndex = 0
     End Select
 End Sub
 
@@ -878,11 +860,17 @@ Private Sub btnSave_Click()
     If FRE_CHECK.Enabled = True Then
         If txtCheckNumber.Text = "" Then
             MsgBox "Check number is required.", vbCritical, "PeakPOS"
+            txtCheckNumber.SetFocus
+            Exit Sub
+        End If
+        If txtBank.Text = "" Then
+            MsgBox "Bank is required.", vbCritical, "PeakPOS"
+            txtBank.SetFocus
             Exit Sub
         End If
     End If
     
-    If Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) Then
+    If Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) Then
         MsgBox "Cannot overpay.", vbCritical, "PeakPOS"
         Exit Sub
     End If
@@ -1276,7 +1264,7 @@ Private Sub CountTotal()
             Total = Total + Val(Replace(item.SubItems(6), ",", ""))
         End If
     Next
-    lbltotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblTotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)
     lblTotalBalance.Caption = "Total Balance: " & FormatNumber(balance, 2, vbTrue, vbFalse)
     'tax = (total / 1.12) * 0.01
     tax = 0
@@ -1309,8 +1297,8 @@ Private Sub txtCash_Change()
     If IsNumeric(txtCash.Text) = False Then
         txtCash.Text = "0.00"
         selectText txtCash
-    ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtCash.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue)
+    ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtCash.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue)
     End If
 End Sub
 
@@ -1318,8 +1306,8 @@ Private Sub txtCheckAmount_Change()
     If IsNumeric(txtCheckAmount.Text) = False Then
         txtCheckAmount.Text = "0.00"
         selectText txtCheckAmount
-     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtCheckAmount.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue, vbFalse)
+     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtCheckAmount.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue, vbFalse)
     End If
 End Sub
 
@@ -1327,9 +1315,9 @@ Private Sub txtTax_Change()
     If IsNumeric(txtTax.Text) = False Then
         txtTax.Text = "0.00"
         selectText txtTax
-     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtTax.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", ""))), 2, vbTrue, vbFalse)
+     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtTax.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", ""))), 2, vbTrue, vbFalse)
     End If
-    lblPayable.Caption = "Total Payable(Taxed):" & FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - Val(Replace(txtTax.Text, ",", "")), 2, vbTrue, vbFalse)
+    lblPayable.Caption = "Total Payable(Taxed):" & FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - Val(Replace(txtTax.Text, ",", "")), 2, vbTrue, vbFalse)
 End Sub
 
