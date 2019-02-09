@@ -321,7 +321,7 @@ Begin VB.MDIForm BASE_ContainerFrm
             ImageIndex      =   9
             Style           =   5
             BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
-               NumButtonMenus  =   43
+               NumButtonMenus  =   44
                BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "GeneralSalesTransaction"
                   Text            =   "General Transaction Summary"
@@ -452,37 +452,41 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "POS Sales Return"
                EndProperty
                BeginProperty ButtonMenu35 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
+                  Key             =   "POSOrderSummary"
+                  Text            =   "POS Order Summary"
                EndProperty
                BeginProperty ButtonMenu36 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Text            =   "-"
+               EndProperty
+               BeginProperty ButtonMenu37 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "AccountsReceivableReport"
                   Text            =   "Accounts Receivable Summary"
                EndProperty
-               BeginProperty ButtonMenu37 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu38 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CollectionSummary"
                   Text            =   "Collection Summary"
                EndProperty
-               BeginProperty ButtonMenu38 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu39 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Key             =   "AccountsPayableReport"
                   Text            =   "Accounts Payable Summary"
                EndProperty
-               BeginProperty ButtonMenu39 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu40 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "-"
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu40 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu41 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "ExpensesReport"
                   Text            =   "Expenses Report"
                EndProperty
-               BeginProperty ButtonMenu41 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu42 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "CheckRegistry"
                   Text            =   "Check Registry"
                EndProperty
-               BeginProperty ButtonMenu42 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu43 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu43 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu44 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "POSUserAuditTrail"
                   Text            =   "User Audit Trail"
                EndProperty
@@ -631,6 +635,10 @@ Private Sub Toolbar_Main_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonM
             CornerChildForm RPT_POS_UserAuditTrailFrm
             RPT_POS_UserAuditTrailFrm.Show
             RPT_POS_UserAuditTrailFrm.ZOrder 0
+        Case "POSOrderSummary"
+            CornerChildForm RPT_POS_OrderSummaryFrm
+            RPT_POS_OrderSummaryFrm.Show
+            RPT_POS_OrderSummaryFrm.ZOrder 0
         Case "SupplierPaymentHistory"
             CornerChildForm RPT_PO_PaymentHistoryFrm
             RPT_PO_PaymentHistoryFrm.Show

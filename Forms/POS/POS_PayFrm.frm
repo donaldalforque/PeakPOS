@@ -621,6 +621,17 @@ Private Sub btnAccept_Click()
         Dim POS_OrderId As String
 '        OrderNumber = cmd.Parameters("@OrderNumber")
         
+        'Tag Order Slip to actual sales
+        If POS_CashierFrm.POSOrderId > 0 Then
+            Set cmd = New ADODB.Command
+            cmd.ActiveConnection = con
+            cmd.CommandType = adCmdStoredProc
+            cmd.CommandText = "POS_Order_TagSales"
+            cmd.Parameters.Append cmd.CreateParameter("@POS_SalesId", adInteger, adParamInput, , Val(POS_SalesId))
+            cmd.Parameters.Append cmd.CreateParameter("@POS_OrderId", adInteger, adParamInput, , Val(POS_CashierFrm.POSOrderId))
+            cmd.Execute
+        End If
+        
         'LINE
         For Each item In POS_CashierFrm.lvList.ListItems
             POS_OrderId = NVAL(item.SubItems(21))

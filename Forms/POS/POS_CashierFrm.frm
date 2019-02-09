@@ -1192,6 +1192,8 @@ Private Sub btnBarcode_Click()
                 cmd.Parameters.Append cmd.CreateParameter("@POS_OrderId", adInteger, adParamInput, , NVAL(x))
                 Set rec = cmd.Execute
                 If Not rec.EOF Then
+                    'load orderid
+                    POSOrderId = NVAL(x)
                     Do Until rec.EOF
                         With POS_CashierFrm
                             Set item = .lvList.ListItems.add(, , rec!Name)

@@ -324,7 +324,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   148570113
+            Format          =   148439041
             CurrentDate     =   41646
          End
          Begin VB.Label Label4 
@@ -476,7 +476,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   148570113
+            Format          =   148439041
             CurrentDate     =   41646
          End
          Begin VB.Label Label11 
@@ -870,7 +870,7 @@ Private Sub btnSave_Click()
         End If
     End If
     
-    If Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) Then
+    If Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) Then
         MsgBox "Cannot overpay.", vbCritical, "PeakPOS"
         Exit Sub
     End If
@@ -1167,43 +1167,43 @@ End Sub
 Private Sub chkOnline_Click()
     If chkOnline.value = Checked Then
         lblBank.Visible = True
-        cmbBank.Visible = True
+        'cmbBank.Visible = True
         lblAccount.Visible = True
         cmbAccount.Visible = True
         txtCash.Enabled = False
     Else
         txtCash.Enabled = True
         lblBank.Visible = False
-        cmbBank.Visible = False
+        'cmbBank.Visible = False
         lblAccount.Visible = False
         cmbAccount.Visible = False
     End If
 End Sub
 
 Private Sub cmbBank_Click()
-    Set con = New ADODB.Connection
-    Set rec = New ADODB.Recordset
-    Set cmd = New ADODB.Command
-    
-    con.ConnectionString = ConnString
-    con.Open
-    cmd.ActiveConnection = con
-    cmd.CommandType = adCmdStoredProc
-    cmd.CommandText = "BASE_BankAccount_Load"
-    
-    cmd.Parameters.Append cmd.CreateParameter("@BankId", adInteger, adParamInput, , cmbBank.ItemData(cmbBank.ListIndex))
-    Set rec = cmd.Execute
-    cmbAccount.Clear
-    If Not rec.EOF Then
-        Do Until rec.EOF
-            If rec!isActive = "True" Then
-                cmbAccount.AddItem rec!accountnumber & " - " & rec!AccountName
-                cmbAccount.ItemData(cmbAccount.NewIndex) = rec!AccountId
-            End If
-            rec.MoveNext
-        Loop
-    End If
-    con.Close
+'    Set con = New ADODB.Connection
+'    Set rec = New ADODB.Recordset
+'    Set cmd = New ADODB.Command
+'
+'    con.ConnectionString = ConnString
+'    con.Open
+'    cmd.ActiveConnection = con
+'    cmd.CommandType = adCmdStoredProc
+'    cmd.CommandText = "BASE_BankAccount_Load"
+'
+'    cmd.Parameters.Append cmd.CreateParameter("@BankId", adInteger, adParamInput, , cmbBank.ItemData(cmbBank.ListIndex))
+'    Set rec = cmd.Execute
+'    cmbAccount.Clear
+'    If Not rec.EOF Then
+'        Do Until rec.EOF
+'            If rec!isActive = "True" Then
+'                cmbAccount.AddItem rec!accountnumber & " - " & rec!AccountName
+'                cmbAccount.ItemData(cmbAccount.NewIndex) = rec!AccountId
+'            End If
+'            rec.MoveNext
+'        Loop
+'    End If
+'    con.Close
 End Sub
 
 Private Sub Form_Load()
@@ -1264,7 +1264,7 @@ Private Sub CountTotal()
             Total = Total + Val(Replace(item.SubItems(6), ",", ""))
         End If
     Next
-    lblTotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)
+    lbltotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)
     lblTotalBalance.Caption = "Total Balance: " & FormatNumber(balance, 2, vbTrue, vbFalse)
     'tax = (total / 1.12) * 0.01
     tax = 0
@@ -1297,8 +1297,8 @@ Private Sub txtCash_Change()
     If IsNumeric(txtCash.Text) = False Then
         txtCash.Text = "0.00"
         selectText txtCash
-    ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtCash.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue)
+    ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtCash.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue)
     End If
 End Sub
 
@@ -1306,8 +1306,8 @@ Private Sub txtCheckAmount_Change()
     If IsNumeric(txtCheckAmount.Text) = False Then
         txtCheckAmount.Text = "0.00"
         selectText txtCheckAmount
-     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtCheckAmount.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue, vbFalse)
+     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtCheckAmount.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue, vbFalse)
     End If
 End Sub
 
@@ -1315,9 +1315,9 @@ Private Sub txtTax_Change()
     If IsNumeric(txtTax.Text) = False Then
         txtTax.Text = "0.00"
         selectText txtTax
-     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtTax.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", ""))), 2, vbTrue, vbFalse)
+     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtTax.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", ""))), 2, vbTrue, vbFalse)
     End If
-    lblPayable.Caption = "Total Payable(Taxed):" & FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - Val(Replace(txtTax.Text, ",", "")), 2, vbTrue, vbFalse)
+    lblPayable.Caption = "Total Payable(Taxed):" & FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - Val(Replace(txtTax.Text, ",", "")), 2, vbTrue, vbFalse)
 End Sub
 
