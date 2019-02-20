@@ -670,7 +670,7 @@ Private Sub btnAccept_Click()
                                   cmd.Parameters("@TaxExempt").NumericScale = 2
                                   cmd.Parameters("@TaxExempt").Precision = 18
             cmd.Parameters.Append cmd.CreateParameter("@ItemDiscount", adDecimal, adParamInput, , Val(Replace(item.SubItems(17), ",", "")))
-                                  cmd.Parameters("@ItemDiscount").NumericScale = 2
+                                  cmd.Parameters("@ItemDiscount").NumericScale = 15
                                   cmd.Parameters("@ItemDiscount").Precision = 18
             cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , (Val(Replace(item.SubItems(1), ",", "")) * Val(Replace(item.SubItems(16), ",", ""))))
                                   cmd.Parameters("@ActualQuantity").NumericScale = 2
@@ -836,6 +836,15 @@ Private Sub btnAccept_Click()
         Dim x As Variant
         x = MsgBox("Do you want to print a receipt?", vbQuestion + vbYesNo)
         If x = vbYes Then
+            'OPEN DRAWER
+            Printer.Font.Name = "control"
+            Printer.ScaleLeft = 0
+            Printer.ScaleTop = 0
+            Printer.CurrentX = 0
+            Printer.CurrentY = 0
+            Printer.Print "A"
+            Printer.EndDoc
+            
             '**PRINT RECEIPT******
             Dim crxApp As New CRAXDRT.Application
             Dim crxRpt As New CRAXDRT.Report

@@ -246,7 +246,7 @@ Private Sub btnAccept_Click()
             cmd.Parameters.Append cmd.CreateParameter("@ReserveId", adInteger, adParamInput, , NVAL(item.SubItems(18)))
             cmd.Parameters.Append cmd.CreateParameter("@DiscountPercent", adDecimal, adParamInput, , NVAL(item.SubItems(19)))
                                   cmd.Parameters("@DiscountPercent").Precision = 18
-                                  cmd.Parameters("@DiscountPercent").NumericScale = 2
+                                  cmd.Parameters("@DiscountPercent").NumericScale = 15
             cmd.Parameters.Append cmd.CreateParameter("@isTaxExempt", adVarChar, adParamInput, 50, item.SubItems(20))
             cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , NVAL(item.SubItems(16)))
                                   cmd.Parameters("@ActualQuantity").Precision = 18
@@ -270,7 +270,7 @@ Private Sub btnAccept_Click()
         '**PRINT RECEIPT******
         Dim crxApp As New CRAXDRT.Application
         Dim crxRpt As New CRAXDRT.Report
-        Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_OrderReceipt.rpt")
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_OrderReceipt.rpt")
         'crxRpt.RecordSelectionFormula = "{POS_Sales.POS_SalesId}= " & Val(POS_SalesId) & ""
         crxRpt.DiscardSavedData
         crxRpt.EnableParameterPrompting = False

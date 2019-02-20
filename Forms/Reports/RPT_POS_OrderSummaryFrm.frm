@@ -122,7 +122,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          Height          =   345
          ItemData        =   "RPT_POS_OrderSummaryFrm.frx":0004
          Left            =   1320
-         List            =   "RPT_POS_OrderSummaryFrm.frx":001F
+         List            =   "RPT_POS_OrderSummaryFrm.frx":0017
          Style           =   2  'Dropdown List
          TabIndex        =   1
          Top             =   3240
@@ -146,7 +146,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   144965634
+         Format          =   155975682
          UpDown          =   -1  'True
          CurrentDate     =   42217
       End
@@ -168,7 +168,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   144965633
+         Format          =   155975681
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -189,7 +189,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   144965633
+         Format          =   155975681
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker TimeTo 
@@ -210,7 +210,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   144965634
+         Format          =   155975682
          UpDown          =   -1  'True
          CurrentDate     =   42217
       End

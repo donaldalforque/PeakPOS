@@ -1,0 +1,24 @@
+Line 281: Class CRVIEWERLibCtl.CRViewer of control CRViewer was not a loaded control class.
+Line 287: The property name DisplayGroupTree in CRViewer is invalid.
+Line 288: The property name DisplayToolbar in CRViewer is invalid.
+Line 289: The property name EnableGroupTree in CRViewer is invalid.
+Line 290: The property name EnableNavigationControls in CRViewer is invalid.
+Line 291: The property name EnableStopButton in CRViewer is invalid.
+Line 292: The property name EnablePrintButton in CRViewer is invalid.
+Line 293: The property name EnableZoomControl in CRViewer is invalid.
+Line 294: The property name EnableCloseButton in CRViewer is invalid.
+Line 295: The property name EnableProgressControl in CRViewer is invalid.
+Line 296: The property name EnableSearchControl in CRViewer is invalid.
+Line 297: The property name EnableRefreshButton in CRViewer is invalid.
+Line 298: The property name EnableDrillDown in CRViewer is invalid.
+Line 299: The property name EnableAnimationControl in CRViewer is invalid.
+Line 300: The property name EnableSelectExpertButton in CRViewer is invalid.
+Line 301: The property name EnableToolbar in CRViewer is invalid.
+Line 302: The property name DisplayBorder in CRViewer is invalid.
+Line 303: The property name DisplayTabs in CRViewer is invalid.
+Line 304: The property name DisplayBackgroundEdge in CRViewer is invalid.
+Line 305: The property name SelectionFormula in CRViewer is invalid.
+Line 306: The property name EnablePopupMenu in CRViewer is invalid.
+Line 307: The property name EnableExportButton in CRViewer is invalid.
+Line 308: The property name EnableSearchExpertButton in CRViewer is invalid.
+Line 309: The property name EnableHelpButton in CRViewer is invalid.
