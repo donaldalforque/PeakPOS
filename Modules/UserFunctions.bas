@@ -28,6 +28,7 @@ Global POSLogo As String
 Global StatementTemplateId As Integer
 Global CSVRecordset As ADODB.Recordset
 Global UniversalCtr As Long
+Global POS_Printer, BackOffice_Printer As String
 
 Private Declare Function GetVolumeInformation _
     Lib "kernel32" Alias "GetVolumeInformationA" _
@@ -78,29 +79,30 @@ Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
     Dim crxSubReportObj
     Dim crxsubreport
     Dim crxdatatable
-    'Dim Hostname As String
     
     DBProviderName = "SQLNCLI.1"
-    'Hostname = Environ("COMPUTERNAME") 'NOT SET!!
-    'Hostname = "DSASERVER"
     DBDataSource = Hostname & "\PEAKSQL"
     DBName = DatabaseName
     DBUsername = "sa"
     DBPwd = "PeakPOS2015"
     
     For Each crxTable In crxReport.Database.Tables
-        Call crxTable.SetLogOnInfo(DBDataSource, DBName, DBUsername, DBPwd)
         Call crxTable.SetTableLocation(crxTable.Location, "", ConnString)
+        Call crxTable.SetLogOnInfo(DBDataSource, DBName, DBUsername, DBPwd)
     Next
+    
     For Each crxSection In crxReport.Sections
         For Each ReportObject In crxSection.ReportObjects
             If ReportObject.Kind = crSubreportObject Then
+            
                 Set crxSubReportObj = ReportObject
                 Set crxsubreport = crxSubReportObj.OpenSubreport
+                
                 For Each crxdatatable In crxsubreport.Database.Tables
                     Call crxdatatable.SetLogOnInfo(DBDataSource, DBName, DBUsername, DBPwd)
                     Call crxdatatable.SetTableLocation(crxdatatable.Location, "", ConnectionString)
                 Next
+                
             End If
         Next
     Next
@@ -749,6 +751,7 @@ Public Function GetFileNameFromPath(strFullPath As String) As String
     GetFileNameFromPath = Right(strFullPath, Len(strFullPath) - InStrRev(strFullPath, "\"))
 End Function
 Public Sub GetPOSSettings()
+    Dim linevalue As String
     Open App.path & "\Resources\Settings.txt" For Input As #1
         Line Input #1, PharmacyMode 'Settings Title [PharmacyMode]
         Line Input #1, PharmacyMode 'Settings value
@@ -756,6 +759,13 @@ Public Sub GetPOSSettings()
         Line Input #1, OrderSlipMode 'settings value
         Line Input #1, DualPharmacyMode 'Settings title [DualPharmacyMode]
         Line Input #1, DualPharmacyMode 'settings value
+        Line Input #1, linevalue 'null value
+        Line Input #1, linevalue 'null value
+        Line Input #1, linevalue 'null value
+        Line Input #1, POS_Printer 'Settings title [POS Printer]
+        Line Input #1, POS_Printer 'value
+        Line Input #1, BackOffice_Printer 'Settings title [BackOffice Printer]
+        Line Input #1, BackOffice_Printer 'value
     Close #1
     POSLogo = App.path & "\images\cashier_logo.jpg"
 End Sub
@@ -1042,3 +1052,10 @@ Public Sub UpdateCustomerIdonPOSSales()
     cmd.CommandText = "POS_SalesCustomerId_Update"
     cmd.Execute
 End Sub
+
+Function DefaultPrinter(Printer As String) 'set defualt printer
+    On Error Resume Next
+    Dim SetDefaultPrint As New WshNetwork
+    SetDefaultPrint.SetDefaultPrinter (Printer)
+    Set SetDefaultPrint = Nothing
+End Function

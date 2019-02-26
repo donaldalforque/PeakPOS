@@ -17,8 +17,12 @@ Sub Main()
         DeleteReserves WorkstationId, 3 'PR
         DeleteReserves WorkstationId, 4 'Transfer Stock
         
-        'BASE_UserLoginFrm.Show
-        POS_UserLoginFrm.Show
+        'DefaultPrinter (POS_Printer)
+        DefaultPrinter (BackOffice_Printer)
+        
+        BASE_UserLoginFrm.Show
+        'POS_UserLoginFrm.Show
+        
 '    Else
 '        MsgBox "Invalid license.", vbCritical, "PeakPOS"
 '    End If

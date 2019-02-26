@@ -849,13 +849,14 @@ Private Sub btnAccept_Click()
             Dim crxApp As New CRAXDRT.Application
             Dim crxRpt As New CRAXDRT.Report
             Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt.rpt")
-            'crxRpt.RecordSelectionFormula = "{POS_Sales.POS_SalesId}= " & Val(POS_SalesId) & ""
+            
+            Call ResetRptDB(crxRpt)
+            
             crxRpt.DiscardSavedData
             crxRpt.EnableParameterPrompting = False
             crxRpt.ParameterFields.GetItemByName("Notice").AddCurrentValue ""
             crxRpt.ParameterFields.GetItemByName("@POS_SalesId").AddCurrentValue Val(POS_SalesId)
 
-            Call ResetRptDB(crxRpt)
             crxRpt.PrintOut False
             
             '**END PRINT RECEIPT**

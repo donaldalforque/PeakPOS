@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form INV_NewProductFrm 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "New Product"
@@ -586,6 +586,29 @@ Begin VB.Form INV_NewProductFrm
             Top             =   480
             Width           =   2535
          End
+         Begin VB.Label lblMoreSuppliers 
+            Alignment       =   1  'Right Justify
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "More Suppliers"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   400
+               Underline       =   -1  'True
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FF8080&
+            Height          =   195
+            Left            =   3120
+            MouseIcon       =   "INV_NewProductFrm.frx":20DE0
+            MousePointer    =   99  'Custom
+            TabIndex        =   80
+            Top             =   240
+            Width           =   1065
+         End
          Begin VB.Label Label18 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
@@ -641,7 +664,7 @@ Begin VB.Form INV_NewProductFrm
             ForeColor       =   &H00FF8080&
             Height          =   195
             Left            =   2400
-            MouseIcon       =   "INV_NewProductFrm.frx":20DE0
+            MouseIcon       =   "INV_NewProductFrm.frx":20F32
             MousePointer    =   99  'Custom
             TabIndex        =   65
             Top             =   1680
@@ -728,7 +751,7 @@ Begin VB.Form INV_NewProductFrm
          Begin VB.Label lblCostingInfo_Cost 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
-            Caption         =   "Current Cost"
+            Caption         =   "Cost"
             BeginProperty Font 
                Name            =   "Calibri"
                Size            =   11.25
@@ -742,7 +765,7 @@ Begin VB.Form INV_NewProductFrm
             Left            =   120
             TabIndex        =   48
             Top             =   480
-            Width           =   1155
+            Width           =   405
          End
       End
       Begin VB.TextBox txtSalesInfo_Price 
@@ -848,7 +871,7 @@ Begin VB.Form INV_NewProductFrm
             ForeColor       =   &H00FF8080&
             Height          =   195
             Left            =   4320
-            MouseIcon       =   "INV_NewProductFrm.frx":20F32
+            MouseIcon       =   "INV_NewProductFrm.frx":21084
             MousePointer    =   99  'Custom
             TabIndex        =   44
             Top             =   240
@@ -927,9 +950,9 @@ Begin VB.Form INV_NewProductFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         ItemData        =   "INV_NewProductFrm.frx":21084
+         ItemData        =   "INV_NewProductFrm.frx":211D6
          Left            =   2280
-         List            =   "INV_NewProductFrm.frx":21086
+         List            =   "INV_NewProductFrm.frx":211D8
          Style           =   2  'Dropdown List
          TabIndex        =   7
          Top             =   3360
@@ -1085,7 +1108,7 @@ Begin VB.Form INV_NewProductFrm
          ForeColor       =   &H00FF8080&
          Height          =   195
          Left            =   4500
-         MouseIcon       =   "INV_NewProductFrm.frx":21088
+         MouseIcon       =   "INV_NewProductFrm.frx":211DA
          MousePointer    =   99  'Custom
          TabIndex        =   64
          Top             =   4920
@@ -1976,7 +1999,7 @@ Public Sub btnSearch_Click()
     cmd.ActiveConnection = con
     cmd.CommandType = adCmdStoredProc
     cmd.CommandText = "BASE_Product_Search1"
-    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, txtSearch_name.Text)
+    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, txtSearch_Name.Text)
     If Trim(txtSearch_ItemCode.Text) <> "" Then
         cmd.Parameters.Append cmd.CreateParameter("@ItemCode", adVarChar, adParamInput, 50, txtSearch_ItemCode.Text)
     Else
@@ -2075,6 +2098,10 @@ End Sub
 Private Sub lblInventory_MoreLocations_Click()
     CenterChildForm INV_LocationFrm
     INV_LocationFrm.Show
+End Sub
+
+Private Sub lblMoreSuppliers_Click()
+    INV_ProductSupplierFrm.Show
 End Sub
 
 Private Sub lblSelectImage_Click()

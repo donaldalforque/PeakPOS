@@ -7,3 +7,7 @@ FALSE
 [Preferred]
 Percentage
 4
+[POS Printer]
+EPSON TM-U220 Receipt
+[Back Office Printer]
+\\dsaserver\EPSON L120 Series
