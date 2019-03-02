@@ -128,7 +128,7 @@ Begin VB.Form POS_ZreadingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   53673985
+      Format          =   149946369
       CurrentDate     =   42297
    End
    Begin MSComCtl2.DTPicker startTime 
@@ -150,7 +150,7 @@ Begin VB.Form POS_ZreadingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   53673986
+      Format          =   149946370
       CurrentDate     =   42297
    End
    Begin MSComCtl2.DTPicker EndTime 
@@ -172,7 +172,7 @@ Begin VB.Form POS_ZreadingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   53673986
+      Format          =   149946370
       CurrentDate     =   42297
    End
    Begin MSComCtl2.DTPicker dtToDate 
@@ -194,7 +194,7 @@ Begin VB.Form POS_ZreadingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   53673985
+      Format          =   149946369
       CurrentDate     =   42297
    End
    Begin VB.Label lblToDate 
@@ -350,14 +350,17 @@ Private Sub btnCancel_Click()
 End Sub
 
 Private Sub btnPrint_Click()
-    Dim crxApp As New CRAXDRT.Application
+    Dim CrxApp As New CRAXDRT.Application
     Dim crxRpt As New CRAXDRT.Report
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_ZReading.rpt")
+    Set crxRpt = CrxApp.OpenReport(App.path & "\Reports\POS_ZReading.rpt")
+    
+    Call ResetRptDB(crxRpt)
+    
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
-    Call ResetRptDB(crxRpt)
+    
     crxRpt.ParameterFields.GetItemByName("@Date").AddCurrentValue dtDate.value
     crxRpt.ParameterFields.GetItemByName("@DateTo").AddCurrentValue dtToDate.value
     If startTime.Visible = True Then
@@ -387,6 +390,7 @@ Private Sub btnPrint_Click()
     'POS Audit Trail
     SavePOSAuditTrail VoidUserId, WorkstationId, 0, "Generate Z-Reading Report"
 End Sub
+
 
 Private Sub cmbOption_Click()
     Select Case cmbOption.ListIndex
@@ -430,11 +434,11 @@ Private Sub Form_Load()
     dtToDate.value = Format(Now, "MM/DD/YY")
 
     'Get Time Setup for BIR
-    Open App.Path & "\Resources\Time.txt" For Input As #1
+    Open App.path & "\Resources\Time.txt" For Input As #1
     Input #1, zstartTime, zEndTime
     Close #1
     
-    Open App.Path & "\Resources\settings.txt" For Input As #1
+    Open App.path & "\Resources\settings.txt" For Input As #1
     Input #1, preferred
     Input #1, preferred
     Input #1, preferred

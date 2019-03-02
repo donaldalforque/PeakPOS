@@ -58,13 +58,10 @@ Public Function DatabaseName() As String
 End Function
 
 Public Function ConnString() As String
-    'Dim Hostname As String
-    'Hostname = Environ("COMPUTERNAME") 'NOT SET
-    'Hostname = "DSASERVER"
     ConnString = "Provider=SQLNCLI.1;Data Source = " & Hostname & "\PEAKSQL;User Id=sa; " & _
                  "Password=PeakPOS2015;Initial Catalog=" & DatabaseName & ";"
 End Function
-Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
+Public Sub ResetRptDB_main(ByRef crxReport As CRAXDRT.Report)
     Dim DBProviderName As String ' i.e SQLOLEDB.1;
     Dim DBDataSource As String ' i.e brandon-pc\sqlexpress
     Dim DBName As String
@@ -87,8 +84,8 @@ Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
     DBPwd = "PeakPOS2015"
     
     For Each crxTable In crxReport.Database.Tables
-        Call crxTable.SetTableLocation(crxTable.Location, "", ConnString)
         Call crxTable.SetLogOnInfo(DBDataSource, DBName, DBUsername, DBPwd)
+        Call crxTable.SetTableLocation(crxTable.Location, "", ConnString)
     Next
     
     For Each crxSection In crxReport.Sections
@@ -107,6 +104,57 @@ Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
         Next
     Next
 End Sub
+Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
+    Dim DBProviderName As String ' i.e SQLOLEDB.1;
+    Dim DBDataSource As String ' i.e brandon-pc\sqlexpress
+    Dim DBName As String
+    Dim DBUsername As String
+    Dim DBPwd As String
+    Dim ConnectionString As String
+    
+    Dim CrxApp As CRAXDRT.Application
+    Dim CrxRep As CRAXDRT.Report
+    Dim crxDatabase As CRAXDRT.Database
+    Dim crxDatabaseTables As CRAXDRT.DatabaseTables
+    Dim crxDatabaseTable As CRAXDRT.DatabaseTable
+    Dim crxSection
+    Dim ReportObject
+    Dim crxSubReportObj
+    Dim crxsubreport
+
+    
+    
+    DBProviderName = "SQLNCLI.1"
+    DBDataSource = Hostname & "\PEAKSQL"
+    DBName = DatabaseName
+    DBUsername = "sa"
+    DBPwd = "PeakPOS2015"
+    
+    Set CrxRep = crxReport
+    Set crxDatabase = CrxRep.Database
+    Set crxDatabaseTables = crxDatabase.Tables
+    
+    For Each crxDatabaseTable In crxDatabaseTables
+        crxDatabaseTable.SetLogOnInfo DBDataSource, DBName, DBUsername, DBPwd
+    Next crxDatabaseTable
+    
+    For Each crxSection In crxReport.Sections
+        For Each ReportObject In crxSection.ReportObjects
+            If ReportObject.Kind = crSubreportObject Then
+            
+                Set crxSubReportObj = ReportObject
+                Set crxsubreport = crxSubReportObj.OpenSubreport
+                
+                For Each crxDatabaseTable In crxsubreport.Database.Tables
+                    Call crxDatabaseTable.SetLogOnInfo(DBDataSource, DBName, DBUsername, DBPwd)
+                    Call crxDatabaseTable.SetTableLocation(crxDatabaseTable.Location, "", ConnectionString)
+                Next
+                
+            End If
+        Next
+    Next
+End Sub
+
 Public Sub selectText(ByVal Text As Control)
     Text.SelStart = 0
     Text.SelLength = Len(Text.Text)

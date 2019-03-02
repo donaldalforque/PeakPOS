@@ -337,7 +337,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   143065089
+         Format          =   149618689
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -358,7 +358,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   143065089
+         Format          =   149618689
          CurrentDate     =   41686
       End
       Begin VB.Label Label19 
@@ -1188,7 +1188,7 @@ Begin VB.Form PO_PurchaseOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143065089
+            Format          =   149618689
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtReceived 
@@ -1210,7 +1210,7 @@ Begin VB.Form PO_PurchaseOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143065089
+            Format          =   149618689
             CurrentDate     =   41509
          End
          Begin VB.Label Label20 
@@ -1555,7 +1555,7 @@ Public Sub Initialize()
     tb_Standard.Buttons(4).Image = 3
     
     lblSubTotal.Caption = "0.00"
-    lbltotal.Caption = "0.00"
+    lblTotal.Caption = "0.00"
     lblRemainingBalance.Caption = "0.00"
     
     id = 1
@@ -1596,7 +1596,7 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
         cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(lblSubTotal.Caption, ",", "")))
                               cmd.Parameters("@Subtotal").Precision = 18
                               cmd.Parameters("@Subtotal").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lbltotal.Caption, ",", "")))
+        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lblTotal.Caption, ",", "")))
                               cmd.Parameters("@Total").Precision = 18
                               cmd.Parameters("@Total").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 250, txtRemarks.Text)
@@ -1781,8 +1781,8 @@ Public Sub CountTotal()
     Total = Total + Val(Replace(txtFreight.Text, ",", "")) - Val(Replace(txtAdjustment.Text, ",", ""))
     
     lblSubTotal.Caption = FormatNumber(gSubTotal, 2, vbTrue, vbFalse)
-    lbltotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
-    lblRemainingBalance.Caption = lbltotal.Caption
+    lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblRemainingBalance.Caption = lblTotal.Caption
     lblTotalPayment.Caption = FormatNumber(NVAL(lblBalance.Caption) - NVAL(lblInvoice.Caption), 2, vbTrue)
 End Sub
 Public Sub Populate(ByVal data As String)
@@ -2054,49 +2054,10 @@ Private Sub btnReceiveOrder_Click()
         Exit Sub
     End If
     
-    
-    Dim totalReceived, totalOrdered As Double
-    Dim item As MSComctlLib.ListItem
-    
-    For Each item In lvItems.ListItems
-        totalOrdered = totalOrdered + Val(Replace(item.SubItems(4), ",", ""))
-        totalReceived = totalReceived + Val(Replace(item.SubItems(11), ",", ""))
-    Next
-    
-    'Validate if All orders already fullfilled
-'    If totalOrdered <= totalReceived Then
-'        Dim X As Variant
-'        X = MsgBox("All orders have already been received. Would you like to complete this order?", vbYesNo + vbQuestion)
-'        If X = vbYes Then
-'            'UPDATE STATUS
-'            Set con = New ADODB.Connection
-'            con.ConnectionString = ConnString
-'            con.Open
-'            Set cmd = New ADODB.Command
-'                cmd.ActiveConnection = con
-'                cmd.CommandType = adCmdStoredProc
-'                cmd.CommandText = "PO_PurchaseOrderStatus_Update"
-'                cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PO_PurchaseOrderFrm.PurchaseOrderId)
-'                cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , 2) 'IN PROGRESS
-'                cmd.Execute
-'            con.Close
-'            MsgBox "Order completed.", vbInformation
-'
-'            Set item = lvSearch.SelectedItem
-'            lvSearch_ItemClick item
-'        Else
-'            PO_ReceiveOrderFrm.txtOrderNumber.text = txtOrderNumber.text
-'            'PO_ReceiveOrderFrm.PurchaseOrderIdx = Me.PurchaseOrderId
-'            PO_ReceiveOrderFrm.Show
-'        End If
-'    Else
-        PO_ReceiveOrderFrm.txtOrderNumber.Text = txtOrderNumber.Text
-        'PO_ReceiveOrderFrm.PurchaseOrderIdx = Me.PurchaseOrderId
-        PO_ReceiveOrderFrm.Show
-'    End If
-    
-    
-    
+    With PO_ReceiveOrderFrm
+        .txtReferenceNumber.Text = txtOrderNumber.Text
+        .Show
+    End With
 End Sub
 
 Public Sub btnSearch_Click()
@@ -2362,7 +2323,7 @@ Private Sub lblCaption_AR_Click()
 End Sub
 
 Private Sub lvVendor_DblClick()
-    If lvVendor.ListItems.Count > 0 Then
+    If lvVendor.ListItems.count > 0 Then
         VendorId = lvVendor.SelectedItem.Text
         cmbVendor.Text = lvVendor.SelectedItem.SubItems(2)
         lblBalance.Caption = lvVendor.SelectedItem.SubItems(3)
@@ -2393,7 +2354,7 @@ End Sub
 Private Sub lvItemList_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case vbKeyReturn
-            If lvItemList.ListItems.Count > 0 Then
+            If lvItemList.ListItems.count > 0 Then
                 isModify = False
                 PO_ItemSelectOptFrm.txtCost.Text = lvItemList.SelectedItem.SubItems(3)
                 PO_ItemSelectOptFrm.txtDescription.Text = lvItemList.SelectedItem.SubItems(2)
@@ -2403,7 +2364,7 @@ Private Sub lvItemList_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub lvItems_DblClick()
-    If lvItems.ListItems.Count > 0 Then
+    If lvItems.ListItems.count > 0 Then
         isModify = True
         With PO_ItemSelectOptFrm
             .txtQuantity.Text = lvItems.SelectedItem.SubItems(4)
@@ -2417,14 +2378,14 @@ End Sub
 Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case vbKeyUp
-            If lvItems.ListItems.Count > 0 Then
+            If lvItems.ListItems.count > 0 Then
                 If lvItems.SelectedItem.Index = 1 Then
                     txtItemSearch.SetFocus
                     'txtCode.SetFocus
                 End If
             End If
         Case vbKeyDelete
-            If lvItems.ListItems.Count > 0 Then
+            If lvItems.ListItems.count > 0 Then
                 If lvItems.SelectedItem.Text <> "" Then
                     OrderLine(ctrOrderLine) = Val(lvItems.SelectedItem.Text)
                     ctrOrderLine = ctrOrderLine + 1
@@ -2443,7 +2404,7 @@ Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Public Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
-    If lvSearch.ListItems.Count > 0 Then
+    If lvSearch.ListItems.count > 0 Then
         Initialize
         PurchaseOrderId = lvSearch.SelectedItem.Text
         Populate "PurchaseOrderLineGet"

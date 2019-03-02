@@ -149,7 +149,7 @@ Begin VB.Form INV_ProductSupplierFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   150405121
+      Format          =   148635649
       CurrentDate     =   41686
    End
    Begin MSComctlLib.ListView lvProductSuppliers 
@@ -449,7 +449,18 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             cmd.CommandText = "INV_ProductSupplier_Insert"
             Set rec = cmd.Execute
             
+            'Add/update list
             Dim item As MSComctlLib.ListItem
+            
+            For Each item In lvProductSuppliers.ListItems
+                If item.SubItems(2) = cmbVendor.ItemData(cmbVendor.ListIndex) Then
+                    item.SubItems(4) = dtLastPurchaseDate.value
+                    item.SubItems(5) = FormatNumber(txtLastPurchaseCost.Text, 2, vbTrue, vbFalse)
+                    Exit Sub
+                End If
+            Next
+            
+            
             Set item = lvProductSuppliers.ListItems.add(, , cmd.Parameters("@ProductVendorId"))
                 item.SubItems(1) = INV_NewProductFrm.ProductId
                 item.SubItems(2) = cmbVendor.ItemData(cmbVendor.ListIndex)
