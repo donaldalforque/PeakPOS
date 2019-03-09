@@ -61,7 +61,7 @@ Public Function ConnString() As String
     ConnString = "Provider=SQLNCLI.1;Data Source = " & Hostname & "\PEAKSQL;User Id=sa; " & _
                  "Password=PeakPOS2015;Initial Catalog=" & DatabaseName & ";"
 End Function
-Public Sub ResetRptDB_main(ByRef crxReport As CRAXDRT.Report)
+Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
     Dim DBProviderName As String ' i.e SQLOLEDB.1;
     Dim DBDataSource As String ' i.e brandon-pc\sqlexpress
     Dim DBName As String
@@ -104,7 +104,7 @@ Public Sub ResetRptDB_main(ByRef crxReport As CRAXDRT.Report)
         Next
     Next
 End Sub
-Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
+Public Sub ResetRptDB_try(ByRef crxReport As CRAXDRT.Report)
     Dim DBProviderName As String ' i.e SQLOLEDB.1;
     Dim DBDataSource As String ' i.e brandon-pc\sqlexpress
     Dim DBName As String
@@ -112,7 +112,7 @@ Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
     Dim DBPwd As String
     Dim ConnectionString As String
     
-    Dim CrxApp As CRAXDRT.Application
+    Dim crxApp As CRAXDRT.Application
     Dim CrxRep As CRAXDRT.Report
     Dim crxDatabase As CRAXDRT.Database
     Dim crxDatabaseTables As CRAXDRT.DatabaseTables
@@ -260,7 +260,7 @@ Public Function ErrorCodes(ByVal Code As Integer) As String
     Errors(57) = "Invalid pin."
     Errors(58) = "Login error. Machine is not activated in the system."
     Errors(59) = "Item does not exists in the purchase order list."
-    Errors(60) = "Cannot receive inventory when order is already complete/cancelled."
+    Errors(60) = "Cannot receive inventory when order is already complete, cancelled or invoiced."
     Errors(61) = "Cannot pick inventory when order is already complete."
     Errors(62) = "Cannot pick inventory when order is already invoiced."
     Errors(63) = "Cannot pick inventory when order is already paid or cancelled."

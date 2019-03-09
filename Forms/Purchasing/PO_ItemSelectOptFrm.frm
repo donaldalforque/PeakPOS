@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form PO_ItemSelectOptFrm 
    BorderStyle     =   4  'Fixed ToolWindow
-   ClientHeight    =   2295
+   ClientHeight    =   2280
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   6360
@@ -9,7 +9,7 @@ Begin VB.Form PO_ItemSelectOptFrm
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   2295
+   ScaleHeight     =   2280
    ScaleWidth      =   6360
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen

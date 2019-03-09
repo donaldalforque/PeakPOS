@@ -2,71 +2,357 @@ VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form PO_PurchaseInvoiceFrm 
-   BorderStyle     =   1  'Fixed Single
-   Caption         =   "Purchase Invoice"
-   ClientHeight    =   9660
+   BorderStyle     =   3  'Fixed Dialog
+   ClientHeight    =   8865
    ClientLeft      =   45
    ClientTop       =   390
-   ClientWidth     =   10410
+   ClientWidth     =   14940
+   Icon            =   "PO_PurchaseInvoiceFrm.frx":0000
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   9660
-   ScaleWidth      =   10410
+   ScaleHeight     =   8865
+   ScaleWidth      =   14940
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton btnSalesReturns 
-      Caption         =   "Add Purchase Returns"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   120
-      TabIndex        =   42
-      Top             =   1920
-      Width           =   3405
-   End
-   Begin VB.CommandButton btnReceiveOrder 
-      Caption         =   "Auto Fill"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   6840
-      TabIndex        =   41
-      Top             =   2520
-      Width           =   3405
+   Begin VB.Frame LayoutFrame_Search 
+      BackColor       =   &H00E0E0E0&
+      BorderStyle     =   0  'None
+      Height          =   9015
+      Left            =   -120
+      TabIndex        =   57
+      Top             =   0
+      Width           =   4575
+      Begin VB.TextBox txtSearch_OrderNumber 
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   330
+         Left            =   1440
+         TabIndex        =   12
+         Top             =   480
+         Width           =   3015
+      End
+      Begin VB.ComboBox cmbSearch_Status 
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   345
+         Left            =   1440
+         Style           =   2  'Dropdown List
+         TabIndex        =   13
+         Top             =   840
+         Width           =   3015
+      End
+      Begin VB.CommandButton btnSearch 
+         Caption         =   "Refresh"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   3240
+         TabIndex        =   16
+         Top             =   2040
+         Width           =   1215
+      End
+      Begin MSComctlLib.ListView lvSearch 
+         Height          =   6255
+         Left            =   195
+         TabIndex        =   17
+         Top             =   2520
+         Width           =   4230
+         _ExtentX        =   7461
+         _ExtentY        =   11033
+         View            =   3
+         LabelEdit       =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   0   'False
+         FullRowSelect   =   -1  'True
+         GridLines       =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         NumItems        =   4
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "PurchaseOrderId"
+            Object.Width           =   0
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Invoice #"
+            Object.Width           =   2540
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Ref #"
+            Object.Width           =   2540
+         EndProperty
+         BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   3
+            Text            =   "Status"
+            Object.Width           =   2540
+         EndProperty
+      End
+      Begin MSComCtl2.DTPicker DateTo 
+         Height          =   345
+         Left            =   1440
+         TabIndex        =   15
+         Top             =   1560
+         Width           =   3015
+         _ExtentX        =   5318
+         _ExtentY        =   609
+         _Version        =   393216
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Calibri"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Format          =   111738881
+         CurrentDate     =   41686
+      End
+      Begin MSComCtl2.DTPicker DateFrom 
+         Height          =   345
+         Left            =   1440
+         TabIndex        =   14
+         Top             =   1200
+         Width           =   3015
+         _ExtentX        =   5318
+         _ExtentY        =   609
+         _Version        =   393216
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Calibri"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Format          =   111738881
+         CurrentDate     =   41686
+      End
+      Begin VB.Label Label13 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Invoice #"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   240
+         TabIndex        =   62
+         Top             =   480
+         Width           =   825
+      End
+      Begin VB.Label Label15 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Search"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   345
+         Left            =   240
+         TabIndex        =   61
+         Top             =   75
+         Width           =   795
+      End
+      Begin VB.Label Label17 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Status"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   240
+         TabIndex        =   60
+         Top             =   840
+         Width           =   570
+      End
+      Begin VB.Label Label26 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Date From"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   240
+         TabIndex        =   59
+         Top             =   1200
+         Width           =   960
+      End
+      Begin VB.Label Label25 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Date To"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   240
+         TabIndex        =   58
+         Top             =   1560
+         Width           =   705
+      End
    End
    Begin VB.Frame Body_Frame1 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
-      Height          =   9615
-      Left            =   0
-      TabIndex        =   0
+      Height          =   9015
+      Left            =   4500
+      TabIndex        =   18
       Top             =   0
       Width           =   10455
+      Begin VB.PictureBox picStatus 
+         BorderStyle     =   0  'None
+         Height          =   1055
+         Left            =   3120
+         Picture         =   "PO_PurchaseInvoiceFrm.frx":000C
+         ScaleHeight     =   1050
+         ScaleWidth      =   3750
+         TabIndex        =   74
+         Top             =   2160
+         Visible         =   0   'False
+         Width           =   3755
+      End
+      Begin VB.CommandButton btnSalesReturns 
+         Caption         =   "Add Purchase Returns"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   120
+         TabIndex        =   73
+         Top             =   2640
+         Width           =   2805
+      End
+      Begin MSComctlLib.ListView lvDelivery 
+         Height          =   2415
+         Left            =   5640
+         TabIndex        =   5
+         Top             =   2740
+         Visible         =   0   'False
+         Width           =   4455
+         _ExtentX        =   7858
+         _ExtentY        =   4260
+         View            =   3
+         LabelEdit       =   1
+         LabelWrap       =   -1  'True
+         HideSelection   =   0   'False
+         FullRowSelect   =   -1  'True
+         GridLines       =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         NumItems        =   3
+         BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            Text            =   "ReceiveOrderId"
+            Object.Width           =   0
+         EndProperty
+         BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   1
+            Text            =   "Delivery #"
+            Object.Width           =   2540
+         EndProperty
+         BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+            SubItemIndex    =   2
+            Text            =   "Date"
+            Object.Width           =   2540
+         EndProperty
+      End
       Begin VB.Frame Frame_Header1 
          BackColor       =   &H00FFFFFF&
          BorderStyle     =   0  'None
          Caption         =   "Frame1"
-         Height          =   735
-         Left            =   120
-         TabIndex        =   36
-         Top             =   480
-         Width           =   6735
+         Height          =   495
+         Left            =   240
+         TabIndex        =   46
+         Top             =   600
+         Width           =   4335
          Begin VB.Label Label1 
-            AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
             Caption         =   "Purchase Invoice"
             BeginProperty Font 
@@ -80,19 +366,56 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             ForeColor       =   &H000080FF&
             Height          =   435
-            Left            =   120
-            TabIndex        =   37
-            Top             =   120
+            Left            =   0
+            TabIndex        =   47
+            Top             =   0
             Width           =   2475
          End
       End
       Begin VB.Frame Frame_Footer 
          BackColor       =   &H00FFFFFF&
-         Height          =   2775
+         Height          =   2655
          Left            =   120
-         TabIndex        =   15
-         Top             =   6720
+         TabIndex        =   29
+         Top             =   6120
          Width           =   10215
+         Begin VB.TextBox txtFreight 
+            Alignment       =   1  'Right Justify
+            Appearance      =   0  'Flat
+            BackColor       =   &H00FFFFFF&
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   11.25
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   330
+            Left            =   8760
+            TabIndex        =   10
+            Top             =   1320
+            Width           =   1335
+         End
+         Begin VB.CommandButton btnReceiveOrder 
+            Caption         =   "Auto Fill"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   375
+            Left            =   -9999
+            TabIndex        =   54
+            Top             =   2040
+            Visible         =   0   'False
+            Width           =   3405
+         End
          Begin VB.TextBox txtVAT 
             Alignment       =   1  'Right Justify
             Appearance      =   0  'Flat
@@ -108,8 +431,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   330
             Left            =   8760
-            TabIndex        =   19
-            Top             =   1320
+            TabIndex        =   9
+            Top             =   960
             Width           =   1335
          End
          Begin VB.TextBox txtFees 
@@ -125,10 +448,10 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Height          =   330
-            Left            =   3000
-            TabIndex        =   18
-            Top             =   2280
+            Height          =   390
+            Left            =   -9999
+            TabIndex        =   31
+            Top             =   2040
             Visible         =   0   'False
             Width           =   1335
          End
@@ -143,11 +466,11 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   345
-            ItemData        =   "PO_PurchaseInvoiceFrm.frx":0000
-            Left            =   1200
-            List            =   "PO_PurchaseInvoiceFrm.frx":0010
+            ItemData        =   "PO_PurchaseInvoiceFrm.frx":7D7E
+            Left            =   -9999
+            List            =   "PO_PurchaseInvoiceFrm.frx":7D8E
             Style           =   2  'Dropdown List
-            TabIndex        =   23
+            TabIndex        =   33
             Top             =   1680
             Visible         =   0   'False
             Width           =   3135
@@ -167,7 +490,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   390
             Left            =   -9999
-            TabIndex        =   22
+            TabIndex        =   32
             Top             =   240
             Visible         =   0   'False
             Width           =   1695
@@ -182,11 +505,11 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Height          =   1410
+            Height          =   1650
             Left            =   1200
             MultiLine       =   -1  'True
             ScrollBars      =   2  'Vertical
-            TabIndex        =   20
+            TabIndex        =   7
             Top             =   240
             Width           =   5295
          End
@@ -205,8 +528,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   330
             Left            =   8760
-            TabIndex        =   17
-            Top             =   960
+            TabIndex        =   8
+            Top             =   600
             Width           =   1335
          End
          Begin VB.TextBox txtDiscountPercent 
@@ -222,10 +545,11 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Height          =   330
-            Left            =   8760
-            TabIndex        =   16
+            Height          =   390
+            Left            =   -9999
+            TabIndex        =   30
             Top             =   600
+            Visible         =   0   'False
             Width           =   1335
          End
          Begin VB.TextBox txtRefunds 
@@ -244,14 +568,60 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   330
             Left            =   8760
-            TabIndex        =   21
+            TabIndex        =   11
             Top             =   1680
             Width           =   1335
          End
-         Begin VB.Label Label7 
+         Begin VB.Label lblVatpercent 
+            Alignment       =   1  'Right Justify
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
-            Caption         =   "VAT"
+            Caption         =   "%"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   12
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00C00000&
+            Height          =   285
+            Left            =   8475
+            MouseIcon       =   "PO_PurchaseInvoiceFrm.frx":7DCC
+            MousePointer    =   99  'Custom
+            TabIndex        =   64
+            Top             =   960
+            Width           =   180
+         End
+         Begin VB.Label lblDiscountPercent 
+            Alignment       =   1  'Right Justify
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "%"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   12
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00C00000&
+            Height          =   285
+            Left            =   8475
+            MouseIcon       =   "PO_PurchaseInvoiceFrm.frx":7F1E
+            MousePointer    =   99  'Custom
+            TabIndex        =   63
+            Top             =   600
+            Width           =   180
+         End
+         Begin VB.Label Label8 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Freight"
             BeginProperty Font 
                Name            =   "Calibri"
                Size            =   12
@@ -263,9 +633,28 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   285
             Left            =   6960
-            TabIndex        =   46
+            TabIndex        =   55
             Top             =   1320
-            Width           =   390
+            Width           =   675
+         End
+         Begin VB.Label Label7 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Tax (VAT)"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   12
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   285
+            Left            =   6960
+            TabIndex        =   53
+            Top             =   960
+            Width           =   945
          End
          Begin VB.Label Label5 
             AutoSize        =   -1  'True
@@ -281,9 +670,9 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   285
-            Left            =   1200
-            TabIndex        =   45
-            Top             =   2280
+            Left            =   -9999
+            TabIndex        =   52
+            Top             =   2400
             Visible         =   0   'False
             Width           =   1710
          End
@@ -302,8 +691,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   345
             Left            =   7995
-            TabIndex        =   35
-            Top             =   2115
+            TabIndex        =   45
+            Top             =   2100
             Width           =   2085
          End
          Begin VB.Label Label20 
@@ -320,8 +709,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   270
-            Left            =   120
-            TabIndex        =   34
+            Left            =   -9999
+            TabIndex        =   44
             Top             =   1680
             Visible         =   0   'False
             Width           =   630
@@ -329,7 +718,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
          Begin VB.Label Label19 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
-            Caption         =   "Others Amt."
+            Caption         =   "Discount"
             BeginProperty Font 
                Name            =   "Calibri"
                Size            =   12
@@ -341,9 +730,9 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   285
             Left            =   6960
-            TabIndex        =   33
-            Top             =   960
-            Width           =   1170
+            TabIndex        =   43
+            Top             =   600
+            Width           =   855
          End
          Begin VB.Label Label12 
             AutoSize        =   -1  'True
@@ -360,7 +749,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   285
             Left            =   -9999
-            TabIndex        =   32
+            TabIndex        =   42
             Top             =   240
             Visible         =   0   'False
             Width           =   540
@@ -380,7 +769,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   31
+            TabIndex        =   41
             Top             =   240
             Width           =   795
          End
@@ -399,7 +788,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   270
             Left            =   6960
-            TabIndex        =   30
+            TabIndex        =   40
             Top             =   240
             Width           =   1020
          End
@@ -418,7 +807,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   285
             Left            =   8460
-            TabIndex        =   29
+            TabIndex        =   39
             Top             =   240
             Width           =   1620
          End
@@ -436,9 +825,9 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   345
-            Left            =   7200
-            TabIndex        =   28
-            Top             =   2115
+            Left            =   6960
+            TabIndex        =   38
+            Top             =   2100
             Width           =   600
          End
          Begin VB.Label lblCaption_AR 
@@ -456,7 +845,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   270
             Left            =   1200
-            TabIndex        =   27
+            TabIndex        =   37
             Top             =   645
             Visible         =   0   'False
             Width           =   855
@@ -476,7 +865,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   285
             Left            =   2460
-            TabIndex        =   26
+            TabIndex        =   36
             Top             =   645
             Visible         =   0   'False
             Width           =   1620
@@ -495,9 +884,10 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   285
-            Left            =   6960
-            TabIndex        =   25
+            Left            =   -9999
+            TabIndex        =   35
             Top             =   600
+            Visible         =   0   'False
             Width           =   1035
          End
          Begin VB.Label Label3 
@@ -515,26 +905,26 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   285
             Left            =   6960
-            TabIndex        =   24
+            TabIndex        =   34
             Top             =   1680
             Width           =   795
          End
       End
       Begin VB.Frame Frame_Body 
          BackColor       =   &H00FFFFFF&
-         Height          =   4380
+         Height          =   3030
          Left            =   120
-         TabIndex        =   8
-         Top             =   2325
+         TabIndex        =   23
+         Top             =   3045
          Width           =   10215
          Begin MSComctlLib.ListView lvItems 
-            Height          =   3495
+            Height          =   2655
             Left            =   120
-            TabIndex        =   9
-            Top             =   720
+            TabIndex        =   6
+            Top             =   240
             Width           =   9975
             _ExtentX        =   17595
-            _ExtentY        =   6165
+            _ExtentY        =   4683
             View            =   3
             LabelEdit       =   1
             LabelWrap       =   -1  'True
@@ -615,18 +1005,18 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   330
-            Left            =   1320
-            TabIndex        =   12
+            Left            =   -9999
+            TabIndex        =   26
             Top             =   600
             Visible         =   0   'False
             Width           =   3015
          End
          Begin VB.CommandButton btnItemSearch 
             Height          =   330
-            Left            =   4320
-            Picture         =   "PO_PurchaseInvoiceFrm.frx":004E
+            Left            =   -9999
+            Picture         =   "PO_PurchaseInvoiceFrm.frx":8070
             Style           =   1  'Graphical
-            TabIndex        =   11
+            TabIndex        =   25
             Top             =   240
             Visible         =   0   'False
             Width           =   375
@@ -642,8 +1032,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   330
-            Left            =   1320
-            TabIndex        =   10
+            Left            =   -9999
+            TabIndex        =   24
             Top             =   240
             Visible         =   0   'False
             Width           =   3015
@@ -662,8 +1052,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   270
-            Left            =   120
-            TabIndex        =   14
+            Left            =   -9999
+            TabIndex        =   28
             Top             =   600
             Visible         =   0   'False
             Width           =   480
@@ -682,8 +1072,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   270
-            Left            =   120
-            TabIndex        =   13
+            Left            =   -9999
+            TabIndex        =   27
             Top             =   240
             Visible         =   0   'False
             Width           =   555
@@ -691,11 +1081,62 @@ Begin VB.Form PO_PurchaseInvoiceFrm
       End
       Begin VB.Frame Frame_Header2 
          BackColor       =   &H00FFFFFF&
-         Height          =   1875
-         Left            =   7080
-         TabIndex        =   1
+         Height          =   2535
+         Left            =   6210
+         TabIndex        =   19
          Top             =   360
-         Width           =   3165
+         Width           =   4125
+         Begin VB.TextBox txtStatus 
+            BackColor       =   &H00E0E0E0&
+            Enabled         =   0   'False
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   330
+            Left            =   1320
+            TabIndex        =   71
+            TabStop         =   0   'False
+            Top             =   1680
+            Width           =   2655
+         End
+         Begin VB.ComboBox cmbReferenceNumber 
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   345
+            Left            =   1320
+            TabIndex        =   4
+            Top             =   2040
+            Width           =   2655
+         End
+         Begin VB.TextBox txtInvoiceNumber 
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   330
+            Left            =   1320
+            TabIndex        =   0
+            Top             =   240
+            Width           =   2655
+         End
          Begin VB.ComboBox cmbTerms 
             BeginProperty Font 
                Name            =   "Calibri"
@@ -707,37 +1148,21 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   345
-            ItemData        =   "PO_PurchaseInvoiceFrm.frx":0272
-            Left            =   960
-            List            =   "PO_PurchaseInvoiceFrm.frx":0274
+            ItemData        =   "PO_PurchaseInvoiceFrm.frx":8294
+            Left            =   1320
+            List            =   "PO_PurchaseInvoiceFrm.frx":8296
             Style           =   2  'Dropdown List
-            TabIndex        =   43
-            Top             =   600
-            Width           =   2055
-         End
-         Begin VB.TextBox txtReferenceNumber 
-            BeginProperty Font 
-               Name            =   "Calibri"
-               Size            =   9.75
-               Charset         =   0
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Height          =   330
-            Left            =   960
             TabIndex        =   2
-            Top             =   1320
-            Width           =   2055
+            Top             =   960
+            Width           =   2655
          End
          Begin MSComCtl2.DTPicker dtOrder 
             Height          =   330
-            Left            =   960
-            TabIndex        =   3
-            Top             =   240
-            Width           =   2055
-            _ExtentX        =   3625
+            Left            =   1320
+            TabIndex        =   1
+            Top             =   600
+            Width           =   2655
+            _ExtentX        =   4683
             _ExtentY        =   582
             _Version        =   393216
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -749,16 +1174,16 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   96337921
+            Format          =   111738881
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtDue 
             Height          =   330
-            Left            =   960
-            TabIndex        =   4
-            Top             =   960
-            Width           =   2055
-            _ExtentX        =   3625
+            Left            =   1320
+            TabIndex        =   3
+            Top             =   1320
+            Width           =   2655
+            _ExtentX        =   4683
             _ExtentY        =   582
             _Version        =   393216
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -770,8 +1195,46 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   96337921
+            Format          =   111738881
             CurrentDate     =   41509
+         End
+         Begin VB.Label Label18 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Status"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   11.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   270
+            Left            =   120
+            TabIndex        =   72
+            Top             =   1680
+            Width           =   570
+         End
+         Begin VB.Label Label9 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Invoice #"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   11.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   270
+            Left            =   120
+            TabIndex        =   56
+            Top             =   240
+            Width           =   825
          End
          Begin VB.Label Label4 
             AutoSize        =   -1  'True
@@ -788,14 +1251,14 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   44
-            Top             =   600
+            TabIndex        =   51
+            Top             =   960
             Width           =   570
          End
          Begin VB.Label Label22 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
-            Caption         =   "Ref #"
+            Caption         =   "DR/Ref #"
             BeginProperty Font 
                Name            =   "Calibri"
                Size            =   11.25
@@ -807,9 +1270,9 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   7
-            Top             =   1320
-            Width           =   465
+            TabIndex        =   22
+            Top             =   2040
+            Width           =   810
          End
          Begin VB.Label Label11 
             AutoSize        =   -1  'True
@@ -826,8 +1289,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   6
-            Top             =   960
+            TabIndex        =   21
+            Top             =   1320
             Width           =   375
          End
          Begin VB.Label Label6 
@@ -845,15 +1308,15 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   5
-            Top             =   240
+            TabIndex        =   20
+            Top             =   600
             Width           =   435
          End
       End
       Begin MSComctlLib.ListView lvCustomer 
          Height          =   2655
          Left            =   -9999
-         TabIndex        =   39
+         TabIndex        =   49
          Top             =   930
          Width           =   5775
          _ExtentX        =   10186
@@ -910,8 +1373,8 @@ Begin VB.Form PO_PurchaseInvoiceFrm
          EndProperty
       End
       Begin MSComctlLib.ImageList ImageList1 
-         Left            =   0
-         Top             =   0
+         Left            =   4800
+         Top             =   480
          _ExtentX        =   1005
          _ExtentY        =   1005
          BackColor       =   -2147483643
@@ -922,27 +1385,27 @@ Begin VB.Form PO_PurchaseInvoiceFrm
          BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
             NumListImages   =   6
             BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "PO_PurchaseInvoiceFrm.frx":0276
+               Picture         =   "PO_PurchaseInvoiceFrm.frx":8298
                Key             =   ""
             EndProperty
             BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "PO_PurchaseInvoiceFrm.frx":6AD8
+               Picture         =   "PO_PurchaseInvoiceFrm.frx":EAFA
                Key             =   ""
             EndProperty
             BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "PO_PurchaseInvoiceFrm.frx":D33A
+               Picture         =   "PO_PurchaseInvoiceFrm.frx":1535C
                Key             =   ""
             EndProperty
             BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "PO_PurchaseInvoiceFrm.frx":13B9C
+               Picture         =   "PO_PurchaseInvoiceFrm.frx":1BBBE
                Key             =   ""
             EndProperty
             BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "PO_PurchaseInvoiceFrm.frx":13E11
+               Picture         =   "PO_PurchaseInvoiceFrm.frx":1BE33
                Key             =   ""
             EndProperty
             BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-               Picture         =   "PO_PurchaseInvoiceFrm.frx":14482
+               Picture         =   "PO_PurchaseInvoiceFrm.frx":1C4A4
                Key             =   ""
             EndProperty
          EndProperty
@@ -950,12 +1413,12 @@ Begin VB.Form PO_PurchaseInvoiceFrm
       Begin MSComctlLib.Toolbar tb_Standard 
          Height          =   330
          Left            =   0
-         TabIndex        =   40
+         TabIndex        =   50
          Top             =   0
          Width           =   13215
          _ExtentX        =   23310
          _ExtentY        =   582
-         ButtonWidth     =   1376
+         ButtonWidth     =   1667
          ButtonHeight    =   582
          Style           =   1
          TextAlignment   =   1
@@ -964,7 +1427,6 @@ Begin VB.Form PO_PurchaseInvoiceFrm
          BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
             NumButtons      =   6
             BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Object.Visible         =   0   'False
                Caption         =   "New"
                ImageIndex      =   1
             EndProperty
@@ -973,11 +1435,9 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                ImageIndex      =   2
             EndProperty
             BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Object.Visible         =   0   'False
                Style           =   3
             EndProperty
             BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Object.Visible         =   0   'False
                Caption         =   "Cancel"
                ImageIndex      =   3
             EndProperty
@@ -1004,10 +1464,122 @@ Begin VB.Form PO_PurchaseInvoiceFrm
          EndProperty
          Height          =   375
          Left            =   7200
-         TabIndex        =   38
+         TabIndex        =   48
          Top             =   3000
          Visible         =   0   'False
          Width           =   3015
+      End
+      Begin VB.Label lblPORef 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   1320
+         TabIndex        =   70
+         Top             =   1560
+         Width           =   4680
+         WordWrap        =   -1  'True
+      End
+      Begin VB.Label Label29 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "PO Ref #:"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   360
+         TabIndex        =   69
+         Top             =   1560
+         Width           =   840
+      End
+      Begin VB.Label lblSupplierName 
+         BackStyle       =   0  'Transparent
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   1320
+         TabIndex        =   68
+         Top             =   1200
+         Width           =   4680
+         WordWrap        =   -1  'True
+      End
+      Begin VB.Label Label28 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Supplier:"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   360
+         TabIndex        =   67
+         Top             =   1200
+         Width           =   840
+      End
+      Begin VB.Label Label21 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Supplier:"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   100
+         TabIndex        =   66
+         Top             =   0
+         Width           =   840
+      End
+      Begin VB.Label lblSupplier 
+         BackStyle       =   0  'Transparent
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   855
+         Left            =   100
+         TabIndex        =   65
+         Top             =   0
+         Width           =   4560
+         WordWrap        =   -1  'True
       End
    End
 End
@@ -1017,9 +1589,48 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim InvoiceId As String
+Dim InvoiceId As Long
 Dim OrderLine(10000) As Long
 Dim ctrOrderLine As Long
+Public PurchaseOrderId As Long
+Public ReceiveOrderId As Long
+Public StatusId As Long
+
+Public Sub Initialize()
+    ReceiveOrderId = 0
+    InvoiceId = 0
+    StatusId = 1
+    lvDelivery.Visible = False
+    
+    lvItems.ListItems.Clear
+    
+    Dim txtControl As Control
+    For Each txtControl In Me.Controls
+        If TypeOf txtControl Is TextBox And txtControl.Name <> "txtSearch_Order" And txtControl.Name <> "txtSearch_ReferenceNumber" Then
+            txtControl.Text = ""
+            txtStatus.Text = "Open"
+        End If
+    Next
+    cmbReferenceNumber.Text = ""
+    
+    On Error Resume Next
+    txtInvoiceNumber.SetFocus
+End Sub
+Private Function Validated() As Boolean
+    If txtInvoiceNumber.Text = "" Then
+        Validated = False
+        GLOBAL_MessageFrm.lblErrorMessage.Caption = "Invoice number is required."
+        GLOBAL_MessageFrm.Show (1)
+        txtInvoiceNumber.SetFocus
+    ElseIf ReceiveOrderId = 0 Then
+        Validated = False
+        GLOBAL_MessageFrm.lblErrorMessage.Caption = "Please select a delivery receipt to invoice."
+        GLOBAL_MessageFrm.Show (1)
+        cmbReferenceNumber.SetFocus
+    Else
+        Validated = True
+    End If
+End Function
 Public Sub Populate(ByVal data As String)
     Select Case data
         Case "Terms"
@@ -1027,19 +1638,29 @@ Public Sub Populate(ByVal data As String)
             Set rec = Global_Data("Terms")
             cmbTerms.Clear
             cmbTerms.AddItem ""
-'            cmbTerms.ItemData(cmbTerms.NewIndex) = -1
-'            cmbTerms.AddItem "<Add New..>"
             cmbTerms.ItemData(cmbTerms.NewIndex) = 0
             If Not rec.EOF Then
                 Do Until rec.EOF
                     cmbTerms.AddItem rec!Terms
-                    'cmbTerms.Tag = rec!daysdue
                     cmbTerms.ItemData(cmbTerms.NewIndex) = rec!TermId
                     rec.MoveNext
                 Loop
             End If
             cmbTerms.ListIndex = 0
-            'cmbTerms.BackColor = &HC0C0FF
+        Case "Status"
+            Set rec = New ADODB.Recordset
+            Set rec = Global_Data(data)
+            cmbSearch_Status.Clear
+            cmbSearch_Status.AddItem ""
+            cmbSearch_Status.ItemData(cmbSearch_Status.NewIndex) = 0
+            cmbSearch_Status.ListIndex = 0
+            If Not rec.EOF Then
+                Do Until rec.EOF
+                    cmbSearch_Status.AddItem rec!Status
+                    cmbSearch_Status.ItemData(cmbSearch_Status.NewIndex) = rec!StatusId
+                    rec.MoveNext
+                Loop
+            End If
         Case "InvoiceGet"
             Set con = New ADODB.Connection
             Set cmd = New ADODB.Command
@@ -1049,30 +1670,24 @@ Public Sub Populate(ByVal data As String)
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
             cmd.CommandText = "PO_PurchaseInvoice_Get"
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PO_PurchaseOrderFrm.PurchaseOrderId)
+            cmd.Parameters.Append cmd.CreateParameter("@PurchaseInvoiceId", adInteger, adParamInput, , InvoiceId)
             Set rec = cmd.Execute
             If Not rec.EOF Then
+                StatusId = rec!StatusId
+                ReceiveOrderId = rec!ReceiveOrderId
+                txtStatus.Text = rec!Status
                 dtOrder.value = Format(rec!Date, "MM/DD/YY")
                 dtDue.value = Format(rec!DueDate, "MM/DD/YY")
-                If rec!Terms = "" Then
-                    cmbTerms.ListIndex = 0
-                Else
-                    cmbTerms.Text = rec!Terms
-                End If
-                
+                If rec!Terms = "" Then cmbTerms.ListIndex = 0 Else cmbTerms.Text = rec!Terms
+                txtInvoiceNumber.Text = rec!OrderNumber
                 lblSubTotal.Caption = FormatNumber(rec!subtotal, 2, vbTrue)
                 lblTotal.Caption = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
-                'On Error Resume Next
-                txtReferenceNumber.Text = rec!ReferenceNumber
+                cmbReferenceNumber.Text = rec!ReferenceNumber
                 txtRefunds.Text = FormatNumber(rec!refunds, 2, vbTrue, vbFalse)
-                txtFees.Text = FormatNumber(rec!fees, 2, vbTrue, vbFalse)
-                txtVAT.Text = FormatNumber(rec!vat, 2, vbTrue, vbFalse)
+                txtFreight.Text = FormatNumber(rec!Freight, 2, vbTrue, vbFalse)
+                txtVAT.Text = FormatNumber(rec!tax, 2, vbTrue, vbFalse)
                 txtRemarks.Text = rec!Remarks
-                If IsNull(rec!discount) = True Then
-                    txtDiscount.Text = ""
-                Else
-                    txtDiscount.Text = FormatNumber(rec!discount, 2, vbTrue, vbFalse)
-                End If
+                If IsNull(rec!discount) = True Then txtDiscount.Text = "" Else txtDiscount.Text = FormatNumber(rec!discount, 2, vbTrue, vbFalse)
                 InvoiceId = rec!PurchaseInvoiceId
             End If
             con.Close
@@ -1081,7 +1696,7 @@ Public Sub Populate(ByVal data As String)
             Set con = New ADODB.Connection
             Set cmd = New ADODB.Command
             Set rec = New ADODB.Recordset
-            Dim item As MSComctlLib.ListItem
+            Dim Item As MSComctlLib.ListItem
             
             con.ConnectionString = ConnString
             con.Open
@@ -1093,16 +1708,40 @@ Public Sub Populate(ByVal data As String)
             lvItems.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set item = lvItems.ListItems.add(, , rec!PurchaseInvoiceLineId)
-                        item.SubItems(1) = rec!PurchaseInvoiceId
-                        item.SubItems(2) = rec!itemcode
-                        item.SubItems(3) = rec!Name
-                        item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue)
-                        item.SubItems(5) = rec!Uom
-                        item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue)
-                        item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
-                        'item.SubItems(8) = rec!LocationId
-                        item.SubItems(8) = rec!ProductId
+                    Set Item = lvItems.ListItems.add(, , rec!PurchaseInvoiceLineId)
+                        Item.SubItems(1) = rec!PurchaseInvoiceId
+                        Item.SubItems(2) = rec!itemcode
+                        Item.SubItems(3) = rec!Name
+                        Item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue)
+                        Item.SubItems(5) = rec!Uom
+                        Item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue)
+                        Item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
+                        Item.SubItems(8) = rec!ProductId
+                    rec.MoveNext
+                Loop
+            End If
+            con.Close
+        Case "DeliveryReceipt"
+            Set con = New ADODB.Connection
+            Set cmd = New ADODB.Command
+            Set rec = New ADODB.Recordset
+            
+            con.ConnectionString = ConnString
+            con.Open
+            cmd.ActiveConnection = con
+            cmd.CommandType = adCmdStoredProc
+            cmd.CommandText = "PO_ReceiveOrder_Get"
+            cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInput, , Null)
+            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
+            cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , 2) 'SELECT ALL COMPLETED DELIVERY
+            
+            Set rec = cmd.Execute
+            If Not rec.EOF Then
+                lvDelivery.ListItems.Clear
+                Do Until rec.EOF
+                    Set Item = lvDelivery.ListItems.add(, , rec!ReceiveOrderId)
+                        Item.SubItems(1) = rec!DeliveryNumber
+                        Item.SubItems(2) = Format(rec!receiveddate, "mm/dd/yy")
                     rec.MoveNext
                 Loop
             End If
@@ -1111,7 +1750,7 @@ Public Sub Populate(ByVal data As String)
 End Sub
 Public Sub CountTotal()
     Dim Total, subtotal, discount, subtotal1, interestrate, Interest, days, cash As Double
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     subtotal1 = 0
     If IsNumeric(txtDiscount.Text) = False Then
         discount = 0
@@ -1119,23 +1758,22 @@ Public Sub CountTotal()
         discount = txtDiscount.Text
     End If
     
-    For Each item In lvItems.ListItems
-        subtotal = Val(Replace(item.SubItems(4), ",", "")) * Val(Replace(item.SubItems(6), ",", ""))
-        item.SubItems(7) = FormatNumber(subtotal, 2, vbTrue, vbFalse)
+    For Each Item In lvItems.ListItems
+        subtotal = Val(Replace(Item.SubItems(4), ",", "")) * Val(Replace(Item.SubItems(6), ",", ""))
+        Item.SubItems(7) = FormatNumber(subtotal, 2, vbTrue, vbFalse)
         subtotal1 = subtotal1 + subtotal
     Next
-    'subtotal1 = subtotal1
+
     lblSubTotal.Caption = FormatNumber(subtotal1, 2, vbTrue, vbFalse)
-    
-    'COMPUTE INTEREST
-    'Interest = ((days / 30) * (subtotal1 * (interestrate / 100)))
-    'lblInterest.Caption = FormatNumber(Interest, 2, vbTrue, vbFalse)
     
     Total = (subtotal1 - discount - NVAL(txtRefunds.Text) - NVAL(txtFees.Text)) + NVAL(txtVAT.Text)
     lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
-    'lblRemainingBalance.Caption = lblTotal.Caption
 End Sub
 Private Sub lblInvoice_Click()
+
+End Sub
+
+Private Sub btnComplete_Click()
 
 End Sub
 
@@ -1144,7 +1782,7 @@ Private Sub btnReceiveOrder_Click()
     Set cmd = New ADODB.Command
     Set rec = New ADODB.Recordset
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim itemx As MSComctlLib.ListItem
     
     
@@ -1169,16 +1807,16 @@ Private Sub btnReceiveOrder_Click()
 '            Next
             
             If isFound = False Then
-                Set item = lvItems.ListItems.add(, , "")
-                    item.SubItems(1) = ""
-                    item.SubItems(2) = rec!itemcode
-                    item.SubItems(3) = rec!Name
-                    item.SubItems(4) = FormatNumber(rec!receivedquantity, 2, vbTrue)
-                    item.SubItems(5) = rec!Uom
-                    item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue)
-                    item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
+                Set Item = lvItems.ListItems.add(, , "")
+                    Item.SubItems(1) = ""
+                    Item.SubItems(2) = rec!itemcode
+                    Item.SubItems(3) = rec!Name
+                    Item.SubItems(4) = FormatNumber(rec!receivedquantity, 2, vbTrue)
+                    Item.SubItems(5) = rec!Uom
+                    Item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue)
+                    Item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
                     'item.SubItems(8) = ""
-                    item.SubItems(8) = rec!ProductId
+                    Item.SubItems(8) = rec!ProductId
             End If
             rec.MoveNext
         Loop
@@ -1196,7 +1834,98 @@ Private Sub btnSalesReturns_Click()
     PO_PurchaseReturnInvoiceFrm.Show (1)
 End Sub
 
+Public Sub SelectDelivery()
+    Set con = New ADODB.Connection
+    Set cmd = New ADODB.Command
+    Set rec = New ADODB.Recordset
+    Dim Item As MSComctlLib.ListItem
+
+    con.ConnectionString = ConnString
+    con.Open
+    cmd.ActiveConnection = con
+    cmd.CommandType = adCmdStoredProc
+    cmd.CommandText = "PO_Invoice_Generate"
+    cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInput, , ReceiveOrderId)
+    cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
+    Set rec = cmd.Execute
+
+    If Not rec.EOF Then
+        lvItems.ListItems.Clear
+        Do Until rec.EOF
+            Set Item = lvItems.ListItems.add(, , "")
+                Item.SubItems(1) = ""
+                Item.SubItems(2) = rec!itemcode
+                Item.SubItems(3) = rec!Name
+                Item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
+                Item.SubItems(5) = rec!Uom
+                Item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue, vbFalse)
+                Item.SubItems(8) = rec!ProductId
+            rec.MoveNext
+        Loop
+    End If
+
+    con.Close
+    cmbReferenceNumber.Text = lvDelivery.SelectedItem.SubItems(1)
+    txtRemarks.SetFocus
+    CountTotal
+End Sub
+
+Public Sub btnSearch_Click()
+    Set con = New ADODB.Connection
+    Set rec = New ADODB.Recordset
+    Set cmd = New ADODB.Command
+    
+    con.ConnectionString = ConnString
+    con.Open
+    cmd.ActiveConnection = con
+    cmd.CommandType = adCmdStoredProc
+    cmd.CommandText = "PO_PurchaseInvoice_Search"
+    cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 50, txtSearch_OrderNumber.Text)
+    cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
+    cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , cmbSearch_Status.ItemData(cmbSearch_Status.ListIndex))
+    cmd.Parameters.Append cmd.CreateParameter("@DateFrom", adDate, adParamInput, , DateFrom.value)
+    cmd.Parameters.Append cmd.CreateParameter("@DateTo", adDate, adParamInput, , DateTo.value)
+    
+    Dim Item As MSComctlLib.ListItem
+    Set rec = cmd.Execute
+    lvSearch.ListItems.Clear
+    If Not rec.EOF Then
+        Do Until rec.EOF
+            Set Item = lvSearch.ListItems.add(, , rec!PurchaseInvoiceId)
+                Item.SubItems(1) = rec!OrderNumber
+                Item.SubItems(2) = rec!ReferenceNumber
+                Item.SubItems(3) = rec!Status
+            rec.MoveNext
+        Loop
+    End If
+    con.Close
+End Sub
+
+Private Sub cmbReferenceNumber_GotFocus()
+    lvDelivery.Visible = True
+    Populate "DeliveryReceipt"
+    lvDelivery.Left = 5715
+End Sub
+
+Private Sub cmbTerms_Click()
+     If cmbTerms.ListIndex > 0 Then
+        dtDue.value = Format(Now, "MM/DD/YY")
+        dtDue.value = dtDue.value + GetTermDays(cmbTerms.ItemData(cmbTerms.ListIndex))
+    End If
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    Select Case KeyCode
+        Case vbKeyEscape
+            lvDelivery.Visible = False
+    End Select
+End Sub
+
 Private Sub Form_Load()
+    lvSearch.ColumnHeaders(2).width = lvSearch.width * 0.32
+    lvSearch.ColumnHeaders(3).width = lvSearch.width * 0.32
+    lvSearch.ColumnHeaders(4).width = lvSearch.width * 0.32
+
     lvItems.ColumnHeaders(3).width = lvItems.width * 0.14
     lvItems.ColumnHeaders(4).width = lvItems.width * 0.29
     lvItems.ColumnHeaders(5).width = lvItems.width * 0.12
@@ -1205,17 +1934,23 @@ Private Sub Form_Load()
     lvItems.ColumnHeaders(7).width = lvItems.width * 0.13
     lvItems.ColumnHeaders(8).width = lvItems.width * 0.2
     
+    lvDelivery.ColumnHeaders(2).width = lvDelivery.width * 0.47
+    lvDelivery.ColumnHeaders(3).width = lvDelivery.width * 0.47
+    
+    Initialize
+    
     dtOrder.value = PO_PurchaseOrderFrm.dtOrder.value
     dtDue.value = Format(Now, "mm/dd/yy")
     
     txtRemarks.Text = PO_PurchaseOrderFrm.global_remarks
     
-    InvoiceId = "0"
-    
     Populate "Terms"
     Populate "InvoiceGet"
-    Populate "InvoiceLineGet"
-        
+    Populate "Status"
+'    Populate "InvoiceLineGet"
+    
+    DateFrom.value = Format(Now, "MM/DD/YY")
+    DateTo.value = Format(Now, "MM/DD/YY")
     CountTotal
     
     PO_PurchaseReturnInvoiceFrm.Show
@@ -1225,8 +1960,39 @@ Private Sub Form_Load()
     txtDiscountPercent.Text = Val(Replace(txtDiscount.Text, ",", "")) / Val(Replace(lblSubTotal.Caption, ",", "")) * 100
 End Sub
 
+Private Sub lblDiscountPercent_Click()
+    Dim x As Variant
+    x = InputBox("Please input discount in percentage.")
+    If IsNumeric(x) = False And Trim(x) <> "" Then
+        MsgBox "Invalid value.", vbCritical
+    Else
+        Dim discount As Double
+        discount = NVAL(lblSubTotal.Caption) * (NVAL(x) / 100)
+        txtDiscount.Text = FormatNumber(discount, 2, vbTrue, vbFalse)
+    End If
+End Sub
+
+Private Sub lblVatpercent_Click()
+    Dim x As Variant
+    x = InputBox("Please input tax in percentage.")
+    If IsNumeric(x) = False And Trim(x) <> "" Then
+        MsgBox "Invalid value.", vbCritical
+    Else
+        Dim tax As Double
+        tax = (NVAL(lblSubTotal.Caption) - NVAL(txtDiscount.Text)) * (NVAL(x) / 100)
+        txtVAT.Text = FormatNumber(tax, 2, vbTrue, vbFalse)
+    End If
+End Sub
+
+Private Sub lvDelivery_ItemClick(ByVal Item As MSComctlLib.ListItem)
+    ReceiveOrderId = lvDelivery.SelectedItem.Text
+    SelectDelivery
+    lvDelivery.Visible = False
+    lvDelivery.Left = -9999
+End Sub
+
 Private Sub lvItems_DblClick()
-    If lvItems.ListItems.Count > 0 Then
+    If lvItems.ListItems.count > 0 Then
         With PO_PurchaseInvoiceDialogFrm
             .txtQuantity.Text = lvItems.SelectedItem.SubItems(4)
             .txtPrice.Text = lvItems.SelectedItem.SubItems(6)
@@ -1238,15 +2004,8 @@ End Sub
 
 Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
-'        Case vbKeyUp
-'            If lvItems.ListItems.Count > 0 Then
-'                If lvItems.SelectedItem.Index = 1 Then
-'                    txtItemSearch.SetFocus
-'                    'txtCode.SetFocus
-'                End If
-'            End If
         Case vbKeyDelete
-            If lvItems.ListItems.Count > 0 Then
+            If lvItems.ListItems.count > 0 Then
                 If lvItems.SelectedItem.Text <> "" Then
                     OrderLine(ctrOrderLine) = Val(lvItems.SelectedItem.Text)
                     ctrOrderLine = ctrOrderLine + 1
@@ -1261,14 +2020,28 @@ Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
     CountTotal
 End Sub
 
+Private Sub lvSearch_ItemClick(ByVal Item As MSComctlLib.ListItem)
+    If lvSearch.ListItems.count > 0 Then
+        Initialize
+        InvoiceId = lvSearch.SelectedItem.Text
+        Populate "InvoiceGet"
+        Populate "InvoiceLineGet"
+        CountTotal
+        LoadImageStatus picStatus, GetStatus(StatusId)
+    End If
+End Sub
+
 Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Index
+        Case 1 ' NEW
+            Initialize
         Case 2 'SAVE
+            If Validated = False Then Exit Sub
             If EditAccessRights(32) = False Then
                 MsgBox ErrorCodes(74), vbCritical, "Limited Rights"
                 Exit Sub
             End If
-            If PO_PurchaseOrderFrm.StatusId = 7 Then
+            If StatusId = 7 Then
                 GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(64)
                 GLOBAL_MessageFrm.Show (1)
                 Exit Sub
@@ -1289,7 +2062,9 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             cmd.CommandType = adCmdStoredProc
             cmd.ActiveConnection = con
             cmd.Parameters.Append cmd.CreateParameter("@InvoiceId", adInteger, adParamInputOutput, , Val(InvoiceId))
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PO_PurchaseOrderFrm.PurchaseOrderId)
+            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
+            cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInput, , ReceiveOrderId)
+            cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 250, txtInvoiceNumber.Text)
             cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtOrder.value)
             cmd.Parameters.Append cmd.CreateParameter("@DueDate", adDate, adParamInput, , dtDue.value)
             cmd.Parameters.Append cmd.CreateParameter("@TermId", adInteger, adParamInput, , cmbTerms.ItemData(cmbTerms.ListIndex))
@@ -1299,27 +2074,30 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lblTotal.Caption, ",", "")))
                                   cmd.Parameters("@Total").Precision = 18
                                   cmd.Parameters("@Total").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Others", adDecimal, adParamInput, , Val(Replace(txtDiscount.Text, ",", "")))
-                                  cmd.Parameters("@Others").Precision = 18
-                                  cmd.Parameters("@Others").NumericScale = 2
+            cmd.Parameters.Append cmd.CreateParameter("@Discount", adDecimal, adParamInput, , Val(Replace(txtDiscount.Text, ",", "")))
+                                  cmd.Parameters("@Discount").Precision = 18
+                                  cmd.Parameters("@Discount").NumericScale = 2
             cmd.Parameters.Append cmd.CreateParameter("@Refunds", adDecimal, adParamInput, , Val(Replace(txtRefunds.Text, ",", "")))
                                   cmd.Parameters("@Refunds").Precision = 18
                                   cmd.Parameters("@Refunds").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Fees", adDecimal, adParamInput, , NVAL(txtFees.Text))
-                                  cmd.Parameters("@Fees").Precision = 18
-                                  cmd.Parameters("@Fees").NumericScale = 2
-             cmd.Parameters.Append cmd.CreateParameter("@VAT", adDecimal, adParamInput, , NVAL(txtVAT.Text))
-                                  cmd.Parameters("@VAT").Precision = 18
-                                  cmd.Parameters("@VAT").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@ReferenceNumber", adVarChar, adParamInput, 50, txtReferenceNumber.Text)
             cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 250, txtRemarks.Text)
+            cmd.Parameters.Append cmd.CreateParameter("@ReferenceNumber", adVarChar, adParamInput, 50, cmbReferenceNumber.Text)
+            cmd.Parameters.Append cmd.CreateParameter("@Freight", adDecimal, adParamInput, , NVAL(txtFreight.Text))
+                                  cmd.Parameters("@Freight").Precision = 18
+                                  cmd.Parameters("@Freight").NumericScale = 2
+             cmd.Parameters.Append cmd.CreateParameter("@Tax", adDecimal, adParamInput, , NVAL(txtVAT.Text))
+                                  cmd.Parameters("@Tax").Precision = 18
+                                  cmd.Parameters("@Tax").NumericScale = 2
+            cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , StatusId)
+            cmd.Parameters.Append cmd.CreateParameter("@UserId", adInteger, adParamInput, , UserId)
+            cmd.Parameters.Append cmd.CreateParameter("@WorkStationId", adInteger, adParamInput, , WorkstationId)
             
             If Val(InvoiceId) = 0 Then
                 cmd.CommandText = "PO_PurchaseInvoice_Insert"
                 cmd.Execute
                 InvoiceId = cmd.Parameters("@InvoiceId")
                 
-                SavePOSAuditTrail UserId, WorkstationId, "", "Invoiced order ref: " & PO_PurchaseOrderFrm.txtOrderNumber.Text, "PURCHASING"
+                SavePOSAuditTrail UserId, WorkstationId, "", "Invoiced delivery ref #: " & cmbReferenceNumber.Text, "PURCHASING"
             Else
                 cmd.CommandText = "PO_PurchaseInvoice_Update"
                 cmd.Execute
@@ -1328,87 +2106,44 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 SavePOSAuditTrail UserId, WorkstationId, "", "Updated invoice order ref: " & PO_PurchaseOrderFrm.txtOrderNumber.Text, "PURCHASING"
             End If
             
-            'Update Status to INVOICED
-            Set cmd = New ADODB.Command
-            cmd.ActiveConnection = con
-            cmd.CommandType = adCmdStoredProc
-            cmd.CommandText = "PO_PurchaseOrderStatus_Update"
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PO_PurchaseOrderFrm.PurchaseOrderId)
-            cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , 4) 'Invoiced
-            cmd.Execute
-            
             'SAVE LINE
-            Dim item As MSComctlLib.ListItem
-            For Each item In lvItems.ListItems
+            Dim Item As MSComctlLib.ListItem
+            For Each Item In lvItems.ListItems
                 Set cmd = New ADODB.Command
                 cmd.ActiveConnection = con
                 cmd.CommandType = adCmdStoredProc
-                
-                cmd.Parameters.Append cmd.CreateParameter("@InvoiceLineId", adInteger, adParamInputOutput, , Val(item.Text))
+
+                cmd.Parameters.Append cmd.CreateParameter("@InvoiceLineId", adInteger, adParamInputOutput, , Val(Item.Text))
                 cmd.Parameters.Append cmd.CreateParameter("@InvoiceId", adInteger, adParamInput, , InvoiceId)
                 cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtOrder.value)
-                cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(item.SubItems(8)))
-                cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.SubItems(3))
-                cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(item.SubItems(4), ",", "")))
+                cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(Item.SubItems(8)))
+                cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.SubItems(3))
+                cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(Item.SubItems(4), ",", "")))
                                       cmd.Parameters("@Quantity").Precision = 18
                                       cmd.Parameters("@Quantity").NumericScale = 2
-                cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, item.SubItems(5))
-                cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , Val(Replace(item.SubItems(6), ",", "")))
-                                      cmd.Parameters("@Price").Precision = 18
-                                      cmd.Parameters("@Price").NumericScale = 2
-                cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(item.SubItems(7), ",", "")))
+                cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, Item.SubItems(5))
+                cmd.Parameters.Append cmd.CreateParameter("@Cost", adDecimal, adParamInput, , Val(Replace(Item.SubItems(6), ",", "")))
+                                      cmd.Parameters("@Cost").Precision = 18
+                                      cmd.Parameters("@Cost").NumericScale = 2
+                cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(Item.SubItems(7), ",", "")))
                                       cmd.Parameters("@Subtotal").Precision = 18
                                       cmd.Parameters("@Subtotal").NumericScale = 2
-                If item.Text = "" Then
+                If Item.Text = "" Then
                     cmd.CommandText = "PO_PurchaseInvoiceLine_Insert"
                 Else
                     cmd.CommandText = "PO_PurchaseInvoiceLine_Update"
                 End If
                 cmd.Execute
-                item.Text = cmd.Parameters("@InvoiceLineId")
+                Item.Text = cmd.Parameters("@InvoiceLineId")
             Next
-            
-            'UPDATE RESERVERS
-            
-            
-            'UPDATE SO REMAINING BALANCE
-            Set cmd = New ADODB.Command
-            cmd.ActiveConnection = con
-            cmd.CommandType = adCmdStoredProc
-            cmd.CommandText = "PO_Balance_Update"
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PO_PurchaseOrderFrm.PurchaseOrderId)
-            cmd.Execute
-            
-            
-            'INSERT LEDGER
-            Set cmd = New ADODB.Command
-            cmd.ActiveConnection = con
-            cmd.CommandText = "FIN_CustomerLedger_Insert"
-            cmd.CommandType = adCmdStoredProc
-        
-            cmd.Parameters.Append cmd.CreateParameter("@SOPaymentId", adInteger, adParamInput, , Null)
-            cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , PO_PurchaseOrderFrm.VendorId)
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PO_PurchaseOrderFrm.PurchaseOrderId)
-            cmd.Parameters.Append cmd.CreateParameter("@Particulars", adVarChar, adParamInput, 250, "Sales")
-            cmd.Parameters.Append cmd.CreateParameter("@Debit", adDecimal, adParamInput, , Val(Replace(lblTotal.Caption, ",", "")))
-                                  cmd.Parameters("@Debit").Precision = 18
-                                  cmd.Parameters("@Debit").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Credit", adDecimal, adParamInput, , Null)
-                                  cmd.Parameters("@Credit").Precision = 18
-                                  cmd.Parameters("@Credit").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtOrder.value)
-            cmd.Parameters.Append cmd.CreateParameter("@DueDate", adDate, adParamInput, , dtDue.value)
-            cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , Null)
-            cmd.Execute
-            
-            
+
             With PO_PurchaseOrderFrm
                 .StatusId = 4
-                'On Error Resume Next
                 .lvSearch.SelectedItem.SubItems(2) = "Invoiced"
                 .txtStatus.Text = "Invoiced"
+                LoadImageStatus .picStatus, GetStatus(.StatusId)
             End With
-            
+
             'DELETE ORDERLINE IF ANY
             Dim ctr As Integer
             For ctr = 0 To ctrOrderLine
@@ -1425,15 +2160,14 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 End If
             Next
 
-
             'UPDATE PURCHASERETURNSTATUS
-            For Each item In PO_PurchaseReturnInvoiceFrm.lvModules.ListItems
-                If item.Checked = True Then
+            For Each Item In PO_PurchaseReturnInvoiceFrm.lvModules.ListItems
+                If Item.Checked = True Then
                     Set cmd = New ADODB.Command
                     cmd.ActiveConnection = con
                     cmd.CommandType = adCmdStoredProc
-                    cmd.Parameters.Append cmd.CreateParameter("@PurchaseReturnId", adInteger, adParamInput, , NVAL(item.SubItems(5)))
-                    cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , NVAL(item.SubItems(6)))
+                    cmd.Parameters.Append cmd.CreateParameter("@PurchaseReturnId", adInteger, adParamInput, , NVAL(Item.SubItems(5)))
+                    cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , NVAL(Item.SubItems(6)))
                     cmd.CommandText = "PO_PurchaseReturnStatus_Update"
                     cmd.Execute
                 End If
@@ -1443,15 +2177,15 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             con.Close
             
             MsgBox "Invoice saved.", vbInformation
-            LoadImageStatus PO_PurchaseOrderFrm.picStatus, GetStatus(PO_PurchaseOrderFrm.StatusId)
-            UpdateVendorOrderDues
+        Case 4 'CANCEL
+            
         Case 6 'PRINT
             If InvoiceId <> 0 Then
                 Screen.MousePointer = vbHourglass
                 BASE_PrintPreviewFrm.Show '(1)
                 Dim crxApp As New CRAXDRT.Application
                 Dim crxRpt As New CRAXDRT.Report
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\PO_PurchaseInvoice.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\PO_PurchaseInvoice.rpt")
                 crxRpt.RecordSelectionFormula = "{PO_PurchaseInvoice.PurchaseInvoiceId}= " & Val(InvoiceId) & ""
                 crxRpt.DiscardSavedData
 
@@ -1501,7 +2235,7 @@ Private Sub txtFees_Change()
 End Sub
 
 Private Sub txtVAT_Change()
-    If IsNumeric(txtVAT.Text) = False Then
+    If IsNumeric(txtVAT.Text) = False And txtVAT.Text <> "" Then
         txtVAT.Text = "0.00"
     End If
     CountTotal

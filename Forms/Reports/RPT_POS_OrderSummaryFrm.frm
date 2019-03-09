@@ -20,6 +20,44 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
       TabIndex        =   0
       Top             =   0
       Width           =   3855
+      Begin VB.ComboBox cmbStation 
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   345
+         ItemData        =   "RPT_POS_OrderSummaryFrm.frx":0000
+         Left            =   1320
+         List            =   "RPT_POS_OrderSummaryFrm.frx":0002
+         Style           =   2  'Dropdown List
+         TabIndex        =   20
+         Top             =   2760
+         Width           =   2415
+      End
+      Begin VB.ComboBox cmbCashier 
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   345
+         ItemData        =   "RPT_POS_OrderSummaryFrm.frx":0004
+         Left            =   1320
+         List            =   "RPT_POS_OrderSummaryFrm.frx":0006
+         Style           =   2  'Dropdown List
+         TabIndex        =   19
+         Top             =   3120
+         Width           =   2415
+      End
       Begin VB.TextBox txtOR 
          BeginProperty Font 
             Name            =   "Calibri"
@@ -32,7 +70,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   330
          Left            =   1320
-         TabIndex        =   6
+         TabIndex        =   5
          Top             =   6240
          Visible         =   0   'False
          Width           =   2415
@@ -51,7 +89,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   345
          Left            =   -9999
-         TabIndex        =   5
+         TabIndex        =   4
          Top             =   2040
          Visible         =   0   'False
          Width           =   1695
@@ -69,8 +107,8 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   375
          Left            =   1920
-         TabIndex        =   4
-         Top             =   4080
+         TabIndex        =   3
+         Top             =   5280
          Width           =   1815
       End
       Begin VB.TextBox txtTitle 
@@ -85,28 +123,8 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   330
          Left            =   1320
-         TabIndex        =   3
-         Top             =   3600
-         Width           =   2415
-      End
-      Begin VB.ComboBox cmbCashier 
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   345
-         ItemData        =   "RPT_POS_OrderSummaryFrm.frx":0000
-         Left            =   1320
-         List            =   "RPT_POS_OrderSummaryFrm.frx":0002
-         Style           =   2  'Dropdown List
          TabIndex        =   2
-         Top             =   6600
-         Visible         =   0   'False
+         Top             =   4800
          Width           =   2415
       End
       Begin VB.ComboBox cmbSort 
@@ -120,18 +138,18 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         ItemData        =   "RPT_POS_OrderSummaryFrm.frx":0004
+         ItemData        =   "RPT_POS_OrderSummaryFrm.frx":0008
          Left            =   1320
-         List            =   "RPT_POS_OrderSummaryFrm.frx":0017
+         List            =   "RPT_POS_OrderSummaryFrm.frx":001B
          Style           =   2  'Dropdown List
          TabIndex        =   1
-         Top             =   3240
+         Top             =   4440
          Width           =   2415
       End
       Begin MSComCtl2.DTPicker TimeFrom 
          Height          =   375
          Left            =   1320
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   1080
          Width           =   2415
          _ExtentX        =   4260
@@ -146,14 +164,14 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   155975682
+         Format          =   112590850
          UpDown          =   -1  'True
          CurrentDate     =   42217
       End
       Begin MSComCtl2.DTPicker DateTo 
          Height          =   345
          Left            =   1320
-         TabIndex        =   8
+         TabIndex        =   7
          Top             =   1680
          Width           =   2415
          _ExtentX        =   4260
@@ -168,13 +186,13 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   155975681
+         Format          =   112590849
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
          Height          =   345
          Left            =   1320
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   720
          Width           =   2415
          _ExtentX        =   4260
@@ -189,13 +207,13 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   155975681
+         Format          =   112590849
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker TimeTo 
          Height          =   375
          Left            =   1320
-         TabIndex        =   10
+         TabIndex        =   9
          Top             =   2040
          Width           =   2415
          _ExtentX        =   4260
@@ -210,9 +228,47 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   155975682
+         Format          =   112590850
          UpDown          =   -1  'True
          CurrentDate     =   42217
+      End
+      Begin VB.Label Label3 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Station"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   120
+         TabIndex        =   22
+         Top             =   2760
+         Width           =   660
+      End
+      Begin VB.Label Label8 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Cashier"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   120
+         TabIndex        =   21
+         Top             =   3120
+         Width           =   690
       End
       Begin VB.Label Label10 
          AutoSize        =   -1  'True
@@ -229,7 +285,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   18
+         TabIndex        =   16
          Top             =   6240
          Visible         =   0   'False
          Width           =   795
@@ -249,8 +305,8 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   17
-         Top             =   3240
+         TabIndex        =   15
+         Top             =   4440
          Width           =   645
       End
       Begin VB.Label Label5 
@@ -268,8 +324,8 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   16
-         Top             =   3600
+         TabIndex        =   14
+         Top             =   4800
          Width           =   1095
       End
       Begin VB.Label Label4 
@@ -287,8 +343,8 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   345
          Left            =   120
-         TabIndex        =   15
-         Top             =   2760
+         TabIndex        =   13
+         Top             =   3960
          Width           =   870
       End
       Begin VB.Label Label2 
@@ -306,7 +362,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   14
+         TabIndex        =   12
          Top             =   720
          Width           =   960
       End
@@ -325,7 +381,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   345
          Left            =   120
-         TabIndex        =   13
+         TabIndex        =   11
          Top             =   120
          Width           =   1005
       End
@@ -344,35 +400,15 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   12
+         TabIndex        =   10
          Top             =   1680
          Width           =   705
-      End
-      Begin VB.Label Label3 
-         AutoSize        =   -1  'True
-         BackStyle       =   0  'Transparent
-         Caption         =   "Cashier"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   11.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   270
-         Left            =   120
-         TabIndex        =   11
-         Top             =   6600
-         Visible         =   0   'False
-         Width           =   690
       End
    End
    Begin MSComctlLib.ListView lvItemList 
       Height          =   3735
       Left            =   -9960
-      TabIndex        =   19
+      TabIndex        =   17
       Top             =   1080
       Width           =   7575
       _ExtentX        =   13361
@@ -425,7 +461,7 @@ Begin VB.Form RPT_POS_OrderSummaryFrm
    Begin CRVIEWERLibCtl.CRViewer CRViewer 
       Height          =   9015
       Left            =   3840
-      TabIndex        =   20
+      TabIndex        =   18
       Top             =   0
       Width           =   11295
       DisplayGroupTree=   0   'False
@@ -482,6 +518,8 @@ Private Sub btnGenerate_Click()
     crxRpt.ParameterFields.GetItemByName("@TimeFrom").AddCurrentValue Str(TimeFrom.value)
     crxRpt.ParameterFields.GetItemByName("@TimeTo").AddCurrentValue Str(TimeTo.value)
     crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.Text
+    crxRpt.ParameterFields.GetItemByName("@UserId").AddCurrentValue cmbCashier.ItemData(cmbCashier.ListIndex)
+    crxRpt.ParameterFields.GetItemByName("@WorkStationId").AddCurrentValue cmbStation.ItemData(cmbStation.ListIndex)
     
     CRViewer.ReportSource = crxRpt
     CRViewer.ViewReport
@@ -545,8 +583,29 @@ Private Sub Form_Load()
             rec.MoveNext
         End If
     End If
-
+    cmbCashier.ListIndex = 0
     cmbSort.ListIndex = 0
+    
+    Set rec = New ADODB.Recordset
+    Set rec = Global_Data("Workstation")
+    
+    If Not rec.EOF Then
+        cmbStation.Clear
+        cmbStation.AddItem ""
+        cmbStation.ItemData(cmbStation.NewIndex) = 0
+        If rec!isActive = "True" Then
+            Do Until rec.EOF
+                cmbStation.AddItem rec!ComputerName
+                cmbStation.ItemData(cmbStation.NewIndex) = rec!WorkstationId
+                rec.MoveNext
+            Loop
+        Else
+            rec.MoveNext
+        End If
+    End If
+
+    cmbStation.ListIndex = 0
+    
     
     Me.Height = 9390
     Me.width = 15180
@@ -573,7 +632,7 @@ Private Sub Form_Resize()
 End Sub
 
 Private Sub lvItemList_DblClick()
-    If lvItemList.ListItems.Count > 0 Then
+    If lvItemList.ListItems.count > 0 Then
         UserId = lvItemList.SelectedItem.Text
         cmbCashier.Text = lvItemList.SelectedItem.SubItems(2)
         lvItemList.Left = -9999

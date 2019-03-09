@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form INV_TransferStockFrm 
    BorderStyle     =   1  'Fixed Single
@@ -22,7 +22,7 @@ Begin VB.Form INV_TransferStockFrm
       Picture         =   "INV_TransferStockFrm.frx":0000
       ScaleHeight     =   1050
       ScaleWidth      =   3750
-      TabIndex        =   54
+      TabIndex        =   53
       Top             =   2160
       Width           =   3755
    End
@@ -33,7 +33,7 @@ Begin VB.Form INV_TransferStockFrm
       Picture         =   "INV_TransferStockFrm.frx":7D72
       ScaleHeight     =   2295
       ScaleWidth      =   6195
-      TabIndex        =   18
+      TabIndex        =   17
       Top             =   2640
       Width           =   6195
    End
@@ -48,18 +48,18 @@ Begin VB.Form INV_TransferStockFrm
       Picture         =   "INV_TransferStockFrm.frx":18A0E
       ScaleHeight     =   2295
       ScaleWidth      =   6195
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   2640
       Width           =   6195
    End
    Begin MSComctlLib.ListView lvItemList 
-      Height          =   4215
+      Height          =   3735
       Left            =   6075
-      TabIndex        =   20
+      TabIndex        =   19
       Top             =   3480
       Width           =   8655
       _ExtentX        =   15266
-      _ExtentY        =   7435
+      _ExtentY        =   6588
       View            =   3
       LabelEdit       =   1
       LabelWrap       =   -1  'True
@@ -118,32 +118,32 @@ Begin VB.Form INV_TransferStockFrm
          Object.Width           =   0
       EndProperty
    End
-   Begin VB.CommandButton btnStatus 
-      BackColor       =   &H00E0E0E0&
-      Caption         =   "Complete Order"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   12240
-      TabIndex        =   9
-      Top             =   7320
-      Width           =   2535
-   End
    Begin VB.Frame Body_Frame1 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
       Height          =   9015
       Left            =   4640
-      TabIndex        =   25
+      TabIndex        =   24
       Top             =   0
       Width           =   10455
+      Begin VB.CommandButton btnStatus 
+         BackColor       =   &H00E0E0E0&
+         Caption         =   "Complete Order"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   7440
+         TabIndex        =   54
+         Top             =   2520
+         Width           =   2895
+      End
       Begin VB.ComboBox cmbOrigin 
          BeginProperty Font 
             Name            =   "Calibri"
@@ -157,7 +157,7 @@ Begin VB.Form INV_TransferStockFrm
          Height          =   345
          Left            =   2280
          Style           =   2  'Dropdown List
-         TabIndex        =   50
+         TabIndex        =   49
          Top             =   2160
          Width           =   3855
       End
@@ -174,14 +174,14 @@ Begin VB.Form INV_TransferStockFrm
          Height          =   345
          Left            =   2280
          Style           =   2  'Dropdown List
-         TabIndex        =   49
+         TabIndex        =   48
          Top             =   2520
          Width           =   3855
       End
       Begin MSComctlLib.ListView lvCustomer 
          Height          =   2655
          Left            =   -9999
-         TabIndex        =   26
+         TabIndex        =   25
          Top             =   930
          Width           =   5775
          _ExtentX        =   10186
@@ -243,7 +243,7 @@ Begin VB.Form INV_TransferStockFrm
          Caption         =   "Frame1"
          Height          =   1215
          Left            =   120
-         TabIndex        =   39
+         TabIndex        =   38
          Top             =   600
          Width           =   6735
          Begin VB.ComboBox cmbWarehouseManager 
@@ -308,7 +308,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   345
             Left            =   -9999
-            TabIndex        =   12
+            TabIndex        =   11
             Top             =   0
             Visible         =   0   'False
             Width           =   4695
@@ -325,7 +325,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   330
             Left            =   -9999
-            TabIndex        =   10
+            TabIndex        =   9
             Top             =   360
             Visible         =   0   'False
             Width           =   4695
@@ -345,7 +345,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   48
+            TabIndex        =   47
             Top             =   720
             Width           =   570
          End
@@ -364,7 +364,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   47
+            TabIndex        =   46
             Top             =   0
             Width           =   1920
          End
@@ -383,7 +383,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   -9999
-            TabIndex        =   42
+            TabIndex        =   41
             Top             =   0
             Visible         =   0   'False
             Width           =   900
@@ -403,7 +403,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   -9999
-            TabIndex        =   41
+            TabIndex        =   40
             Top             =   360
             Visible         =   0   'False
             Width           =   885
@@ -423,7 +423,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   40
+            TabIndex        =   39
             Top             =   360
             Width           =   1110
          End
@@ -432,7 +432,7 @@ Begin VB.Form INV_TransferStockFrm
          BackColor       =   &H00FFFFFF&
          Height          =   4140
          Left            =   120
-         TabIndex        =   36
+         TabIndex        =   35
          Top             =   2925
          Width           =   10215
          Begin VB.TextBox txtItemSearch 
@@ -456,7 +456,7 @@ Begin VB.Form INV_TransferStockFrm
             Left            =   4800
             Picture         =   "INV_TransferStockFrm.frx":2109C
             Style           =   1  'Graphical
-            TabIndex        =   11
+            TabIndex        =   10
             Top             =   240
             Width           =   375
          End
@@ -555,7 +555,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   37
+            TabIndex        =   36
             Top             =   240
             Width           =   1035
          End
@@ -564,7 +564,7 @@ Begin VB.Form INV_TransferStockFrm
          BackColor       =   &H00FFFFFF&
          Height          =   1815
          Left            =   120
-         TabIndex        =   32
+         TabIndex        =   31
          Top             =   7080
          Width           =   10215
          Begin VB.TextBox txtRemarks 
@@ -600,7 +600,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   390
             Left            =   -9999
-            TabIndex        =   33
+            TabIndex        =   32
             Top             =   240
             Visible         =   0   'False
             Width           =   1695
@@ -620,7 +620,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   35
+            TabIndex        =   34
             Top             =   240
             Width           =   795
          End
@@ -639,7 +639,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   285
             Left            =   -9999
-            TabIndex        =   34
+            TabIndex        =   33
             Top             =   240
             Visible         =   0   'False
             Width           =   540
@@ -649,7 +649,7 @@ Begin VB.Form INV_TransferStockFrm
          BackColor       =   &H00FFFFFF&
          Height          =   1395
          Left            =   7170
-         TabIndex        =   27
+         TabIndex        =   26
          Top             =   360
          Width           =   3165
          Begin VB.TextBox txtOrderNumber 
@@ -681,7 +681,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   330
             Left            =   960
-            TabIndex        =   28
+            TabIndex        =   27
             TabStop         =   0   'False
             Top             =   960
             Width           =   2055
@@ -704,7 +704,7 @@ Begin VB.Form INV_TransferStockFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   87490561
+            Format          =   113180673
             CurrentDate     =   41509
          End
          Begin VB.Label Label5 
@@ -722,7 +722,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   31
+            TabIndex        =   30
             Top             =   240
             Width           =   690
          End
@@ -741,7 +741,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   30
+            TabIndex        =   29
             Top             =   600
             Width           =   435
          End
@@ -760,7 +760,7 @@ Begin VB.Form INV_TransferStockFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   29
+            TabIndex        =   28
             Top             =   960
             Width           =   570
          End
@@ -768,7 +768,7 @@ Begin VB.Form INV_TransferStockFrm
       Begin MSComctlLib.Toolbar tb_Standard 
          Height          =   330
          Left            =   0
-         TabIndex        =   38
+         TabIndex        =   37
          Top             =   0
          Width           =   11775
          _ExtentX        =   20770
@@ -820,7 +820,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   53
+         TabIndex        =   52
          Top             =   1800
          Width           =   1590
       End
@@ -839,7 +839,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   52
+         TabIndex        =   51
          Top             =   2160
          Width           =   570
       End
@@ -858,7 +858,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   51
+         TabIndex        =   50
          Top             =   2520
          Width           =   1080
       End
@@ -868,7 +868,7 @@ Begin VB.Form INV_TransferStockFrm
       BorderStyle     =   0  'None
       Height          =   9015
       Left            =   0
-      TabIndex        =   21
+      TabIndex        =   20
       Top             =   0
       Width           =   4575
       Begin VB.TextBox txtSearch_OrderNumber 
@@ -883,7 +883,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   330
          Left            =   1440
-         TabIndex        =   13
+         TabIndex        =   12
          Top             =   480
          Width           =   3015
       End
@@ -900,7 +900,7 @@ Begin VB.Form INV_TransferStockFrm
          Height          =   345
          Left            =   1440
          Style           =   2  'Dropdown List
-         TabIndex        =   14
+         TabIndex        =   13
          Top             =   840
          Width           =   3015
       End
@@ -917,14 +917,14 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   375
          Left            =   3240
-         TabIndex        =   15
+         TabIndex        =   14
          Top             =   2040
          Width           =   1215
       End
       Begin MSComctlLib.ListView lvSearch 
          Height          =   6375
          Left            =   120
-         TabIndex        =   16
+         TabIndex        =   15
          Top             =   2520
          Width           =   4335
          _ExtentX        =   7646
@@ -968,7 +968,7 @@ Begin VB.Form INV_TransferStockFrm
       Begin MSComCtl2.DTPicker DateTo 
          Height          =   345
          Left            =   1440
-         TabIndex        =   43
+         TabIndex        =   42
          Top             =   1560
          Width           =   3015
          _ExtentX        =   5318
@@ -983,13 +983,13 @@ Begin VB.Form INV_TransferStockFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   87490561
+         Format          =   113180673
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
          Height          =   345
          Left            =   1440
-         TabIndex        =   44
+         TabIndex        =   43
          Top             =   1200
          Width           =   3015
          _ExtentX        =   5318
@@ -1004,7 +1004,7 @@ Begin VB.Form INV_TransferStockFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   87490561
+         Format          =   113180673
          CurrentDate     =   41686
       End
       Begin VB.Label Label15 
@@ -1022,7 +1022,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   46
+         TabIndex        =   45
          Top             =   1560
          Width           =   705
       End
@@ -1041,7 +1041,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   45
+         TabIndex        =   44
          Top             =   1200
          Width           =   960
       End
@@ -1060,7 +1060,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   24
+         TabIndex        =   23
          Top             =   480
          Width           =   690
       End
@@ -1079,7 +1079,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   345
          Left            =   120
-         TabIndex        =   23
+         TabIndex        =   22
          Top             =   80
          Width           =   795
       End
@@ -1098,7 +1098,7 @@ Begin VB.Form INV_TransferStockFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   22
+         TabIndex        =   21
          Top             =   840
          Width           =   570
       End
@@ -1118,7 +1118,7 @@ Begin VB.Form INV_TransferStockFrm
       Height          =   375
       Left            =   9285
       Style           =   1  'Graphical
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   7200
       Visible         =   0   'False
       Width           =   2535
@@ -2035,7 +2035,7 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 
 Private Sub lvCustomer_DblClick()
-    If lvCustomer.ListItems.Count > 0 Then
+    If lvCustomer.ListItems.count > 0 Then
         WarehouseManagerId = lvCustomer.SelectedItem.Text
         cmbCustomer.Text = lvCustomer.SelectedItem.SubItems(2)
         'lblBalance.Caption = lvCustomer.SelectedItem.SubItems(3)
@@ -2059,7 +2059,7 @@ End Sub
 Private Sub lvItemList_DblClick()
     'SO_ItemSelectOptionFrm.txtPrice.text = lvItemList.SelectedItem.SubItems(3)
     'SO_ItemSelectOptionFrm.Show (1)
-    If lvItemList.ListItems.Count > 0 Then
+    If lvItemList.ListItems.count > 0 Then
         Unload INV_TransferStockOptFrm
         INV_TransferStockOptFrm.isModify = False
         INV_TransferStockOptFrm.isFormSearch = False
@@ -2072,7 +2072,7 @@ End Sub
 Private Sub lvItemList_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case vbKeyReturn
-            If lvItemList.ListItems.Count > 0 Then
+            If lvItemList.ListItems.count > 0 Then
                 'SO_ItemSelectOptionFrm.txtPrice.text = lvItemList.SelectedItem.SubItems(3)
                 'SO_ItemSelectOptionFrm.Show (1)
                 Unload INV_TransferStockOptFrm
@@ -2088,7 +2088,7 @@ End Sub
 
 Private Sub lvItems_DblClick()
     Unload INV_TransferStockOptFrm
-    If lvItems.ListItems.Count > 0 Then
+    If lvItems.ListItems.count > 0 Then
         With INV_TransferStockOptFrm
             currentproductid = lvItems.SelectedItem.SubItems(6)
             .txtQuantity.Text = lvItems.SelectedItem.SubItems(4)
@@ -2102,14 +2102,14 @@ End Sub
 Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case vbKeyUp
-            If lvItems.ListItems.Count > 0 Then
+            If lvItems.ListItems.count > 0 Then
                 If lvItems.SelectedItem.Index = 1 Then
                     'txtItemSearch.SetFocus
                     'txtCode.SetFocus
                 End If
             End If
         Case vbKeyDelete
-            If lvItems.ListItems.Count > 0 Then
+            If lvItems.ListItems.count > 0 Then
                 If lvItems.SelectedItem.Text <> "" Then
                     OrderLine(ctrOrderLine) = Val(lvItems.SelectedItem.Text)
                     ctrOrderLine = ctrOrderLine + 1
@@ -2123,7 +2123,7 @@ Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
                 End If
                 cmbOrigin.Enabled = False
                 
-                If lvItems.ListItems.Count <= 0 Then cmbOrigin.Enabled = True
+                If lvItems.ListItems.count <= 0 Then cmbOrigin.Enabled = True
                 
                 On Error Resume Next
                 selectText txtItemSearch
@@ -2136,7 +2136,7 @@ Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
-    If lvSearch.ListItems.Count > 0 Then
+    If lvSearch.ListItems.count > 0 Then
         TransferStockId = lvSearch.SelectedItem.Text
         Populate "TransferStockLineGet"
         CountTotal

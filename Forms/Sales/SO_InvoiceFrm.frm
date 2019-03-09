@@ -15,23 +15,6 @@ Begin VB.Form SO_InvoiceFrm
    ScaleWidth      =   10410
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton btnSalesReturns 
-      Caption         =   "Add Sales Returns"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   120
-      TabIndex        =   39
-      Top             =   1920
-      Width           =   3405
-   End
    Begin VB.CommandButton btnReceiveOrder 
       Caption         =   "Auto Fill"
       BeginProperty Font 
@@ -138,6 +121,23 @@ Begin VB.Form SO_InvoiceFrm
       TabIndex        =   0
       Top             =   0
       Width           =   10455
+      Begin VB.CommandButton btnSalesReturns 
+         Caption         =   "Add Sales Returns"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   40
+         Top             =   1920
+         Width           =   2805
+      End
       Begin VB.Frame Frame_Header2 
          BackColor       =   &H00FFFFFF&
          Height          =   1515
@@ -179,7 +179,7 @@ Begin VB.Form SO_InvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   95944705
+            Format          =   112656385
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtDue 
@@ -200,7 +200,7 @@ Begin VB.Form SO_InvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   95944705
+            Format          =   112656385
             CurrentDate     =   41509
          End
          Begin VB.Label Label6 
@@ -545,7 +545,7 @@ Begin VB.Form SO_InvoiceFrm
             EndProperty
             Height          =   345
             ItemData        =   "SO_InvoiceFrm.frx":1AC9E
-            Left            =   1200
+            Left            =   -99999
             List            =   "SO_InvoiceFrm.frx":1ACAE
             Style           =   2  'Dropdown List
             TabIndex        =   5
@@ -568,7 +568,7 @@ Begin VB.Form SO_InvoiceFrm
             EndProperty
             Height          =   285
             Left            =   7200
-            TabIndex        =   40
+            TabIndex        =   39
             Top             =   1320
             Width           =   795
          End
@@ -760,7 +760,7 @@ Begin VB.Form SO_InvoiceFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   270
-            Left            =   120
+            Left            =   -99999
             TabIndex        =   11
             Top             =   1680
             Visible         =   0   'False
@@ -1091,7 +1091,7 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 
 Private Sub lvItems_DblClick()
-    If lvItems.ListItems.Count > 0 Then
+    If lvItems.ListItems.count > 0 Then
         With SO_InvoiceDialogFrm
             .txtQuantity.Text = lvItems.SelectedItem.SubItems(4)
             .txtPrice.Text = lvItems.SelectedItem.SubItems(6)
@@ -1112,7 +1112,7 @@ Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
 '                End If
 '            End If
         Case vbKeyDelete
-            If lvItems.ListItems.Count > 0 Then
+            If lvItems.ListItems.count > 0 Then
                 If lvItems.SelectedItem.Text <> "" Then
                     OrderLine(ctrOrderLine) = Val(lvItems.SelectedItem.Text)
                     ctrOrderLine = ctrOrderLine + 1
@@ -1313,7 +1313,7 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 BASE_PrintPreviewFrm.Show '(1)
                 Dim crxApp As New CRAXDRT.Application
                 Dim crxRpt As New CRAXDRT.Report
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\SO_SalesInvoice.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\SO_SalesInvoice.rpt")
                 crxRpt.RecordSelectionFormula = "{SO_Invoice.InvoiceId}= " & Val(InvoiceId) & ""
                 crxRpt.DiscardSavedData
 

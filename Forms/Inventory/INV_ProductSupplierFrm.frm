@@ -149,7 +149,7 @@ Begin VB.Form INV_ProductSupplierFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   148635649
+      Format          =   113180673
       CurrentDate     =   41686
    End
    Begin MSComctlLib.ListView lvProductSuppliers 
@@ -381,16 +381,17 @@ Private Sub chkLastPurchaseDate_Click()
 End Sub
 
 Public Sub CountAverageCost()
-    Dim total, count As Integer
+    Dim Total, count As Integer
     
     For Each item In lvProductSuppliers.ListItems
         If NVAL(item.SubItems(5)) > 0 Then
-            total = total + NVAL(item.SubItems(5))
+            Total = Total + NVAL(item.SubItems(5))
             count = count + 1
         End If
     Next
-    total = total / count
-    lblAverageCost.Caption = "Average Cost: " & FormatNumber(total, 2, vbTrue, vbFalse)
+    On Error Resume Next
+    Total = Total / count
+    lblAverageCost.Caption = "Average Cost: " & FormatNumber(Total, 2, vbTrue, vbFalse)
 End Sub
 
 Private Sub Form_Load()

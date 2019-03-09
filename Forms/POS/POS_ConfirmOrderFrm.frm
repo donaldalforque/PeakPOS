@@ -193,70 +193,72 @@ Private Sub btnAccept_Click()
         cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , Now)
         cmd.Parameters.Append cmd.CreateParameter("@CurrentUserId", adInteger, adParamInput, , .CurrentUserId)
         cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , 1) 'OPEN
+        cmd.Parameters.Append cmd.CreateParameter("@Referencenumber", adVarChar, adParamInput, 50, "")
+        cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 50, "")
         cmd.Execute
         POS_OrderId = Val(cmd.Parameters("@POS_OrderId"))
         
         'SAVE LINE
-        Dim item As MSComctlLib.ListItem
-        For Each item In .lvList.ListItems
+        Dim Item As MSComctlLib.ListItem
+        For Each Item In .lvList.ListItems
             Set cmd = New ADODB.Command
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
             cmd.CommandText = "POS_OrderLine_Insert"
             
-            cmd.Parameters.Append cmd.CreateParameter("@POS_OrderLineId", adInteger, adParamInputOutput, , NVAL(item.SubItems(22)))
+            cmd.Parameters.Append cmd.CreateParameter("@POS_OrderLineId", adInteger, adParamInputOutput, , NVAL(Item.SubItems(22)))
             cmd.Parameters.Append cmd.CreateParameter("@POS_OrderId", adInteger, adParamInput, , POS_OrderId)
-            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.Text)
-            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(item.SubItems(1)))
+            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.Text)
+            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(Item.SubItems(1)))
                                   cmd.Parameters("@Quantity").Precision = 18
                                   cmd.Parameters("@Quantity").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Unit", adVarChar, adParamInput, 50, item.SubItems(2))
-            cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , NVAL(item.SubItems(3)))
+            cmd.Parameters.Append cmd.CreateParameter("@Unit", adVarChar, adParamInput, 50, Item.SubItems(2))
+            cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , NVAL(Item.SubItems(3)))
                                   cmd.Parameters("@Price").Precision = 18
                                   cmd.Parameters("@Price").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Discount", adDecimal, adParamInput, , NVAL(item.SubItems(4)))
+            cmd.Parameters.Append cmd.CreateParameter("@Discount", adDecimal, adParamInput, , NVAL(Item.SubItems(4)))
                                   cmd.Parameters("@Discount").Precision = 18
                                   cmd.Parameters("@Discount").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , NVAL(item.SubItems(5)))
+            cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , NVAL(Item.SubItems(5)))
                                   cmd.Parameters("@Subtotal").Precision = 18
                                   cmd.Parameters("@Subtotal").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@UnitCost", adDecimal, adParamInput, , NVAL(item.SubItems(6)))
+            cmd.Parameters.Append cmd.CreateParameter("@UnitCost", adDecimal, adParamInput, , NVAL(Item.SubItems(6)))
                                   cmd.Parameters("@UnitCost").Precision = 18
                                   cmd.Parameters("@UnitCost").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@HiddenQuantity", adDecimal, adParamInput, , NVAL(item.SubItems(7)))
+            cmd.Parameters.Append cmd.CreateParameter("@HiddenQuantity", adDecimal, adParamInput, , NVAL(Item.SubItems(7)))
                                   cmd.Parameters("@HiddenQuantity").Precision = 18
                                   cmd.Parameters("@HiddenQuantity").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , NVAL(item.SubItems(8)))
-            cmd.Parameters.Append cmd.CreateParameter("@HiddenPrice", adDecimal, adParamInput, , NVAL(item.SubItems(9)))
+            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , NVAL(Item.SubItems(8)))
+            cmd.Parameters.Append cmd.CreateParameter("@HiddenPrice", adDecimal, adParamInput, , NVAL(Item.SubItems(9)))
                                   cmd.Parameters("@HiddenPrice").Precision = 18
                                   cmd.Parameters("@HiddenPrice").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Tax", adDecimal, adParamInput, , NVAL(item.SubItems(13)))
+            cmd.Parameters.Append cmd.CreateParameter("@Tax", adDecimal, adParamInput, , NVAL(Item.SubItems(13)))
                                   cmd.Parameters("@Tax").Precision = 18
                                   cmd.Parameters("@Tax").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@TaxComputation", adDecimal, adParamInput, , NVAL(item.SubItems(14)))
+            cmd.Parameters.Append cmd.CreateParameter("@TaxComputation", adDecimal, adParamInput, , NVAL(Item.SubItems(14)))
                                   cmd.Parameters("@TaxComputation").Precision = 18
                                   cmd.Parameters("@TaxComputation").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@DiscountType", adVarChar, adParamInput, 50, item.SubItems(15))
-            cmd.Parameters.Append cmd.CreateParameter("@DeductInventory", adDecimal, adParamInput, , NVAL(item.SubItems(16)))
+            cmd.Parameters.Append cmd.CreateParameter("@DiscountType", adVarChar, adParamInput, 50, Item.SubItems(15))
+            cmd.Parameters.Append cmd.CreateParameter("@DeductInventory", adDecimal, adParamInput, , NVAL(Item.SubItems(16)))
                                   cmd.Parameters("@DeductInventory").Precision = 18
                                   cmd.Parameters("@DeductInventory").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Discounted", adDecimal, adParamInput, , NVAL(item.SubItems(17)))
+            cmd.Parameters.Append cmd.CreateParameter("@Discounted", adDecimal, adParamInput, , NVAL(Item.SubItems(17)))
                                   cmd.Parameters("@Discounted").Precision = 18
                                   cmd.Parameters("@Discounted").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@ReserveId", adInteger, adParamInput, , NVAL(item.SubItems(18)))
-            cmd.Parameters.Append cmd.CreateParameter("@DiscountPercent", adDecimal, adParamInput, , NVAL(item.SubItems(19)))
+            cmd.Parameters.Append cmd.CreateParameter("@ReserveId", adInteger, adParamInput, , NVAL(Item.SubItems(18)))
+            cmd.Parameters.Append cmd.CreateParameter("@DiscountPercent", adDecimal, adParamInput, , NVAL(Item.SubItems(19)))
                                   cmd.Parameters("@DiscountPercent").Precision = 18
                                   cmd.Parameters("@DiscountPercent").NumericScale = 15
-            cmd.Parameters.Append cmd.CreateParameter("@isTaxExempt", adVarChar, adParamInput, 50, item.SubItems(20))
-            cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , NVAL(item.SubItems(16)))
+            cmd.Parameters.Append cmd.CreateParameter("@isTaxExempt", adVarChar, adParamInput, 50, Item.SubItems(20))
+            cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , NVAL(Item.SubItems(16)))
                                   cmd.Parameters("@ActualQuantity").Precision = 18
                                   cmd.Parameters("@ActualQuantity").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Percentage", adDecimal, adParamInput, , NVAL(item.SubItems(13)))
+            cmd.Parameters.Append cmd.CreateParameter("@Percentage", adDecimal, adParamInput, , NVAL(Item.SubItems(13)))
                                   cmd.Parameters("@Percentage").Precision = 18
                                   cmd.Parameters("@Percentage").NumericScale = 2
             cmd.Execute
-            item.SubItems(22) = cmd.Parameters("@POS_OrderLineId")
-            item.SubItems(21) = POS_OrderId
+            Item.SubItems(22) = cmd.Parameters("@POS_OrderLineId")
+            Item.SubItems(21) = POS_OrderId
         Next
     End With
     
