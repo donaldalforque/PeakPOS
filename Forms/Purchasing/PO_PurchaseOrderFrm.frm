@@ -337,7 +337,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   149618689
+         Format          =   111738881
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -358,7 +358,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   149618689
+         Format          =   111738881
          CurrentDate     =   41686
       End
       Begin VB.Label Label19 
@@ -885,6 +885,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Left            =   8400
             TabIndex        =   64
             Top             =   960
+            Visible         =   0   'False
             Width           =   1620
          End
          Begin VB.Label Label29 
@@ -905,6 +906,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Left            =   7200
             TabIndex        =   63
             Top             =   930
+            Visible         =   0   'False
             Width           =   870
          End
          Begin VB.Label Label14 
@@ -1085,6 +1087,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Left            =   7200
             TabIndex        =   42
             Top             =   1605
+            Visible         =   0   'False
             Width           =   870
          End
          Begin VB.Label lblRemainingBalance 
@@ -1105,6 +1108,7 @@ Begin VB.Form PO_PurchaseOrderFrm
             Left            =   8400
             TabIndex        =   41
             Top             =   1605
+            Visible         =   0   'False
             Width           =   1620
          End
       End
@@ -1188,7 +1192,7 @@ Begin VB.Form PO_PurchaseOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   149618689
+            Format          =   111738881
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtReceived 
@@ -1210,7 +1214,7 @@ Begin VB.Form PO_PurchaseOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   149618689
+            Format          =   111738881
             CurrentDate     =   41509
          End
          Begin VB.Label Label20 
@@ -1514,7 +1518,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Public StatusId, VendorId, PurchaseOrderId, id As Integer
+Public StatusId, VendorId, PurchaseOrderId, id As Long
 Dim TotalSacks As Double
 Dim OrderLine(10000) As Integer
 Dim ctrOrderLine As Integer
@@ -1975,6 +1979,10 @@ Private Sub btnInvoice_Click()
     End If
     
     If PurchaseOrderId = 0 Then Exit Sub
+    PO_PurchaseInvoiceFrm.PurchaseOrderId = PurchaseOrderId
+    PO_PurchaseInvoiceFrm.lblSupplierName.Caption = cmbVendor.Text
+    PO_PurchaseInvoiceFrm.lblPORef.Caption = txtOrderNumber.Text
+    PO_PurchaseInvoiceFrm.btnSearch_Click
     PO_PurchaseInvoiceFrm.Show '(1)
 End Sub
 
@@ -2048,7 +2056,7 @@ Private Sub btnReceiveOrder_Click()
         Exit Sub
     End If
     
-    If (StatusId = 2) Or (StatusId = 7) Then
+    If (StatusId = 2) Or (StatusId = 7) Or (StatusId = 4) Then
         GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(60)
         GLOBAL_MessageFrm.Show (1)
         Exit Sub
@@ -2056,6 +2064,10 @@ Private Sub btnReceiveOrder_Click()
     
     With PO_ReceiveOrderFrm
         .txtReferenceNumber.Text = txtOrderNumber.Text
+        .txtSearch_ReferenceNumber.Text = txtOrderNumber.Text
+        .PurchaseOrderId = PurchaseOrderId
+        .lblSupplier.Caption = cmbVendor.Text
+        .btnSearch_Click
         .Show
     End With
 End Sub

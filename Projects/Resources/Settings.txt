@@ -1,5 +1,5 @@
 [PharmacyMode]
-OFF
+ON
 [OrderSlipMode]
 ON
 [DualPharmacyMode]

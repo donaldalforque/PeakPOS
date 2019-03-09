@@ -116,7 +116,7 @@ Begin VB.Form FIN_VendorPaymentFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      NumItems        =   7
+      NumItems        =   9
       BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          Object.Width           =   882
       EndProperty
@@ -127,29 +127,39 @@ Begin VB.Form FIN_VendorPaymentFrm
       EndProperty
       BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          SubItemIndex    =   2
-         Text            =   "Order #"
+         Text            =   "Invoice #"
          Object.Width           =   2540
       EndProperty
       BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          SubItemIndex    =   3
-         Text            =   "Date"
+         Text            =   "PO #"
          Object.Width           =   2540
       EndProperty
       BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          SubItemIndex    =   4
-         Text            =   "Due Date"
+         Text            =   "Date"
          Object.Width           =   2540
       EndProperty
       BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          SubItemIndex    =   5
-         Text            =   "Terms"
+         Text            =   "Due Date"
          Object.Width           =   2540
       EndProperty
       BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Alignment       =   1
          SubItemIndex    =   6
+         Text            =   "Terms"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(8) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Alignment       =   1
+         SubItemIndex    =   7
          Text            =   "Balance"
          Object.Width           =   2716
+      EndProperty
+      BeginProperty ColumnHeader(9) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   8
+         Text            =   "PurchaseInvoiceId"
+         Object.Width           =   0
       EndProperty
    End
    Begin VB.Frame Frame2 
@@ -324,7 +334,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   148439041
+            Format          =   111738881
             CurrentDate     =   41646
          End
          Begin VB.Label Label4 
@@ -476,7 +486,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   148439041
+            Format          =   111738881
             CurrentDate     =   41646
          End
          Begin VB.Label Label11 
@@ -870,7 +880,7 @@ Private Sub btnSave_Click()
         End If
     End If
     
-    If Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) Then
+    If Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) < Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) Then
         MsgBox "Cannot overpay.", vbCritical, "PeakPOS"
         Exit Sub
     End If
@@ -881,9 +891,9 @@ Private Sub btnSave_Click()
         Exit Sub
     End If
     Dim hasSelected As Boolean
-    Dim item As MSComctlLib.ListItem
-    For Each item In lvOrders.ListItems
-        If item.Checked = True Then
+    Dim Item As MSComctlLib.ListItem
+    For Each Item In lvOrders.ListItems
+        If Item.Checked = True Then
             hasSelected = True
             Exit For
         End If
@@ -930,20 +940,21 @@ Private Sub btnSave_Click()
     Payment = Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))
     Dim Orders As String
     Dim PurchaseOrderId As Integer
-    PurchaseOrderId = lvOrders.ListItems.item(1).SubItems(1) 'For Check Registry
+    PurchaseOrderId = lvOrders.ListItems.Item(1).SubItems(1) 'For Check Registry
     
-    For Each item In lvOrders.ListItems
-        If item.Checked = True Then
+    For Each Item In lvOrders.ListItems
+        If Item.Checked = True Then
             If Payment <= 0 Then Exit For
             
             Set cmd = New ADODB.Command
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
             cmd.CommandText = "PO_Payment_Insert"
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , item.SubItems(1))
-            If Payment >= NVAL(item.SubItems(6)) Then
+            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , Item.SubItems(1))
+            cmd.Parameters.Append cmd.CreateParameter("@PurchaseInvoiceId", adInteger, adParamInput, , Item.SubItems(7))
+            If Payment >= NVAL(Item.SubItems(6)) Then
                 If FRE_CHECK.Enabled = False Then 'IF CASH
-                    cmd.Parameters.Append cmd.CreateParameter("@Amount", adDecimal, adParamInput, , NVAL(item.SubItems(6)))
+                    cmd.Parameters.Append cmd.CreateParameter("@Amount", adDecimal, adParamInput, , NVAL(Item.SubItems(6)))
                                           cmd.Parameters("@Amount").NumericScale = 2
                                           cmd.Parameters("@Amount").Precision = 18
                     cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtDate.value)
@@ -957,7 +968,7 @@ Private Sub btnSave_Click()
                                           cmd.Parameters("@Amount").NumericScale = 2
                                           cmd.Parameters("@Amount").Precision = 18
                     cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtDate.value)
-                    cmd.Parameters.Append cmd.CreateParameter("@CheckAmount", adDecimal, adParamInput, , NVAL(item.SubItems(6)))
+                    cmd.Parameters.Append cmd.CreateParameter("@CheckAmount", adDecimal, adParamInput, , NVAL(Item.SubItems(6)))
                                   cmd.Parameters("@CheckAmount").NumericScale = 2
                                   cmd.Parameters("@CheckAmount").Precision = 18
                     cmd.Parameters.Append cmd.CreateParameter("@CheckNumber", adVarChar, adParamInput, 250, txtCheckNumber.Text)
@@ -1002,14 +1013,14 @@ Private Sub btnSave_Click()
             cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 250, txtRemarks.Text)
             cmd.Parameters.Append cmd.CreateParameter("@POPaymentId", adInteger, adParamInputOutput, , 0)
             cmd.Parameters.Append cmd.CreateParameter("@TransactionId", adInteger, adParamInput, , TransactionId)
-            cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 250, item.SubItems(2))
-            cmd.Parameters.Append cmd.CreateParameter("@OrderBalance", adDecimal, adParamInput, , Val(Replace(item.SubItems(6), ",", "")))
+            cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 250, Item.SubItems(2))
+            cmd.Parameters.Append cmd.CreateParameter("@OrderBalance", adDecimal, adParamInput, , Val(Replace(Item.SubItems(6), ",", "")))
                                   cmd.Parameters("@OrderBalance").NumericScale = 2
                                   cmd.Parameters("@OrderBalance").Precision = 18
             cmd.Execute
             
-            Payment = Payment - Val(Replace(item.SubItems(6), ",", ""))
-            Orders = Orders & "[" & item.SubItems(2) & "]"
+            Payment = Payment - Val(Replace(Item.SubItems(6), ",", ""))
+            Orders = Orders & "[" & Item.SubItems(2) & "]"
         End If
     Next
     
@@ -1042,11 +1053,7 @@ Private Sub btnSave_Click()
     
     'CHECK REGISTRY
     If Trim(txtCheckNumber.Text) <> "" Or Val(Replace(txtCheckAmount.Text, ",", "")) > 0 Then
-
-        'Set con = New ADODB.Connection
         Set cmd = New ADODB.Command
-        'con.ConnectionString = ConnString
-        'con.Open
         cmd.ActiveConnection = con
         cmd.CommandType = adCmdStoredProc
         cmd.CommandText = "FIN_CheckRegistry_Insert"
@@ -1065,8 +1072,6 @@ Private Sub btnSave_Click()
         cmd.Parameters.Append cmd.CreateParameter("@POS_SalesId", adInteger, adParamInput, , Null)
         cmd.Parameters.Append cmd.CreateParameter("@SOPaymentId", adInteger, adParamInput, , Null)
         cmd.Parameters.Append cmd.CreateParameter("@POPaymentId", adInteger, adParamInput, , PurchaseOrderId)
-        'cmd.Parameters.Append cmd.CreateParameter("@AccountId", adInteger, adParamInput, , cmbAccount.ItemData(cmbAccount.ListIndex))
-        
         cmd.Execute
     End If
     
@@ -1092,73 +1097,12 @@ Private Sub btnSave_Click()
     cmd.Parameters.Append cmd.CreateParameter("@POPaymentId", adInteger, adParamInput, , Null)
     cmd.Execute
     
-    
-    If chkOnline.value = Checked Then
-        'UPDATE BANK ACCOUNT
-        Set cmd = New ADODB.Command
-        cmd.ActiveConnection = con
-        cmd.CommandType = adCmdStoredProc
-        cmd.CommandText = "FIN_FundBank_Deduct"
-        cmd.Parameters.Append cmd.CreateParameter("@AccountId", adInteger, adParamInput, , cmbAccount.ItemData(cmbAccount.ListIndex))
-        cmd.Parameters.Append cmd.CreateParameter("@Amount", adDecimal, adParamInput, , Val(Replace(txtCheckAmount.Text, ",", "")))
-                              cmd.Parameters("@Amount").Precision = 18
-                              cmd.Parameters("@Amount").NumericScale = 2
-        cmd.Execute
-    Else
-        'UPDATE FUND ACCOUNT
-        Set cmd = New ADODB.Command
-        cmd.ActiveConnection = con
-        cmd.CommandType = adCmdStoredProc
-        cmd.CommandText = "FIN_Funds_Deduct"
-        cmd.Parameters.Append cmd.CreateParameter("@FundId", adInteger, adParamInput, , 1) 'DEFAULT
-        cmd.Parameters.Append cmd.CreateParameter("@Cash", adDecimal, adParamInput, , Val(Replace(txtCash.Text, ",", "")))
-                              cmd.Parameters("@Cash").Precision = 18
-                              cmd.Parameters("@Cash").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@CheckAmount", adDecimal, adParamInput, , Val(Replace(txtCheckAmount.Text, ",", "")))
-                              cmd.Parameters("@CheckAmount").Precision = 18
-                              cmd.Parameters("@CheckAmount").NumericScale = 2
-        cmd.Execute
-    End If
-    
     con.CommitTrans
     con.Close
     
     UpdateVendorOrderDues
     
     MsgBox "Payment Successful!", vbInformation, "Success!"
-    
-'    'PRINTOUTS
-'    Screen.MousePointer = vbHourglass
-'    BASE_PrintPreviewFrm.Show
-'    Dim crxApp As New CRAXDRT.Application
-'    Dim crxRpt As New CRAXDRT.Report
-'    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\CashCheckVoucher.rpt")
-'    crxRpt.RecordSelectionFormula = "{PO_Paymenthistory.Transactionid}= " & TransactionId & ""
-'    crxRpt.DiscardSavedData
-'
-'    Call ResetRptDB(crxRpt)
-'
-'    crxRpt.ParameterFields(1).AddCurrentValue "CASH/CHECK VOUCHER"
-'    crxRpt.ParameterFields(2).AddCurrentValue FIN_AccountsPayable.lvSearch.SelectedItem.SubItems(2)
-'    BASE_PrintPreviewFrm.CRViewer.ReportSource = crxRpt
-'    BASE_PrintPreviewFrm.CRViewer.ViewReport
-'    BASE_PrintPreviewFrm.CRViewer.Zoom 1
-'    Screen.MousePointer = vbDefault
-'
-'    'CHECK TARGET PRINT
-'    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\checkTarget.rpt")
-'    'crxRpt.RecordSelectionFormula = "{PO_Paymenthistory.Transactionid}= " & TransactionId & ""
-'    crxRpt.DiscardSavedData
-'
-'    Call ResetRptDB(crxRpt)
-'
-'
-'    crxRpt.ParameterFields(1).AddCurrentValue dtCheckDate.value
-'    crxRpt.ParameterFields(2).AddCurrentValue FIN_AccountsPayable.lvSearch.SelectedItem.SubItems(2)
-'    crxRpt.ParameterFields(3).AddCurrentValue FormatNumber(Val(Replace(txtCheckAmount.text, ",", "")) + Val(Replace(txtCash.text, ",", "")), 2, vbTrue, vbFalse)
-'    crxRpt.ParameterFields(4).AddCurrentValue txtAmountInWords.text
-'    crxRpt.PrintOut False
-    'BASE_PrintPreviewFrm.CRViewer.ReportSource = crxRpt
     
     FIN_AccountsPayable.btnSearch_Click
     Unload Me
@@ -1208,11 +1152,13 @@ End Sub
 
 Private Sub Form_Load()
     lvOrders.ColumnHeaders(1).width = lvOrders.width * 0.025
-    lvOrders.ColumnHeaders(3).width = lvOrders.width * 0.1633
-    lvOrders.ColumnHeaders(4).width = lvOrders.width * 0.1633
-    lvOrders.ColumnHeaders(5).width = lvOrders.width * 0.1633
-    lvOrders.ColumnHeaders(6).width = lvOrders.width * 0.1633
-    lvOrders.ColumnHeaders(7).width = lvOrders.width * 0.295
+    lvOrders.ColumnHeaders(3).width = lvOrders.width * 0.16
+    lvOrders.ColumnHeaders(4).width = lvOrders.width * 0.16
+    lvOrders.ColumnHeaders(5).width = lvOrders.width * 0.16
+    lvOrders.ColumnHeaders(6).width = lvOrders.width * 0.16
+    lvOrders.ColumnHeaders(7).width = lvOrders.width * 0.16
+    lvOrders.ColumnHeaders(8).width = lvOrders.width * 0.16
+
     
     FRE_CASH.Enabled = True
     FRE_CHECK.Enabled = False
@@ -1231,17 +1177,19 @@ Private Sub Form_Load()
     cmd.Parameters.Append cmd.CreateParameter("@VendorId", adInteger, adParamInput, , VendorId)
     cmd.Parameters.Append cmd.CreateParameter("@Sort", adVarChar, adParamInput, 50, "Date")
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Set rec = cmd.Execute
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvOrders.ListItems.add(, , "")
-                item.SubItems(1) = rec!PurchaseOrderId
-                item.SubItems(2) = rec!OrderNumber
-                item.SubItems(3) = Format(rec!Date, "MM/DD/YY")
-                'item.SubItems(4) = Format(rec!DueDate, "MM/DD/YY")
-                If Not IsNull(rec!Terms) Then item.SubItems(5) = rec!Terms
-                item.SubItems(6) = FormatNumber(rec!OutStandingBalance, 2, vbTrue, vbFalse)
+            Set Item = lvOrders.ListItems.add(, , "")
+                Item.SubItems(1) = rec!PurchaseOrderId
+                Item.SubItems(2) = rec!OrderNumber
+                Item.SubItems(3) = rec!PurchaseOrderNumber
+                Item.SubItems(4) = Format(rec!Date, "MM/DD/YY")
+                Item.SubItems(5) = Format(rec!DueDate, "MM/DD/YY")
+                If Not IsNull(rec!Terms) Then Item.SubItems(6) = rec!Terms
+                Item.SubItems(7) = FormatNumber(rec!OutStandingBalance, 2, vbTrue, vbFalse)
+                Item.SubItems(8) = rec!PurchaseInvoiceId
             rec.MoveNext
         Loop
     End If
@@ -1255,16 +1203,16 @@ Private Sub Form_Load()
     CountTotal
 End Sub
 Private Sub CountTotal()
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim Total, balance, tax As Double
     Total = 0
-    For Each item In lvOrders.ListItems
-        balance = balance + Val(Replace(item.SubItems(6), ",", ""))
-        If item.Checked = True Then
-            Total = Total + Val(Replace(item.SubItems(6), ",", ""))
+    For Each Item In lvOrders.ListItems
+        balance = balance + Val(Replace(Item.SubItems(6), ",", ""))
+        If Item.Checked = True Then
+            Total = Total + Val(Replace(Item.SubItems(6), ",", ""))
         End If
     Next
-    lbltotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblTotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)
     lblTotalBalance.Caption = "Total Balance: " & FormatNumber(balance, 2, vbTrue, vbFalse)
     'tax = (total / 1.12) * 0.01
     tax = 0
@@ -1274,22 +1222,22 @@ Private Sub CountTotal()
 End Sub
 
 Private Sub Label2_Click()
-    Dim item As MSComctlLib.ListItem
-    For Each item In lvOrders.ListItems
-        item.Checked = False
+    Dim Item As MSComctlLib.ListItem
+    For Each Item In lvOrders.ListItems
+        Item.Checked = False
     Next
     CountTotal
 End Sub
 
 Private Sub lblSelectAll_Click()
-    Dim item As MSComctlLib.ListItem
-    For Each item In lvOrders.ListItems
-        item.Checked = True
+    Dim Item As MSComctlLib.ListItem
+    For Each Item In lvOrders.ListItems
+        Item.Checked = True
     Next
     CountTotal
 End Sub
 
-Private Sub lvOrders_ItemCheck(ByVal item As MSComctlLib.ListItem)
+Private Sub lvOrders_ItemCheck(ByVal Item As MSComctlLib.ListItem)
     CountTotal
 End Sub
 
@@ -1297,8 +1245,8 @@ Private Sub txtCash_Change()
     If IsNumeric(txtCash.Text) = False Then
         txtCash.Text = "0.00"
         selectText txtCash
-    ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtCash.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue)
+    ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtCash.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue)
     End If
 End Sub
 
@@ -1306,8 +1254,8 @@ Private Sub txtCheckAmount_Change()
     If IsNumeric(txtCheckAmount.Text) = False Then
         txtCheckAmount.Text = "0.00"
         selectText txtCheckAmount
-     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtCheckAmount.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue, vbFalse)
+     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtCheckAmount.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtTax.Text, ",", ""))), 2, vbTrue, vbFalse)
     End If
 End Sub
 
@@ -1315,9 +1263,9 @@ Private Sub txtTax_Change()
     If IsNumeric(txtTax.Text) = False Then
         txtTax.Text = "0.00"
         selectText txtTax
-     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) Then
-        txtTax.Text = FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", ""))), 2, vbTrue, vbFalse)
+     ElseIf Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", "")) + Val(Replace(txtTax.Text, ",", "")) > Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) Then
+        txtTax.Text = FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - (Val(Replace(txtCash.Text, ",", "")) + Val(Replace(txtCheckAmount.Text, ",", ""))), 2, vbTrue, vbFalse)
     End If
-    lblPayable.Caption = "Total Payable(Taxed):" & FormatNumber(Val(Replace(Replace(lbltotal.Caption, "Total Selected:", ""), ",", "")) - Val(Replace(txtTax.Text, ",", "")), 2, vbTrue, vbFalse)
+    lblPayable.Caption = "Total Payable(Taxed):" & FormatNumber(Val(Replace(Replace(lblTotal.Caption, "Total Selected:", ""), ",", "")) - Val(Replace(txtTax.Text, ",", "")), 2, vbTrue, vbFalse)
 End Sub
 

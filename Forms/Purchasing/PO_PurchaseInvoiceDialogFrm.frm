@@ -1,20 +1,22 @@
 VERSION 5.00
 Begin VB.Form PO_PurchaseInvoiceDialogFrm 
-   BorderStyle     =   1  'Fixed Single
-   ClientHeight    =   2310
+   BorderStyle     =   4  'Fixed ToolWindow
+   ClientHeight    =   1680
    ClientLeft      =   45
    ClientTop       =   390
    ClientWidth     =   4335
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   2310
+   ScaleHeight     =   1680
    ScaleWidth      =   4335
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame Frame1 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
-      Height          =   2055
+      Height          =   1455
       Left            =   120
       TabIndex        =   0
       Top             =   120
@@ -67,7 +69,7 @@ Begin VB.Form PO_PurchaseInvoiceDialogFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         Left            =   1560
+         Left            =   -9999
          Style           =   2  'Dropdown List
          TabIndex        =   5
          Top             =   1080
@@ -88,7 +90,7 @@ Begin VB.Form PO_PurchaseInvoiceDialogFrm
          Height          =   375
          Left            =   1440
          TabIndex        =   3
-         Top             =   1560
+         Top             =   960
          Width           =   1215
       End
       Begin VB.CommandButton btnCancel 
@@ -105,7 +107,7 @@ Begin VB.Form PO_PurchaseInvoiceDialogFrm
          Height          =   375
          Left            =   2760
          TabIndex        =   4
-         Top             =   1560
+         Top             =   960
          Width           =   1215
       End
       Begin VB.Label Label1 
@@ -160,7 +162,7 @@ Begin VB.Form PO_PurchaseInvoiceDialogFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   270
-         Left            =   120
+         Left            =   -9999
          TabIndex        =   6
          Top             =   1080
          Visible         =   0   'False

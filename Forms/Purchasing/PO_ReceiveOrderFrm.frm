@@ -2,21 +2,35 @@ VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form PO_ReceiveOrderFrm 
-   BorderStyle     =   1  'Fixed Single
+   BorderStyle     =   3  'Fixed Dialog
    ClientHeight    =   8865
    ClientLeft      =   45
    ClientTop       =   390
-   ClientWidth     =   14940
+   ClientWidth     =   14955
+   Icon            =   "PO_ReceiveOrderFrm.frx":0000
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   8865
-   ScaleWidth      =   14940
+   ScaleWidth      =   14955
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.PictureBox picStatus 
+      BorderStyle     =   0  'None
+      Height          =   1055
+      Left            =   7920
+      Picture         =   "PO_ReceiveOrderFrm.frx":000C
+      ScaleHeight     =   1050
+      ScaleWidth      =   3750
+      TabIndex        =   17
+      Top             =   2280
+      Width           =   3755
+   End
    Begin MSComctlLib.ListView lvItemList 
       Height          =   3135
       Left            =   6090
-      TabIndex        =   1
+      TabIndex        =   18
       Top             =   3090
       Width           =   8175
       _ExtentX        =   14420
@@ -67,27 +81,17 @@ Begin VB.Form PO_ReceiveOrderFrm
          Object.Width           =   0
       EndProperty
    End
-   Begin VB.PictureBox picStatus 
-      BorderStyle     =   0  'None
-      Height          =   1055
-      Left            =   8085
-      Picture         =   "PO_ReceiveOrderFrm.frx":0000
-      ScaleHeight     =   1050
-      ScaleWidth      =   3750
-      TabIndex        =   0
-      Top             =   3600
-      Width           =   3755
-   End
    Begin VB.Frame Body_Frame1 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
       Height          =   9015
       Left            =   4560
-      TabIndex        =   19
+      TabIndex        =   30
       Top             =   0
       Width           =   10455
-      Begin VB.CommandButton btnAutoFill 
-         Caption         =   "Auto Fill"
+      Begin VB.CommandButton btnComplete 
+         BackColor       =   &H00E0E0E0&
+         Caption         =   "Complete Order"
          BeginProperty Font 
             Name            =   "Calibri"
             Size            =   9.75
@@ -97,11 +101,11 @@ Begin VB.Form PO_ReceiveOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   375
+         Height          =   355
          Left            =   120
-         TabIndex        =   45
+         TabIndex        =   54
          Top             =   2160
-         Width           =   3285
+         Width           =   2895
       End
       Begin VB.Frame Frame_Header1 
          BackColor       =   &H00FFFFFF&
@@ -109,9 +113,46 @@ Begin VB.Form PO_ReceiveOrderFrm
          Caption         =   "Frame1"
          Height          =   1935
          Left            =   240
-         TabIndex        =   40
+         TabIndex        =   44
          Top             =   480
          Width           =   6495
+         Begin VB.Label lblSupplier 
+            BackStyle       =   0  'Transparent
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   11.25
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   855
+            Left            =   1080
+            TabIndex        =   50
+            Top             =   720
+            Width           =   4560
+            WordWrap        =   -1  'True
+         End
+         Begin VB.Label Label9 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Supplier:"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   11.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   270
+            Left            =   120
+            TabIndex        =   49
+            Top             =   720
+            Width           =   840
+         End
          Begin VB.Label Label4 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
@@ -127,7 +168,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   495
             Left            =   0
-            TabIndex        =   42
+            TabIndex        =   46
             Top             =   0
             Width           =   2280
          End
@@ -136,7 +177,7 @@ Begin VB.Form PO_ReceiveOrderFrm
          BackColor       =   &H00FFFFFF&
          Height          =   2115
          Left            =   6930
-         TabIndex        =   33
+         TabIndex        =   40
          Top             =   360
          Width           =   3405
          Begin VB.ComboBox cmbLocation 
@@ -152,7 +193,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             Height          =   345
             Left            =   1200
             Style           =   2  'Dropdown List
-            TabIndex        =   46
+            TabIndex        =   4
             Top             =   1680
             Width           =   2055
          End
@@ -169,7 +210,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   330
             Left            =   1200
-            TabIndex        =   43
+            TabIndex        =   1
             Top             =   600
             Width           =   2055
          End
@@ -187,7 +228,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   330
             Left            =   1200
-            TabIndex        =   35
+            TabIndex        =   3
             TabStop         =   0   'False
             Top             =   1320
             Width           =   2055
@@ -204,14 +245,14 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   330
             Left            =   1200
-            TabIndex        =   34
+            TabIndex        =   0
             Top             =   240
             Width           =   2055
          End
          Begin MSComCtl2.DTPicker dtOrder 
             Height          =   330
             Left            =   1200
-            TabIndex        =   36
+            TabIndex        =   2
             Top             =   960
             Width           =   2055
             _ExtentX        =   3625
@@ -226,7 +267,7 @@ Begin VB.Form PO_ReceiveOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   149618689
+            Format          =   112263169
             CurrentDate     =   41509
          End
          Begin VB.Label Label7 
@@ -244,14 +285,14 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   47
+            TabIndex        =   48
             Top             =   1680
             Width           =   780
          End
          Begin VB.Label Label2 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
-            Caption         =   "Ref #"
+            Caption         =   "PO/Ref #"
             BeginProperty Font 
                Name            =   "Calibri"
                Size            =   11.25
@@ -263,9 +304,9 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   44
+            TabIndex        =   47
             Top             =   600
-            Width           =   465
+            Width           =   825
          End
          Begin VB.Label Label8 
             AutoSize        =   -1  'True
@@ -282,7 +323,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   39
+            TabIndex        =   43
             Top             =   1320
             Width           =   570
          End
@@ -301,7 +342,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   38
+            TabIndex        =   42
             Top             =   960
             Width           =   435
          End
@@ -320,7 +361,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   37
+            TabIndex        =   41
             Top             =   240
             Width           =   930
          End
@@ -329,9 +370,25 @@ Begin VB.Form PO_ReceiveOrderFrm
          BackColor       =   &H00FFFFFF&
          Height          =   1935
          Left            =   120
-         TabIndex        =   26
+         TabIndex        =   34
          Top             =   6840
          Width           =   10215
+         Begin VB.TextBox txtReceivedBy 
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   330
+            Left            =   1320
+            TabIndex        =   8
+            Top             =   240
+            Width           =   5295
+         End
          Begin VB.TextBox txtCash 
             Alignment       =   1  'Right Justify
             Appearance      =   0  'Flat
@@ -347,7 +404,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   390
             Left            =   -9999
-            TabIndex        =   28
+            TabIndex        =   35
             Top             =   240
             Visible         =   0   'False
             Width           =   1695
@@ -362,13 +419,32 @@ Begin VB.Form PO_ReceiveOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Height          =   1530
-            Left            =   1200
+            Height          =   810
+            Left            =   1320
             MultiLine       =   -1  'True
             ScrollBars      =   2  'Vertical
-            TabIndex        =   27
+            TabIndex        =   9
+            Top             =   600
+            Width           =   5295
+         End
+         Begin VB.Label Label11 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Received by"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   11.25
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   270
+            Left            =   120
+            TabIndex        =   51
             Top             =   240
-            Width           =   2775
+            Width           =   1125
          End
          Begin VB.Label Label12 
             AutoSize        =   -1  'True
@@ -385,7 +461,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   285
             Left            =   -9999
-            TabIndex        =   32
+            TabIndex        =   39
             Top             =   240
             Visible         =   0   'False
             Width           =   540
@@ -405,14 +481,14 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   31
-            Top             =   240
+            TabIndex        =   38
+            Top             =   600
             Width           =   795
          End
          Begin VB.Label Label27 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
-            Caption         =   "TOTAL ITEMS"
+            Caption         =   "Total Items"
             BeginProperty Font 
                Name            =   "Calibri"
                Size            =   11.25
@@ -424,11 +500,11 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   270
             Left            =   7200
-            TabIndex        =   30
+            TabIndex        =   37
             Top             =   240
-            Width           =   1185
+            Width           =   1035
          End
-         Begin VB.Label lblSubTotal 
+         Begin VB.Label lblTotalItems 
             Alignment       =   1  'Right Justify
             BackStyle       =   0  'Transparent
             Caption         =   "0.00"
@@ -442,25 +518,42 @@ Begin VB.Form PO_ReceiveOrderFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   285
-            Left            =   8400
-            TabIndex        =   29
+            Left            =   8520
+            TabIndex        =   36
             Top             =   240
-            Width           =   1620
+            Width           =   1500
          End
       End
       Begin VB.Frame Frame_Body 
          BackColor       =   &H00FFFFFF&
          Height          =   4260
          Left            =   120
-         TabIndex        =   21
+         TabIndex        =   32
          Top             =   2520
          Width           =   10215
+         Begin VB.CommandButton btnAutoFill 
+            Caption         =   "Auto Fill"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   375
+            Left            =   6840
+            TabIndex        =   53
+            Top             =   150
+            Width           =   3285
+         End
          Begin VB.CommandButton btnItemSearch 
             Height          =   330
             Left            =   4320
-            Picture         =   "PO_ReceiveOrderFrm.frx":7D72
+            Picture         =   "PO_ReceiveOrderFrm.frx":7D7E
             Style           =   1  'Graphical
-            TabIndex        =   23
+            TabIndex        =   6
             Top             =   240
             Width           =   375
          End
@@ -476,14 +569,14 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   330
             Left            =   1320
-            TabIndex        =   22
+            TabIndex        =   5
             Top             =   240
             Width           =   3015
          End
          Begin MSComctlLib.ListView lvItems 
             Height          =   3495
             Left            =   120
-            TabIndex        =   24
+            TabIndex        =   7
             Top             =   600
             Width           =   9975
             _ExtentX        =   17595
@@ -508,9 +601,9 @@ Begin VB.Form PO_ReceiveOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            NumItems        =   13
+            NumItems        =   8
             BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-               Text            =   "PurchaseOrderLineId"
+               Text            =   "ReceiveOrderLineId"
                Object.Width           =   0
             EndProperty
             BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
@@ -540,40 +633,13 @@ Begin VB.Form PO_ReceiveOrderFrm
                Object.Width           =   2540
             EndProperty
             BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-               Alignment       =   1
                SubItemIndex    =   6
-               Text            =   "Cost"
-               Object.Width           =   2540
-            EndProperty
-            BeginProperty ColumnHeader(8) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-               Alignment       =   1
-               SubItemIndex    =   7
-               Text            =   "Sub-Total"
-               Object.Width           =   2540
-            EndProperty
-            BeginProperty ColumnHeader(9) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-               SubItemIndex    =   8
-               Text            =   "LocationId"
-               Object.Width           =   0
-            EndProperty
-            BeginProperty ColumnHeader(10) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-               SubItemIndex    =   9
                Text            =   "ProductId"
                Object.Width           =   0
             EndProperty
-            BeginProperty ColumnHeader(11) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-               SubItemIndex    =   10
-               Text            =   "PrevQuantity"
-               Object.Width           =   0
-            EndProperty
-            BeginProperty ColumnHeader(12) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-               SubItemIndex    =   11
-               Text            =   "ReceivedQty"
-               Object.Width           =   0
-            EndProperty
-            BeginProperty ColumnHeader(13) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-               SubItemIndex    =   12
-               Text            =   "ActualQuantity"
+            BeginProperty ColumnHeader(8) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   7
+               Text            =   "ReceiveOrderId"
                Object.Width           =   0
             EndProperty
          End
@@ -592,7 +658,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             EndProperty
             Height          =   270
             Left            =   120
-            TabIndex        =   25
+            TabIndex        =   33
             Top             =   240
             Width           =   555
          End
@@ -600,7 +666,7 @@ Begin VB.Form PO_ReceiveOrderFrm
       Begin MSComctlLib.ListView lvVendor 
          Height          =   2655
          Left            =   -9999
-         TabIndex        =   20
+         TabIndex        =   31
          Top             =   930
          Width           =   5775
          _ExtentX        =   10186
@@ -659,7 +725,7 @@ Begin VB.Form PO_ReceiveOrderFrm
       Begin MSComctlLib.Toolbar tb_Standard 
          Height          =   330
          Left            =   0
-         TabIndex        =   41
+         TabIndex        =   45
          Top             =   0
          Width           =   11775
          _ExtentX        =   20770
@@ -704,9 +770,26 @@ Begin VB.Form PO_ReceiveOrderFrm
       BorderStyle     =   0  'None
       Height          =   9015
       Left            =   -75
-      TabIndex        =   7
+      TabIndex        =   24
       Top             =   0
       Width           =   4575
+      Begin VB.TextBox txtSearch_ReferenceNumber 
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   330
+         Left            =   1440
+         TabIndex        =   11
+         Top             =   840
+         Width           =   3015
+      End
       Begin VB.TextBox txtSearch_OrderNumber 
          BeginProperty Font 
             Name            =   "Calibri"
@@ -736,8 +819,8 @@ Begin VB.Form PO_ReceiveOrderFrm
          Height          =   345
          Left            =   1440
          Style           =   2  'Dropdown List
-         TabIndex        =   9
-         Top             =   840
+         TabIndex        =   12
+         Top             =   1200
          Width           =   3015
       End
       Begin VB.CommandButton btnSearch 
@@ -753,18 +836,18 @@ Begin VB.Form PO_ReceiveOrderFrm
          EndProperty
          Height          =   375
          Left            =   3240
-         TabIndex        =   8
-         Top             =   2040
+         TabIndex        =   15
+         Top             =   2400
          Width           =   1215
       End
       Begin MSComctlLib.ListView lvSearch 
-         Height          =   6255
-         Left            =   120
-         TabIndex        =   11
-         Top             =   2520
-         Width           =   4335
-         _ExtentX        =   7646
-         _ExtentY        =   11033
+         Height          =   5895
+         Left            =   200
+         TabIndex        =   16
+         Top             =   2880
+         Width           =   4235
+         _ExtentX        =   7461
+         _ExtentY        =   10398
          View            =   3
          LabelEdit       =   1
          LabelWrap       =   -1  'True
@@ -809,7 +892,28 @@ Begin VB.Form PO_ReceiveOrderFrm
       Begin MSComCtl2.DTPicker DateTo 
          Height          =   345
          Left            =   1440
-         TabIndex        =   12
+         TabIndex        =   14
+         Top             =   1920
+         Width           =   3015
+         _ExtentX        =   5318
+         _ExtentY        =   609
+         _Version        =   393216
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Calibri"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Format          =   112263169
+         CurrentDate     =   41686
+      End
+      Begin MSComCtl2.DTPicker DateFrom 
+         Height          =   345
+         Left            =   1440
+         TabIndex        =   13
          Top             =   1560
          Width           =   3015
          _ExtentX        =   5318
@@ -824,29 +928,27 @@ Begin VB.Form PO_ReceiveOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   149618689
+         Format          =   112263169
          CurrentDate     =   41686
       End
-      Begin MSComCtl2.DTPicker DateFrom 
-         Height          =   345
-         Left            =   1440
-         TabIndex        =   13
-         Top             =   1200
-         Width           =   3015
-         _ExtentX        =   5318
-         _ExtentY        =   609
-         _Version        =   393216
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+      Begin VB.Label Label14 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "PO/Ref #"
+         BeginProperty Font 
             Name            =   "Calibri"
-            Size            =   8.25
+            Size            =   11.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   149618689
-         CurrentDate     =   41686
+         Height          =   270
+         Left            =   240
+         TabIndex        =   52
+         Top             =   840
+         Width           =   825
       End
       Begin VB.Label Label13 
          AutoSize        =   -1  'True
@@ -863,7 +965,7 @@ Begin VB.Form PO_ReceiveOrderFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   18
+         TabIndex        =   29
          Top             =   480
          Width           =   930
       End
@@ -882,7 +984,7 @@ Begin VB.Form PO_ReceiveOrderFrm
          EndProperty
          Height          =   345
          Left            =   240
-         TabIndex        =   17
+         TabIndex        =   28
          Top             =   75
          Width           =   795
       End
@@ -901,8 +1003,8 @@ Begin VB.Form PO_ReceiveOrderFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   16
-         Top             =   840
+         TabIndex        =   27
+         Top             =   1200
          Width           =   570
       End
       Begin VB.Label Label26 
@@ -920,8 +1022,8 @@ Begin VB.Form PO_ReceiveOrderFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   15
-         Top             =   1200
+         TabIndex        =   26
+         Top             =   1560
          Width           =   960
       End
       Begin VB.Label Label25 
@@ -939,8 +1041,8 @@ Begin VB.Form PO_ReceiveOrderFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   14
-         Top             =   1560
+         TabIndex        =   25
+         Top             =   1920
          Width           =   705
       End
    End
@@ -952,10 +1054,10 @@ Begin VB.Form PO_ReceiveOrderFrm
       ForeColor       =   &H80000008&
       Height          =   2295
       Left            =   -10080
-      Picture         =   "PO_ReceiveOrderFrm.frx":7F96
+      Picture         =   "PO_ReceiveOrderFrm.frx":7FA2
       ScaleHeight     =   2295
       ScaleWidth      =   6195
-      TabIndex        =   6
+      TabIndex        =   23
       Top             =   2640
       Width           =   6195
    End
@@ -963,10 +1065,10 @@ Begin VB.Form PO_ReceiveOrderFrm
       BorderStyle     =   0  'None
       Height          =   2295
       Left            =   -10080
-      Picture         =   "PO_ReceiveOrderFrm.frx":10624
+      Picture         =   "PO_ReceiveOrderFrm.frx":10630
       ScaleHeight     =   2295
       ScaleWidth      =   6195
-      TabIndex        =   5
+      TabIndex        =   22
       Top             =   2640
       Width           =   6195
    End
@@ -984,7 +1086,7 @@ Begin VB.Form PO_ReceiveOrderFrm
       EndProperty
       Height          =   375
       Left            =   8745
-      TabIndex        =   4
+      TabIndex        =   21
       Top             =   7200
       Width           =   2895
    End
@@ -1004,7 +1106,7 @@ Begin VB.Form PO_ReceiveOrderFrm
       Height          =   375
       Left            =   -10080
       Style           =   1  'Graphical
-      TabIndex        =   3
+      TabIndex        =   20
       TabStop         =   0   'False
       Top             =   7200
       Visible         =   0   'False
@@ -1018,10 +1120,10 @@ Begin VB.Form PO_ReceiveOrderFrm
       ForeColor       =   &H80000008&
       Height          =   1860
       Left            =   -10080
-      Picture         =   "PO_ReceiveOrderFrm.frx":212C0
+      Picture         =   "PO_ReceiveOrderFrm.frx":212CC
       ScaleHeight     =   1860
       ScaleWidth      =   5250
-      TabIndex        =   2
+      TabIndex        =   19
       Top             =   2640
       Visible         =   0   'False
       Width           =   5250
@@ -1039,27 +1141,27 @@ Begin VB.Form PO_ReceiveOrderFrm
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   6
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "PO_ReceiveOrderFrm.frx":2A251
+            Picture         =   "PO_ReceiveOrderFrm.frx":2A25D
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "PO_ReceiveOrderFrm.frx":30AB3
+            Picture         =   "PO_ReceiveOrderFrm.frx":30ABF
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "PO_ReceiveOrderFrm.frx":37315
+            Picture         =   "PO_ReceiveOrderFrm.frx":37321
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "PO_ReceiveOrderFrm.frx":3DB77
+            Picture         =   "PO_ReceiveOrderFrm.frx":3DB83
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "PO_ReceiveOrderFrm.frx":3DDEC
+            Picture         =   "PO_ReceiveOrderFrm.frx":3DDF8
             Key             =   ""
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "PO_ReceiveOrderFrm.frx":3E45D
+            Picture         =   "PO_ReceiveOrderFrm.frx":3E469
             Key             =   ""
          EndProperty
       EndProperty
@@ -1071,7 +1173,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Public StatusId, VendorId, PurchaseOrderId, id As Integer
+Public StatusId, VendorId, ReceiveOrderId, PurchaseOrderId, id As Long
 Dim TotalSacks As Double
 Dim OrderLine(10000) As Integer
 Dim ctrOrderLine As Integer
@@ -1086,31 +1188,27 @@ Public Sub Initialize()
         End If
     Next
     
-    Unload PO_PurchaseInvoiceFrm
     global_remarks = ""
     picStatus.Visible = False
     isNotCompleted (True)
     dtOrder.value = Format(Now, "MM/DD/YY hh:mm:ss")
-    'btnStatus.Caption = "Complete Order"
+    txtStatus.Text = "Open"
     lvItems.ListItems.Clear
-    lvVendor.ListItems.Clear
     lvVendor.Visible = False
     lvItemList.Visible = False
     lvVendor.Left = -9999
     lvItemList.Left = -9999
-    ''picCompleted.Left = -9999
-    '''pic_Cancelled.Left = -9999
-    ''picPaid.Left = -9999
+    txtSearch_ReferenceNumber.Text = txtReferenceNumber.Text
     btnPaid.Visible = False
     tb_Standard.Buttons(4).Caption = "Cancel"
     tb_Standard.Buttons(4).Image = 3
     
-    lblSubTotal.Caption = "0.00"
+    lblTotalItems.Caption = "0.00"
     
     id = 1
     StatusId = 1
     VendorId = 0
-    PurchaseOrderId = 0
+    ReceiveOrderId = 0
     TotalSacks = 0
     
     ctrOrderLine = 0
@@ -1130,41 +1228,25 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
         cmd.ActiveConnection = con
         con.BeginTrans
         cmd.CommandType = adCmdStoredProc
-        cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInputOutput, , PurchaseOrderId)
-        If Trim(txtOrderNumber.Text) = "" Then
-            cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInputOutput, 50, Null)
-        Else
-            cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInputOutput, 50, txtOrderNumber.Text)
-        End If
+        cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInputOutput, , ReceiveOrderId)
+        cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
         cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtOrder.value)
-        cmd.Parameters.Append cmd.CreateParameter("@TermId", adInteger, adParamInput, , cmbTerms.ItemData(cmbTerms.ListIndex))
-        cmd.Parameters.Append cmd.CreateParameter("@ReceivedDate", adDate, adParamInput, , dtReceived.value)
+        cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 50, txtOrderNumber.Text)
+        cmd.Parameters.Append cmd.CreateParameter("@ReferenceNumber", adVarChar, adParamInput, 50, txtReferenceNumber.Text)
+        cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , cmbLocation.ItemData(cmbLocation.ListIndex))
         cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , StatusId)
-        cmd.Parameters.Append cmd.CreateParameter("@VendorId", adInteger, adParamInput, , VendorId)
-        cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(lblSubTotal.Caption, ",", "")))
-                              cmd.Parameters("@Subtotal").Precision = 18
-                              cmd.Parameters("@Subtotal").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , Val(Replace(lblTotal.Caption, ",", "")))
-                              cmd.Parameters("@Total").Precision = 18
-                              cmd.Parameters("@Total").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 250, txtRemarks.Text)
-        cmd.Parameters.Append cmd.CreateParameter("@Freight", adDecimal, adParamInput, , Val(Replace(txtFreight.Text, ",", "")))
-                              cmd.Parameters("@Freight").Precision = 18
-                              cmd.Parameters("@Freight").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Adjustment", adDecimal, adParamInput, , Val(Replace(txtAdjustment.Text, ",", "")))
-                              cmd.Parameters("@Adjustment").Precision = 18
-                              cmd.Parameters("@Adjustment").NumericScale = 2
-        If PurchaseOrderId = 0 Then
-            cmd.CommandText = "PO_PurchaseOrder_Insert"
-            
+        cmd.Parameters.Append cmd.CreateParameter("@ReceivedBy", adVarChar, adParamInput, 250, txtReceivedBy.Text)
+        cmd.Parameters.Append cmd.CreateParameter("@UserId", adInteger, adParamInput, , UserId)
+        
+        If ReceiveOrderId = 0 Then
+            cmd.CommandText = "PO_ReceiveOrder_Insert"
             cmd.Execute
-            PurchaseOrderId = cmd.Parameters("@PurchaseOrderId")
-            txtOrderNumber.Text = cmd.Parameters("@OrderNumber")
+            ReceiveOrderId = cmd.Parameters("@ReceiveOrderId")
             
-            SavePOSAuditTrail UserId, WorkstationId, "", "Created new purchase order: " & txtOrderNumber.Text, "PURCHASING"
+            SavePOSAuditTrail UserId, WorkstationId, "", "Created new receive order: " & txtOrderNumber.Text, "PURCHASING"
         Else
-            cmd.Parameters.Append cmd.CreateParameter("@isReopen", adBoolean, adParamInput, , isReopen)
-            cmd.CommandText = "PO_PurchaseOrder_Update"
+            cmd.CommandText = "PO_ReceiveOrder_Update"
             cmd.Execute
             
             Dim auditstatus As String
@@ -1172,49 +1254,36 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
             If StatusId = 2 Then auditstatus = "Completed"
             If StatusId = 7 Then auditstatus = "Cancelled"
             
-            SavePOSAuditTrail UserId, WorkstationId, "", "Updated purchase order: " & txtOrderNumber.Text & " - Status: " & auditstatus, "PURCHASING"
+            SavePOSAuditTrail UserId, WorkstationId, "", "Updated receive order details: " & txtOrderNumber.Text & " - Status: " & auditstatus, "PURCHASING"
         End If
 
-        
-
         'SAVE ORDER LINE
-        Dim item As MSComctlLib.ListItem
+        Dim Item As MSComctlLib.ListItem
 
-        For Each item In lvItems.ListItems
+        For Each Item In lvItems.ListItems
             Set cmd = New ADODB.Command
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
 
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderLineId", adInteger, adParamInputOutput, , Val(item.Text))
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
-            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(item.SubItems(9)))
-            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.SubItems(3))
-            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(item.SubItems(4), ",", "")))
+            cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderLineId", adInteger, adParamInputOutput, , Val(Item.Text))
+            cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInput, , ReceiveOrderId)
+            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(Item.SubItems(6)))
+            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.SubItems(3))
+            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(Item.SubItems(4), ",", "")))
                                   cmd.Parameters("@Quantity").Precision = 18
                                   cmd.Parameters("@Quantity").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, item.SubItems(5))
-            cmd.Parameters.Append cmd.CreateParameter("@Cost", adDecimal, adParamInput, , Val(Replace(item.SubItems(6), ",", "")))
-                                  cmd.Parameters("@Cost").Precision = 18
-                                  cmd.Parameters("@Cost").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(item.SubItems(7), ",", "")))
-                                  cmd.Parameters("@Subtotal").Precision = 18
-                                  cmd.Parameters("@Subtotal").NumericScale = 2
-            'cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , Val(item.SubItems(8)))
+            cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, Item.SubItems(5))
+            cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , cmbLocation.ItemData(cmbLocation.ListIndex))
             cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , StatusId)
-            cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtOrder.value)
-            cmd.Parameters.Append cmd.CreateParameter("@VendorId", adInteger, adParamInput, , VendorId)
             
-            If item.Text = "" Then
-                cmd.CommandText = "PO_PurchaseOrderLine_Insert"
+            If Item.Text = "" Then
+                cmd.CommandText = "PO_ReceiveOrderLine_Insert"
             Else
-                cmd.Parameters.Append cmd.CreateParameter("@isReopen", adBoolean, adParamInput, , isReopen)
-                cmd.Parameters.Append cmd.CreateParameter("@PreQuantity", adDecimal, adParamInput, , Val(Replace(item.SubItems(10), ",", "")))
-                                  cmd.Parameters("@PreQuantity").Precision = 18
-                                  cmd.Parameters("@PreQuantity").NumericScale = 2
-                cmd.CommandText = "PO_PurchaseOrderLine_Update"
+                cmd.CommandText = "PO_ReceiveOrderLine_Update"
             End If
             cmd.Execute
-            item.Text = cmd.Parameters("@PurchaseOrderLineId")
+            Item.Text = cmd.Parameters("@ReceiveOrderLineId")
+            Item.SubItems(7) = ReceiveOrderId
         Next
 
         'DELETE ORDERLINE IF ANY
@@ -1225,8 +1294,8 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
             cmd.CommandType = adCmdStoredProc
 
             If OrderLine(ctr) <> 0 Then
-                cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderLineId", adInteger, adParamInput, , OrderLine(ctr))
-                cmd.CommandText = "PO_PurchaseOrderLine_Delete"
+                cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderLineId", adInteger, adParamInput, , OrderLine(ctr))
+                cmd.CommandText = "PO_ReceiveOrderLine_Delete"
                 cmd.Execute
             Else
                 Exit For
@@ -1239,48 +1308,36 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
         If StatusId = 2 Then
             isNotCompleted (False)
             txtStatus.Text = "Completed"
-            ''picCompleted.Left = 6840
-            ''picCompleted.Visible = True
             Me.StatusId = 2
+            
+            With PO_PurchaseOrderFrm
+                .StatusId = 3
+                LoadImageStatus PO_PurchaseOrderFrm.picStatus, GetStatus(PO_PurchaseOrderFrm.StatusId)
+                On Error Resume Next
+                .lvSearch.SelectedItem.SubItems(2) = "Receiving"
+                .txtStatus.Text = "Receiving"
+            End With
         End If
 
         Dim isFound As Boolean
         isFound = False
-        For Each item In lvSearch.ListItems
-            If PurchaseOrderId = item.Text Then
-                item.SubItems(1) = txtOrderNumber.Text
-                item.SubItems(2) = txtStatus.Text
+        For Each Item In lvSearch.ListItems
+            If ReceiveOrderId = Item.Text Then
+                Item.SubItems(1) = txtOrderNumber.Text
+                Item.SubItems(3) = txtStatus.Text
                 isFound = True
-                item.Selected = True
-                item.EnsureVisible
+                Item.Selected = True
+                Item.EnsureVisible
                 Exit For
             End If
         Next
         If isFound = False Then
-            Set item = lvSearch.ListItems.add(, , PurchaseOrderId)
-                item.SubItems(1) = txtOrderNumber.Text
-                item.SubItems(2) = txtStatus.Text
-                item.Selected = True
-                item.EnsureVisible
+            Set Item = lvSearch.ListItems.add(, , ReceiveOrderId)
+                Item.SubItems(1) = txtOrderNumber.Text
+                Item.SubItems(3) = txtStatus.Text
+                Item.Selected = True
+                Item.EnsureVisible
         End If
-
-        'PRINT PREVIEW
-'        If StatusId = 2 Then
-'            Screen.MousePointer = vbHourglass
-'            BASE_PrintPreviewFrm.Show
-'            Dim crxApp As New CRAXDRT.Application
-'            Dim crxRpt As New CRAXDRT.Report
-'            Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\PO_PurchaseOrder.rpt")
-'            crxRpt.RecordSelectionFormula = "{PO_PurchaseOrder.PurchaseOrderId}= " & PurchaseOrderId & ""
-'            crxRpt.DiscardSavedData
-'
-'            Call ResetRptDB(crxRpt)
-'
-'            BASE_PrintPreviewFrm.CRViewer.ReportSource = crxRpt
-'            BASE_PrintPreviewFrm.CRViewer.ViewReport
-'            BASE_PrintPreviewFrm.CRViewer.Zoom 1
-'            Screen.MousePointer = vbDefault
-'        End If
     End If
     Exit Sub
 ErrorHandler:
@@ -1295,16 +1352,16 @@ ErrorHandler:
 End Sub
 
 Private Function Validated() As Boolean
-    If VendorId = 0 Then
+    If txtOrderNumber.Text = "" Then
         Validated = False
-        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(13)
+        GLOBAL_MessageFrm.lblErrorMessage.Caption = "Delivery number is required."
         GLOBAL_MessageFrm.Show (1)
-        cmbVendor.SetFocus
-'    ElseIf cmbTerms.ItemData(cmbTerms.ListIndex) <= 0 Then
-'        Validated = False
-'        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(14)
-'        GLOBAL_MessageFrm.Show (1)
-'        cmbTerms.SetFocus
+        txtOrderNumber.SetFocus
+    ElseIf cmbLocation.ListIndex = 0 Then
+        Validated = False
+        GLOBAL_MessageFrm.lblErrorMessage.Caption = "Receive location is required."
+        GLOBAL_MessageFrm.Show (1)
+        cmbLocation.SetFocus
     Else
         Validated = True
     End If
@@ -1317,21 +1374,13 @@ Public Sub isNotCompleted(ByVal a As Boolean)
     Frame_Footer.Enabled = a
 End Sub
 Public Sub CountTotal()
-    Dim Total, subtotal, gSubTotal As Double
-    Dim item As MSComctlLib.ListItem
+    Dim Total As Double
+    Dim Item As MSComctlLib.ListItem
     
-    For Each item In lvItems.ListItems
-        subtotal = Val(Replace(item.SubItems(4), ",", "")) * Val(Replace(item.SubItems(6), ",", ""))
-        item.SubItems(7) = FormatNumber(subtotal, 2, vbTrue, vbFalse)
-        gSubTotal = gSubTotal + subtotal
-        Total = Total + subtotal
+    For Each Item In lvItems.ListItems
+        Total = Total + NVAL(Item.SubItems(4))
     Next
-    Total = Total + Val(Replace(txtFreight.Text, ",", "")) - Val(Replace(txtAdjustment.Text, ",", ""))
-    
-    lblSubTotal.Caption = FormatNumber(gSubTotal, 2, vbTrue, vbFalse)
-    lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
-    lblRemainingBalance.Caption = lblTotal.Caption
-    lblTotalPayment.Caption = FormatNumber(NVAL(lblBalance.Caption) - NVAL(lblInvoice.Caption), 2, vbTrue)
+    lblTotalItems.Caption = FormatNumber(Total, 0, vbTrue, vbFalse)
 End Sub
 Public Sub Populate(ByVal data As String)
     Select Case data
@@ -1363,7 +1412,7 @@ Public Sub Populate(ByVal data As String)
                     rec.MoveNext
                 Loop
             End If
-        Case "PurchaseOrderGet"
+        Case "ReceiveOrderGet"
             Set con = New ADODB.Connection
             Set cmd = New ADODB.Command
             Set rec = New ADODB.Recordset
@@ -1371,50 +1420,45 @@ Public Sub Populate(ByVal data As String)
             con.Open
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
-            cmd.CommandText = "PO_PurchaseOrder_Get"
+            cmd.CommandText = "PO_ReceiveOrder_Get"
+            cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInput, , ReceiveOrderId)
             cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
             Set rec = cmd.Execute
             If Not rec.EOF Then
-                'If rec!isCashAdvance = "False" Then
-                    VendorId = rec!VendorId
-                    StatusId = rec!StatusId
-                    txtStatus.Text = rec!Status
-                    txtOrderNumber.Text = rec!OrderNumber
-                    dtOrder.value = Format(rec!Date, "MM/DD/YY")
-                    lblSubTotal.Caption = FormatNumber(rec!subtotal, 2, vbTrue)
-                    txtOrderNumber.Text = rec!OrderNumber
-                    txtRemarks.Text = rec!Remarks
-                    On Error Resume Next
-                    
-                    If rec!StatusId = 2 Then 'COMPLETED
-                        isNotCompleted (False)
-                        tb_Standard.Buttons(4).Caption = "Cancel"
-                        tb_Standard.Buttons(4).Image = 3
-                    ElseIf rec!StatusId = 3 Then 'IN PROGRESS
-                        isNotCompleted (False)
-                        tb_Standard.Buttons(4).Caption = "Cancel"
-                        tb_Standard.Buttons(4).Image = 3
-                    ElseIf rec!StatusId = 7 Then 'Cancelled
-                        isNotCompleted (False)
-                        tb_Standard.Buttons(4).Caption = "Activate"
-                        tb_Standard.Buttons(4).Image = 6
-                        'btnPaid.Visible = False
-                        'btnStatus.Caption = "Complete Order"
-                    ElseIf rec!StatusId = 6 Then 'PAID
-                        isNotCompleted (False)
-                        tb_Standard.Buttons(4).Caption = "Cancel"
-                        tb_Standard.Buttons(4).Image = 3
-                        'btnPaid.Visible = False
-                        'btnStatus.Caption = "Reopen Order"
-                    Else
-                        isNotCompleted (True)
-                        tb_Standard.Buttons(4).Caption = "Cancel"
-                        tb_Standard.Buttons(4).Image = 3
-                    End If
-                'End If
+                StatusId = rec!StatusId
+                txtStatus.Text = rec!Status
+                txtOrderNumber.Text = rec!DeliveryNumber
+                dtOrder.value = Format(rec!receiveddate, "MM/DD/YY")
+                txtRemarks.Text = rec!Remarks
+                txtReceivedBy.Text = rec!receivedby
+                
+                On Error Resume Next
+                cmbLocation.Text = rec!Location
+                
+                If rec!StatusId = 2 Then 'COMPLETED
+                    isNotCompleted (False)
+                    tb_Standard.Buttons(4).Caption = "Cancel"
+                    tb_Standard.Buttons(4).Image = 3
+                ElseIf rec!StatusId = 3 Then 'IN PROGRESS
+                    isNotCompleted (False)
+                    tb_Standard.Buttons(4).Caption = "Cancel"
+                    tb_Standard.Buttons(4).Image = 3
+                ElseIf rec!StatusId = 7 Then 'Cancelled
+                    isNotCompleted (False)
+                    tb_Standard.Buttons(4).Caption = "Activate"
+                    tb_Standard.Buttons(4).Image = 6
+                ElseIf rec!StatusId = 6 Then 'PAID
+                    isNotCompleted (False)
+                    tb_Standard.Buttons(4).Caption = "Cancel"
+                    tb_Standard.Buttons(4).Image = 3
+                Else
+                    isNotCompleted (True)
+                    tb_Standard.Buttons(4).Caption = "Cancel"
+                    tb_Standard.Buttons(4).Image = 3
+                End If
             End If
             con.Close
-        Case "PurchaseOrderLoad"
+        Case "ReceiveOrderLoad"
             Set con = New ADODB.Connection
             Set cmd = New ADODB.Command
             Set rec = New ADODB.Recordset
@@ -1422,22 +1466,24 @@ Public Sub Populate(ByVal data As String)
             con.Open
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
-            cmd.CommandText = "PO_PurchaseOrder_Get"
+            cmd.CommandText = "PO_ReceiveOrder_Get"
+            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
             Set rec = cmd.Execute
-            Dim item As MSComctlLib.ListItem
+            Dim Item As MSComctlLib.ListItem
             lvSearch.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
                     If rec!isCashAdvance = "False" Then
-                        Set item = lvSearch.ListItems.add(, , rec!PurchaseOrderId)
-                            item.SubItems(1) = rec!OrderNumber
-                            item.SubItems(3) = rec!Status
+                        Set Item = lvSearch.ListItems.add(, , rec!ReceiveOrderId)
+                            Item.SubItems(1) = rec!OrderNumber
+                            Item.SubItems(2) = rec!ReferenceNumber
+                            Item.SubItems(3) = rec!Status
                     End If
                     rec.MoveNext
                 Loop
             End If
             con.Close
-        Case "PurchaseOrderLineGet"
+        Case "ReceiveOrderLineGet"
             Set con = New ADODB.Connection
             Set cmd = New ADODB.Command
             Set rec = New ADODB.Recordset
@@ -1445,26 +1491,21 @@ Public Sub Populate(ByVal data As String)
             con.Open
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
-            cmd.CommandText = "PO_PurchaseOrderLine_Get"
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
+            cmd.CommandText = "PO_ReceiveOrderLine_Get"
+            cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInput, , ReceiveOrderId)
             Set rec = cmd.Execute
             lvItems.ListItems.Clear
             'On Error Resume Next
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set item = lvItems.ListItems.add(, , rec!PurchaseOrderLineId)
-                        item.SubItems(1) = rec!PurchaseOrderId
-                        item.SubItems(2) = rec!itemcode
-                        item.SubItems(3) = rec!Name
-                        item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue)
-                        item.SubItems(5) = rec!Uom
-                        item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue)
-                        item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
-                        'item.SubItems(8) = rec!LocationId
-                        item.SubItems(9) = rec!ProductId
-                        item.SubItems(10) = rec!quantity
-                        On Error Resume Next
-                        item.SubItems(11) = rec!receivedquantity
+                    Set Item = lvItems.ListItems.add(, , rec!ReceiveOrderLineId)
+                        Item.SubItems(1) = PurchaseOrderId
+                        Item.SubItems(2) = rec!itemcode
+                        Item.SubItems(3) = rec!Name
+                        Item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue)
+                        Item.SubItems(5) = rec!Uom
+                        Item.SubItems(6) = rec!ProductId
+                        Item.SubItems(7) = rec!ReceiveOrderId
                     rec.MoveNext
                 Loop
             End If
@@ -1475,30 +1516,52 @@ End Sub
 
 Private Sub btnAutoFill_Click()
     'AutoFill
-    Dim item As MSComctlLib.ListItem
+    Dim Item, dritem As MSComctlLib.ListItem
     Dim rItem As MSComctlLib.ListItem
     Dim x As Integer
     Dim isFound As Boolean
     
-    For x = 1 To lvItems.ListItems.count
-        If x > lvItems.ListItems.count Then Exit For
-        If lvItems.ListItems(x).Text = "" Then
-            lvItems.ListItems.Remove (x)
-            x = x - 1
-        End If
+    For Each Item In PO_PurchaseOrderFrm.lvItems.ListItems
+        isFound = False
+        With PO_ReceiveOrderFrm
+        
+            For Each dritem In .lvItems.ListItems
+                If dritem.SubItems(6) = Item.SubItems(9) Then
+                    isFound = True
+                    Exit For
+                End If
+            Next
+            
+            If isFound = False Then
+                Set rItem = lvItems.ListItems.add(, , "")
+                    rItem.SubItems(2) = Item.SubItems(2)
+                    rItem.SubItems(3) = Item.SubItems(3)
+                    rItem.SubItems(4) = Item.SubItems(4)
+                    rItem.SubItems(5) = Item.SubItems(5)
+                    rItem.SubItems(6) = Item.SubItems(9)
+            End If
+        End With
     Next
     
-    With PO_PurchaseOrderFrm
-        For Each item In .lvItems.ListItems
-            Set rItem = lvItems.ListItems.add(, , "")
-                rItem.SubItems(2) = item.SubItems(2)
-                rItem.SubItems(3) = item.SubItems(3)
-                rItem.SubItems(4) = item.SubItems(4)
-                rItem.SubItems(5) = item.SubItems(5)
-        Next
-    End With
     txtItemSearch.SetFocus
     lvItemList.Visible = False
+    CountTotal
+End Sub
+
+Private Sub btnComplete_Click()
+    If StatusId = 2 Then
+        MsgBox "Save failed. No changes made. Order is already complete.", vbCritical
+        Exit Sub
+    End If
+    Dim x As Variant
+    x = MsgBox("This will complete the transaction. Product inventories will now be updated. Proceed?", vbExclamation + vbOKCancel)
+    If x = vbOK Then
+        If Validated = True Then
+            Save (1)
+            Save (2)
+            LoadImageStatus picStatus, GetStatus(StatusId)
+        End If
+    End If
 End Sub
 
 Private Sub btnInvoice_Click()
@@ -1507,7 +1570,7 @@ Private Sub btnInvoice_Click()
         Exit Sub
     End If
     
-    If PurchaseOrderId = 0 Then Exit Sub
+    If ReceiveOrderId = 0 Then Exit Sub
     PO_PurchaseInvoiceFrm.Show '(1)
 End Sub
 
@@ -1515,7 +1578,7 @@ Private Sub btnItemSearch_Click()
     Set con = New ADODB.Connection
     Set rec = New ADODB.Recordset
     Set cmd = New ADODB.Command
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     
     con.ConnectionString = ConnString
     con.Open
@@ -1530,11 +1593,11 @@ Private Sub btnItemSearch_Click()
         Do Until rec.EOF
             If rec!isActive = "True" Then
                 If LastProductId <> rec!ProductId Then
-                    Set item = lvItemList.ListItems.add(, , rec!ProductId)
-                        item.SubItems(1) = rec!itemcode
-                        item.SubItems(2) = rec!Name
-                        item.SubItems(3) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
-                        item.SubItems(4) = rec!Uom
+                    Set Item = lvItemList.ListItems.add(, , rec!ProductId)
+                        Item.SubItems(1) = rec!itemcode
+                        Item.SubItems(2) = rec!Name
+                        Item.SubItems(3) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
+                        Item.SubItems(4) = rec!Uom
                     lvItemList.Visible = True
                     lvItemList.Left = 6070
                     'lvItemList.Top = 3600
@@ -1556,25 +1619,8 @@ Private Sub btnItemSearch_Click()
     con.Close
 End Sub
 
-Private Sub btnPaid_Click()
-    Unload FIN_PaymentDialogFrm
-    With FIN_PaymentDialogFrm
-        .isBatchPO = False
-        .isBatchSO = False
-        .isPO = False
-        .isSO = False
-        .isSOAR = True
-        .chkOnline.Visible = True
-        .lblCustomerName.Caption = cmbVendor.Text
-        .lblOrderNumber.Caption = txtOrderNumber.Text
-        .lblBalance.Caption = lblRemainingBalance.Caption
-        .lblBalanceForwarded.Caption = lblRemainingBalance.Caption
-        .Show (1)
-    End With
-End Sub
-
 Private Sub btnReceiveOrder_Click()
-    If PurchaseOrderId = 0 Then Exit Sub
+    If ReceiveOrderId = 0 Then Exit Sub
     
     If EditAccessRights(33) = False Then
         MsgBox ErrorCodes(74), vbCritical, "Limited Rights"
@@ -1608,8 +1654,8 @@ Private Sub btnReceiveOrder_Click()
 '            Set cmd = New ADODB.Command
 '                cmd.ActiveConnection = con
 '                cmd.CommandType = adCmdStoredProc
-'                cmd.CommandText = "PO_PurchaseOrderStatus_Update"
-'                cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PO_PurchaseOrderFrm.PurchaseOrderId)
+'                cmd.CommandText = "PO_ReceiveOrderStatus_Update"
+'                cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInput, , PO_ReceiveOrderFrm.ReceiveOrderId)
 '                cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , 2) 'IN PROGRESS
 '                cmd.Execute
 '            con.Close
@@ -1619,12 +1665,12 @@ Private Sub btnReceiveOrder_Click()
 '            lvSearch_ItemClick item
 '        Else
 '            PO_ReceiveOrderFrm.txtOrderNumber.text = txtOrderNumber.text
-'            'PO_ReceiveOrderFrm.PurchaseOrderIdx = Me.PurchaseOrderId
+'            'PO_ReceiveOrderFrm.ReceiveOrderIdx = Me.ReceiveOrderId
 '            PO_ReceiveOrderFrm.Show
 '        End If
 '    Else
         'PO_ReceiveOrderFrm.txtOrderNumber.Text = txtOrderNumber.Text
-        'PO_ReceiveOrderFrm.PurchaseOrderIdx = Me.PurchaseOrderId
+        'PO_ReceiveOrderFrm.ReceiveOrderIdx = Me.ReceiveOrderId
         PO_ReceiveOrderFrm.Show
 '    End If
     
@@ -1641,22 +1687,22 @@ Public Sub btnSearch_Click()
     con.Open
     cmd.ActiveConnection = con
     cmd.CommandType = adCmdStoredProc
-    cmd.CommandText = "PO_PurchaseOrder_Get"
-    cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , Null)
-    If cmbSearch_Status.ItemData(cmbSearch_Status.ListIndex) = 0 Then
-        cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , Null)
-    Else
-        cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , cmbSearch_Status.ItemData(cmbSearch_Status.ListIndex))
-    End If
+    cmd.CommandText = "PO_ReceiveOrder_Search"
     cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 50, txtSearch_OrderNumber.Text)
-    Dim item As MSComctlLib.ListItem
+    cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
+    cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , cmbSearch_Status.ItemData(cmbSearch_Status.ListIndex))
+    cmd.Parameters.Append cmd.CreateParameter("@DateFrom", adDate, adParamInput, , DateFrom.value)
+    cmd.Parameters.Append cmd.CreateParameter("@DateTo", adDate, adParamInput, , DateTo.value)
+    
+    Dim Item As MSComctlLib.ListItem
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvSearch.ListItems.add(, , rec!PurchaseOrderId)
-                item.SubItems(1) = rec!OrderNumber
-                item.SubItems(2) = rec!Status
+            Set Item = lvSearch.ListItems.add(, , rec!ReceiveOrderId)
+                Item.SubItems(1) = rec!OrderNumber
+                Item.SubItems(2) = rec!ReferenceNumber
+                Item.SubItems(3) = rec!Status
             rec.MoveNext
         Loop
     End If
@@ -1701,92 +1747,92 @@ Private Sub btnStatus_Click()
 End Sub
 
 Private Sub cmbVendor_Change()
-    If Trim(cmbVendor.Text) <> "" Then
-        Dim item As MSComctlLib.ListItem
-        Set con = New ADODB.Connection
-        Set rec = New ADODB.Recordset
-        Set cmd = New ADODB.Command
-        'Dim item As MSComctlLib.ListItem
-    
-        con.ConnectionString = ConnString
-        con.Open
-        cmd.ActiveConnection = con
-        cmd.CommandType = adCmdStoredProc
-        cmd.CommandText = "BASE_Vendor_Search"
-        cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Trim(cmbVendor.Text))
-        Set rec = cmd.Execute
-        If Not rec.EOF Then
-            lvVendor.ListItems.Clear
-            lvVendor.Left = 1440
-            lvVendor.Visible = True
-            Do Until rec.EOF
-                If rec!isActive = "True" Then
-                    Set item = lvVendor.ListItems.add(, , rec!VendorId)
-                        item.SubItems(1) = rec!VendorCode
-                        item.SubItems(2) = rec!Name
-                        item.SubItems(3) = FormatNumber(rec!OutStandingBalance, 2, vbTrue, vbFalse)
-                        item.SubItems(4) = rec!Phone
-                        item.SubItems(5) = rec!Address
-                End If
-                rec.MoveNext
-            Loop
-        Else
-            lvVendor.Visible = False
-            lvVendor.Left = -9999
-        End If
-        con.Close
-    
-'        If Trim(cmbVendor.text) = "" Then
-'            cmbVendor.BackColor = &HC0C0FF
+'    If Trim(cmbVendor.Text) <> "" Then
+'        Dim Item As MSComctlLib.ListItem
+'        Set con = New ADODB.Connection
+'        Set rec = New ADODB.Recordset
+'        Set cmd = New ADODB.Command
+'        'Dim item As MSComctlLib.ListItem
+'
+'        con.ConnectionString = ConnString
+'        con.Open
+'        cmd.ActiveConnection = con
+'        cmd.CommandType = adCmdStoredProc
+'        cmd.CommandText = "BASE_Vendor_Search"
+'        cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Trim(cmbVendor.Text))
+'        Set rec = cmd.Execute
+'        If Not rec.EOF Then
+'            lvVendor.ListItems.Clear
+'            lvVendor.Left = 1440
+'            lvVendor.Visible = True
+'            Do Until rec.EOF
+'                If rec!isActive = "True" Then
+'                    Set Item = lvVendor.ListItems.add(, , rec!VendorId)
+'                        Item.SubItems(1) = rec!VendorCode
+'                        Item.SubItems(2) = rec!Name
+'                        Item.SubItems(3) = FormatNumber(rec!OutStandingBalance, 2, vbTrue, vbFalse)
+'                        Item.SubItems(4) = rec!Phone
+'                        Item.SubItems(5) = rec!Address
+'                End If
+'                rec.MoveNext
+'            Loop
 '        Else
-'            cmbVendor.BackColor = vbWhite
+'            lvVendor.Visible = False
+'            lvVendor.Left = -9999
 '        End If
-    End If
-End Sub
-
-Private Sub cmbVendor_GotFocus()
-    selectText cmbVendor
-End Sub
-
-Private Sub cmbVendor_KeyDown(KeyCode As Integer, Shift As Integer)
-    Select Case KeyCode
-        Case vbKeyReturn
-            Set con = New ADODB.Connection
-            Set rec = New ADODB.Recordset
-            Set cmd = New ADODB.Command
-            Dim item As MSComctlLib.ListItem
-            
-            con.ConnectionString = ConnString
-            con.Open
-            cmd.ActiveConnection = con
-            cmd.CommandType = adCmdStoredProc
-            cmd.CommandText = "BASE_Vendor_Search"
-            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, "")
-            cmd.Parameters.Append cmd.CreateParameter("@VendorCode", adVarChar, adParamInput, 50, cmbVendor.Text)
-            Set rec = cmd.Execute
-            If Not rec.EOF Then
-                lvVendor.ListItems.Clear
-                lvVendor.Left = 1440
-                lvVendor.Visible = True
-                Do Until rec.EOF
-                    Set item = lvVendor.ListItems.add(, , rec!VendorId)
-                        item.SubItems(1) = rec!VendorCode
-                        item.SubItems(2) = rec!Name
-                        item.SubItems(3) = FormatNumber(rec!OutStandingBalance, 2, vbTrue, vbFalse)
-                        item.SubItems(4) = rec!Phone
-                        item.SubItems(5) = rec!Address
-                    rec.MoveNext
-                Loop
-            Else
-                lvVendor.Visible = False
-                lvVendor.Left = -9999
-            End If
-            con.Close
-        Case vbKeyUp, vbKeyDown
-            If lvVendor.Visible = True Then
-                lvVendor.SetFocus
-            End If
-    End Select
+'        con.Close
+'
+''        If Trim(cmbVendor.text) = "" Then
+''            cmbVendor.BackColor = &HC0C0FF
+''        Else
+''            cmbVendor.BackColor = vbWhite
+''        End If
+'    End If
+'End Sub
+'
+'Private Sub cmbVendor_GotFocus()
+'    selectText cmbVendor
+'End Sub
+'
+'Private Sub cmbVendor_KeyDown(KeyCode As Integer, Shift As Integer)
+'    Select Case KeyCode
+'        Case vbKeyReturn
+'            Set con = New ADODB.Connection
+'            Set rec = New ADODB.Recordset
+'            Set cmd = New ADODB.Command
+'            Dim Item As MSComctlLib.ListItem
+'
+'            con.ConnectionString = ConnString
+'            con.Open
+'            cmd.ActiveConnection = con
+'            cmd.CommandType = adCmdStoredProc
+'            cmd.CommandText = "BASE_Vendor_Search"
+'            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, "")
+'            cmd.Parameters.Append cmd.CreateParameter("@VendorCode", adVarChar, adParamInput, 50, cmbVendor.Text)
+'            Set rec = cmd.Execute
+'            If Not rec.EOF Then
+'                lvVendor.ListItems.Clear
+'                lvVendor.Left = 1440
+'                lvVendor.Visible = True
+'                Do Until rec.EOF
+'                    Set Item = lvVendor.ListItems.add(, , rec!VendorId)
+'                        Item.SubItems(1) = rec!VendorCode
+'                        Item.SubItems(2) = rec!Name
+'                        Item.SubItems(3) = FormatNumber(rec!OutStandingBalance, 2, vbTrue, vbFalse)
+'                        Item.SubItems(4) = rec!Phone
+'                        Item.SubItems(5) = rec!Address
+'                    rec.MoveNext
+'                Loop
+'            Else
+'                lvVendor.Visible = False
+'                lvVendor.Left = -9999
+'            End If
+'            con.Close
+'        Case vbKeyUp, vbKeyDown
+'            If lvVendor.Visible = True Then
+'                lvVendor.SetFocus
+'            End If
+'    End Select
 End Sub
 
 Private Sub cmbTerms_Click()
@@ -1802,7 +1848,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             If lvVendor.Visible = True Then
                 lvVendor.Visible = False
                 lvVendor.Left = -9999
-                cmbVendor.SetFocus
+                'cmbVendor.SetFocus
             ElseIf lvItemList.Visible = True Then
                 lvItemList.Visible = False
                 lvItemList.Left = -9999
@@ -1857,7 +1903,6 @@ Private Sub Form_Load()
     lvItems.ColumnHeaders(5).width = lvItems.width * 0.12
     lvItems.ColumnHeaders(6).width = lvItems.width * 0.09
     lvItems.ColumnHeaders(7).width = lvItems.width * 0
-    lvItems.ColumnHeaders(8).width = lvItems.width * 0
     
     'StatusBarWidth Me, statusBar_Main
     '****************************************
@@ -1866,15 +1911,8 @@ Private Sub Form_Load()
     Populate "Terms"
     Populate "Status"
     Populate "Location"
-    'Populate "PurchaseOrderLoad"
     DateFrom.value = Format(Now, "MM/DD/YY")
     DateTo.value = Format(Now, "MM/DD/YY")
-    
-    UpdateVendorOrderDues
-    
-    On Error Resume Next
-    cmbSearch_Status.ListIndex = 1
-    btnSearch_Click
 End Sub
 
 
@@ -1893,33 +1931,18 @@ Private Sub lblCaption_AR_Click()
 
 End Sub
 
-Private Sub lvVendor_DblClick()
-    If lvVendor.ListItems.count > 0 Then
-        VendorId = lvVendor.SelectedItem.Text
-        cmbVendor.Text = lvVendor.SelectedItem.SubItems(2)
-        lblBalance.Caption = lvVendor.SelectedItem.SubItems(3)
-        txtContact.Text = lvVendor.SelectedItem.SubItems(4)
-        txtAddress.Text = lvVendor.SelectedItem.SubItems(5)
-        lvVendor.Visible = False
-        lvVendor.Left = -9999
-        txtItemSearch.SetFocus
-        'txtCode.SetFocus
-        cmbVendor.BackColor = vbWhite
-    End If
-End Sub
-
 Private Sub lvVendor_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case vbKeyReturn
-            lvVendor_DblClick
+            'lvVendor_DblClick
     End Select
 End Sub
 
 Private Sub lvItemList_DblClick()
-    PO_ItemSelectOptFrm.txtCost.Text = lvItemList.SelectedItem.SubItems(3)
-    PO_ItemSelectOptFrm.txtDescription.Text = lvItemList.SelectedItem.SubItems(2)
+    'PO_ReceiveItemOptFrm.txtCost.Text = lvItemList.SelectedItem.SubItems(3)
+    PO_ReceiveItemOptFrm.txtDescription.Text = lvItemList.SelectedItem.SubItems(2)
     isModify = False
-    PO_ItemSelectOptFrm.Show (1)
+    PO_ReceiveItemOptFrm.Show (1)
 End Sub
 
 Private Sub lvItemList_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -1927,9 +1950,8 @@ Private Sub lvItemList_KeyDown(KeyCode As Integer, Shift As Integer)
         Case vbKeyReturn
             If lvItemList.ListItems.count > 0 Then
                 isModify = False
-                PO_ItemSelectOptFrm.txtCost.Text = lvItemList.SelectedItem.SubItems(3)
-                PO_ItemSelectOptFrm.txtDescription.Text = lvItemList.SelectedItem.SubItems(2)
-                PO_ItemSelectOptFrm.Show (1)
+                PO_ReceiveItemOptFrm.txtDescription.Text = lvItemList.SelectedItem.SubItems(2)
+                PO_ReceiveItemOptFrm.Show (1)
             End If
     End Select
 End Sub
@@ -1937,10 +1959,11 @@ End Sub
 Private Sub lvItems_DblClick()
     If lvItems.ListItems.count > 0 Then
         isModify = True
-        With PO_ItemSelectOptFrm
+        With PO_ReceiveOrderDialogFrm
             .txtQuantity.Text = lvItems.SelectedItem.SubItems(4)
-            .txtCost.Text = lvItems.SelectedItem.SubItems(6)
             .txtDescription.Text = lvItems.SelectedItem.SubItems(3)
+            On Error Resume Next
+            .cmbUnit.Text = lvItems.SelectedItem.SubItems(5)
             .Show (1)
         End With
     End If
@@ -1974,14 +1997,14 @@ Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
     CountTotal
 End Sub
 
-Public Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
+Public Sub lvSearch_ItemClick(ByVal Item As MSComctlLib.ListItem)
     If lvSearch.ListItems.count > 0 Then
         Initialize
-        PurchaseOrderId = lvSearch.SelectedItem.Text
-        Populate "PurchaseOrderLineGet"
+        ReceiveOrderId = lvSearch.SelectedItem.Text
+        Populate "ReceiveOrderLineGet"
         CountTotal
-        Populate "PurchaseOrderGet"
-        Populate "Vendor"
+        Populate "ReceiveOrderGet"
+       ' Populate "Vendor"
         
         LoadImageStatus picStatus, GetStatus(StatusId)
     End If
@@ -2001,25 +2024,22 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             If StatusId <= 1 Then
                 Save (1) 'Status Open
                 LoadImageStatus picStatus, GetStatus(StatusId)
-            ElseIf StatusId = 2 Then 'Completed
-                Save (2)
-                LoadImageStatus picStatus, GetStatus(StatusId)
-            ElseIf StatusId = 3 Then 'IN PROGRESS
-                MsgBox "Save failed. Order is already in progress. No changes made.", vbCritical
+            ElseIf StatusId = 2 Then 'Receiving
+                MsgBox "Save failed. Order is already complete. No changes made.", vbCritical
                 Exit Sub
             End If
         Case 4 'Cancel
             If StatusId = 7 Then
                 MsgBox "Order already cancelled.", vbCritical
                 Exit Sub
-            ElseIf StatusId = 3 Then
-                MsgBox "Cancel failed. Order is already in progress. No changes made.", vbCritical
+            ElseIf StatusId = 2 Then
+                MsgBox "Cancel failed. Order is already complete. No changes made.", vbCritical
                 Exit Sub
             ElseIf StatusId = 4 Then
                 MsgBox "Cannot cancel an invoiced order.", vbCritical
                 Exit Sub
             End If
-            If PurchaseOrderId <> 0 Then
+            If ReceiveOrderId <> 0 Then
                 Dim x As Variant
                 x = MsgBox("Are you sure you want to cancel this order?", vbQuestion + vbYesNo)
                 If x = vbNo Then Exit Sub
@@ -2037,13 +2057,13 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 LoadImageStatus picStatus, GetStatus(StatusId)
             End If
         Case 6 'PRINT PREVIEW
-            If PurchaseOrderId <> 0 Then
+            If ReceiveOrderId <> 0 Then
                 Screen.MousePointer = vbHourglass
                 BASE_PrintPreviewFrm.Show
                 Dim crxApp As New CRAXDRT.Application
                 Dim crxRpt As New CRAXDRT.Report
-                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\PO_PurchaseOrder.rpt")
-                crxRpt.RecordSelectionFormula = "{PO_PurchaseOrder.PurchaseOrderId}= " & PurchaseOrderId & ""
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\PO_ReceiveOrder.rpt")
+                crxRpt.RecordSelectionFormula = "{PO_ReceiveOrder.ReceiveOrderId}= " & ReceiveOrderId & ""
                 crxRpt.DiscardSavedData
 
                 Call ResetRptDB(crxRpt)
@@ -2059,15 +2079,15 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
 End Sub
 
 Private Sub txtAdjustment_Change()
-    If IsNumeric(txtAdjustment.Text) = False Then
-        txtAdjustment.Text = "0.00"
-    Else
-        CountTotal
-    End If
+'    If IsNumeric(txtAdjustment.Text) = False Then
+'        txtAdjustment.Text = "0.00"
+'    Else
+'        CountTotal
+'    End If
 End Sub
 
 Private Sub txtAdjustment_GotFocus()
-    selectText txtAdjustment
+    'selectText txtAdjustment
 End Sub
 
 Private Sub txtCash_Change()
@@ -2086,56 +2106,56 @@ End Sub
 
 
 Private Sub txtCode_Change()
-    If Trim(txtCode.Text) = "" Then
-        lvItemList.Visible = False
-        Exit Sub
-    End If
-    Set con = New ADODB.Connection
-    Set rec = New ADODB.Recordset
-    Set cmd = New ADODB.Command
-    Dim item As MSComctlLib.ListItem
-    
-    con.ConnectionString = ConnString
-    con.Open
-    cmd.ActiveConnection = con
-    cmd.CommandType = adCmdStoredProc
-    cmd.CommandText = "BASE_Product_Search1"
-    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, Null)
-    cmd.Parameters.Append cmd.CreateParameter("@ItemCode", adVarChar, adParamInput, 50, txtCode.Text)
-    Dim LastProductId As Long
-    Set rec = cmd.Execute
-    If Not rec.EOF Then
-        lvItemList.ListItems.Clear
-        Do Until rec.EOF
-            If rec!isActive = "True" Then
-                If LastProductId <> rec!ProductId Then
-                    Set item = lvItemList.ListItems.add(, , rec!ProductId)
-                        item.SubItems(1) = rec!itemcode
-                        item.SubItems(2) = rec!Name
-                        item.SubItems(3) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
-                        item.SubItems(4) = rec!Uom
-                    lvItemList.Visible = True
-                    lvItemList.Left = 6070
-                    lvItemList.Top = 3240
-                    LastProductId = rec!ProductId
-                    rec.MoveNext
-                Else
-                    rec.MoveNext
-                End If
-            Else
-                rec.MoveNext
-            End If
-        Loop
-    Else
-        lvItemList.Visible = False
-        lvItemList.Left = -9999
-    End If
-    'DistinctList lvItemList
-    con.Close
+'    If Trim(txtCode.Text) = "" Then
+'        lvItemList.Visible = False
+'        Exit Sub
+'    End If
+'    Set con = New ADODB.Connection
+'    Set rec = New ADODB.Recordset
+'    Set cmd = New ADODB.Command
+'    Dim Item As MSComctlLib.ListItem
+'
+'    con.ConnectionString = ConnString
+'    con.Open
+'    cmd.ActiveConnection = con
+'    cmd.CommandType = adCmdStoredProc
+'    cmd.CommandText = "BASE_Product_Search1"
+'    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, Null)
+'    cmd.Parameters.Append cmd.CreateParameter("@ItemCode", adVarChar, adParamInput, 50, txtCode.Text)
+'    Dim LastProductId As Long
+'    Set rec = cmd.Execute
+'    If Not rec.EOF Then
+'        lvItemList.ListItems.Clear
+'        Do Until rec.EOF
+'            If rec!isActive = "True" Then
+'                If LastProductId <> rec!ProductId Then
+'                    Set Item = lvItemList.ListItems.add(, , rec!ProductId)
+'                        Item.SubItems(1) = rec!itemcode
+'                        Item.SubItems(2) = rec!Name
+'                        Item.SubItems(3) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
+'                        Item.SubItems(4) = rec!Uom
+'                    lvItemList.Visible = True
+'                    lvItemList.Left = 6070
+'                    lvItemList.Top = 3240
+'                    LastProductId = rec!ProductId
+'                    rec.MoveNext
+'                Else
+'                    rec.MoveNext
+'                End If
+'            Else
+'                rec.MoveNext
+'            End If
+'        Loop
+'    Else
+'        lvItemList.Visible = False
+'        lvItemList.Left = -9999
+'    End If
+'    'DistinctList lvItemList
+'    con.Close
 End Sub
 
 Private Sub txtCode_GotFocus()
-    selectText txtCode
+    'selectText txtCode
 End Sub
 
 Private Sub txtCode_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -2150,15 +2170,11 @@ Private Sub txtCode_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub txtFreight_Change()
-    If IsNumeric(txtFreight.Text) = False Then
-        txtFreight.Text = "0.00"
-    Else
-        CountTotal
-    End If
+   
 End Sub
 
 Private Sub txtFreight_GotFocus()
-    selectText txtFreight
+
 End Sub
 
 Private Sub txtItemSearch_Change()
@@ -2175,16 +2191,16 @@ Private Sub txtItemSearch_KeyDown(KeyCode As Integer, Shift As Integer)
         Case vbKeyReturn
             If Trim(txtItemSearch.Text) = "" Then Exit Sub
             'Barcode
-            Dim item As MSComctlLib.ListItem
+            Dim Item As MSComctlLib.ListItem
             Set rec = New ADODB.Recordset
             Set rec = ProductBarcode(txtItemSearch.Text)
             
             Dim isExisting As Boolean
             isExisting = False
             
-            For Each item In lvItems.ListItems
+            For Each Item In lvItems.ListItems
                 If Not rec.EOF Then
-                    If item.SubItems(9) = rec!ProductId And item.SubItems(5) = rec!Uom Then
+                    If Item.SubItems(9) = rec!ProductId And Item.SubItems(5) = rec!Uom Then
                         isExisting = True
                         Exit For
                     End If
@@ -2193,18 +2209,18 @@ Private Sub txtItemSearch_KeyDown(KeyCode As Integer, Shift As Integer)
             
             If Not rec.EOF Then 'Item found display in Lvitems
                 If isExisting = False Then
-                    Set item = lvItems.ListItems.add(, , "")
-                    item.SubItems(1) = ""
-                    item.SubItems(2) = rec!itemcode 'ItemCode
-                    item.SubItems(3) = rec!Name 'Name
-                    item.SubItems(4) = "1.00"
-                    item.SubItems(5) = rec!Uom
-                    item.SubItems(6) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
-                    item.SubItems(8) = ""
-                    item.SubItems(9) = rec!ProductId
+                    Set Item = lvItems.ListItems.add(, , "")
+                    Item.SubItems(1) = ""
+                    Item.SubItems(2) = rec!itemcode 'ItemCode
+                    Item.SubItems(3) = rec!Name 'Name
+                    Item.SubItems(4) = "1.00"
+                    Item.SubItems(5) = rec!Uom
+                    Item.SubItems(6) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
+                    Item.SubItems(8) = ""
+                    Item.SubItems(9) = rec!ProductId
                     'item.SubItems(13) = 1
                 Else
-                    item.SubItems(4) = FormatNumber(Val(Replace(item.SubItems(4), ",", "")) + 1, 2, vbTrue, vbFalse)
+                    Item.SubItems(4) = FormatNumber(Val(Replace(Item.SubItems(4), ",", "")) + 1, 2, vbTrue, vbFalse)
                 End If
                 
                 CountTotal
