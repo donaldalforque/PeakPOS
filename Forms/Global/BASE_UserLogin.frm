@@ -50,6 +50,26 @@ Begin VB.Form BASE_UserLoginFrm
       Top             =   3140
       Width           =   3495
    End
+   Begin VB.Label lblVersion 
+      AutoSize        =   -1  'True
+      BackColor       =   &H00FFFFFF&
+      BackStyle       =   0  'Transparent
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   225
+      Left            =   240
+      TabIndex        =   6
+      Top             =   5280
+      Width           =   45
+   End
    Begin VB.Label Label1 
       Alignment       =   1  'Right Justify
       AutoSize        =   -1  'True
@@ -130,6 +150,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case vbKeyEscape
             lblClose_Click
     End Select
+End Sub
+
+Private Sub Form_Load()
+    lblVersion.Caption = GetVersion
 End Sub
 
 Private Sub lblClose_Click()
@@ -243,3 +267,5 @@ Private Sub txtUsername_GotFocus()
     txtUsername.SelStart = 0
     txtUsername.SelLength = Len(txtUsername.Text)
 End Sub
+
+
