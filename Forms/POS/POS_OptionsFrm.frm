@@ -240,6 +240,7 @@ Private Sub btnHoldOrder_Click()
             cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , 1) 'OPEN
             cmd.Parameters.Append cmd.CreateParameter("@RefereceNumber", adVarChar, adParamInput, 50, x)
             cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 50, "HOLD")
+            cmd.Parameters.Append cmd.CreateParameter("@SalesmanId", adInteger, adParamInput, , POS_CashierFrm.SalesmanId)
             cmd.Execute
             POS_OrderId = Val(cmd.Parameters("@POS_OrderId"))
             

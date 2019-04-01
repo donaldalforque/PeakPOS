@@ -19,6 +19,9 @@ Public Function Global_Data(ByVal data As String) As ADODB.Recordset
         Case "Category"
             cmd.CommandText = "BASE_Category_Get"
             Set rec = cmd.Execute
+        Case "Salesman"
+            cmd.CommandText = "BASE_Salesman_Get"
+            Set rec = cmd.Execute
         Case "Type"
             cmd.CommandText = "BASE_Type_Get"
             Set rec = cmd.Execute

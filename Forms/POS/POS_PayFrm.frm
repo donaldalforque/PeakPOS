@@ -534,7 +534,7 @@ Private Sub btnAccept_Click()
     
     'SAVE CASH DETAILS
     Dim due, cash, Card, Check, Loyalty, OtherPayment, SumPayment, SalesTax, TaxExempt, TotalDiscount As Double
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     
     due = Val(Replace(lblAmountDue.Caption, ",", ""))
     
@@ -549,14 +549,14 @@ Private Sub btnAccept_Click()
     'ComputeTotal SalesTax
     SalesTax = 0
     TaxExempt = 0
-    For Each item In POS_CashierFrm.lvList.ListItems
-        If item.SubItems(20) = "True" Then
-            TaxExempt = TaxExempt + Val(Replace(item.SubItems(5), ",", ""))
+    For Each Item In POS_CashierFrm.lvList.ListItems
+        If Item.SubItems(20) = "True" Then
+            TaxExempt = TaxExempt + Val(Replace(Item.SubItems(5), ",", ""))
         Else
-            SalesTax = SalesTax + item.SubItems(14)
+            SalesTax = SalesTax + Item.SubItems(14)
         End If
         
-        TotalDiscount = TotalDiscount + Val(Replace(item.SubItems(17), ",", ""))
+        TotalDiscount = TotalDiscount + Val(Replace(Item.SubItems(17), ",", ""))
     Next
     
     If SumPayment < due Then
@@ -575,7 +575,7 @@ Private Sub btnAccept_Click()
         Set rsReceipt = CreateRecordset
         
         POS_SavingFrm.pbSaving.Min = 0
-        POS_SavingFrm.pbSaving.Max = POS_CashierFrm.lvList.ListItems.Count
+        POS_SavingFrm.pbSaving.Max = POS_CashierFrm.lvList.ListItems.count
         POS_SavingFrm.Show
         
         Set con = New ADODB.Connection
@@ -612,7 +612,7 @@ Private Sub btnAccept_Click()
         cmd.Parameters.Append cmd.CreateParameter("@UserId", adInteger, adParamInput, , UserId)
         cmd.Parameters.Append cmd.CreateParameter("@WorkStationid", adInteger, adParamInput, , WorkstationId)
         cmd.Parameters.Append cmd.CreateParameter("@Remarks", adVarChar, adParamInput, 250, Null)
-        'cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInputOutput, 250, Null)
+        cmd.Parameters.Append cmd.CreateParameter("@SalesmanId", adInteger, adParamInput, , POS_CashierFrm.SalesmanId)
         cmd.Execute
         
         POS_SalesId = cmd.Parameters("@POS_SalesId")
@@ -633,13 +633,13 @@ Private Sub btnAccept_Click()
         End If
         
         'LINE
-        For Each item In POS_CashierFrm.lvList.ListItems
-            POS_OrderId = NVAL(item.SubItems(21))
-            If item.SubItems(20) = "True" Then
-                TaxExempt = Val(Replace(item.SubItems(5), ",", ""))
+        For Each Item In POS_CashierFrm.lvList.ListItems
+            POS_OrderId = NVAL(Item.SubItems(21))
+            If Item.SubItems(20) = "True" Then
+                TaxExempt = Val(Replace(Item.SubItems(5), ",", ""))
                 SalesTax = 0
             Else
-                SalesTax = item.SubItems(14)
+                SalesTax = Item.SubItems(14)
                 TaxExempt = 0
             End If
         
@@ -648,19 +648,19 @@ Private Sub btnAccept_Click()
             cmd.CommandType = adCmdStoredProc
             cmd.CommandText = "POS_SalesLine_Insert"
             cmd.Parameters.Append cmd.CreateParameter("@POS_SalesId", adInteger, adParamInput, , Val(POS_SalesId))
-            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , item.SubItems(8))
-            cmd.Parameters.Append cmd.CreateParameter("@Unit", adVarChar, adParamInput, 50, item.SubItems(2))
-            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.Text)
-            cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , Val(Replace(item.SubItems(3), ",", "")))
+            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Item.SubItems(8))
+            cmd.Parameters.Append cmd.CreateParameter("@Unit", adVarChar, adParamInput, 50, Item.SubItems(2))
+            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.Text)
+            cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , Val(Replace(Item.SubItems(3), ",", "")))
                                   cmd.Parameters("@Price").NumericScale = 2
                                   cmd.Parameters("@Price").Precision = 18
-            cmd.Parameters.Append cmd.CreateParameter("@UnitCost", adDecimal, adParamInput, , Val(Replace(item.SubItems(6), ",", "")))
+            cmd.Parameters.Append cmd.CreateParameter("@UnitCost", adDecimal, adParamInput, , Val(Replace(Item.SubItems(6), ",", "")))
                                   cmd.Parameters("@UnitCost").NumericScale = 2
                                   cmd.Parameters("@UnitCost").Precision = 18
-            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(item.SubItems(1), ",", "")))
+            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(Item.SubItems(1), ",", "")))
                                   cmd.Parameters("@Quantity").NumericScale = 2
                                   cmd.Parameters("@Quantity").Precision = 18
-            cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(item.SubItems(5), ",", "")))
+            cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(Item.SubItems(5), ",", "")))
                                   cmd.Parameters("@Subtotal").NumericScale = 2
                                   cmd.Parameters("@Subtotal").Precision = 18
             cmd.Parameters.Append cmd.CreateParameter("@Tax", adDecimal, adParamInput, , SalesTax)
@@ -669,10 +669,10 @@ Private Sub btnAccept_Click()
             cmd.Parameters.Append cmd.CreateParameter("@TaxExempt", adDecimal, adParamInput, , TaxExempt)
                                   cmd.Parameters("@TaxExempt").NumericScale = 2
                                   cmd.Parameters("@TaxExempt").Precision = 18
-            cmd.Parameters.Append cmd.CreateParameter("@ItemDiscount", adDecimal, adParamInput, , Val(Replace(item.SubItems(17), ",", "")))
+            cmd.Parameters.Append cmd.CreateParameter("@ItemDiscount", adDecimal, adParamInput, , Val(Replace(Item.SubItems(17), ",", "")))
                                   cmd.Parameters("@ItemDiscount").NumericScale = 15
                                   cmd.Parameters("@ItemDiscount").Precision = 18
-            cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , (Val(Replace(item.SubItems(1), ",", "")) * Val(Replace(item.SubItems(16), ",", ""))))
+            cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , (Val(Replace(Item.SubItems(1), ",", "")) * Val(Replace(Item.SubItems(16), ",", ""))))
                                   cmd.Parameters("@ActualQuantity").NumericScale = 2
                                   cmd.Parameters("@ActualQuantity").Precision = 18
             cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , POS_CashierFrm.POSLocationId)
@@ -692,16 +692,16 @@ Private Sub btnAccept_Click()
                 .Fields(6) = TotalDiscount
                 .Fields(7) = Val(Replace(txtCash.Text, ",", ""))
                 .Fields(8) = SalesTax
-                .Fields(9) = item.Text
-                .Fields(10) = Val(Replace(item.SubItems(3), ",", ""))
-                .Fields(11) = Val(Replace(item.SubItems(1), ",", ""))
-                .Fields(12) = item.SubItems(2)
-                .Fields(13) = Val(Replace(item.SubItems(5), ",", ""))
+                .Fields(9) = Item.Text
+                .Fields(10) = Val(Replace(Item.SubItems(3), ",", ""))
+                .Fields(11) = Val(Replace(Item.SubItems(1), ",", ""))
+                .Fields(12) = Item.SubItems(2)
+                .Fields(13) = Val(Replace(Item.SubItems(5), ",", ""))
                 .Fields(14) = POS_SalesId
             End With
             
             'DELETE RESERVE LINE
-            DeleteReserveLine item.SubItems(18)
+            DeleteReserveLine Item.SubItems(18)
         Next
         
         'SAVE PAYMENTS

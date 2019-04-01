@@ -384,6 +384,25 @@ Begin VB.Form POS_CashierFrm
       TabIndex        =   20
       Top             =   7440
       Width           =   15015
+      Begin VB.Label lblSalesman 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "|CUSTOMER: DONALD SOLIVEN ALFORQUE"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00800000&
+         Height          =   300
+         Left            =   3600
+         TabIndex        =   45
+         Top             =   300
+         Width           =   6255
+      End
       Begin VB.Label lblCashier 
          AutoSize        =   -1  'True
          BackColor       =   &H00FFFFFF&
@@ -409,7 +428,7 @@ Begin VB.Form POS_CashierFrm
          Caption         =   "|CUSTOMER: DONALD SOLIVEN ALFORQUE"
          BeginProperty Font 
             Name            =   "Calibri"
-            Size            =   14.25
+            Size            =   11.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
@@ -417,11 +436,11 @@ Begin VB.Form POS_CashierFrm
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00800000&
-         Height          =   435
+         Height          =   300
          Left            =   3600
          TabIndex        =   26
-         Top             =   140
-         Width           =   6855
+         Top             =   10
+         Width           =   6255
       End
       Begin VB.Label lblDate 
          Alignment       =   1  'Right Justify
@@ -704,7 +723,7 @@ Begin VB.Form POS_CashierFrm
       End
       Begin VB.CommandButton btnPayout 
          BackColor       =   &H00FFFFFF&
-         Caption         =   "F6: Pricing Scheme"
+         Caption         =   "F6: Salesman"
          BeginProperty Font 
             Name            =   "Calibri"
             Size            =   9.75
@@ -1043,7 +1062,7 @@ Attribute VB_Exposed = False
 Public isAllowNegativeInv As Boolean
 Public POSLocationId As Integer
 Public TotalDiscount As Double
-Public POSCustomerId, POSOrderId As Long
+Public POSCustomerId, POSOrderId, SalesmanId As Long
 Public PointsDiv As Double
 Public MinPointsRedeem As Double
 Dim DiscountPass, SalesReturnPass, PayoutPass, ReprintPass, ItemDeletePass, VoidOrderPass, XreadingPass, ZReadingPass As Boolean
@@ -1056,6 +1075,7 @@ Public salesreturn As Boolean
 Public Sub Initialize()
     'discount = "Distributor's Price"
     lblCustomer.Caption = "| CUSTOMER: NONE"
+    lblSalesman.Caption = "| SALESMAN: NONE"
     lblDiscount.Caption = "| DISCOUNT TYPE: NONE"
     lblTotalItems.Caption = "ITEMS: 0"
     lbldate.Caption = "MM/DD/YY 00:00:00"
@@ -1067,6 +1087,7 @@ Public Sub Initialize()
     TotalDiscount = 0
     CurrentUserId = 0
     POSOrderId = 0
+    SalesmanId = 0
     POSHoldOrderReference = ""
     CustomerName = ""
     
@@ -1085,37 +1106,37 @@ Public Sub CountTotal()
     'PriceTrigger 'GetPricing
     
     Dim totalItems, totalQty, Itemdiscount, noTax, vat As Double
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     txtTotal.Caption = "0.00"
-    For Each item In lvList.ListItems
+    For Each Item In lvList.ListItems
         'Itemdiscount = (Val(Replace(Item.SubItems(3), ",", "")) * (Val(Replace(Item.SubItems(4), ",", "")) / 100)) * Val(Replace(Item.SubItems(1), ",", ""))
                 
-        If item.SubItems(20) = "True" Then 'TAX EXEMPTED
-            noTax = Val(Replace(item.SubItems(3), ",", "")) / ((Val(Replace(item.SubItems(13), ",", "")) + 100) / 100)
-            vat = Val(Replace(item.SubItems(3), ",", "")) - noTax
-            Itemdiscount = (noTax * (Val(Replace(item.SubItems(19), ",", "")) / 100)) * Val(Replace(item.SubItems(1), ",", "")) + vat
-            item.SubItems(17) = FormatNumber(Itemdiscount, 2, vbTrue, vbFalse)
-            item.SubItems(4) = FormatNumber(Itemdiscount, 2, vbTrue, vbFalse)
+        If Item.SubItems(20) = "True" Then 'TAX EXEMPTED
+            noTax = Val(Replace(Item.SubItems(3), ",", "")) / ((Val(Replace(Item.SubItems(13), ",", "")) + 100) / 100)
+            vat = Val(Replace(Item.SubItems(3), ",", "")) - noTax
+            Itemdiscount = (noTax * (Val(Replace(Item.SubItems(19), ",", "")) / 100)) * Val(Replace(Item.SubItems(1), ",", "")) + vat
+            Item.SubItems(17) = FormatNumber(Itemdiscount, 2, vbTrue, vbFalse)
+            Item.SubItems(4) = FormatNumber(Itemdiscount, 2, vbTrue, vbFalse)
         Else
-            Itemdiscount = (Val(Replace(item.SubItems(3), ",", "")) * (Val(Replace(item.SubItems(19), ",", "")) / 100)) * Val(Replace(item.SubItems(1), ",", ""))
-            item.SubItems(17) = Itemdiscount
-            item.SubItems(4) = FormatNumber(Itemdiscount, 2, vbTrue, vbFalse)
+            Itemdiscount = (Val(Replace(Item.SubItems(3), ",", "")) * (Val(Replace(Item.SubItems(19), ",", "")) / 100)) * Val(Replace(Item.SubItems(1), ",", ""))
+            Item.SubItems(17) = Itemdiscount
+            Item.SubItems(4) = FormatNumber(Itemdiscount, 2, vbTrue, vbFalse)
         End If
         
         'Itemdiscount = (Val(Replace(item.SubItems(4), ",", ""))) '* -1
         
-        item.SubItems(5) = FormatNumber(Val(Replace(item.SubItems(1), ",", "")) * Val(Replace(item.SubItems(3), ",", "")) - Itemdiscount, 2, vbTrue)
-        txtTotal.Caption = txtTotal.Caption + Val(Replace(item.SubItems(5), ",", ""))
-        totalQty = totalQty + Val(Val(Replace(item.SubItems(1), ",", "")))
+        Item.SubItems(5) = FormatNumber(Val(Replace(Item.SubItems(1), ",", "")) * Val(Replace(Item.SubItems(3), ",", "")) - Itemdiscount, 2, vbTrue)
+        txtTotal.Caption = txtTotal.Caption + Val(Replace(Item.SubItems(5), ",", ""))
+        totalQty = totalQty + Val(Val(Replace(Item.SubItems(1), ",", "")))
         'TotalDiscount = TotalDiscount + (Itemdiscount * -1)
     Next
     txtTotal.Caption = FormatNumber(txtTotal.Caption, 2, vbTrue)
     lblTotalItems.Caption = "TOTAL ITEMS: " & FormatNumber(totalQty, 2, vbTrue, vbFalse)
 End Sub
 Public Sub CountTax()
-    Dim item As MSComctlLib.ListItem
-    For Each item In lvList.ListItems
-        item.SubItems(14) = item.SubItems(5) - (item.SubItems(5) / ((Val(item.SubItems(13)) + 100) / 100))
+    Dim Item As MSComctlLib.ListItem
+    For Each Item In lvList.ListItems
+        Item.SubItems(14) = Item.SubItems(5) - (Item.SubItems(5) / ((Val(Item.SubItems(13)) + 100) / 100))
     Next
 End Sub
 Public Sub PriceTrigger(ByVal id As Long)
@@ -1125,7 +1146,7 @@ Public Sub PriceTrigger(ByVal id As Long)
     Set rec = New ADODB.Recordset
     con.ConnectionString = ConnString
     con.Open
-    If lvList.ListItems.Count <= 0 Then Exit Sub
+    If lvList.ListItems.count <= 0 Then Exit Sub
     
     Set cmd = New ADODB.Command
     cmd.ActiveConnection = con
@@ -1184,7 +1205,7 @@ Private Sub btnBarcode_Click()
             
             If LoadLine = True Then
                 'Load line
-                Dim item As MSComctlLib.ListItem
+                Dim Item As MSComctlLib.ListItem
                 Set cmd = New ADODB.Command
                 cmd.ActiveConnection = con
                 cmd.CommandType = adCmdStoredProc
@@ -1196,26 +1217,26 @@ Private Sub btnBarcode_Click()
                     POSOrderId = NVAL(x)
                     Do Until rec.EOF
                         With POS_CashierFrm
-                            Set item = .lvList.ListItems.add(, , rec!Name)
-                                item.SubItems(1) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
-                                item.SubItems(2) = rec!unit
-                                item.SubItems(3) = FormatNumber(rec!price, 2, vbTrue, vbFalse)
-                                item.SubItems(4) = FormatNumber(rec!discount, 2, vbTrue, vbFalse)
-                                item.SubItems(5) = FormatNumber(rec!subtotal, 2, vbTrue, vbFalse)
-                                item.SubItems(6) = rec!unitcost
-                                item.SubItems(7) = rec!hiddenquantity
-                                item.SubItems(8) = rec!ProductId
-                                item.SubItems(9) = rec!hiddenprice
-                                item.SubItems(13) = rec!tax
-                                item.SubItems(14) = rec!taxcomputation
-                                item.SubItems(15) = rec!discounttype
-                                item.SubItems(16) = rec!deductinventory
-                                item.SubItems(17) = rec!discounted
-                                item.SubItems(18) = rec!ReserveId
-                                item.SubItems(19) = rec!discountpercent
-                                item.SubItems(20) = rec!isTaxExempt
-                                item.SubItems(21) = NVAL(x)
-                                item.SubItems(22) = rec!pos_orderlineId
+                            Set Item = .lvList.ListItems.add(, , rec!Name)
+                                Item.SubItems(1) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
+                                Item.SubItems(2) = rec!unit
+                                Item.SubItems(3) = FormatNumber(rec!price, 2, vbTrue, vbFalse)
+                                Item.SubItems(4) = FormatNumber(rec!discount, 2, vbTrue, vbFalse)
+                                Item.SubItems(5) = FormatNumber(rec!subtotal, 2, vbTrue, vbFalse)
+                                Item.SubItems(6) = rec!unitcost
+                                Item.SubItems(7) = rec!hiddenquantity
+                                Item.SubItems(8) = rec!ProductId
+                                Item.SubItems(9) = rec!hiddenprice
+                                Item.SubItems(13) = rec!tax
+                                Item.SubItems(14) = rec!taxcomputation
+                                Item.SubItems(15) = rec!discounttype
+                                Item.SubItems(16) = rec!deductinventory
+                                Item.SubItems(17) = rec!discounted
+                                Item.SubItems(18) = rec!ReserveId
+                                Item.SubItems(19) = rec!discountpercent
+                                Item.SubItems(20) = rec!isTaxExempt
+                                Item.SubItems(21) = NVAL(x)
+                                Item.SubItems(22) = rec!pos_orderlineId
                         End With
                         rec.MoveNext
                     Loop
@@ -1237,7 +1258,7 @@ Private Sub btnCustomers_Click()
 End Sub
 
 Private Sub btnDelete_Click()
-   If lvList.ListItems.Count > 0 Then
+   If lvList.ListItems.count > 0 Then
         If ItemDeletePass = True Then
             POS_UserPinFrm.Show (1)
         Else
@@ -1264,7 +1285,7 @@ Private Sub btnDiscbursement_Click()
 End Sub
 
 Private Sub btnDiscount_Click()
-    If lvList.ListItems.Count = 0 Then Exit Sub
+    If lvList.ListItems.count = 0 Then Exit Sub
         'Check For if User Validation is Required
         If DiscountPass = True Then
             POS_UserPinFrm.Show (1)
@@ -1422,7 +1443,8 @@ Private Sub btnNull_Click()
 End Sub
 
 Private Sub btnPayout_Click()
-    POS_PricingSchemeFrm.Show (1)
+    'POS_PricingSchemeFrm.Show (1)
+    POS_SalesmanFrm.Show (1)
 End Sub
 
 Private Sub btnPlayhouse_Click()
@@ -1430,7 +1452,7 @@ Private Sub btnPlayhouse_Click()
 End Sub
 
 Private Sub btnQuantity_Click()
-    If lvList.ListItems.Count > 0 Then
+    If lvList.ListItems.count > 0 Then
         POS_QuantityFrm.txtQuantity.Text = FormatNumber(lvList.SelectedItem.SubItems(1), 2, vbTrue, vbFalse)
         'POS_QuantityFrm.txtPrice.text = FormatNumber(lvList.SelectedItem.SubItems(3), 2, vbTrue, vbFalse)
         POS_QuantityFrm.isChangeQuantity = True
@@ -1508,7 +1530,7 @@ Private Sub btnSalesReturn_Click()
 End Sub
 
 Private Sub btnTender_Click()
-    If lvList.ListItems.Count <= 0 Then Exit Sub
+    If lvList.ListItems.count <= 0 Then Exit Sub
 '    If POSCustomerId = 0 Then
 '        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(13)
 '        GLOBAL_MessageFrm.Show (1)
@@ -1560,14 +1582,14 @@ End Sub
 
 Private Sub btnUom_Click()
     'show UOM Menu
-    If lvList.ListItems.Count > 0 Then
+    If lvList.ListItems.count > 0 Then
         POS_UomFrm.ProductId = lvList.SelectedItem.SubItems(8)
         POS_UomFrm.Show (1)
     End If
 End Sub
 
 Private Sub btnVoid_Click()
-    If lvList.ListItems.Count <= 0 Then Exit Sub
+    If lvList.ListItems.count <= 0 Then Exit Sub
     
     If VoidOrderPass = True Then
         POS_UserPinFrm.Show (1)
@@ -1581,9 +1603,9 @@ Private Sub btnVoid_Click()
             'save audit trail
             SavePOSAuditTrail VoidUserId, WorkstationId, 0, "CANCEL ORDER. AMOUNT: " & txtTotal.Caption
             
-            Dim item As MSComctlLib.ListItem
-            For Each item In lvList.ListItems
-                DeleteReserveLine item.SubItems(18)
+            Dim Item As MSComctlLib.ListItem
+            For Each Item In lvList.ListItems
+                DeleteReserveLine Item.SubItems(18)
             Next
             
             Initialize
@@ -1891,7 +1913,7 @@ End Sub
 Public Sub txtBarcode_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
         Case vbKeyDown
-            If lvList.ListItems.Count > 0 Then
+            If lvList.ListItems.count > 0 Then
                 lvList.SetFocus
             End If
         Case vbKeyReturn
@@ -1932,16 +1954,16 @@ Public Sub txtBarcode_KeyDown(KeyCode As Integer, Shift As Integer)
                         
                         'Loop from Purchase List
                         'Dim item As MSComctlLib.ListItem
-                        For Each item In lvList.ListItems
-                            If Val(item.SubItems(8)) = Val(rec!ProductId) And rec!Uom = item.SubItems(2) Then
+                        For Each Item In lvList.ListItems
+                            If Val(Item.SubItems(8)) = Val(rec!ProductId) And rec!Uom = Item.SubItems(2) Then
                                 If AllowNegativeInventory = False Then
-                                    If Available + Val(Replace(item.SubItems(1), ",", "")) * item.SubItems(16) _
-                                    < (Val(Replace(item.SubItems(1), ",", "")) * item.SubItems(16)) + item.SubItems(16) Then
+                                    If Available + Val(Replace(Item.SubItems(1), ",", "")) * Item.SubItems(16) _
+                                    < (Val(Replace(Item.SubItems(1), ",", "")) * Item.SubItems(16)) + Item.SubItems(16) Then
                                         MsgBox "Insufficient quantity.", vbCritical, "Error!"
                                         selectText txtBarcode
                                         Exit Sub
                                     Else
-                                        item.SubItems(1) = FormatNumber((Val(Replace(item.SubItems(1), ",", "")) + 1), 2, vbTrue, vbFalse)
+                                        Item.SubItems(1) = FormatNumber((Val(Replace(Item.SubItems(1), ",", "")) + 1), 2, vbTrue, vbFalse)
                                         isFound = True
                                         
                                         'PriceTrigger
@@ -1950,17 +1972,17 @@ Public Sub txtBarcode_KeyDown(KeyCode As Integer, Shift As Integer)
                                         POS_CashierFrm.CountTotal
                                         
                                         'TAX
-                                        item.SubItems(14) = item.SubItems(5) - (item.SubItems(5) / ((item.SubItems(13) + 100) / 100))
+                                        Item.SubItems(14) = Item.SubItems(5) - (Item.SubItems(5) / ((Item.SubItems(13) + 100) / 100))
                                         
                                         'UPDATE RESERVES
                                         Dim iQty As Double
-                                        iQty = Val(Replace(item.SubItems(1), ",", "")) * item.SubItems(16)
-                                        reservedid = ReserveProduct(item.SubItems(18), rec!ProductId, iQty, UserId, WorkstationId, True, 1, 0)
+                                        iQty = Val(Replace(Item.SubItems(1), ",", "")) * Item.SubItems(16)
+                                        reservedid = ReserveProduct(Item.SubItems(18), rec!ProductId, iQty, UserId, WorkstationId, True, 1, 0)
                                         
                                         Exit For
                                     End If
                                 Else
-                                    item.SubItems(1) = FormatNumber((Val(item.SubItems(1)) + 1), 2, vbTrue, vbFalse)
+                                    Item.SubItems(1) = FormatNumber((Val(Item.SubItems(1)) + 1), 2, vbTrue, vbFalse)
                                     isFound = True
                                     
                                     'PriceTrigger
@@ -1968,7 +1990,7 @@ Public Sub txtBarcode_KeyDown(KeyCode As Integer, Shift As Integer)
                                     
                                     POS_CashierFrm.CountTotal
                                     'TAX
-                                    item.SubItems(14) = item.SubItems(5) - (item.SubItems(5) / ((item.SubItems(13) + 100) / 100))
+                                    Item.SubItems(14) = Item.SubItems(5) - (Item.SubItems(5) / ((Item.SubItems(13) + 100) / 100))
                                     Exit For
                                 End If
                             End If
@@ -1985,39 +2007,39 @@ Public Sub txtBarcode_KeyDown(KeyCode As Integer, Shift As Integer)
                             End If
                             
                             ReserveId = ReserveProduct(0, rec!ProductId, 1, UserId, True, 0, 1)
-                            Set item = lvList.ListItems.add(, , rec!Name)
-                                item.SubItems(1) = "1.00"
-                                item.SubItems(2) = rec!Uom
-                                item.SubItems(3) = FormatNumber(rec!unitprice, 2, vbTrue, vbFalse)
-                                item.SubItems(5) = rec!unitprice
-                                item.SubItems(6) = rec!unitcost
-                                item.SubItems(7) = rec!price2
-                                item.SubItems(8) = rec!ProductId
-                                item.SubItems(9) = rec!unitprice
-                                item.SubItems(10) = rec!price1
-                                item.SubItems(11) = rec!price2
-                                item.SubItems(12) = rec!price3
-                                item.SubItems(13) = rec!Percentage
-                                item.SubItems(16) = "1.00"
-                                item.SubItems(18) = ReserveId
-                                item.SubItems(23) = ""
+                            Set Item = lvList.ListItems.add(, , rec!Name)
+                                Item.SubItems(1) = "1.00"
+                                Item.SubItems(2) = rec!Uom
+                                Item.SubItems(3) = FormatNumber(rec!unitprice, 2, vbTrue, vbFalse)
+                                Item.SubItems(5) = rec!unitprice
+                                Item.SubItems(6) = rec!unitcost
+                                Item.SubItems(7) = rec!price2
+                                Item.SubItems(8) = rec!ProductId
+                                Item.SubItems(9) = rec!unitprice
+                                Item.SubItems(10) = rec!price1
+                                Item.SubItems(11) = rec!price2
+                                Item.SubItems(12) = rec!price3
+                                Item.SubItems(13) = rec!percentage
+                                Item.SubItems(16) = "1.00"
+                                Item.SubItems(18) = ReserveId
+                                Item.SubItems(23) = ""
                                 'item.SubItems(14) = item.SubItems(5) - (item.SubItems(5) / ((item.SubItems(13) + 100) / 100))
                                 
                                 If UCase(POS_CashierFrm.lblDiscount.Caption) = UCase("DISCOUNT TYPE: NONE") Then
-                                    item.SubItems(3) = FormatNumber(rec!unitprice, 2, vbTrue)
+                                    Item.SubItems(3) = FormatNumber(rec!unitprice, 2, vbTrue)
                                 ElseIf UCase(POS_CashierFrm.lblDiscount.Caption) = UCase("DISCOUNT TYPE: Distributor's Price") Then
-                                    item.SubItems(3) = FormatNumber(rec!price1, 2, vbTrue)
+                                    Item.SubItems(3) = FormatNumber(rec!price1, 2, vbTrue)
                                 ElseIf UCase(POS_CashierFrm.lblDiscount.Caption) = UCase("DISCOUNT TYPE: Mobile Stockist's Price") Then
-                                    item.SubItems(3) = FormatNumber(rec!price2, 2, vbTrue)
+                                    Item.SubItems(3) = FormatNumber(rec!price2, 2, vbTrue)
                                 ElseIf UCase(POS_CashierFrm.lblDiscount.Caption) = UCase("DISCOUNT TYPE: Business Center's Price") Then
-                                    item.SubItems(3) = FormatNumber(rec!price3, 2, vbTrue)
+                                    Item.SubItems(3) = FormatNumber(rec!price3, 2, vbTrue)
                                 End If
                                 
                                 'PriceTrigger
                                 'PriceTrigger Val(item.SubItems(8))
                         End If
-                        item.Selected = True
-                        item.EnsureVisible
+                        Item.Selected = True
+                        Item.EnsureVisible
                     Else
                         MsgBox "ITEM NOT FOUND!", vbCritical, "QuickPOS"
                     End If
@@ -2031,7 +2053,7 @@ Public Sub txtBarcode_KeyDown(KeyCode As Integer, Shift As Integer)
             'con.Close
             
             'PriceTrigger
-            If lvList.ListItems.Count > 0 Then
+            If lvList.ListItems.count > 0 Then
                 PriceTrigger Val(lvList.SelectedItem.SubItems(8))
             End If
             
@@ -2055,16 +2077,16 @@ Public Sub GetPrice(ByVal PricingSchemeId As Integer)
     Dim pRec As New ADODB.Recordset
     
     con.Open
-    For Each item In lvList.ListItems
+    For Each Item In lvList.ListItems
         Set cmd = New ADODB.Command
         cmd.ActiveConnection = con
         cmd.CommandType = adCmdStoredProc
         cmd.CommandText = "INV_ProductPricing_Get"
         cmd.Parameters.Append cmd.CreateParameter("@PricingSchemeId", adInteger, adParamInput, , PricingSchemeId)
-        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(item.SubItems(8)))
+        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(Item.SubItems(8)))
         Set pRec = cmd.Execute
         If Not pRec.EOF Then
-            item.SubItems(3) = FormatNumber(pRec!price, 2, vbTrue, vbFalse)
+            Item.SubItems(3) = FormatNumber(pRec!price, 2, vbTrue, vbFalse)
         End If
     Next
     con.Close

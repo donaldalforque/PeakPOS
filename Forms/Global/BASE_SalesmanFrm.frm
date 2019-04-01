@@ -1,12 +1,11 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
-Begin VB.Form INV_CategoryModFrm 
+Begin VB.Form BASE_SalesmanFrm 
    BorderStyle     =   4  'Fixed ToolWindow
    ClientHeight    =   6045
    ClientLeft      =   45
-   ClientTop       =   330
+   ClientTop       =   390
    ClientWidth     =   5265
-   Icon            =   "INV_CategoryModFrm.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -14,26 +13,6 @@ Begin VB.Form INV_CategoryModFrm
    ScaleWidth      =   5265
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CheckBox chkShow 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      Caption         =   "Show All"
-      BeginProperty Font 
-         Name            =   "Calibri"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H80000008&
-      Height          =   255
-      Left            =   4050
-      TabIndex        =   1
-      Top             =   1830
-      Width           =   1000
-   End
    Begin VB.TextBox txtName 
       Appearance      =   0  'Flat
       BackColor       =   &H00FFFFFF&
@@ -49,11 +28,31 @@ Begin VB.Form INV_CategoryModFrm
       Height          =   330
       Left            =   240
       MaxLength       =   50
-      TabIndex        =   0
+      TabIndex        =   1
       Top             =   5400
       Width           =   4815
    End
-   Begin MSComctlLib.ListView lvCategory 
+   Begin VB.CheckBox chkShow 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      Caption         =   "Show All"
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000008&
+      Height          =   255
+      Left            =   4080
+      TabIndex        =   0
+      Top             =   1800
+      Width           =   1000
+   End
+   Begin MSComctlLib.ListView lvSalesman 
       Height          =   3135
       Left            =   240
       TabIndex        =   2
@@ -93,7 +92,7 @@ Begin VB.Form INV_CategoryModFrm
       EndProperty
       BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          SubItemIndex    =   2
-         Text            =   "Category"
+         Text            =   "Salesman"
          Object.Width           =   6253
       EndProperty
    End
@@ -145,29 +144,29 @@ Begin VB.Form INV_CategoryModFrm
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   4
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "INV_CategoryModFrm.frx":000C
+            Picture         =   "BASE_SalesmanFrm.frx":0000
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "INV_CategoryModFrm.frx":686E
+            Picture         =   "BASE_SalesmanFrm.frx":6862
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "INV_CategoryModFrm.frx":D0D0
+            Picture         =   "BASE_SalesmanFrm.frx":D0C4
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "INV_CategoryModFrm.frx":13932
+            Picture         =   "BASE_SalesmanFrm.frx":13926
             Key             =   ""
          EndProperty
       EndProperty
    End
-   Begin VB.Label Label7 
+   Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Product categories are used to organize your products varying from its classification."
+      Caption         =   "(Double click a record to show more details.)"
       BeginProperty Font 
          Name            =   "Calibri"
-         Size            =   9
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -175,16 +174,24 @@ Begin VB.Form INV_CategoryModFrm
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00808080&
-      Height          =   450
+      Height          =   210
       Left            =   240
-      TabIndex        =   5
-      Top             =   1200
+      TabIndex        =   6
+      Top             =   1800
       Width           =   4815
+   End
+   Begin VB.Image Image1 
+      Height          =   480
+      Left            =   240
+      Picture         =   "BASE_SalesmanFrm.frx":1A188
+      Stretch         =   -1  'True
+      Top             =   680
+      Width           =   480
    End
    Begin VB.Label Label6 
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   "Product Categories"
+      Caption         =   "Salesman"
       BeginProperty Font 
          Name            =   "Calibri"
          Size            =   14.25
@@ -197,16 +204,28 @@ Begin VB.Form INV_CategoryModFrm
       ForeColor       =   &H00404040&
       Height          =   345
       Left            =   840
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   720
-      Width           =   2190
+      Width           =   1095
    End
-   Begin VB.Image Image1 
-      Height          =   480
+   Begin VB.Label Label7 
+      BackStyle       =   0  'Transparent
+      Caption         =   "Create salesman and tag them with every sales for better performance tracking, bonus and commission references."
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00808080&
+      Height          =   450
       Left            =   240
-      Picture         =   "INV_CategoryModFrm.frx":1A194
-      Top             =   680
-      Width           =   480
+      TabIndex        =   4
+      Top             =   1200
+      Width           =   4815
    End
    Begin VB.Shape Shape1 
       BackStyle       =   1  'Opaque
@@ -216,31 +235,31 @@ Begin VB.Form INV_CategoryModFrm
       Width           =   5055
    End
 End
-Attribute VB_Name = "INV_CategoryModFrm"
+Attribute VB_Name = "BASE_SalesmanFrm"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim CategoryId As Integer
+Dim SalesmanId As Integer
 Public Sub Initialize()
     txtName.Text = ""
-    CategoryId = 0
+    SalesmanId = 0
     txtName.SetFocus
 End Sub
 Public Sub Populate(ByVal data As String)
     Dim Item As MSComctlLib.ListItem
     Select Case data
-        Case "Category"
+        Case "Salesman"
             Set rec = New ADODB.Recordset
-            Set rec = Global_Data("Category")
-            lvCategory.ListItems.Clear
+            Set rec = Global_Data("Salesman")
+            lvSalesman.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
                     If rec!isActive = "True" Then
-                        Set Item = lvCategory.ListItems.add(, , "")
-                            Item.SubItems(1) = rec!CategoryId
-                            Item.SubItems(2) = rec!Category
+                        Set Item = lvSalesman.ListItems.add(, , "")
+                            Item.SubItems(1) = rec!SalesmanId
+                            Item.SubItems(2) = rec!salesman
                             Item.Checked = True
                     End If
                     rec.MoveNext
@@ -252,25 +271,25 @@ End Sub
 Private Sub chkShow_Click()
     Dim Item As MSComctlLib.ListItem
     Set rec = New ADODB.Recordset
-    Set rec = Global_Data("Category")
-    lvCategory.ListItems.Clear
+    Set rec = Global_Data("Salesman")
+    lvSalesman.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
             If chkShow.value = 1 Then
-                Set Item = lvCategory.ListItems.add(, , "")
-                    Item.SubItems(1) = rec!CategoryId
-                    Item.SubItems(2) = rec!Category
+                Set Item = lvSalesman.ListItems.add(, , "")
+                    Item.SubItems(1) = rec!SalesmanId
+                    Item.SubItems(2) = rec!salesman
                 If rec!isActive = "True" Then Item.Checked = True
-                lvCategory.ColumnHeaders(1).width = lvCategory.width * 0.06
-                lvCategory.ColumnHeaders(3).width = lvCategory.width * 0.88
+                lvSalesman.ColumnHeaders(1).width = lvSalesman.width * 0.06
+                lvSalesman.ColumnHeaders(3).width = lvSalesman.width * 0.88
             Else
                 If rec!isActive = "True" Then
-                    Set Item = lvCategory.ListItems.add(, , "")
-                        Item.SubItems(1) = rec!CategoryId
-                        Item.SubItems(2) = rec!Category
+                    Set Item = lvSalesman.ListItems.add(, , "")
+                        Item.SubItems(1) = rec!SalesmanId
+                        Item.SubItems(2) = rec!salesman
                     If rec!isActive = "True" Then Item.Checked = True
-                    lvCategory.ColumnHeaders(1).width = lvCategory.width * 0
-                    lvCategory.ColumnHeaders(3).width = lvCategory.width * 0.94
+                    lvSalesman.ColumnHeaders(1).width = lvSalesman.width * 0
+                    lvSalesman.ColumnHeaders(3).width = lvSalesman.width * 0.94
                 End If
             End If
             rec.MoveNext
@@ -279,15 +298,24 @@ Private Sub chkShow_Click()
 End Sub
 
 Private Sub Form_Load()
-    lvCategory.ColumnHeaders(1).width = lvCategory.width * 0
-    lvCategory.ColumnHeaders(3).width = lvCategory.width * 0.94
-    Populate "Category"
+    lvSalesman.ColumnHeaders(1).width = lvSalesman.width * 0
+    lvSalesman.ColumnHeaders(3).width = lvSalesman.width * 0.94
+    Populate "Salesman"
 End Sub
 
 
-Private Sub lvCategory_ItemClick(ByVal Item As MSComctlLib.ListItem)
-    CategoryId = Item.SubItems(1)
+Private Sub lvSalesman_DblClick()
+    If lvSalesman.ListItems.count > 0 Then
+        BASE_SalesmanDetailsFrm.lblSalesman.Caption = lvSalesman.SelectedItem.SubItems(2)
+        BASE_SalesmanDetailsFrm.SalesmanId = lvSalesman.SelectedItem.SubItems(1)
+        BASE_SalesmanDetailsFrm.Show (1)
+    End If
+End Sub
+
+Private Sub lvSalesman_ItemClick(ByVal Item As MSComctlLib.ListItem)
+    SalesmanId = Item.SubItems(1)
     txtName.Text = Item.SubItems(2)
+    On Error Resume Next
     txtName.SetFocus
 End Sub
 
@@ -308,13 +336,13 @@ On Error GoTo ErrorHandler:
             con.Open
             
             'Check for Deactivate/Activated Lists
-            For Each Item In lvCategory.ListItems
+            For Each Item In lvSalesman.ListItems
                 Set cmd = New ADODB.Command
                 cmd.ActiveConnection = con
                 cmd.CommandType = adCmdStoredProc
-                cmd.CommandText = "BASE_Category_Update"
-                cmd.Parameters.Append cmd.CreateParameter("@CategoryId", adInteger, adParamInputOutput, , Item.SubItems(1))
-                cmd.Parameters.Append cmd.CreateParameter("@Category", adVarChar, adParamInput, 250, Item.SubItems(2))
+                cmd.CommandText = "BASE_Salesman_Update"
+                cmd.Parameters.Append cmd.CreateParameter("@SalesmanId", adInteger, adParamInputOutput, , Item.SubItems(1))
+                cmd.Parameters.Append cmd.CreateParameter("@Salesman", adVarChar, adParamInput, 250, Item.SubItems(2))
                 cmd.Parameters.Append cmd.CreateParameter("@isActive", adBoolean, adParamInput, , Item.Checked)
                 cmd.Execute
             Next
@@ -326,25 +354,25 @@ On Error GoTo ErrorHandler:
             Set cmd = New ADODB.Command
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
-            cmd.Parameters.Append cmd.CreateParameter("@CategoryId", adInteger, adParamInputOutput, , CategoryId)
-            cmd.Parameters.Append cmd.CreateParameter("@Category", adVarChar, adParamInput, 250, txtName.Text)
-            cmd.Parameters.Append cmd.CreateParameter("@isActive", adBoolean, adParamInput, , lvCategory.SelectedItem.Checked)
+            cmd.Parameters.Append cmd.CreateParameter("@SalesmanId", adInteger, adParamInputOutput, , SalesmanId)
+            cmd.Parameters.Append cmd.CreateParameter("@Salesman", adVarChar, adParamInput, 250, txtName.Text)
+            cmd.Parameters.Append cmd.CreateParameter("@isActive", adBoolean, adParamInput, , lvSalesman.SelectedItem.Checked)
             
-            If CategoryId = 0 Then
-                cmd.CommandText = "BASE_Category_Insert"
+            If SalesmanId = 0 Then
+                cmd.CommandText = "BASE_Salesman_Insert"
                 cmd.Execute
-                CategoryId = cmd.Parameters("@CategoryId")
-                Set Item = lvCategory.ListItems.add(, , "")
-                    Item.SubItems(1) = CategoryId
+                SalesmanId = cmd.Parameters("@SalesmanId")
+                Set Item = lvSalesman.ListItems.add(, , "")
+                    Item.SubItems(1) = SalesmanId
                     Item.SubItems(2) = txtName.Text
                     Item.Checked = True
                     Item.Selected = True
                     Item.EnsureVisible
             Else
-                cmd.CommandText = "BASE_Category_Update"
+                cmd.CommandText = "BASE_Salesman_Update"
                 cmd.Execute
-                For Each Item In lvCategory.ListItems
-                    If Item.SubItems(1) = CategoryId Then
+                For Each Item In lvSalesman.ListItems
+                    If Item.SubItems(1) = SalesmanId Then
                         Item.SubItems(2) = txtName.Text
                         Item.Selected = True
                         Item.EnsureVisible
@@ -366,6 +394,7 @@ End Sub
 Private Sub txtName_GotFocus()
     selectText txtName
 End Sub
+
 
 
 

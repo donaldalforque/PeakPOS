@@ -119,7 +119,7 @@ Begin VB.Form POS_HoldListFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      NumItems        =   3
+      NumItems        =   4
       BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          Text            =   "POSOrderId"
          Object.Width           =   0
@@ -134,6 +134,11 @@ Begin VB.Form POS_HoldListFrm
          SubItemIndex    =   2
          Text            =   "Amount"
          Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   3
+         Text            =   "SalesmanId"
+         Object.Width           =   0
       EndProperty
    End
    Begin VB.Shape Shape1 
@@ -150,7 +155,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub btnAccept_Click()
-    If lvList.ListItems.Count <= 0 Then Exit Sub
+    If lvList.ListItems.count <= 0 Then Exit Sub
     If POS_CashierFrm.Visible = False Then Exit Sub
     'load order
     Dim x As Variant
@@ -161,7 +166,7 @@ Private Sub btnAccept_Click()
         Set con = New ADODB.Connection
         Set cmd = New ADODB.Command
         Set rec = New ADODB.Recordset
-        Dim item As MSComctlLib.ListItem
+        Dim Item As MSComctlLib.ListItem
         con.ConnectionString = ConnString
         con.Open
         cmd.ActiveConnection = con
@@ -173,22 +178,22 @@ Private Sub btnAccept_Click()
             'clear list
             POS_CashierFrm.lvList.ListItems.Clear
             Do Until rec.EOF
-                Set item = POS_CashierFrm.lvList.ListItems.add(, , rec!Name)
-                    item.SubItems(1) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
-                    item.SubItems(2) = rec!unit
-                    item.SubItems(3) = FormatNumber(rec!price, 2, vbTrue, vbFalse)
-                    item.SubItems(4) = FormatNumber(rec!discount, 2, vbTrue, vbFalse)
-                    item.SubItems(5) = rec!price
-                    item.SubItems(6) = rec!unitcost
-                    item.SubItems(7) = 0
-                    item.SubItems(8) = rec!ProductId
-                    item.SubItems(9) = rec!price
-                    item.SubItems(10) = 0
-                    item.SubItems(11) = 0
-                    item.SubItems(12) = 0
-                    item.SubItems(13) = rec!Percentage
-                    item.SubItems(14) = rec!tax
-                    item.SubItems(16) = rec!ActualQuantity
+                Set Item = POS_CashierFrm.lvList.ListItems.add(, , rec!Name)
+                    Item.SubItems(1) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
+                    Item.SubItems(2) = rec!unit
+                    Item.SubItems(3) = FormatNumber(rec!price, 2, vbTrue, vbFalse)
+                    Item.SubItems(4) = FormatNumber(rec!discount, 2, vbTrue, vbFalse)
+                    Item.SubItems(5) = rec!price
+                    Item.SubItems(6) = rec!unitcost
+                    Item.SubItems(7) = 0
+                    Item.SubItems(8) = rec!ProductId
+                    Item.SubItems(9) = rec!price
+                    Item.SubItems(10) = 0
+                    Item.SubItems(11) = 0
+                    Item.SubItems(12) = 0
+                    Item.SubItems(13) = rec!percentage
+                    Item.SubItems(14) = rec!tax
+                    Item.SubItems(16) = rec!ActualQuantity
                 rec.MoveNext
             Loop
         End If
@@ -199,6 +204,7 @@ Private Sub btnAccept_Click()
         
         POS_CashierFrm.POSOrderId = lvList.SelectedItem.Text
         POS_CashierFrm.POSHoldOrderReference = lvList.SelectedItem.SubItems(1)
+        POS_CashierFrm.SalesmanId = lvList.SelectedItem.SubItems(3)
         
         Unload Me
         Unload POS_OptionsFrm
@@ -218,7 +224,7 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub btnDelete_Click()
-    If lvList.ListItems.Count <= 0 Then Exit Sub
+    If lvList.ListItems.count <= 0 Then Exit Sub
     
     Dim x As Variant
     x = MsgBox("This will delete the order. Proceed?", vbQuestion + vbYesNo)
@@ -227,7 +233,7 @@ Private Sub btnDelete_Click()
         Set rec = New ADODB.Recordset
         Set cmd = New ADODB.Command
         
-        Dim item As MSComctlLib.ListItem
+        Dim Item As MSComctlLib.ListItem
         
         con.ConnectionString = ConnString
         con.Open
@@ -275,7 +281,7 @@ Private Sub Populate()
     Set rec = New ADODB.Recordset
     Set cmd = New ADODB.Command
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     
     con.ConnectionString = ConnString
     con.Open
@@ -289,9 +295,10 @@ Private Sub Populate()
     lvList.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvList.ListItems.add(, , rec!POS_OrderId)
-                item.SubItems(1) = rec!ReferenceNumber
-                item.SubItems(2) = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
+            Set Item = lvList.ListItems.add(, , rec!POS_OrderId)
+                Item.SubItems(1) = rec!ReferenceNumber
+                Item.SubItems(2) = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
+                Item.SubItems(3) = rec!SalesmanId
             rec.MoveNext
         Loop
     End If

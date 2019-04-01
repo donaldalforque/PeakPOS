@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form INV_SRPSetupFrm 
    BorderStyle     =   3  'Fixed Dialog
    ClientHeight    =   8655
@@ -409,47 +409,47 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Public Sub ComputeMarkUp()
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
         
-    For Each item In lvSearch.ListItems
+    For Each Item In lvSearch.ListItems
         If cmbBasePrice.ListIndex = 0 Then
             'base price is cost
             'check operator
             If cmbOperator.ListIndex = 0 Then 'add
                 'check mode
                 If cmbMode.ListIndex = 0 Then 'percent
-                    item.SubItems(6) = (Val(Replace(item.SubItems(4), ",", "")) * _
-                                        (Val(Replace(txtAmount.text, ",", "")) / 100)) + Val(Replace(item.SubItems(4), ",", ""))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(4), ",", "")) * _
+                                        (Val(Replace(txtAmount.Text, ",", "")) / 100)) + Val(Replace(Item.SubItems(4), ",", ""))
                     
                 Else 'pure integer
-                    item.SubItems(6) = (Val(Replace(item.SubItems(4), ",", "")) + Val(Replace(txtAmount.text, ",", "")))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(4), ",", "")) + Val(Replace(txtAmount.Text, ",", "")))
                 End If
             ElseIf cmbOperator.ListIndex = 1 Then 'subtract
                 'check mode
                 If cmbMode.ListIndex = 0 Then 'percent
-                    item.SubItems(6) = ((Val(Replace(item.SubItems(4), ",", "")) * _
-                                        (Val(Replace(txtAmount.text, ",", "")) / 100)) - Val(Replace(item.SubItems(4), ",", ""))) * -1
+                    Item.SubItems(6) = ((Val(Replace(Item.SubItems(4), ",", "")) * _
+                                        (Val(Replace(txtAmount.Text, ",", "")) / 100)) - Val(Replace(Item.SubItems(4), ",", ""))) * -1
                     
                 Else 'pure integer
-                    item.SubItems(6) = (Val(Replace(item.SubItems(4), ",", "")) - Val(Replace(txtAmount.text, ",", "")))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(4), ",", "")) - Val(Replace(txtAmount.Text, ",", "")))
                 End If
             ElseIf cmbOperator.ListIndex = 2 Then 'multiply
                 'check mode
                 If cmbMode.ListIndex = 0 Then 'percent
-                    item.SubItems(6) = (Val(Replace(item.SubItems(4), ",", "")) * _
-                                        (Val(Replace(txtAmount.text, ",", "")) / 100)) * Val(Replace(item.SubItems(4), ",", ""))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(4), ",", "")) * _
+                                        (Val(Replace(txtAmount.Text, ",", "")) / 100)) * Val(Replace(Item.SubItems(4), ",", ""))
                     
                 Else 'pure integer
-                    item.SubItems(6) = (Val(Replace(item.SubItems(4), ",", "")) * Val(Replace(txtAmount.text, ",", "")))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(4), ",", "")) * Val(Replace(txtAmount.Text, ",", "")))
                 End If
             ElseIf cmbOperator.ListIndex = 3 Then 'divide
                 'check mode
                 If cmbMode.ListIndex = 0 Then 'percent
-                    item.SubItems(6) = (Val(Replace(item.SubItems(4), ",", "")) * _
-                                        (Val(Replace(txtAmount.text, ",", "")) / 100)) / Val(Replace(item.SubItems(4), ",", ""))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(4), ",", "")) * _
+                                        (Val(Replace(txtAmount.Text, ",", "")) / 100)) / Val(Replace(Item.SubItems(4), ",", ""))
                     
                 Else 'pure integer
-                    item.SubItems(6) = (Val(Replace(item.SubItems(4), ",", "")) / Val(Replace(txtAmount.text, ",", "")))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(4), ",", "")) / Val(Replace(txtAmount.Text, ",", "")))
                 End If
             End If
         Else
@@ -458,46 +458,46 @@ Public Sub ComputeMarkUp()
             If cmbOperator.ListIndex = 0 Then 'add
                 'check mode
                 If cmbMode.ListIndex = 0 Then 'percent
-                    item.SubItems(6) = (Val(Replace(item.SubItems(5), ",", "")) * _
-                                        (Val(Replace(txtAmount.text, ",", "")) / 100)) + Val(Replace(item.SubItems(5), ",", ""))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(5), ",", "")) * _
+                                        (Val(Replace(txtAmount.Text, ",", "")) / 100)) + Val(Replace(Item.SubItems(5), ",", ""))
                     
                 Else 'pure integer
-                    item.SubItems(6) = (Val(Replace(item.SubItems(5), ",", "")) + Val(Replace(txtAmount.text, ",", "")))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(5), ",", "")) + Val(Replace(txtAmount.Text, ",", "")))
                 End If
             ElseIf cmbOperator.ListIndex = 1 Then 'subtract
                 'check mode
                 If cmbMode.ListIndex = 0 Then 'percent
-                    item.SubItems(6) = ((Val(Replace(item.SubItems(5), ",", "")) * _
-                                        (Val(Replace(txtAmount.text, ",", "")) / 100)) - Val(Replace(item.SubItems(5), ",", ""))) * -1
+                    Item.SubItems(6) = ((Val(Replace(Item.SubItems(5), ",", "")) * _
+                                        (Val(Replace(txtAmount.Text, ",", "")) / 100)) - Val(Replace(Item.SubItems(5), ",", ""))) * -1
                     
                 Else 'pure integer
-                    item.SubItems(6) = (Val(Replace(item.SubItems(5), ",", "")) - Val(Replace(txtAmount.text, ",", "")))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(5), ",", "")) - Val(Replace(txtAmount.Text, ",", "")))
                 End If
             ElseIf cmbOperator.ListIndex = 2 Then 'multiply
                 'check mode
                 If cmbMode.ListIndex = 0 Then 'percent
-                    item.SubItems(6) = (Val(Replace(item.SubItems(5), ",", "")) * _
-                                        (Val(Replace(txtAmount.text, ",", "")) / 100)) * Val(Replace(item.SubItems(5), ",", ""))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(5), ",", "")) * _
+                                        (Val(Replace(txtAmount.Text, ",", "")) / 100)) * Val(Replace(Item.SubItems(5), ",", ""))
                     
                 Else 'pure integer
-                    item.SubItems(6) = (Val(Replace(item.SubItems(5), ",", "")) * Val(Replace(txtAmount.text, ",", "")))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(5), ",", "")) * Val(Replace(txtAmount.Text, ",", "")))
                 End If
             ElseIf cmbOperator.ListIndex = 3 Then 'divide
                 'check mode
                 If cmbMode.ListIndex = 0 Then 'percent
-                    item.SubItems(6) = (Val(Replace(item.SubItems(5), ",", "")) * _
-                                        (Val(Replace(txtAmount.text, ",", "")) / 100)) / Val(Replace(item.SubItems(5), ",", ""))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(5), ",", "")) * _
+                                        (Val(Replace(txtAmount.Text, ",", "")) / 100)) / Val(Replace(Item.SubItems(5), ",", ""))
                     
                 Else 'pure integer
-                    item.SubItems(6) = (Val(Replace(item.SubItems(5), ",", "")) / Val(Replace(txtAmount.text, ",", "")))
+                    Item.SubItems(6) = (Val(Replace(Item.SubItems(5), ",", "")) / Val(Replace(txtAmount.Text, ",", "")))
                 End If
             End If
         End If
         If chkRoundOff.value = vbChecked Then
-            item.SubItems(6) = Round(Val(Replace(item.SubItems(6), ",", "")))
+            Item.SubItems(6) = Round(Val(Replace(Item.SubItems(6), ",", "")))
         End If
         
-        item.SubItems(6) = FormatNumber(item.SubItems(6), 2, vbTrue, vbFalse)
+        Item.SubItems(6) = FormatNumber(Item.SubItems(6), 2, vbTrue, vbFalse)
     Next
 End Sub
 
@@ -512,8 +512,8 @@ End Sub
 
 Private Sub btnRemoveSelected_Click()
     Dim x As Integer
-    For x = 1 To lvSearch.ListItems.Count
-        If x > lvSearch.ListItems.Count Then Exit For
+    For x = 1 To lvSearch.ListItems.count
+        If x > lvSearch.ListItems.count Then Exit For
         If lvSearch.ListItems(x).Selected = True Then
             lvSearch.ListItems.Remove (x)
             x = x - 1
@@ -523,17 +523,17 @@ End Sub
 
 Private Sub btnSave_Click()
     Set con = New ADODB.Connection
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     
     con.ConnectionString = ConnString
     con.Open
-    For Each item In lvSearch.ListItems
+    For Each Item In lvSearch.ListItems
         Set cmd = New ADODB.Command
         cmd.ActiveConnection = con
         cmd.CommandType = adCmdStoredProc
         cmd.CommandText = "BASE_ProductSRP_Update"
-        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , item.text)
-        cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , Val(Replace(item.SubItems(6), ",", "")))
+        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Item.Text)
+        cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , Val(Replace(Item.SubItems(6), ",", "")))
                               cmd.Parameters("@Price").Precision = 18
                               cmd.Parameters("@Price").NumericScale = 2
         cmd.Execute
@@ -580,19 +580,19 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub lblShowMorePrice_Click()
-    Dim item As MSComctlLib.ListItem
-    For Each item In lvSearch.ListItems
-        If item.Selected = True Then
-            item.Selected = False
+    Dim Item As MSComctlLib.ListItem
+    For Each Item In lvSearch.ListItems
+        If Item.Selected = True Then
+            Item.Selected = False
         Else
-            item.Selected = True
+            Item.Selected = True
         End If
     Next
 End Sub
 
 Private Sub txtAmount_Change()
-    If IsNumeric(txtAmount.text) = False Then
-        txtAmount.text = "0.00"
+    If IsNumeric(txtAmount.Text) = False Then
+        txtAmount.Text = "0.00"
     Else
         ComputeMarkUp
     End If
