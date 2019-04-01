@@ -29,6 +29,7 @@ Global StatementTemplateId As Integer
 Global CSVRecordset As ADODB.Recordset
 Global UniversalCtr As Long
 Global POS_Printer, BackOffice_Printer As String
+Global version As String
 
 Private Declare Function GetVolumeInformation _
     Lib "kernel32" Alias "GetVolumeInformationA" _
@@ -639,7 +640,7 @@ End Sub
 Public Function GetAccessRightsByModule(ByVal UserRoleId As Integer, ByVal ModuleId As Integer) As Boolean
     Dim ModuleCtr, RightsCtr As Integer
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim rrCon As New ADODB.Connection
     Dim cmd As New ADODB.Command
     Dim rrRec As New ADODB.Recordset
@@ -670,7 +671,7 @@ End Function
 Public Sub GetAccessRights(ByVal UserRoleId As Integer)
     Dim ModuleCtr, RightsCtr As Integer
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim rrCon As New ADODB.Connection
     Dim cmd As New ADODB.Command
     Dim rrRec As New ADODB.Recordset
@@ -1106,4 +1107,8 @@ Function DefaultPrinter(Printer As String) 'set defualt printer
     Dim SetDefaultPrint As New WshNetwork
     SetDefaultPrint.SetDefaultPrinter (Printer)
     Set SetDefaultPrint = Nothing
+End Function
+
+Function GetVersion() As String
+    GetVersion = "Version " & App.Major & "." & App.Minor & "." & App.Revision
 End Function
