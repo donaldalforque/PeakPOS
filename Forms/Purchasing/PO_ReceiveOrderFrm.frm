@@ -267,7 +267,7 @@ Begin VB.Form PO_ReceiveOrderFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   112263169
+            Format          =   113049601
             CurrentDate     =   41509
          End
          Begin VB.Label Label7 
@@ -907,7 +907,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   112263169
+         Format          =   113049601
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -928,7 +928,7 @@ Begin VB.Form PO_ReceiveOrderFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   112263169
+         Format          =   113049601
          CurrentDate     =   41686
       End
       Begin VB.Label Label14 
@@ -1258,32 +1258,32 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
         End If
 
         'SAVE ORDER LINE
-        Dim Item As MSComctlLib.ListItem
+        Dim item As MSComctlLib.ListItem
 
-        For Each Item In lvItems.ListItems
+        For Each item In lvItems.ListItems
             Set cmd = New ADODB.Command
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
 
-            cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderLineId", adInteger, adParamInputOutput, , Val(Item.Text))
+            cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderLineId", adInteger, adParamInputOutput, , Val(item.Text))
             cmd.Parameters.Append cmd.CreateParameter("@ReceiveOrderId", adInteger, adParamInput, , ReceiveOrderId)
-            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(Item.SubItems(6)))
-            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.SubItems(3))
-            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(Item.SubItems(4), ",", "")))
+            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(item.SubItems(6)))
+            cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.SubItems(3))
+            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(item.SubItems(4), ",", "")))
                                   cmd.Parameters("@Quantity").Precision = 18
                                   cmd.Parameters("@Quantity").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, Item.SubItems(5))
+            cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, item.SubItems(5))
             cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , cmbLocation.ItemData(cmbLocation.ListIndex))
             cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , StatusId)
             
-            If Item.Text = "" Then
+            If item.Text = "" Then
                 cmd.CommandText = "PO_ReceiveOrderLine_Insert"
             Else
                 cmd.CommandText = "PO_ReceiveOrderLine_Update"
             End If
             cmd.Execute
-            Item.Text = cmd.Parameters("@ReceiveOrderLineId")
-            Item.SubItems(7) = ReceiveOrderId
+            item.Text = cmd.Parameters("@ReceiveOrderLineId")
+            item.SubItems(7) = ReceiveOrderId
         Next
 
         'DELETE ORDERLINE IF ANY
@@ -1321,22 +1321,22 @@ Private Sub Save(ByVal StatusId As Integer, Optional isReopen As Variant)
 
         Dim isFound As Boolean
         isFound = False
-        For Each Item In lvSearch.ListItems
-            If ReceiveOrderId = Item.Text Then
-                Item.SubItems(1) = txtOrderNumber.Text
-                Item.SubItems(3) = txtStatus.Text
+        For Each item In lvSearch.ListItems
+            If ReceiveOrderId = item.Text Then
+                item.SubItems(1) = txtOrderNumber.Text
+                item.SubItems(3) = txtStatus.Text
                 isFound = True
-                Item.Selected = True
-                Item.EnsureVisible
+                item.Selected = True
+                item.EnsureVisible
                 Exit For
             End If
         Next
         If isFound = False Then
-            Set Item = lvSearch.ListItems.add(, , ReceiveOrderId)
-                Item.SubItems(1) = txtOrderNumber.Text
-                Item.SubItems(3) = txtStatus.Text
-                Item.Selected = True
-                Item.EnsureVisible
+            Set item = lvSearch.ListItems.add(, , ReceiveOrderId)
+                item.SubItems(1) = txtOrderNumber.Text
+                item.SubItems(3) = txtStatus.Text
+                item.Selected = True
+                item.EnsureVisible
         End If
     End If
     Exit Sub
@@ -1375,10 +1375,10 @@ Public Sub isNotCompleted(ByVal a As Boolean)
 End Sub
 Public Sub CountTotal()
     Dim Total As Double
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
     
-    For Each Item In lvItems.ListItems
-        Total = Total + NVAL(Item.SubItems(4))
+    For Each item In lvItems.ListItems
+        Total = Total + NVAL(item.SubItems(4))
     Next
     lblTotalItems.Caption = FormatNumber(Total, 0, vbTrue, vbFalse)
 End Sub
@@ -1469,15 +1469,15 @@ Public Sub Populate(ByVal data As String)
             cmd.CommandText = "PO_ReceiveOrder_Get"
             cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
             Set rec = cmd.Execute
-            Dim Item As MSComctlLib.ListItem
+            Dim item As MSComctlLib.ListItem
             lvSearch.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
                     If rec!isCashAdvance = "False" Then
-                        Set Item = lvSearch.ListItems.add(, , rec!ReceiveOrderId)
-                            Item.SubItems(1) = rec!OrderNumber
-                            Item.SubItems(2) = rec!ReferenceNumber
-                            Item.SubItems(3) = rec!Status
+                        Set item = lvSearch.ListItems.add(, , rec!ReceiveOrderId)
+                            item.SubItems(1) = rec!OrderNumber
+                            item.SubItems(2) = rec!ReferenceNumber
+                            item.SubItems(3) = rec!Status
                     End If
                     rec.MoveNext
                 Loop
@@ -1498,14 +1498,14 @@ Public Sub Populate(ByVal data As String)
             'On Error Resume Next
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set Item = lvItems.ListItems.add(, , rec!ReceiveOrderLineId)
-                        Item.SubItems(1) = PurchaseOrderId
-                        Item.SubItems(2) = rec!itemcode
-                        Item.SubItems(3) = rec!Name
-                        Item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue)
-                        Item.SubItems(5) = rec!Uom
-                        Item.SubItems(6) = rec!ProductId
-                        Item.SubItems(7) = rec!ReceiveOrderId
+                    Set item = lvItems.ListItems.add(, , rec!ReceiveOrderLineId)
+                        item.SubItems(1) = PurchaseOrderId
+                        item.SubItems(2) = rec!itemcode
+                        item.SubItems(3) = rec!Name
+                        item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue)
+                        item.SubItems(5) = rec!Uom
+                        item.SubItems(6) = rec!ProductId
+                        item.SubItems(7) = rec!ReceiveOrderId
                     rec.MoveNext
                 Loop
             End If
@@ -1516,29 +1516,29 @@ End Sub
 
 Private Sub btnAutoFill_Click()
     'AutoFill
-    Dim Item, dritem As MSComctlLib.ListItem
+    Dim item, dritem As MSComctlLib.ListItem
     Dim rItem As MSComctlLib.ListItem
     Dim x As Integer
     Dim isFound As Boolean
     
-    For Each Item In PO_PurchaseOrderFrm.lvItems.ListItems
+    For Each item In PO_PurchaseOrderFrm.lvItems.ListItems
         isFound = False
         With PO_ReceiveOrderFrm
         
-            For Each dritem In .lvItems.ListItems
-                If dritem.SubItems(6) = Item.SubItems(9) Then
-                    isFound = True
-                    Exit For
-                End If
-            Next
+'            For Each dritem In .lvItems.ListItems
+'                If dritem.SubItems(6) = item.SubItems(9) Then
+'                    isFound = True
+'                    Exit For
+'                End If
+'            Next
             
             If isFound = False Then
                 Set rItem = lvItems.ListItems.add(, , "")
-                    rItem.SubItems(2) = Item.SubItems(2)
-                    rItem.SubItems(3) = Item.SubItems(3)
-                    rItem.SubItems(4) = Item.SubItems(4)
-                    rItem.SubItems(5) = Item.SubItems(5)
-                    rItem.SubItems(6) = Item.SubItems(9)
+                    rItem.SubItems(2) = item.SubItems(2)
+                    rItem.SubItems(3) = item.SubItems(3)
+                    rItem.SubItems(4) = item.SubItems(4)
+                    rItem.SubItems(5) = item.SubItems(5)
+                    rItem.SubItems(6) = item.SubItems(9)
             End If
         End With
     Next
@@ -1578,7 +1578,7 @@ Private Sub btnItemSearch_Click()
     Set con = New ADODB.Connection
     Set rec = New ADODB.Recordset
     Set cmd = New ADODB.Command
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
     
     con.ConnectionString = ConnString
     con.Open
@@ -1593,11 +1593,11 @@ Private Sub btnItemSearch_Click()
         Do Until rec.EOF
             If rec!isActive = "True" Then
                 If LastProductId <> rec!ProductId Then
-                    Set Item = lvItemList.ListItems.add(, , rec!ProductId)
-                        Item.SubItems(1) = rec!itemcode
-                        Item.SubItems(2) = rec!Name
-                        Item.SubItems(3) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
-                        Item.SubItems(4) = rec!Uom
+                    Set item = lvItemList.ListItems.add(, , rec!ProductId)
+                        item.SubItems(1) = rec!itemcode
+                        item.SubItems(2) = rec!Name
+                        item.SubItems(3) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
+                        item.SubItems(4) = rec!Uom
                     lvItemList.Visible = True
                     lvItemList.Left = 6070
                     'lvItemList.Top = 3600
@@ -1694,15 +1694,15 @@ Public Sub btnSearch_Click()
     cmd.Parameters.Append cmd.CreateParameter("@DateFrom", adDate, adParamInput, , DateFrom.value)
     cmd.Parameters.Append cmd.CreateParameter("@DateTo", adDate, adParamInput, , DateTo.value)
     
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set Item = lvSearch.ListItems.add(, , rec!ReceiveOrderId)
-                Item.SubItems(1) = rec!OrderNumber
-                Item.SubItems(2) = rec!ReferenceNumber
-                Item.SubItems(3) = rec!Status
+            Set item = lvSearch.ListItems.add(, , rec!ReceiveOrderId)
+                item.SubItems(1) = rec!OrderNumber
+                item.SubItems(2) = rec!ReferenceNumber
+                item.SubItems(3) = rec!Status
             rec.MoveNext
         Loop
     End If
@@ -1997,7 +1997,7 @@ Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
     CountTotal
 End Sub
 
-Public Sub lvSearch_ItemClick(ByVal Item As MSComctlLib.ListItem)
+Public Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
     If lvSearch.ListItems.count > 0 Then
         Initialize
         ReceiveOrderId = lvSearch.SelectedItem.Text
@@ -2191,16 +2191,16 @@ Private Sub txtItemSearch_KeyDown(KeyCode As Integer, Shift As Integer)
         Case vbKeyReturn
             If Trim(txtItemSearch.Text) = "" Then Exit Sub
             'Barcode
-            Dim Item As MSComctlLib.ListItem
+            Dim item As MSComctlLib.ListItem
             Set rec = New ADODB.Recordset
             Set rec = ProductBarcode(txtItemSearch.Text)
             
             Dim isExisting As Boolean
             isExisting = False
             
-            For Each Item In lvItems.ListItems
+            For Each item In lvItems.ListItems
                 If Not rec.EOF Then
-                    If Item.SubItems(9) = rec!ProductId And Item.SubItems(5) = rec!Uom Then
+                    If item.SubItems(9) = rec!ProductId And item.SubItems(5) = rec!Uom Then
                         isExisting = True
                         Exit For
                     End If
@@ -2209,18 +2209,18 @@ Private Sub txtItemSearch_KeyDown(KeyCode As Integer, Shift As Integer)
             
             If Not rec.EOF Then 'Item found display in Lvitems
                 If isExisting = False Then
-                    Set Item = lvItems.ListItems.add(, , "")
-                    Item.SubItems(1) = ""
-                    Item.SubItems(2) = rec!itemcode 'ItemCode
-                    Item.SubItems(3) = rec!Name 'Name
-                    Item.SubItems(4) = "1.00"
-                    Item.SubItems(5) = rec!Uom
-                    Item.SubItems(6) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
-                    Item.SubItems(8) = ""
-                    Item.SubItems(9) = rec!ProductId
+                    Set item = lvItems.ListItems.add(, , "")
+                    item.SubItems(1) = ""
+                    item.SubItems(2) = rec!itemcode 'ItemCode
+                    item.SubItems(3) = rec!Name 'Name
+                    item.SubItems(4) = "1.00"
+                    item.SubItems(5) = rec!Uom
+                    item.SubItems(6) = FormatNumber(rec!unitcost, 2, vbTrue, vbFalse)
+                    item.SubItems(8) = ""
+                    item.SubItems(9) = rec!ProductId
                     'item.SubItems(13) = 1
                 Else
-                    Item.SubItems(4) = FormatNumber(Val(Replace(Item.SubItems(4), ",", "")) + 1, 2, vbTrue, vbFalse)
+                    item.SubItems(4) = FormatNumber(Val(Replace(item.SubItems(4), ",", "")) + 1, 2, vbTrue, vbFalse)
                 End If
                 
                 CountTotal

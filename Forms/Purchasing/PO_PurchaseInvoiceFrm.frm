@@ -141,7 +141,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   111738881
+         Format          =   113246209
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -162,7 +162,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   111738881
+         Format          =   113246209
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -945,7 +945,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            NumItems        =   9
+            NumItems        =   10
             BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
                Text            =   "InvoiceLineId"
                Object.Width           =   0
@@ -991,6 +991,11 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             BeginProperty ColumnHeader(9) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
                SubItemIndex    =   8
                Text            =   "ProductId"
+               Object.Width           =   0
+            EndProperty
+            BeginProperty ColumnHeader(10) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+               SubItemIndex    =   9
+               Text            =   "ReceiveOrderLineId"
                Object.Width           =   0
             EndProperty
          End
@@ -1174,7 +1179,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   111738881
+            Format          =   113246209
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtDue 
@@ -1195,7 +1200,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   111738881
+            Format          =   113246209
             CurrentDate     =   41509
          End
          Begin VB.Label Label18 
@@ -1684,7 +1689,7 @@ Public Sub Populate(ByVal data As String)
                 lblTotal.Caption = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
                 cmbReferenceNumber.Text = rec!ReferenceNumber
                 txtRefunds.Text = FormatNumber(rec!refunds, 2, vbTrue, vbFalse)
-                txtFreight.Text = FormatNumber(rec!Freight, 2, vbTrue, vbFalse)
+                txtFreight.Text = FormatNumber(rec!freight, 2, vbTrue, vbFalse)
                 txtVAT.Text = FormatNumber(rec!tax, 2, vbTrue, vbFalse)
                 txtRemarks.Text = rec!Remarks
                 If IsNull(rec!discount) = True Then txtDiscount.Text = "" Else txtDiscount.Text = FormatNumber(rec!discount, 2, vbTrue, vbFalse)
@@ -1696,7 +1701,7 @@ Public Sub Populate(ByVal data As String)
             Set con = New ADODB.Connection
             Set cmd = New ADODB.Command
             Set rec = New ADODB.Recordset
-            Dim Item As MSComctlLib.ListItem
+            Dim item As MSComctlLib.ListItem
             
             con.ConnectionString = ConnString
             con.Open
@@ -1708,15 +1713,15 @@ Public Sub Populate(ByVal data As String)
             lvItems.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set Item = lvItems.ListItems.add(, , rec!PurchaseInvoiceLineId)
-                        Item.SubItems(1) = rec!PurchaseInvoiceId
-                        Item.SubItems(2) = rec!itemcode
-                        Item.SubItems(3) = rec!Name
-                        Item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue)
-                        Item.SubItems(5) = rec!Uom
-                        Item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue)
-                        Item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
-                        Item.SubItems(8) = rec!ProductId
+                    Set item = lvItems.ListItems.add(, , rec!PurchaseInvoiceLineId)
+                        item.SubItems(1) = rec!PurchaseInvoiceId
+                        item.SubItems(2) = rec!itemcode
+                        item.SubItems(3) = rec!Name
+                        item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue)
+                        item.SubItems(5) = rec!Uom
+                        item.SubItems(6) = FormatNumber(rec!Cost, 2, vbTrue)
+                        item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
+                        item.SubItems(8) = rec!ProductId
                     rec.MoveNext
                 Loop
             End If
@@ -1739,9 +1744,9 @@ Public Sub Populate(ByVal data As String)
             If Not rec.EOF Then
                 lvDelivery.ListItems.Clear
                 Do Until rec.EOF
-                    Set Item = lvDelivery.ListItems.add(, , rec!ReceiveOrderId)
-                        Item.SubItems(1) = rec!DeliveryNumber
-                        Item.SubItems(2) = Format(rec!receiveddate, "mm/dd/yy")
+                    Set item = lvDelivery.ListItems.add(, , rec!ReceiveOrderId)
+                        item.SubItems(1) = rec!DeliveryNumber
+                        item.SubItems(2) = Format(rec!receiveddate, "mm/dd/yy")
                     rec.MoveNext
                 Loop
             End If
@@ -1750,7 +1755,7 @@ Public Sub Populate(ByVal data As String)
 End Sub
 Public Sub CountTotal()
     Dim Total, subtotal, discount, subtotal1, interestrate, Interest, days, cash As Double
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
     subtotal1 = 0
     If IsNumeric(txtDiscount.Text) = False Then
         discount = 0
@@ -1758,9 +1763,9 @@ Public Sub CountTotal()
         discount = txtDiscount.Text
     End If
     
-    For Each Item In lvItems.ListItems
-        subtotal = Val(Replace(Item.SubItems(4), ",", "")) * Val(Replace(Item.SubItems(6), ",", ""))
-        Item.SubItems(7) = FormatNumber(subtotal, 2, vbTrue, vbFalse)
+    For Each item In lvItems.ListItems
+        subtotal = Val(Replace(item.SubItems(4), ",", "")) * Val(Replace(item.SubItems(6), ",", ""))
+        item.SubItems(7) = FormatNumber(subtotal, 2, vbTrue, vbFalse)
         subtotal1 = subtotal1 + subtotal
     Next
 
@@ -1782,7 +1787,7 @@ Private Sub btnReceiveOrder_Click()
     Set cmd = New ADODB.Command
     Set rec = New ADODB.Recordset
     
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
     Dim itemx As MSComctlLib.ListItem
     
     
@@ -1807,16 +1812,16 @@ Private Sub btnReceiveOrder_Click()
 '            Next
             
             If isFound = False Then
-                Set Item = lvItems.ListItems.add(, , "")
-                    Item.SubItems(1) = ""
-                    Item.SubItems(2) = rec!itemcode
-                    Item.SubItems(3) = rec!Name
-                    Item.SubItems(4) = FormatNumber(rec!receivedquantity, 2, vbTrue)
-                    Item.SubItems(5) = rec!Uom
-                    Item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue)
-                    Item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
+                Set item = lvItems.ListItems.add(, , "")
+                    item.SubItems(1) = ""
+                    item.SubItems(2) = rec!itemcode
+                    item.SubItems(3) = rec!Name
+                    item.SubItems(4) = FormatNumber(rec!receivedquantity, 2, vbTrue)
+                    item.SubItems(5) = rec!Uom
+                    item.SubItems(6) = FormatNumber(rec!Cost, 2, vbTrue)
+                    item.SubItems(7) = FormatNumber(rec!subtotal, 2, vbTrue)
                     'item.SubItems(8) = ""
-                    Item.SubItems(8) = rec!ProductId
+                    item.SubItems(8) = rec!ProductId
             End If
             rec.MoveNext
         Loop
@@ -1838,7 +1843,7 @@ Public Sub SelectDelivery()
     Set con = New ADODB.Connection
     Set cmd = New ADODB.Command
     Set rec = New ADODB.Recordset
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
 
     con.ConnectionString = ConnString
     con.Open
@@ -1852,14 +1857,15 @@ Public Sub SelectDelivery()
     If Not rec.EOF Then
         lvItems.ListItems.Clear
         Do Until rec.EOF
-            Set Item = lvItems.ListItems.add(, , "")
-                Item.SubItems(1) = ""
-                Item.SubItems(2) = rec!itemcode
-                Item.SubItems(3) = rec!Name
-                Item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
-                Item.SubItems(5) = rec!Uom
-                Item.SubItems(6) = FormatNumber(rec!cost, 2, vbTrue, vbFalse)
-                Item.SubItems(8) = rec!ProductId
+            Set item = lvItems.ListItems.add(, , "")
+                item.SubItems(1) = ""
+                item.SubItems(2) = rec!itemcode
+                item.SubItems(3) = rec!Name
+                item.SubItems(4) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
+                item.SubItems(5) = rec!Uom
+                item.SubItems(6) = FormatNumber(rec!Cost, 2, vbTrue, vbFalse)
+                item.SubItems(8) = rec!ProductId
+                item.SubItems(9) = rec!ReceiveOrderLineId
             rec.MoveNext
         Loop
     End If
@@ -1869,6 +1875,30 @@ Public Sub SelectDelivery()
     txtRemarks.SetFocus
     CountTotal
 End Sub
+Public Sub GetDeliveryCost()
+    Dim con As New ADODB.Connection
+    Set rec = New ADODB.Recordset
+    Set cmd = New ADODB.Command
+    
+    con.ConnectionString = ConnString
+    con.Open
+    
+    Dim item As MSComctlLib.ListItem
+    For Each item In lvItems.ListItems
+        Set cmd = New ADODB.Command
+        cmd.ActiveConnection = con
+        cmd.CommandType = adCmdStoredProc
+        cmd.CommandText = "PO_InvoiceCost_Get"
+        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , item.SubItems(8))
+        cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
+        Set rec = cmd.Execute
+        If Not rec.EOF Then
+            item.SubItems(6) = FormatNumber(rec!Cost, 2, vbTrue, vbFalse)
+        End If
+    Next
+    con.Close
+End Sub
+
 
 Public Sub btnSearch_Click()
     Set con = New ADODB.Connection
@@ -1886,15 +1916,15 @@ Public Sub btnSearch_Click()
     cmd.Parameters.Append cmd.CreateParameter("@DateFrom", adDate, adParamInput, , DateFrom.value)
     cmd.Parameters.Append cmd.CreateParameter("@DateTo", adDate, adParamInput, , DateTo.value)
     
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set Item = lvSearch.ListItems.add(, , rec!PurchaseInvoiceId)
-                Item.SubItems(1) = rec!OrderNumber
-                Item.SubItems(2) = rec!ReferenceNumber
-                Item.SubItems(3) = rec!Status
+            Set item = lvSearch.ListItems.add(, , rec!PurchaseInvoiceId)
+                item.SubItems(1) = rec!OrderNumber
+                item.SubItems(2) = rec!ReferenceNumber
+                item.SubItems(3) = rec!Status
             rec.MoveNext
         Loop
     End If
@@ -1984,11 +2014,14 @@ Private Sub lblVatpercent_Click()
     End If
 End Sub
 
-Private Sub lvDelivery_ItemClick(ByVal Item As MSComctlLib.ListItem)
+Private Sub lvDelivery_ItemClick(ByVal item As MSComctlLib.ListItem)
     ReceiveOrderId = lvDelivery.SelectedItem.Text
     SelectDelivery
+    GetDeliveryCost
+    
     lvDelivery.Visible = False
     lvDelivery.Left = -9999
+    CountTotal
 End Sub
 
 Private Sub lvItems_DblClick()
@@ -2020,7 +2053,7 @@ Private Sub lvItems_KeyDown(KeyCode As Integer, Shift As Integer)
     CountTotal
 End Sub
 
-Private Sub lvSearch_ItemClick(ByVal Item As MSComctlLib.ListItem)
+Private Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
     If lvSearch.ListItems.count > 0 Then
         Initialize
         InvoiceId = lvSearch.SelectedItem.Text
@@ -2107,34 +2140,35 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             End If
             
             'SAVE LINE
-            Dim Item As MSComctlLib.ListItem
-            For Each Item In lvItems.ListItems
+            Dim item As MSComctlLib.ListItem
+            For Each item In lvItems.ListItems
                 Set cmd = New ADODB.Command
                 cmd.ActiveConnection = con
                 cmd.CommandType = adCmdStoredProc
 
-                cmd.Parameters.Append cmd.CreateParameter("@InvoiceLineId", adInteger, adParamInputOutput, , Val(Item.Text))
+                cmd.Parameters.Append cmd.CreateParameter("@InvoiceLineId", adInteger, adParamInputOutput, , Val(item.Text))
                 cmd.Parameters.Append cmd.CreateParameter("@InvoiceId", adInteger, adParamInput, , InvoiceId)
+                cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , PurchaseOrderId)
                 cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtOrder.value)
-                cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(Item.SubItems(8)))
-                cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.SubItems(3))
-                cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(Item.SubItems(4), ",", "")))
+                cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(item.SubItems(8)))
+                cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.SubItems(3))
+                cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(item.SubItems(4), ",", "")))
                                       cmd.Parameters("@Quantity").Precision = 18
                                       cmd.Parameters("@Quantity").NumericScale = 2
-                cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, Item.SubItems(5))
-                cmd.Parameters.Append cmd.CreateParameter("@Cost", adDecimal, adParamInput, , Val(Replace(Item.SubItems(6), ",", "")))
+                cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, item.SubItems(5))
+                cmd.Parameters.Append cmd.CreateParameter("@Cost", adDecimal, adParamInput, , Val(Replace(item.SubItems(6), ",", "")))
                                       cmd.Parameters("@Cost").Precision = 18
                                       cmd.Parameters("@Cost").NumericScale = 2
-                cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(Item.SubItems(7), ",", "")))
+                cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , Val(Replace(item.SubItems(7), ",", "")))
                                       cmd.Parameters("@Subtotal").Precision = 18
                                       cmd.Parameters("@Subtotal").NumericScale = 2
-                If Item.Text = "" Then
+                If item.Text = "" Then
                     cmd.CommandText = "PO_PurchaseInvoiceLine_Insert"
                 Else
                     cmd.CommandText = "PO_PurchaseInvoiceLine_Update"
                 End If
                 cmd.Execute
-                Item.Text = cmd.Parameters("@InvoiceLineId")
+                item.Text = cmd.Parameters("@InvoiceLineId")
             Next
 
             With PO_PurchaseOrderFrm
@@ -2161,13 +2195,13 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             Next
 
             'UPDATE PURCHASERETURNSTATUS
-            For Each Item In PO_PurchaseReturnInvoiceFrm.lvModules.ListItems
-                If Item.Checked = True Then
+            For Each item In PO_PurchaseReturnInvoiceFrm.lvModules.ListItems
+                If item.Checked = True Then
                     Set cmd = New ADODB.Command
                     cmd.ActiveConnection = con
                     cmd.CommandType = adCmdStoredProc
-                    cmd.Parameters.Append cmd.CreateParameter("@PurchaseReturnId", adInteger, adParamInput, , NVAL(Item.SubItems(5)))
-                    cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , NVAL(Item.SubItems(6)))
+                    cmd.Parameters.Append cmd.CreateParameter("@PurchaseReturnId", adInteger, adParamInput, , NVAL(item.SubItems(5)))
+                    cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , NVAL(item.SubItems(6)))
                     cmd.CommandText = "PO_PurchaseReturnStatus_Update"
                     cmd.Execute
                 End If

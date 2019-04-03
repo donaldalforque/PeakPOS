@@ -52,7 +52,6 @@ Begin VB.Form BASE_UserLoginFrm
    End
    Begin VB.Label lblVersion 
       AutoSize        =   -1  'True
-      BackColor       =   &H00FFFFFF&
       BackStyle       =   0  'Transparent
       BeginProperty Font 
          Name            =   "Calibri"
@@ -267,5 +266,3 @@ Private Sub txtUsername_GotFocus()
     txtUsername.SelStart = 0
     txtUsername.SelLength = Len(txtUsername.Text)
 End Sub
-
-

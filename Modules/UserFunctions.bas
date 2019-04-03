@@ -29,7 +29,6 @@ Global StatementTemplateId As Integer
 Global CSVRecordset As ADODB.Recordset
 Global UniversalCtr As Long
 Global POS_Printer, BackOffice_Printer As String
-Global version As String
 
 Private Declare Function GetVolumeInformation _
     Lib "kernel32" Alias "GetVolumeInformationA" _
@@ -1109,6 +1108,6 @@ Function DefaultPrinter(Printer As String) 'set defualt printer
     Set SetDefaultPrint = Nothing
 End Function
 
-Function GetVersion() As String
-    GetVersion = "Version " & App.Major & "." & App.Minor & "." & App.Revision
+Public Function GetVersion() As String
+    GetVersion = "v" & App.Major & "." & App.Minor & "." & App.Revision
 End Function

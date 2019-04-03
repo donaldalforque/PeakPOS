@@ -14,6 +14,25 @@ Begin VB.Form POS_UserLoginFrm
    ScaleWidth      =   10770
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Label lblVersion 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   225
+      Left            =   240
+      TabIndex        =   2
+      Top             =   5280
+      Width           =   45
+   End
    Begin VB.Label lblShutDown 
       BackColor       =   &H00FFFFFF&
       BackStyle       =   0  'Transparent
@@ -56,6 +75,10 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         Case vbKeyEscape
             lblShutDown_Click
     End Select
+End Sub
+
+Private Sub Form_Load()
+     lblVersion.Caption = GetVersion
 End Sub
 
 Private Sub lblLogin_Click()
