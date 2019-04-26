@@ -126,7 +126,7 @@ Begin VB.Form POS_AccountPaymentFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   96337921
+      Format          =   111411201
       CurrentDate     =   41686
    End
    Begin VB.Label Label6 
@@ -316,7 +316,7 @@ Private Sub btnAccept_Click()
     If x = vbNo Then Exit Sub
     
     POS_SavingFrm.pbSaving.Min = 0
-    POS_SavingFrm.pbSaving.Max = POS_CashierFrm.lvList.ListItems.Count
+    POS_SavingFrm.pbSaving.Max = POS_CashierFrm.lvList.ListItems.count
     POS_SavingFrm.Show
     
     Dim OrderNumber As String
@@ -373,9 +373,9 @@ Private Sub btnAccept_Click()
     SalesOrderId = cmd.Parameters("@SalesOrderId")
     
     'SAVE ORDER LINE
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
 
-    For Each item In POS_CashierFrm.lvList.ListItems
+    For Each Item In POS_CashierFrm.lvList.ListItems
         Set cmd = New ADODB.Command
         cmd.ActiveConnection = con
         cmd.CommandType = adCmdStoredProc
@@ -384,22 +384,22 @@ Private Sub btnAccept_Click()
         cmd.Parameters.Append cmd.CreateParameter("@SalesOrderId", adInteger, adParamInput, , SalesOrderId)
         cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , POS_CashierFrm.POSCustomerId)
         cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , Format(Now, "mm/dd/yy"))
-        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , item.SubItems(8))
-        cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.Text)
-        cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(item.SubItems(1)))
+        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Item.SubItems(8))
+        cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.Text)
+        cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(Item.SubItems(1)))
                               cmd.Parameters("@Quantity").Precision = 18
                               cmd.Parameters("@Quantity").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, item.SubItems(2))
-        cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , NVAL(item.SubItems(3)))
+        cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, Item.SubItems(2))
+        cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , NVAL(Item.SubItems(3)))
                               cmd.Parameters("@Price").Precision = 18
                               cmd.Parameters("@Price").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , NVAL(item.SubItems(5)))
+        cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , NVAL(Item.SubItems(5)))
                               cmd.Parameters("@Subtotal").Precision = 18
                               cmd.Parameters("@Subtotal").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , 1)
         cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , 4)
         cmd.Parameters.Append cmd.CreateParameter("@ReserveId", adInteger, adParamInput, , 0)
-        cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , NVAL(item.SubItems(16)))
+        cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , NVAL(Item.SubItems(16)))
                               cmd.Parameters("@ActualQuantity").Precision = 18
                               cmd.Parameters("@ActualQuantity").NumericScale = 2
                               
@@ -424,7 +424,7 @@ Private Sub btnAccept_Click()
     'Pick Order Line
     Dim PickOrderLineId As Long
     
-    For Each item In POS_CashierFrm.lvList.ListItems
+    For Each Item In POS_CashierFrm.lvList.ListItems
         Set cmd = New ADODB.Command
         cmd.ActiveConnection = con
         cmd.CommandType = adCmdStoredProc
@@ -432,11 +432,11 @@ Private Sub btnAccept_Click()
         cmd.Parameters.Append cmd.CreateParameter("@PickOrderLineId", adInteger, adParamInputOutput, , PickOrderLineId)
         cmd.Parameters.Append cmd.CreateParameter("@PickOrderId", adInteger, adParamInput, , PickOrderId)
         cmd.Parameters.Append cmd.CreateParameter("@SalesOrderId", adInteger, adParamInput, , SalesOrderId)
-        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , item.SubItems(8))
-        cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.Text)
-        cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 50, item.SubItems(2))
+        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Item.SubItems(8))
+        cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.Text)
+        cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 50, Item.SubItems(2))
         cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , 1)
-        cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(item.SubItems(1)))
+        cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(Item.SubItems(1)))
                               cmd.Parameters("@Quantity").Precision = 18
                               cmd.Parameters("@Quantity").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , Format(Now, "mm/dd/yy"))
@@ -475,7 +475,7 @@ Private Sub btnAccept_Click()
     
     'SAVE INVOICE LINE
     Dim InvoiceLineId As Long
-    For Each item In POS_CashierFrm.lvList.ListItems
+    For Each Item In POS_CashierFrm.lvList.ListItems
         Set cmd = New ADODB.Command
         cmd.ActiveConnection = con
         cmd.CommandType = adCmdStoredProc
@@ -483,16 +483,16 @@ Private Sub btnAccept_Click()
         cmd.Parameters.Append cmd.CreateParameter("@InvoiceLineId", adInteger, adParamInputOutput, , 0)
         cmd.Parameters.Append cmd.CreateParameter("@InvoiceId", adInteger, adParamInput, , InvoiceId)
         cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , Format(Now, "mm/dd/yy"))
-        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(item.SubItems(8)))
-        cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, item.Text)
-        cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(item.SubItems(1)))
+        cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Val(Item.SubItems(8)))
+        cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 250, Item.Text)
+        cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(Item.SubItems(1)))
                               cmd.Parameters("@Quantity").Precision = 18
                               cmd.Parameters("@Quantity").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, item.SubItems(2))
-        cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , NVAL(item.SubItems(3)))
+        cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, Item.SubItems(2))
+        cmd.Parameters.Append cmd.CreateParameter("@Price", adDecimal, adParamInput, , NVAL(Item.SubItems(3)))
                               cmd.Parameters("@Price").Precision = 18
                               cmd.Parameters("@Price").NumericScale = 2
-        cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , NVAL(item.SubItems(5)))
+        cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , NVAL(Item.SubItems(5)))
                               cmd.Parameters("@Subtotal").Precision = 18
                               cmd.Parameters("@Subtotal").NumericScale = 2
         cmd.CommandText = "SO_InvoiceLine_Insert"
@@ -589,15 +589,17 @@ Private Sub btnAccept_Click()
         '**PRINT RECEIPT******
         Dim crxApp As New CRAXDRT.Application
         Dim crxRpt As New CRAXDRT.Report
-        Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_Receipt_Account.rpt")
-        'crxRpt.RecordSelectionFormula = "{POS_Sales.POS_SalesId}= " & Val(POS_SalesId) & ""
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt_Account.rpt")
+        
+        Call ResetRptDB(crxRpt)
         crxRpt.DiscardSavedData
         crxRpt.EnableParameterPrompting = False
+        
         crxRpt.ParameterFields.GetItemByName("Notice").AddCurrentValue ""
-        crxRpt.RecordSelectionFormula = "{SO_SalesOrder.SalesOrderId}= " & Val(SalesOrderId) & ""
-        'crxRpt.ParameterFields.GetItemByName("@POS_SalesId").AddCurrentValue Val(POS_SalesId)
-
-        Call ResetRptDB(crxRpt)
+        crxRpt.ParameterFields.GetItemByName("@SalesOrderId", "POS_Receipt_AccountPayment_Details.rpt").AddCurrentValue Val(SalesOrderId)
+        crxRpt.RecordSelectionFormula = "{SO_SalesOrder.SalesOrderId} = " & Val(SalesOrderId) & ""
+        
+    
         crxRpt.PrintOut False
         
         '**END PRINT RECEIPT**

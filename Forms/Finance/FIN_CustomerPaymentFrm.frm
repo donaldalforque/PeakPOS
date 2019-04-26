@@ -237,7 +237,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   110297089
+            Format          =   111411201
             CurrentDate     =   41646
          End
          Begin VB.Label Label10 
@@ -370,7 +370,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   110297089
+            Format          =   111411201
             CurrentDate     =   41646
          End
          Begin VB.Label Label9 
@@ -1098,7 +1098,7 @@ Private Sub btnSave_Click()
                     crxRpt.EnableParameterPrompting = False
                     crxRpt.ParameterFields.GetItemByName("Notice").AddCurrentValue ""
                     crxRpt.RecordSelectionFormula = "{SO_SalesOrder.SalesOrderId}= " & Val(Item.SubItems(1)) & ""
-                    'crxRpt.ParameterFields.GetItemByName("@POS_SalesId").AddCurrentValue Val(POS_SalesId)
+                    crxRpt.ParameterFields.GetItemByName("@SalesOrderId", "POS_Receipt_AccountPayment_Details.rpt").AddCurrentValue Val(Item.SubItems(1))
             
                     Call ResetRptDB(crxRpt)
                     crxRpt.PrintOut False
