@@ -1,7 +1,7 @@
 [PharmacyMode]
-ON
+OFF
 [OrderSlipMode]
-ON
+OFF
 [DualPharmacyMode]
 FALSE
 [Preferred]
