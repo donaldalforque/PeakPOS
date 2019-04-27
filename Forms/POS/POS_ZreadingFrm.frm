@@ -128,7 +128,7 @@ Begin VB.Form POS_ZreadingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   149946369
+      Format          =   110755841
       CurrentDate     =   42297
    End
    Begin MSComCtl2.DTPicker startTime 
@@ -150,7 +150,7 @@ Begin VB.Form POS_ZreadingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   149946370
+      Format          =   110755842
       CurrentDate     =   42297
    End
    Begin MSComCtl2.DTPicker EndTime 
@@ -172,7 +172,7 @@ Begin VB.Form POS_ZreadingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   149946370
+      Format          =   110755842
       CurrentDate     =   42297
    End
    Begin MSComCtl2.DTPicker dtToDate 
@@ -194,7 +194,7 @@ Begin VB.Form POS_ZreadingFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   149946369
+      Format          =   110755841
       CurrentDate     =   42297
    End
    Begin VB.Label lblToDate 
@@ -350,11 +350,11 @@ Private Sub btnCancel_Click()
 End Sub
 
 Private Sub btnPrint_Click()
-    Dim CrxApp As New CRAXDRT.Application
+    Dim crxApp As New CRAXDRT.Application
     Dim crxRpt As New CRAXDRT.Report
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = CrxApp.OpenReport(App.path & "\Reports\POS_ZReading.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_ZReading.rpt")
     
     Call ResetRptDB(crxRpt)
     
@@ -413,14 +413,14 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             btnPrint_Click
         Case vbKeyEscape
             btnCancel_Click
-        Case vbKeyD
-            If Shift = vbAltMask Then
-                If lblStart.Visible = False Then
-                    ShowHidden (True)
-                Else
-                    ShowHidden (False)
-                End If
-            End If
+'        Case vbKeyD
+'            If Shift = vbAltMask Then
+'                If lblStart.Visible = False Then
+'                    ShowHidden (True)
+'                Else
+'                    ShowHidden (False)
+'                End If
+'            End If
     End Select
 End Sub
 
