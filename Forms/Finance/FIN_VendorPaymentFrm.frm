@@ -334,7 +334,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   111738881
+            Format          =   112721921
             CurrentDate     =   41646
          End
          Begin VB.Label Label4 
@@ -486,7 +486,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   111738881
+            Format          =   112721921
             CurrentDate     =   41646
          End
          Begin VB.Label Label11 
@@ -1207,9 +1207,9 @@ Private Sub CountTotal()
     Dim Total, balance, tax As Double
     Total = 0
     For Each Item In lvOrders.ListItems
-        balance = balance + Val(Replace(Item.SubItems(6), ",", ""))
+        balance = balance + Val(Replace(Item.SubItems(7), ",", ""))
         If Item.Checked = True Then
-            Total = Total + Val(Replace(Item.SubItems(6), ",", ""))
+            Total = Total + Val(Replace(Item.SubItems(7), ",", ""))
         End If
     Next
     lblTotal.Caption = "Total Selected: " & FormatNumber(Total, 2, vbTrue, vbFalse)

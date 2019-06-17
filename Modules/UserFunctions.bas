@@ -29,6 +29,7 @@ Global StatementTemplateId As Integer
 Global CSVRecordset As ADODB.Recordset
 Global UniversalCtr As Long
 Global POS_Printer, BackOffice_Printer As String
+Global EnableInterest As Boolean
 
 Private Declare Function GetVolumeInformation _
     Lib "kernel32" Alias "GetVolumeInformationA" _
@@ -779,7 +780,7 @@ Public Function ViewAccessRights(ByVal ModuleId As Integer) As Boolean
                 BASE_HomepageFrm.imgSystemSettings.Visible = value
                 BASE_HomepageFrm.lblSystemSettings.Visible = value
         Case 26: 'New User
-                BASE_GeneralSettingsFrm.btnUsers.Enabled = value
+                BASE_GeneralSettingsFrm.btnUsers.enabled = value
         Case 27: 'User Roles
                 BASE_GeneralSettingsFrm.lblUserRoles.Visible = value
         Case 28: 'New Stock
@@ -942,6 +943,7 @@ Public Function GetSalesSettings() As Integer
     If Not rec.EOF Then
        Do Until rec.EOF
         StatementTemplateId = rec!StatementTemplateId
+        EnableInterest = rec!EnableInterest
         rec.MoveNext
        Loop
     End If
@@ -1110,4 +1112,18 @@ End Function
 
 Public Function GetVersion() As String
     GetVersion = "v" & App.Major & "." & App.Minor & "." & App.Revision
+End Function
+
+Function ComputeInterest(ByVal enabled As Boolean)
+    If enabled = True Then
+        Dim con As New ADODB.Connection
+        Dim cmd As New ADODB.Command
+        
+        con.ConnectionString = ConnString
+        con.Open
+        cmd.ActiveConnection = con
+        cmd.CommandType = adCmdStoredProc
+        cmd.CommandText = "UpdateInterest"
+        cmd.Execute
+    End If
 End Function

@@ -56,7 +56,7 @@ Begin VB.Form SO_CustomerFrm
       BorderStyle     =   0  'None
       Height          =   9015
       Left            =   4640
-      TabIndex        =   29
+      TabIndex        =   30
       Top             =   0
       Width           =   10485
       Begin VB.Frame FRE_Info 
@@ -65,9 +65,28 @@ Begin VB.Form SO_CustomerFrm
          Caption         =   "Frame1"
          Height          =   4695
          Left            =   120
-         TabIndex        =   36
+         TabIndex        =   37
          Top             =   600
          Width           =   10095
+         Begin VB.TextBox txtInterestRate 
+            Alignment       =   1  'Right Justify
+            BackColor       =   &H00FFFFFF&
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   330
+            Left            =   7080
+            MaxLength       =   50
+            TabIndex        =   11
+            Top             =   2640
+            Width           =   2655
+         End
          Begin VB.CheckBox chkMember 
             BackColor       =   &H00FFFFFF&
             Caption         =   "Member of an organization"
@@ -82,8 +101,8 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   375
             Left            =   7080
-            TabIndex        =   11
-            Top             =   3240
+            TabIndex        =   12
+            Top             =   3600
             Width           =   2895
          End
          Begin VB.TextBox txtSalesman 
@@ -118,7 +137,7 @@ Begin VB.Form SO_CustomerFrm
             Height          =   345
             Left            =   1440
             Style           =   2  'Dropdown List
-            TabIndex        =   53
+            TabIndex        =   54
             Top             =   4200
             Width           =   3375
          End
@@ -175,7 +194,7 @@ Begin VB.Form SO_CustomerFrm
             Left            =   7080
             List            =   "SO_CustomerFrm.frx":1AA78
             Style           =   2  'Dropdown List
-            TabIndex        =   12
+            TabIndex        =   13
             Top             =   1200
             Width           =   2655
          End
@@ -310,6 +329,25 @@ Begin VB.Form SO_CustomerFrm
             Top             =   3120
             Width           =   3375
          End
+         Begin VB.Label Label25 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Interest Rate"
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   11.25
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   270
+            Left            =   5400
+            TabIndex        =   58
+            Top             =   2640
+            Width           =   1200
+         End
          Begin VB.Label Label24 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
@@ -326,8 +364,8 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   5160
-            TabIndex        =   56
-            Top             =   2880
+            TabIndex        =   57
+            Top             =   3240
             Width           =   1215
          End
          Begin VB.Label Label23 
@@ -345,7 +383,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   55
+            TabIndex        =   56
             Top             =   1515
             Width           =   885
          End
@@ -364,7 +402,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   54
+            TabIndex        =   55
             Top             =   4200
             Width           =   360
          End
@@ -384,7 +422,7 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   5160
-            TabIndex        =   52
+            TabIndex        =   53
             Top             =   1800
             Width           =   1230
          End
@@ -403,7 +441,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   5400
-            TabIndex        =   51
+            TabIndex        =   52
             Top             =   2280
             Width           =   1005
          End
@@ -422,7 +460,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   5400
-            TabIndex        =   50
+            TabIndex        =   51
             Top             =   1200
             Width           =   1410
          End
@@ -441,7 +479,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   5400
-            TabIndex        =   49
+            TabIndex        =   50
             Top             =   840
             Width           =   1500
          End
@@ -460,7 +498,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   5400
-            TabIndex        =   48
+            TabIndex        =   49
             Top             =   480
             Width           =   1230
          End
@@ -479,7 +517,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   -9999
-            TabIndex        =   47
+            TabIndex        =   48
             Top             =   1560
             Visible         =   0   'False
             Width           =   840
@@ -500,7 +538,7 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   5160
-            TabIndex        =   46
+            TabIndex        =   47
             Top             =   0
             Width           =   1125
          End
@@ -520,7 +558,7 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   120
-            TabIndex        =   45
+            TabIndex        =   46
             Top             =   0
             Width           =   1125
          End
@@ -539,7 +577,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   44
+            TabIndex        =   45
             Top             =   480
             Width           =   480
          End
@@ -558,7 +596,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   43
+            TabIndex        =   44
             Top             =   840
             Width           =   555
          End
@@ -576,7 +614,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   1440
-            TabIndex        =   42
+            TabIndex        =   43
             Top             =   1200
             Width           =   3375
          End
@@ -595,7 +633,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   41
+            TabIndex        =   42
             Top             =   1200
             Width           =   720
          End
@@ -615,7 +653,7 @@ Begin VB.Form SO_CustomerFrm
             ForeColor       =   &H0000C000&
             Height          =   345
             Left            =   120
-            TabIndex        =   40
+            TabIndex        =   41
             Top             =   1920
             Width           =   1425
          End
@@ -634,7 +672,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   39
+            TabIndex        =   40
             Top             =   2400
             Width           =   600
          End
@@ -653,7 +691,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   38
+            TabIndex        =   39
             Top             =   2760
             Width           =   660
          End
@@ -672,7 +710,7 @@ Begin VB.Form SO_CustomerFrm
             EndProperty
             Height          =   270
             Left            =   360
-            TabIndex        =   37
+            TabIndex        =   38
             Top             =   3120
             Width           =   750
          End
@@ -690,7 +728,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   345
          Left            =   3600
-         TabIndex        =   14
+         TabIndex        =   15
          Top             =   5745
          Width           =   1095
       End
@@ -709,14 +747,14 @@ Begin VB.Form SO_CustomerFrm
          Left            =   1680
          List            =   "SO_CustomerFrm.frx":1AAAB
          Style           =   2  'Dropdown List
-         TabIndex        =   13
+         TabIndex        =   14
          Top             =   5760
          Width           =   1815
       End
       Begin MSComctlLib.ListView lvCustomer 
          Height          =   2655
          Left            =   -9999
-         TabIndex        =   30
+         TabIndex        =   31
          Top             =   930
          Width           =   5775
          _ExtentX        =   10186
@@ -775,7 +813,7 @@ Begin VB.Form SO_CustomerFrm
       Begin MSComctlLib.Toolbar tb_Standard 
          Height          =   330
          Left            =   0
-         TabIndex        =   31
+         TabIndex        =   32
          Top             =   0
          Width           =   11775
          _ExtentX        =   20770
@@ -808,7 +846,7 @@ Begin VB.Form SO_CustomerFrm
       Begin MSComctlLib.ListView lvOrderHistory 
          Height          =   2655
          Left            =   360
-         TabIndex        =   15
+         TabIndex        =   16
          Top             =   6240
          Width           =   9900
          _ExtentX        =   17463
@@ -898,7 +936,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   270
          Left            =   600
-         TabIndex        =   33
+         TabIndex        =   34
          Top             =   5760
          Width           =   570
       End
@@ -918,7 +956,7 @@ Begin VB.Form SO_CustomerFrm
          ForeColor       =   &H0000C000&
          Height          =   345
          Left            =   360
-         TabIndex        =   32
+         TabIndex        =   33
          Top             =   5280
          Width           =   1590
       End
@@ -928,13 +966,13 @@ Begin VB.Form SO_CustomerFrm
       BorderStyle     =   0  'None
       Height          =   9015
       Left            =   0
-      TabIndex        =   26
+      TabIndex        =   27
       Top             =   0
       Width           =   4575
       Begin MSComctlLib.ListView lvSearch 
          Height          =   7095
          Left            =   120
-         TabIndex        =   20
+         TabIndex        =   21
          Top             =   1800
          Width           =   4335
          _ExtentX        =   7646
@@ -987,7 +1025,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   330
          Left            =   1320
-         TabIndex        =   16
+         TabIndex        =   17
          Top             =   2520
          Visible         =   0   'False
          Width           =   3015
@@ -1005,7 +1043,7 @@ Begin VB.Form SO_CustomerFrm
          Height          =   345
          Left            =   1440
          Style           =   2  'Dropdown List
-         TabIndex        =   18
+         TabIndex        =   19
          Top             =   840
          Width           =   3015
       End
@@ -1021,7 +1059,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   330
          Left            =   1440
-         TabIndex        =   17
+         TabIndex        =   18
          Top             =   480
          Width           =   3015
       End
@@ -1038,7 +1076,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   375
          Left            =   3240
-         TabIndex        =   19
+         TabIndex        =   20
          Top             =   1320
          Width           =   1215
       End
@@ -1057,7 +1095,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   35
+         TabIndex        =   36
          Top             =   2520
          Visible         =   0   'False
          Width           =   480
@@ -1077,7 +1115,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   34
+         TabIndex        =   35
          Top             =   840
          Width           =   570
       End
@@ -1096,7 +1134,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   270
          Left            =   240
-         TabIndex        =   28
+         TabIndex        =   29
          Top             =   480
          Width           =   1125
       End
@@ -1115,7 +1153,7 @@ Begin VB.Form SO_CustomerFrm
          EndProperty
          Height          =   345
          Left            =   120
-         TabIndex        =   27
+         TabIndex        =   28
          Top             =   80
          Width           =   795
       End
@@ -1131,7 +1169,7 @@ Begin VB.Form SO_CustomerFrm
       Picture         =   "SO_CustomerFrm.frx":1AAAD
       ScaleHeight     =   2295
       ScaleWidth      =   6195
-      TabIndex        =   24
+      TabIndex        =   25
       Top             =   2640
       Width           =   6195
    End
@@ -1142,7 +1180,7 @@ Begin VB.Form SO_CustomerFrm
       Picture         =   "SO_CustomerFrm.frx":2313B
       ScaleHeight     =   2295
       ScaleWidth      =   6195
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   2640
       Width           =   6195
    End
@@ -1161,7 +1199,7 @@ Begin VB.Form SO_CustomerFrm
       Height          =   375
       Left            =   9285
       Style           =   1  'Graphical
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   7605
       Visible         =   0   'False
       Width           =   2535
@@ -1180,7 +1218,7 @@ Begin VB.Form SO_CustomerFrm
       EndProperty
       Height          =   375
       Left            =   9285
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   7200
       Width           =   2535
    End
@@ -1203,7 +1241,7 @@ Begin VB.Form SO_CustomerFrm
    Begin MSComctlLib.ListView lvItemList 
       Height          =   2655
       Left            =   -9960
-      TabIndex        =   25
+      TabIndex        =   26
       Top             =   3240
       Width           =   5415
       _ExtentX        =   9551
@@ -1307,16 +1345,16 @@ End Sub
 
 Public Sub Populate(ByVal data As String)
     Set rec = New ADODB.Recordset
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         Case "Customer"
             Set rec = Global_Data("Customer")
             lvSearch.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set item = lvSearch.ListItems.add(, , rec!CustomerId)
-                        item.SubItems(1) = rec!CustomerCode
-                        item.SubItems(2) = rec!Name
+                    Set Item = lvSearch.ListItems.add(, , rec!CustomerId)
+                        Item.SubItems(1) = rec!CustomerCode
+                        Item.SubItems(2) = rec!Name
                     rec.MoveNext
                 Loop
             End If
@@ -1373,7 +1411,7 @@ Public Sub Populate(ByVal data As String)
             If Not rec.EOF Then
                 txtCode.Text = rec!CustomerCode
                 txtName.Text = rec!Name
-                txtCardNumber.Text = rec!CardNumber
+                txtCardnumber.Text = rec!CardNumber
                 lblBalance.Caption = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
                 txtMobile.Text = rec!Mobile
                 txtPhone.Text = rec!Phone
@@ -1381,6 +1419,8 @@ Public Sub Populate(ByVal data As String)
                 isActive = rec!isActive
                 txtSalesman.Text = rec!SalesRep
                 txtCreditLine.Text = FormatNumber(rec!creditlimit, 2, vbTrue, vbFalse)
+                txtInterestRate.Text = FormatNumber(rec!interestrate, 2, vbTrue, vbFalse)
+                
                 If rec!City = "" Then
                     cmbCity.ListIndex = 0
                 Else
@@ -1425,11 +1465,11 @@ Public Sub Populate(ByVal data As String)
             lvOrderHistory.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set item = lvOrderHistory.ListItems.add(, , rec!inventoryId)
-                        item.SubItems(1) = rec!LocationId
-                        item.SubItems(2) = rec!CustomerId
-                        item.SubItems(3) = rec!Location
-                        item.SubItems(5) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
+                    Set Item = lvOrderHistory.ListItems.add(, , rec!inventoryId)
+                        Item.SubItems(1) = rec!LocationId
+                        Item.SubItems(2) = rec!CustomerId
+                        Item.SubItems(3) = rec!Location
+                        Item.SubItems(5) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
                     rec.MoveNext
                 Loop
             End If
@@ -1458,11 +1498,12 @@ End Sub
 Private Function isValidated() As Boolean
     isValidated = False
     'CHECK EMPTY FIELDS
-    If Trim(txtCode.Text) = "" Then
-        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(1)
-        GLOBAL_MessageFrm.Show (1)
-        txtCode.SetFocus
-    ElseIf Trim(txtName.Text) = "" Then
+'    If Trim(txtCode.Text) = "" Then
+''        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(1)
+''        GLOBAL_MessageFrm.Show (1)
+''        txtCode.SetFocus
+'        isValidated = True
+   If Trim(txtName.Text) = "" Then
         GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(2)
         GLOBAL_MessageFrm.Show (1)
         txtName.SetFocus
@@ -1481,7 +1522,7 @@ Public Sub btnSearch_Click()
     cmd.ActiveConnection = con
     cmd.CommandType = adCmdStoredProc
     cmd.CommandText = "BASE_Customer_Search"
-    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, txtSearch_name.Text)
+    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, txtSearch_Name.Text)
     If Trim(txtSearch_Code.Text) <> "" Then
         cmd.Parameters.Append cmd.CreateParameter("@CustomerCode", adVarChar, adParamInput, 50, txtSearch_Code.Text)
     Else
@@ -1492,13 +1533,13 @@ Public Sub btnSearch_Click()
     End If
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     If Not rec.EOF Then
         Do Until rec.EOF
             'If rec!isactive = "True" Then
-                Set item = lvSearch.ListItems.add(, , rec!CustomerId)
-                    item.SubItems(1) = rec!CustomerCode
-                    item.SubItems(2) = rec!Name
+                Set Item = lvSearch.ListItems.add(, , rec!CustomerId)
+                    Item.SubItems(1) = rec!CustomerCode
+                    Item.SubItems(2) = rec!Name
                     
             'End If
             rec.MoveNext
@@ -1541,20 +1582,20 @@ Private Sub btnSearch_OrderHistory_Click()
     cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 50, "")
     cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 50, txtName.Text)
     cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , CustomerId)
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Set rec = cmd.Execute
     lvOrderHistory.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvOrderHistory.ListItems.add(, , rec!SalesOrderId)
-                item.SubItems(1) = rec!OrderNumber
-                item.SubItems(2) = Format(rec!Date, "MM/DD/YY")
-                item.SubItems(3) = Format(rec!DueDate, "MM/DD/YY")
-                item.SubItems(4) = FormatNumber(rec!subtotal, 2, vbTrue, vbFalse)
-                item.SubItems(5) = FormatNumber(rec!Interest, 2, vbTrue, vbFalse)
-                item.SubItems(6) = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
-                item.SubItems(7) = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
-                item.SubItems(8) = rec!Status
+            Set Item = lvOrderHistory.ListItems.add(, , rec!SalesOrderId)
+                Item.SubItems(1) = rec!OrderNumber
+                Item.SubItems(2) = Format(rec!Date, "MM/DD/YY")
+                Item.SubItems(3) = Format(rec!DueDate, "MM/DD/YY")
+                Item.SubItems(4) = FormatNumber(rec!subtotal, 2, vbTrue, vbFalse)
+                Item.SubItems(5) = FormatNumber(rec!Interest, 2, vbTrue, vbFalse)
+                Item.SubItems(6) = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
+                Item.SubItems(7) = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
+                Item.SubItems(8) = rec!Status
             rec.MoveNext
         Loop
     End If
@@ -1595,9 +1636,9 @@ Private Sub lblInventory_MoreLocations_Click()
     CenterChildForm INV_LocationFrm
     INV_LocationFrm.Show
 End Sub
-Private Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
+Private Sub lvSearch_ItemClick(ByVal Item As MSComctlLib.ListItem)
     With lvSearch
-        If .ListItems.Count > 0 Then
+        If .ListItems.count > 0 Then
             CustomerId = .SelectedItem.Text
             Populate "CustomerGet"
             btnSearch_OrderHistory_Click
@@ -1612,7 +1653,7 @@ Private Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
             cmd.CommandText = "POS_LoyaltyCard_Search"
-            cmd.Parameters.Append cmd.CreateParameter("@CardNumber", adVarChar, adParamInput, 250, txtCardNumber.Text)
+            cmd.Parameters.Append cmd.CreateParameter("@CardNumber", adVarChar, adParamInput, 250, txtCardnumber.Text)
             Set rec = cmd.Execute
             txtAvailablePoints.Text = "0.00"
             If Not rec.EOF Then
@@ -1631,7 +1672,7 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
         MsgBox ErrorCodes(74), vbCritical, "Limited Rights"
         Exit Sub
     End If
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case Button.Index
         Case 1 'New
             Initialize
@@ -1650,14 +1691,14 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 cmd.CommandType = adCmdStoredProc
                 
                 cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInputOutput, , CustomerId)
-                cmd.Parameters.Append cmd.CreateParameter("@CustomerCode", adVarChar, adParamInput, 50, txtCode.Text)
+                cmd.Parameters.Append cmd.CreateParameter("@CustomerCode", adVarChar, adParamInputOutput, 50, txtCode.Text)
                 cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, txtName.Text)
                 cmd.Parameters.Append cmd.CreateParameter("@SalesRep", adVarChar, adParamInput, 250, txtSalesman.Text)
                 cmd.Parameters.Append cmd.CreateParameter("@Mobile", adVarChar, adParamInput, 50, txtMobile.Text)
                 cmd.Parameters.Append cmd.CreateParameter("@Phone", adVarChar, adParamInput, 50, txtPhone.Text)
                 cmd.Parameters.Append cmd.CreateParameter("@Address", adVarChar, adParamInput, 500, txtAddress.Text)
                 cmd.Parameters.Append cmd.CreateParameter("@CityId", adInteger, adParamInput, , cmbCity.ItemData(cmbCity.ListIndex))
-                cmd.Parameters.Append cmd.CreateParameter("@CardNumber", adVarChar, adParamInput, 250, txtCardNumber.Text)
+                cmd.Parameters.Append cmd.CreateParameter("@CardNumber", adVarChar, adParamInput, 250, txtCardnumber.Text)
                 cmd.Parameters.Append cmd.CreateParameter("@CreditLimit", adDecimal, adParamInput, , NVAL(txtCreditLine.Text))
                                       cmd.Parameters("@CreditLimit").NumericScale = 2
                                       cmd.Parameters("@CreditLimit").Precision = 18
@@ -1670,7 +1711,9 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 Else
                     cmd.Parameters.Append cmd.CreateParameter("@MemberId", adInteger, adParamInput, , 2)
                 End If
-                
+                cmd.Parameters.Append cmd.CreateParameter("@InterestRate", adDecimal, adParamInput, , NVAL(txtInterestRate.Text))
+                                      cmd.Parameters("@InterestRate").NumericScale = 2
+                                      cmd.Parameters("@InterestRate").Precision = 18
                 If CustomerId = 0 Then
                     cmd.CommandText = "BASE_Customer_Insert"
                     cmd.Execute
@@ -1692,22 +1735,22 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
         
                 Dim isFound As Boolean
                 isFound = False
-                For Each item In lvSearch.ListItems
-                    If CustomerId = item.Text Then
-                        item.SubItems(1) = txtCode.Text
-                        item.SubItems(2) = txtName.Text
+                For Each Item In lvSearch.ListItems
+                    If CustomerId = Item.Text Then
+                        Item.SubItems(1) = txtCode.Text
+                        Item.SubItems(2) = txtName.Text
                         isFound = True
-                        item.Selected = True
-                        item.EnsureVisible
+                        Item.Selected = True
+                        Item.EnsureVisible
                         Exit For
                     End If
                 Next
                 If isFound = False Then
-                    Set item = lvSearch.ListItems.add(, , CustomerId)
-                        item.SubItems(1) = txtCode.Text
-                        item.SubItems(2) = txtName.Text
-                        item.Selected = True
-                        item.EnsureVisible
+                    Set Item = lvSearch.ListItems.add(, , CustomerId)
+                        Item.SubItems(1) = txtCode.Text
+                        Item.SubItems(2) = txtName.Text
+                        Item.Selected = True
+                        Item.EnsureVisible
                 End If
             End If
         Case 4 ' Delete
@@ -1772,7 +1815,7 @@ Private Sub txtAvailablePoints_Change()
 End Sub
 
 Private Sub txtCardNumber_GotFocus()
-    selectText txtCardNumber
+    selectText txtCardnumber
 End Sub
 
 Private Sub txtCode_Change()

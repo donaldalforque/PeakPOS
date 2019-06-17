@@ -18,6 +18,23 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
       TabIndex        =   0
       Top             =   0
       Width           =   3855
+      Begin VB.ComboBox cmbVendor 
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   345
+         Left            =   1320
+         Style           =   2  'Dropdown List
+         TabIndex        =   19
+         Top             =   960
+         Width           =   2415
+      End
       Begin VB.TextBox txtCodeTo 
          BeginProperty Font 
             Name            =   "Calibri"
@@ -31,7 +48,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   330
          Left            =   1320
          TabIndex        =   4
-         Top             =   1320
+         Top             =   1680
          Width           =   2415
       End
       Begin VB.ComboBox cmbProduct 
@@ -50,7 +67,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          List            =   "RPT_INV_InventoryByLocationFrm.frx":000A
          Style           =   2  'Dropdown List
          TabIndex        =   1
-         Top             =   4800
+         Top             =   6000
          Visible         =   0   'False
          Width           =   2415
       End
@@ -85,7 +102,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Left            =   1320
          TabIndex        =   7
          Text            =   "Inventory Summary"
-         Top             =   3120
+         Top             =   4320
          Width           =   2415
       End
       Begin VB.CommandButton btnGenerate 
@@ -102,7 +119,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   375
          Left            =   1920
          TabIndex        =   8
-         Top             =   3840
+         Top             =   5040
          Width           =   1815
       End
       Begin VB.ComboBox cmbSort 
@@ -121,7 +138,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          List            =   "RPT_INV_InventoryByLocationFrm.frx":0042
          Style           =   2  'Dropdown List
          TabIndex        =   6
-         Top             =   2760
+         Top             =   3960
          Width           =   2415
       End
       Begin VB.TextBox txtItemCode 
@@ -137,7 +154,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   330
          Left            =   1320
          TabIndex        =   3
-         Top             =   960
+         Top             =   1320
          Width           =   2415
       End
       Begin VB.TextBox txtDescription 
@@ -153,8 +170,27 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   330
          Left            =   1320
          TabIndex        =   5
-         Top             =   1680
+         Top             =   2040
          Width           =   2415
+      End
+      Begin VB.Label Label10 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Supplier"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   120
+         TabIndex        =   20
+         Top             =   960
+         Width           =   780
       End
       Begin VB.Label Label9 
          AutoSize        =   -1  'True
@@ -172,7 +208,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   270
          Left            =   120
          TabIndex        =   18
-         Top             =   1320
+         Top             =   1680
          Width           =   750
       End
       Begin VB.Label Label1 
@@ -210,7 +246,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   270
          Left            =   120
          TabIndex        =   15
-         Top             =   4800
+         Top             =   6000
          Visible         =   0   'False
          Width           =   720
       End
@@ -249,7 +285,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   345
          Left            =   120
          TabIndex        =   13
-         Top             =   2280
+         Top             =   3480
          Width           =   870
       End
       Begin VB.Label Label5 
@@ -268,7 +304,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   270
          Left            =   120
          TabIndex        =   12
-         Top             =   3120
+         Top             =   4320
          Width           =   1095
       End
       Begin VB.Label Label6 
@@ -287,7 +323,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   270
          Left            =   120
          TabIndex        =   11
-         Top             =   2760
+         Top             =   3960
          Width           =   645
       End
       Begin VB.Label Label7 
@@ -306,7 +342,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   270
          Left            =   120
          TabIndex        =   10
-         Top             =   960
+         Top             =   1320
          Width           =   1005
       End
       Begin VB.Label Label8 
@@ -325,7 +361,7 @@ Begin VB.Form RPT_INV_InventoryByLocationFrm
          Height          =   270
          Left            =   120
          TabIndex        =   9
-         Top             =   1680
+         Top             =   2040
          Width           =   1065
       End
    End
@@ -369,7 +405,7 @@ Option Explicit
 Dim crxApp As New CRAXDRT.Application
 Dim crxRpt As New CRAXDRT.Report
 Public Sub Populate(ByVal data As String)
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         Case "Location"
             Set rec = New ADODB.Recordset
@@ -386,6 +422,21 @@ Public Sub Populate(ByVal data As String)
                 Loop
             End If
             cmbLocation.ListIndex = 0
+        Case "Vendor"
+            Set rec = New ADODB.Recordset
+            Set rec = Global_Data("Vendor")
+            cmbVendor.Clear
+            cmbVendor.AddItem ""
+            If Not rec.EOF Then
+                Do Until rec.EOF
+                    If rec!isActive = "True" Then
+                        cmbVendor.AddItem rec!Name
+                        cmbVendor.ItemData(cmbVendor.NewIndex) = rec!VendorId
+                    End If
+                    rec.MoveNext
+                Loop
+            End If
+            cmbVendor.ListIndex = 0
     End Select
 End Sub
 
@@ -394,17 +445,17 @@ Private Sub btnGenerate_Click()
     Dim Status, Customer, Terms, DateRange As Variant
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_InventoryByLocation.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_InventoryByLocation.rpt")
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
     
     
-    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.text
+    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.Text
     crxRpt.ParameterFields.GetItemByName("@LocationId").AddCurrentValue cmbLocation.ItemData(cmbLocation.ListIndex)
-    crxRpt.ParameterFields.GetItemByName("@CodeFrom").AddCurrentValue txtItemCode.text
-    crxRpt.ParameterFields.GetItemByName("@CodeTo").AddCurrentValue txtCodeTo.text
-    crxRpt.ParameterFields.GetItemByName("@Name").AddCurrentValue txtDescription.text
-    crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.text
+    crxRpt.ParameterFields.GetItemByName("@CodeFrom").AddCurrentValue txtItemCode.Text
+    crxRpt.ParameterFields.GetItemByName("@CodeTo").AddCurrentValue txtCodeTo.Text
+    crxRpt.ParameterFields.GetItemByName("@Name").AddCurrentValue txtDescription.Text
+    crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.Text
     
     Call ResetRptDB(crxRpt)
     CRViewer.ReportSource = crxRpt
@@ -421,11 +472,12 @@ Private Sub Form_Load()
     cmbProduct.ListIndex = 0
     cmbSort.ListIndex = 0
     Populate "Location"
+    Populate "Vendor"
     
     Me.Height = 9390
     Me.width = 15180
     
-    txtTitle.text = Me.Caption
+    txtTitle.Text = Me.Caption
 End Sub
 
 

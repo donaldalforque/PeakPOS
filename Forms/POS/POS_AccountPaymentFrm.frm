@@ -126,7 +126,7 @@ Begin VB.Form POS_AccountPaymentFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   111411201
+      Format          =   110166017
       CurrentDate     =   41686
    End
    Begin VB.Label Label6 
@@ -589,7 +589,7 @@ Private Sub btnAccept_Click()
         '**PRINT RECEIPT******
         Dim crxApp As New CRAXDRT.Application
         Dim crxRpt As New CRAXDRT.Report
-        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt_Account.rpt")
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt_Account_Payment.rpt")
         
         Call ResetRptDB(crxRpt)
         crxRpt.DiscardSavedData

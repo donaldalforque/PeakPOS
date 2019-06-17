@@ -582,7 +582,7 @@ Public Sub btnSearch_Click()
     Dim Code, Name, Order, OrderNumber, Sort As Variant
     
     If Trim(txtSearch_Code.Text) = "" Then Code = Null Else Code = txtSearch_Code.Text
-    If Trim(txtSearch_name.Text) = "" Then Name = Null Else Name = txtSearch_name.Text
+    If Trim(txtSearch_Name.Text) = "" Then Name = Null Else Name = txtSearch_Name.Text
     'If Trim(txtSearch_Order.text) = "" Then OrderNumber = Null Else OrderNumber = txtSearch_Order.text
     If optCustomerName.value = True Then Sort = "Name"
     'If optOrderNumber.value = True Then Sort = "Order"
@@ -612,6 +612,27 @@ Public Sub btnSearch_Click()
     End If
     con.Close
     CountTotal
+    
+    ComputeInterest
+End Sub
+Private Sub ComputeInterest()
+    Dim item As MSComctlLib.ListItem
+    Dim con As New ADODB.Connection
+    Set rec = New ADODB.Recordset
+    
+    con.ConnectionString = ConnString
+    con.Open
+    
+    For Each item In lvSearch.ListItems
+        Set cmd = New ADODB.Command
+        cmd.ActiveConnection = con
+        cmd.CommandType = adCmdStoredProc
+        cmd.CommandText = "SO_ComputeInterest"
+        cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , item.Text)
+        cmd.Execute
+    Next
+    con.Close
+    btnSearch_Click
 End Sub
 
 Private Sub Form_Load()

@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form POS_ViewAccountsFrm 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   9525
@@ -343,7 +343,7 @@ Attribute VB_Exposed = False
 Option Explicit
 Public Sub Populate(ByVal data As String)
     Set rec = New ADODB.Recordset
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         
         Case "City"
@@ -365,13 +365,13 @@ Public Sub Populate(ByVal data As String)
 End Sub
 
 Private Sub CountTotal()
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim Total As Double
     Total = 0
-    For Each item In lvSearch.ListItems
-        Total = Total + Val(Replace(item.SubItems(3), ",", ""))
+    For Each Item In lvSearch.ListItems
+        Total = Total + Val(Replace(Item.SubItems(3), ",", ""))
     Next
-    lbltotal.Caption = "TOTAL: " & FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblTotal.Caption = "TOTAL: " & FormatNumber(Total, 2, vbTrue, vbFalse)
 End Sub
 
 Private Sub btnAccept_Click()
@@ -384,11 +384,11 @@ End Sub
 
 Private Function isValidated() As Boolean
     Dim hasPayment As Boolean
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     
-    For Each item In lvSearch.ListItems
-        If item.SubItems(10) <> "" Then
-            If Val(Replace(item.SubItems(10), ",", "")) > 0 Then
+    For Each Item In lvSearch.ListItems
+        If Item.SubItems(10) <> "" Then
+            If Val(Replace(Item.SubItems(10), ",", "")) > 0 Then
                 hasPayment = True
                 Exit For
             End If
@@ -472,19 +472,19 @@ Private Sub btnSave_Click()
 End Sub
 
 Private Sub btnPrintByCustomer_Click()
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim x As Variant
     x = MsgBox("This will print receivable by customer. Continue?", vbCritical + vbYesNo)
     If x = vbNo Then Exit Sub
-    For Each item In lvSearch.ListItems
+    For Each Item In lvSearch.ListItems
         Dim crxApp As New CRAXDRT.Application
         Dim crxRpt As New CRAXDRT.Report
         
-        Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_AccountsReceivableSummary.rpt")
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_AccountsReceivableSummary.rpt")
         crxRpt.DiscardSavedData
         crxRpt.EnableParameterPrompting = False
         crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue "Accounts Receivable Summary"
-        crxRpt.ParameterFields.GetItemByName("@CustomerId").AddCurrentValue Val(item.Text)
+        crxRpt.ParameterFields.GetItemByName("@CustomerId").AddCurrentValue Val(Item.Text)
         crxRpt.ParameterFields.GetItemByName("@UserId").AddCurrentValue UserId
         crxRpt.ParameterFields.GetItemByName("@WorkStationId").AddCurrentValue WorkstationId
         Call ResetRptDB(crxRpt)
@@ -507,7 +507,7 @@ Public Sub btnSearch_Click()
     Dim Code, Name, Order, OrderNumber, Sort As Variant
     
     If Trim(txtSearch_Code.Text) = "" Then Code = Null Else Code = txtSearch_Code.Text
-    If Trim(txtSearch_name.Text) = "" Then Name = Null Else Name = txtSearch_name.Text
+    If Trim(txtSearch_Name.Text) = "" Then Name = Null Else Name = txtSearch_Name.Text
     'If Trim(txtSearch_Order.text) = "" Then OrderNumber = Null Else OrderNumber = txtSearch_Order.text
 '    If optCustomerName.value = True Then Sort = "Name"
 '    'If optOrderNumber.value = True Then Sort = "Order"
@@ -523,15 +523,15 @@ Public Sub btnSearch_Click()
     cmd.Parameters.Append cmd.CreateParameter("@Sort", adVarChar, adParamInput, 250, "Name")
     cmd.Parameters.Append cmd.CreateParameter("@Order", adVarChar, adParamInput, 50, "ASC")
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvSearch.ListItems.add(, , rec!CustomerId)
-                item.SubItems(1) = rec!CustomerCode
-                item.SubItems(2) = rec!Name
-                item.SubItems(3) = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
+            Set Item = lvSearch.ListItems.add(, , rec!CustomerId)
+                Item.SubItems(1) = rec!CustomerCode
+                Item.SubItems(2) = rec!Name
+                Item.SubItems(3) = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
             rec.MoveNext
         Loop
     End If
@@ -543,7 +543,7 @@ Private Sub btnSummary_Click()
     Dim crxApp As New CRAXDRT.Application
     Dim crxRpt As New CRAXDRT.Report
     
-    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_AccountsReceivableSummary.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_AccountsReceivableSummary.rpt")
     crxRpt.DiscardSavedData
     crxRpt.EnableParameterPrompting = False
     crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue "Accounts Receivable Summary"
@@ -592,7 +592,7 @@ Private Sub lvSearch_DblClick()
         MsgBox ErrorCodes(74), vbCritical, "Limited Rights"
         Exit Sub
     End If
-    If lvSearch.ListItems.Count <= 0 Then Exit Sub
+    If lvSearch.ListItems.count <= 0 Then Exit Sub
     
     FIN_CustomerPaymentFrm.CustomerId = lvSearch.SelectedItem.Text
     FIN_CustomerPaymentFrm.Show (1)

@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form POS_AddCustomerFrm 
    BorderStyle     =   3  'Fixed Dialog
-   ClientHeight    =   6855
+   ClientHeight    =   7995
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   6150
@@ -10,10 +10,28 @@ Begin VB.Form POS_AddCustomerFrm
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6855
+   ScaleHeight     =   7995
    ScaleWidth      =   6150
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.TextBox Text1 
+      BackColor       =   &H00FFFFFF&
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   330
+      Left            =   1680
+      MaxLength       =   50
+      TabIndex        =   4
+      Top             =   3840
+      Width           =   4095
+   End
    Begin VB.TextBox txtCardnumber 
       BackColor       =   &H00FFFFFF&
       BeginProperty Font 
@@ -26,11 +44,11 @@ Begin VB.Form POS_AddCustomerFrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      Left            =   1440
+      Left            =   1680
       MaxLength       =   50
       TabIndex        =   3
       Top             =   2760
-      Width           =   4335
+      Width           =   4095
    End
    Begin VB.TextBox txtAddress 
       BackColor       =   &H00FFFFFF&
@@ -44,13 +62,13 @@ Begin VB.Form POS_AddCustomerFrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   1050
-      Left            =   1440
+      Left            =   1680
       MaxLength       =   50
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
-      TabIndex        =   6
-      Top             =   4440
-      Width           =   4335
+      TabIndex        =   7
+      Top             =   5520
+      Width           =   4095
    End
    Begin VB.TextBox txtMobile 
       BackColor       =   &H00FFFFFF&
@@ -64,11 +82,11 @@ Begin VB.Form POS_AddCustomerFrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      Left            =   1440
+      Left            =   1680
       MaxLength       =   50
-      TabIndex        =   5
-      Top             =   4080
-      Width           =   4335
+      TabIndex        =   6
+      Top             =   5160
+      Width           =   4095
    End
    Begin VB.TextBox txtPhone 
       BackColor       =   &H00FFFFFF&
@@ -82,11 +100,11 @@ Begin VB.Form POS_AddCustomerFrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      Left            =   1440
+      Left            =   1680
       MaxLength       =   50
-      TabIndex        =   4
-      Top             =   3720
-      Width           =   4335
+      TabIndex        =   5
+      Top             =   4800
+      Width           =   4095
    End
    Begin VB.TextBox txtName 
       BackColor       =   &H00FFFFFF&
@@ -100,12 +118,12 @@ Begin VB.Form POS_AddCustomerFrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      Left            =   1440
+      Left            =   1680
       MaxLength       =   500
       ScrollBars      =   2  'Vertical
       TabIndex        =   2
       Top             =   1800
-      Width           =   4335
+      Width           =   4095
    End
    Begin VB.TextBox txtCode 
       BackColor       =   &H00FFFFFF&
@@ -119,11 +137,11 @@ Begin VB.Form POS_AddCustomerFrm
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      Left            =   1440
+      Left            =   1680
       MaxLength       =   50
       TabIndex        =   1
       Top             =   1440
-      Width           =   4335
+      Width           =   4095
    End
    Begin VB.CommandButton btnAccept 
       Caption         =   "ENTER: Accept"
@@ -140,8 +158,8 @@ Begin VB.Form POS_AddCustomerFrm
       Left            =   2760
       Picture         =   "POS_AddCustomerFrm.frx":000C
       Style           =   1  'Graphical
-      TabIndex        =   7
-      Top             =   5880
+      TabIndex        =   8
+      Top             =   7080
       Width           =   1575
    End
    Begin VB.CommandButton btnCancel 
@@ -159,9 +177,48 @@ Begin VB.Form POS_AddCustomerFrm
       Left            =   4440
       Picture         =   "POS_AddCustomerFrm.frx":23E0
       Style           =   1  'Graphical
-      TabIndex        =   8
-      Top             =   5880
+      TabIndex        =   9
+      Top             =   7080
       Width           =   1575
+   End
+   Begin VB.Label Label11 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Credit Info"
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H0000C000&
+      Height          =   345
+      Left            =   360
+      TabIndex        =   20
+      Top             =   3360
+      Width           =   1230
+   End
+   Begin VB.Label Label3 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Interest Rate"
+      BeginProperty Font 
+         Name            =   "Calibri"
+         Size            =   11.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   270
+      Left            =   360
+      TabIndex        =   19
+      Top             =   3840
+      Width           =   1200
    End
    Begin VB.Label Label2 
       AutoSize        =   -1  'True
@@ -178,7 +235,7 @@ Begin VB.Form POS_AddCustomerFrm
       EndProperty
       Height          =   270
       Left            =   360
-      TabIndex        =   17
+      TabIndex        =   18
       Top             =   2760
       Width           =   570
    End
@@ -198,7 +255,7 @@ Begin VB.Form POS_AddCustomerFrm
       ForeColor       =   &H0000C000&
       Height          =   345
       Left            =   360
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   2280
       Width           =   1125
    End
@@ -218,8 +275,8 @@ Begin VB.Form POS_AddCustomerFrm
       ForeColor       =   &H0000C000&
       Height          =   345
       Left            =   360
-      TabIndex        =   15
-      Top             =   3240
+      TabIndex        =   16
+      Top             =   4320
       Width           =   1425
    End
    Begin VB.Label Label6 
@@ -238,7 +295,7 @@ Begin VB.Form POS_AddCustomerFrm
       ForeColor       =   &H0000C000&
       Height          =   345
       Left            =   360
-      TabIndex        =   14
+      TabIndex        =   15
       Top             =   960
       Width           =   1125
    End
@@ -257,8 +314,8 @@ Begin VB.Form POS_AddCustomerFrm
       EndProperty
       Height          =   270
       Left            =   360
-      TabIndex        =   13
-      Top             =   4440
+      TabIndex        =   14
+      Top             =   5520
       Width           =   750
    End
    Begin VB.Label Label9 
@@ -276,8 +333,8 @@ Begin VB.Form POS_AddCustomerFrm
       EndProperty
       Height          =   270
       Left            =   360
-      TabIndex        =   12
-      Top             =   4080
+      TabIndex        =   13
+      Top             =   5160
       Width           =   660
    End
    Begin VB.Label Label5 
@@ -295,8 +352,8 @@ Begin VB.Form POS_AddCustomerFrm
       EndProperty
       Height          =   270
       Left            =   360
-      TabIndex        =   11
-      Top             =   3720
+      TabIndex        =   12
+      Top             =   4800
       Width           =   600
    End
    Begin VB.Label Label8 
@@ -314,7 +371,7 @@ Begin VB.Form POS_AddCustomerFrm
       EndProperty
       Height          =   270
       Left            =   360
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   1800
       Width           =   555
    End
@@ -333,7 +390,7 @@ Begin VB.Form POS_AddCustomerFrm
       EndProperty
       Height          =   270
       Left            =   360
-      TabIndex        =   9
+      TabIndex        =   10
       Top             =   1440
       Width           =   480
    End
@@ -364,7 +421,7 @@ Begin VB.Form POS_AddCustomerFrm
    End
    Begin VB.Shape Shape1 
       BackStyle       =   1  'Opaque
-      Height          =   5055
+      Height          =   6255
       Left            =   120
       Top             =   720
       Width           =   5895
@@ -380,9 +437,9 @@ Private Function isValidated() As Boolean
     isValidated = False
     'CHECK EMPTY FIELDS
     If Trim(txtCode.Text) = "" Then
-        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(40)
-        GLOBAL_MessageFrm.Show (1)
-        txtCode.SetFocus
+'        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(40)
+'        GLOBAL_MessageFrm.Show (1)
+'        txtCode.SetFocus
     ElseIf Trim(txtName.Text) = "" Then
         GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(18)
         GLOBAL_MessageFrm.Show (1)
@@ -412,7 +469,7 @@ Private Sub btnAccept_Click()
         cmd.Parameters.Append cmd.CreateParameter("@Phone", adVarChar, adParamInput, 50, txtPhone.Text)
         cmd.Parameters.Append cmd.CreateParameter("@Address", adVarChar, adParamInput, 500, txtAddress.Text)
         cmd.Parameters.Append cmd.CreateParameter("@CityId", adInteger, adParamInput, , 0)
-        cmd.Parameters.Append cmd.CreateParameter("@CardNumber", adVarChar, adParamInput, 250, txtCardNumber.Text)
+        cmd.Parameters.Append cmd.CreateParameter("@CardNumber", adVarChar, adParamInput, 250, txtCardnumber.Text)
         cmd.Parameters.Append cmd.CreateParameter("@CreditLimit", adDecimal, adParamInput, , 0)
                                       cmd.Parameters("@CreditLimit").NumericScale = 2
                                       cmd.Parameters("@CreditLimit").Precision = 18
@@ -420,7 +477,10 @@ Private Sub btnAccept_Click()
                                       cmd.Parameters("@CardPoints").NumericScale = 2
                                       cmd.Parameters("@CardPoints").Precision = 18
         cmd.Parameters.Append cmd.CreateParameter("@PricingSchemeId", adInteger, adParamInput, , 0)
-                        
+        cmd.Parameters.Append cmd.CreateParameter("@MemberId", adInteger, adParamInput, , 2)
+        cmd.Parameters.Append cmd.CreateParameter("@InterestRate", adDecimal, adParamInput, , NVAL(txtInterestRate.Text))
+                              cmd.Parameters("@InterestRate").NumericScale = 2
+                              cmd.Parameters("@InterestRate").Precision = 18
         cmd.CommandText = "BASE_Customer_Insert"
         cmd.Execute
         'CustomerId = cmd.Parameters("@CustomerId")
@@ -456,6 +516,3 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     End Select
 End Sub
 
-Private Sub Label3_Click()
-
-End Sub

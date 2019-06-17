@@ -11,6 +11,7 @@ Sub Main()
         UpdateCustomerOrderDues
         UpdateVendorOrderDues
         GetSalesSettings
+        ComputeInterest (EnableInterest)
         
         DeleteReserves WorkstationId, 1 'POS
         DeleteReserves WorkstationId, 2 'SALES
@@ -20,8 +21,8 @@ Sub Main()
         BASE_UserLoginFrm.Show
         DefaultPrinter (BackOffice_Printer)
         
-        'POS_UserLoginFrm.Show
-        'DefaultPrinter (POS_Printer)
+'        POS_UserLoginFrm.Show
+'        DefaultPrinter (POS_Printer)
 '    Else
 '        MsgBox "Invalid license.", vbCritical, "PeakPOS"
 '    End If
