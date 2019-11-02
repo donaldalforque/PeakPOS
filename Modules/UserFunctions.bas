@@ -30,7 +30,8 @@ Global CSVRecordset As ADODB.Recordset
 Global UniversalCtr As Long
 Global POS_Printer, BackOffice_Printer As String
 Global EnableInterest As Boolean
-
+Global POS_SO_PrintOutCopies As Integer
+Global PricingByQty As Boolean
 Private Declare Function GetVolumeInformation _
     Lib "kernel32" Alias "GetVolumeInformationA" _
     (ByVal lpRootPathName As String, _
@@ -640,7 +641,7 @@ End Sub
 Public Function GetAccessRightsByModule(ByVal UserRoleId As Integer, ByVal ModuleId As Integer) As Boolean
     Dim ModuleCtr, RightsCtr As Integer
     
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
     Dim rrCon As New ADODB.Connection
     Dim cmd As New ADODB.Command
     Dim rrRec As New ADODB.Recordset
@@ -671,7 +672,7 @@ End Function
 Public Sub GetAccessRights(ByVal UserRoleId As Integer)
     Dim ModuleCtr, RightsCtr As Integer
     
-    Dim Item As MSComctlLib.ListItem
+    Dim item As MSComctlLib.ListItem
     Dim rrCon As New ADODB.Connection
     Dim cmd As New ADODB.Command
     Dim rrRec As New ADODB.Recordset
@@ -944,6 +945,7 @@ Public Function GetSalesSettings() As Integer
        Do Until rec.EOF
         StatementTemplateId = rec!StatementTemplateId
         EnableInterest = rec!EnableInterest
+        POS_SO_PrintOutCopies = rec!printoutcopy
         rec.MoveNext
        Loop
     End If

@@ -14,7 +14,7 @@ Begin VB.Form POS_AddCustomerFrm
    ScaleWidth      =   6150
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.TextBox Text1 
+   Begin VB.TextBox txtInterestRate 
       BackColor       =   &H00FFFFFF&
       BeginProperty Font 
          Name            =   "Calibri"
@@ -436,11 +436,12 @@ Option Explicit
 Private Function isValidated() As Boolean
     isValidated = False
     'CHECK EMPTY FIELDS
-    If Trim(txtCode.Text) = "" Then
-'        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(40)
-'        GLOBAL_MessageFrm.Show (1)
-'        txtCode.SetFocus
-    ElseIf Trim(txtName.Text) = "" Then
+'    If Trim(txtCode.Text) = "" Then
+''        GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(40)
+''        GLOBAL_MessageFrm.Show (1)
+''        txtCode.SetFocus
+'    Else
+    If Trim(txtName.Text) = "" Then
         GLOBAL_MessageFrm.lblErrorMessage.Caption = ErrorCodes(0) & " " & ErrorCodes(18)
         GLOBAL_MessageFrm.Show (1)
         txtName.SetFocus

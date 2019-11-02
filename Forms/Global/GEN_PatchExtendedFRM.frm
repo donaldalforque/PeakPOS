@@ -1,16 +1,17 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
-Begin VB.MDIForm BASE_ContainerFrm 
-   BackColor       =   &H8000000C&
-   Caption         =   "PeakPOS"
-   ClientHeight    =   10605
-   ClientLeft      =   2265
-   ClientTop       =   1545
-   ClientWidth     =   14355
-   Icon            =   "BASE_ContainerFrm.frx":0000
-   LinkTopic       =   "MDIForm1"
+Begin VB.Form GEN_PatchExtendedFRM 
+   BorderStyle     =   1  'Fixed Single
+   ClientHeight    =   825
+   ClientLeft      =   45
+   ClientTop       =   390
+   ClientWidth     =   3900
+   LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
+   ScaleHeight     =   825
+   ScaleWidth      =   3900
    StartUpPosition =   2  'CenterScreen
-   WindowState     =   2  'Maximized
    Begin MSComctlLib.ImageList imgList_Main 
       Left            =   120
       Top             =   840
@@ -24,39 +25,39 @@ Begin VB.MDIForm BASE_ContainerFrm
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   9
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":6852
+            Picture         =   "GEN_PatchExtendedFRM.frx":0000
             Key             =   ""
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":6EB0
+            Picture         =   "GEN_PatchExtendedFRM.frx":065E
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":743A
+            Picture         =   "GEN_PatchExtendedFRM.frx":0BE8
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":7AD8
+            Picture         =   "GEN_PatchExtendedFRM.frx":1286
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":8094
+            Picture         =   "GEN_PatchExtendedFRM.frx":1842
             Key             =   ""
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":8764
+            Picture         =   "GEN_PatchExtendedFRM.frx":1F12
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":8CBA
+            Picture         =   "GEN_PatchExtendedFRM.frx":2468
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":935B
+            Picture         =   "GEN_PatchExtendedFRM.frx":2B09
             Key             =   ""
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "BASE_ContainerFrm.frx":998F
+            Picture         =   "GEN_PatchExtendedFRM.frx":313D
             Key             =   ""
          EndProperty
       EndProperty
@@ -67,8 +68,8 @@ Begin VB.MDIForm BASE_ContainerFrm
       Left            =   0
       TabIndex        =   0
       Top             =   0
-      Width           =   14355
-      _ExtentX        =   25321
+      Width           =   3900
+      _ExtentX        =   6879
       _ExtentY        =   1429
       ButtonWidth     =   1746
       ButtonHeight    =   1429
@@ -81,14 +82,17 @@ Begin VB.MDIForm BASE_ContainerFrm
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
          NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.Visible         =   0   'False
             Caption         =   "Home"
             Key             =   "Homepage"
             ImageIndex      =   1
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.Visible         =   0   'False
             Style           =   3
          EndProperty
          BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.Visible         =   0   'False
             Caption         =   "Inventory"
             ImageIndex      =   6
             Style           =   5
@@ -167,6 +171,7 @@ Begin VB.MDIForm BASE_ContainerFrm
             BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
                NumButtonMenus  =   8
                BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "PurchaseOrder"
                   Text            =   "Purchase Order"
                EndProperty
@@ -180,6 +185,7 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Supplier Products"
                EndProperty
                BeginProperty ButtonMenu4 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Text            =   "-"
                EndProperty
                BeginProperty ButtonMenu5 {66833FEE-8583-11D1-B16A-00C0F0283628} 
@@ -193,10 +199,12 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Shrinkages"
                EndProperty
                BeginProperty ButtonMenu7 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "NewVendor"
                   Text            =   "New Supplier"
                EndProperty
                BeginProperty ButtonMenu8 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "VendorList"
                   Text            =   "Supplier List"
                EndProperty
@@ -209,10 +217,12 @@ Begin VB.MDIForm BASE_ContainerFrm
             BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
                NumButtonMenus  =   6
                BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "SalesOrder"
                   Text            =   "Sales Order"
                EndProperty
                BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "SalesReturn"
                   Text            =   "Sales Return"
                EndProperty
@@ -221,13 +231,16 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Sales Adjustment"
                EndProperty
                BeginProperty ButtonMenu4 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Text            =   "-"
                EndProperty
                BeginProperty ButtonMenu5 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "NewCustomer"
                   Text            =   "New Customer"
                EndProperty
                BeginProperty ButtonMenu6 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "CustomerList"
                   Text            =   "Customer List"
                EndProperty
@@ -238,6 +251,7 @@ Begin VB.MDIForm BASE_ContainerFrm
             Style           =   3
          EndProperty
          BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.Visible         =   0   'False
             Caption         =   "Finance"
             ImageIndex      =   7
             Style           =   5
@@ -321,178 +335,10 @@ Begin VB.MDIForm BASE_ContainerFrm
             ImageIndex      =   9
             Style           =   5
             BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
-               NumButtonMenus  =   45
+               NumButtonMenus  =   1
                BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "GeneralSalesTransaction"
-                  Text            =   "General Transaction Summary"
-               EndProperty
-               BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu3 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "InventorySummary"
-                  Text            =   "Inventory Summary"
-               EndProperty
-               BeginProperty ButtonMenu4 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "InventoryByLocation"
-                  Text            =   "Inventory by Location"
-               EndProperty
-               BeginProperty ButtonMenu5 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu6 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "NewStockSummary"
-                  Text            =   "New Stock Summary"
-               EndProperty
-               BeginProperty ButtonMenu7 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu8 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "ProductPricing"
-                  Text            =   "Product Pricing"
-               EndProperty
-               BeginProperty ButtonMenu9 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "ProductExpiry"
-                  Text            =   "Product Expiry"
-               EndProperty
-               BeginProperty ButtonMenu10 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu11 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "PurchaseOrderSummary"
-                  Text            =   "Purchase Order Summary"
-               EndProperty
-               BeginProperty ButtonMenu12 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "PurchaseOrderbyProduct"
-                  Text            =   "Purchase Order by Product"
-               EndProperty
-               BeginProperty ButtonMenu13 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "SupplierPaymentHistory"
-                  Text            =   "Supplier Payment History"
-               EndProperty
-               BeginProperty ButtonMenu14 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "SupplierStatement"
-                  Text            =   "Supplier Statement of Account"
-               EndProperty
-               BeginProperty ButtonMenu15 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "SupplierLedger"
-                  Text            =   "Supplier Ledger"
-               EndProperty
-               BeginProperty ButtonMenu16 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu17 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Object.Visible         =   0   'False
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu18 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "SalesOrderSummary"
-                  Text            =   "Sales Order Summary"
-               EndProperty
-               BeginProperty ButtonMenu19 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "SalesbyProductDetails"
-                  Text            =   "Sales Order by Product"
-               EndProperty
-               BeginProperty ButtonMenu20 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "SalesAdjustmentSummary"
-                  Text            =   "Sales Adjustment Summary"
-               EndProperty
-               BeginProperty ButtonMenu21 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu22 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "CustomerPaymentHistory"
-                  Text            =   "Customer Payment History"
-               EndProperty
-               BeginProperty ButtonMenu23 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "StatementofAccount"
-                  Text            =   "Customer Statement of Account"
-               EndProperty
-               BeginProperty ButtonMenu24 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "CustomerInvoiceTransactions"
-                  Text            =   "Customer Invoice Transactions"
-               EndProperty
-               BeginProperty ButtonMenu25 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "CustomerSalesVolume"
-                  Text            =   "Customer by Sales Volume"
-               EndProperty
-               BeginProperty ButtonMenu26 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "CustomerLedger"
-                  Text            =   "Customer Ledger"
-               EndProperty
-               BeginProperty ButtonMenu27 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "CustomerListReport"
-                  Text            =   "Customer List"
-               EndProperty
-               BeginProperty ButtonMenu28 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu29 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "CashSalesByProduct"
-                  Text            =   "POS Sales by Product"
-               EndProperty
-               BeginProperty ButtonMenu30 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "POSSalesByCashier"
-                  Text            =   "POS Sales by Cashier"
-               EndProperty
-               BeginProperty ButtonMenu31 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "POSSalesbyInvoice"
-                  Text            =   "POS Sales by Invoice"
-               EndProperty
-               BeginProperty ButtonMenu32 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "POSSalesByCustomer"
-                  Text            =   "POS Sales by Customer"
-               EndProperty
-               BeginProperty ButtonMenu33 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "POSSalesSummary"
-                  Text            =   "POS Sales Summary"
-               EndProperty
-               BeginProperty ButtonMenu34 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "POSSalesReturnReport"
-                  Text            =   "POS Sales Return"
-               EndProperty
-               BeginProperty ButtonMenu35 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "POSOrderSummary"
-                  Text            =   "POS Order Summary"
-               EndProperty
-               BeginProperty ButtonMenu36 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu37 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "AccountsReceivableReport"
-                  Text            =   "Accounts Receivable Summary"
-               EndProperty
-               BeginProperty ButtonMenu38 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "AgingAccountsSummary"
                   Text            =   "Aging Accounts Summary"
-               EndProperty
-               BeginProperty ButtonMenu39 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "CollectionSummary"
-                  Text            =   "Collection Summary"
-               EndProperty
-               BeginProperty ButtonMenu40 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Object.Visible         =   0   'False
-                  Key             =   "AccountsPayableReport"
-                  Text            =   "Accounts Payable Summary"
-               EndProperty
-               BeginProperty ButtonMenu41 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "-"
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu42 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "ExpensesReport"
-                  Text            =   "Expenses Report"
-               EndProperty
-               BeginProperty ButtonMenu43 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "CheckRegistry"
-                  Text            =   "Check Registry"
-               EndProperty
-               BeginProperty ButtonMenu44 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Text            =   "-"
-               EndProperty
-               BeginProperty ButtonMenu45 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "POSUserAuditTrail"
-                  Text            =   "User Audit Trail"
                EndProperty
             EndProperty
          EndProperty
@@ -501,6 +347,7 @@ Begin VB.MDIForm BASE_ContainerFrm
             Object.Width           =   1
          EndProperty
          BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Object.Visible         =   0   'False
             Caption         =   "Settings"
             ImageIndex      =   8
             Style           =   5
@@ -518,91 +365,12 @@ Begin VB.MDIForm BASE_ContainerFrm
          EndProperty
       EndProperty
    End
-   Begin MSComctlLib.StatusBar statusBar_Main 
-      Align           =   2  'Align Bottom
-      Height          =   375
-      Left            =   0
-      TabIndex        =   1
-      Top             =   10230
-      Width           =   14355
-      _ExtentX        =   25321
-      _ExtentY        =   661
-      _Version        =   393216
-      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
-         NumPanels       =   4
-         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-            Object.Width           =   17709
-            MinWidth        =   17709
-         EndProperty
-         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-         EndProperty
-         BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-            Alignment       =   2
-            Object.ToolTipText     =   "Date Today"
-         EndProperty
-         BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
-            Alignment       =   2
-            Object.ToolTipText     =   "Logged in user"
-         EndProperty
-      EndProperty
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Calibri"
-         Size            =   11.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-   End
 End
-Attribute VB_Name = "BASE_ContainerFrm"
+Attribute VB_Name = "GEN_PatchExtendedFRM"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Option Explicit
-
-Private Sub MDIForm_Load()
-    Me.Top = 0
-    Me.Left = (Screen.width - Me.width) / 2
-    
-    StatusBarWidth Me, statusBar_Main
-    
-    'AccessRights
-    Dim x As Integer 'will represent the moduleid's
-    For x = 1 To 99
-        If x = 2 Then x = x + 1 'skip product cost
-        EditAccessRights (x) 'dapat mauna edit, para kung enable, tpos false ang view, false pa rin ending
-        ViewAccessRights (x)
-    Next
-End Sub
-
-Private Sub MDIForm_Resize()
-    StatusBarWidth Me, statusBar_Main
-    
-End Sub
-
-Private Sub MDIForm_Unload(Cancel As Integer)
-    'clean up
-    Dim formcontrol As Form
-    For Each formcontrol In Forms
-        'Set formcontrol = Nothing
-        Unload formcontrol
-    Next
-    BASE_UserLoginFrm.Show
-End Sub
-
-Private Sub Toolbar_Main_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Key
-        Case "Homepage"
-            'On Error Resume Next
-            CornerChildForm BASE_HomepageFrm
-            BASE_HomepageFrm.Show
-            BASE_HomepageFrm.ZOrder 0
-    End Select
-End Sub
-
 Private Sub Toolbar_Main_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonMenu)
     Select Case ButtonMenu.Key
         Case "NewProduct"
@@ -668,9 +436,7 @@ Private Sub Toolbar_Main_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonM
             PO_PurchaseOrderFrm.Show
             PO_PurchaseOrderFrm.ZOrder 0
         Case "PurchaseReturn"
-            CornerChildForm PO_PurchaseReturnFrm
             PO_PurchaseReturnFrm.Show
-            PO_PurchaseReturnFrm.ZOrder 0
         Case "ProductBySupplier"
             CornerChildForm PO_ProductBySupplierFrm
             PO_ProductBySupplierFrm.Show
@@ -947,8 +713,4 @@ Private Sub Toolbar_Main_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonM
             RPT_POS_SalesReturn.ZOrder 0
           
     End Select
-End Sub
-
-Private Sub r_ButtonClick(ByVal Button As MSComctlLib.Button)
-
 End Sub

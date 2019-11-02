@@ -452,6 +452,7 @@ Private Sub btnGenerate_Click()
     
     crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.Text
     crxRpt.ParameterFields.GetItemByName("@LocationId").AddCurrentValue cmbLocation.ItemData(cmbLocation.ListIndex)
+    crxRpt.ParameterFields.GetItemByName("@VendorId").AddCurrentValue cmbVendor.ItemData(cmbVendor.ListIndex)
     crxRpt.ParameterFields.GetItemByName("@CodeFrom").AddCurrentValue txtItemCode.Text
     crxRpt.ParameterFields.GetItemByName("@CodeTo").AddCurrentValue txtCodeTo.Text
     crxRpt.ParameterFields.GetItemByName("@Name").AddCurrentValue txtDescription.Text

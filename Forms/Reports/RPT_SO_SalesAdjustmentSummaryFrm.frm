@@ -8,7 +8,6 @@ Begin VB.Form RPT_SO_SalesAdjustmentSummaryFrm
    ClientTop       =   465
    ClientWidth     =   15090
    LinkTopic       =   "Form1"
-   MDIChild        =   -1  'True
    ScaleHeight     =   9015
    ScaleWidth      =   15090
    Begin VB.Frame Frame1 
@@ -147,7 +146,7 @@ Begin VB.Form RPT_SO_SalesAdjustmentSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   97648641
+         Format          =   113770497
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -168,7 +167,7 @@ Begin VB.Form RPT_SO_SalesAdjustmentSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   97648641
+         Format          =   113770497
          CurrentDate     =   41686
       End
       Begin VB.Label Label3 
@@ -364,7 +363,7 @@ Option Explicit
 Dim crxApp As New CRAXDRT.Application
 Dim crxRpt As New CRAXDRT.Report
 Public Sub Populate(ByVal data As String)
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         Case "Customer"
             Set rec = New ADODB.Recordset
@@ -389,7 +388,7 @@ Private Sub btnGenerate_Click()
     Dim Status, Customer, Terms, DateRange As Variant
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\SO_SalesAdjustmentSummary.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\SO_SalesAdjustmentSummary.rpt")
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
     Call ResetRptDB(crxRpt)

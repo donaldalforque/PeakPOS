@@ -237,7 +237,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   110952449
+            Format          =   113049601
             CurrentDate     =   41646
          End
          Begin VB.Label Label10 
@@ -370,7 +370,7 @@ Begin VB.Form FIN_CustomerPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   110952449
+            Format          =   113049601
             CurrentDate     =   41646
          End
          Begin VB.Label Label9 
@@ -822,14 +822,14 @@ Public Sub Populate(ByVal data As String)
 End Sub
 
 Private Sub btnCash_Click()
-    FRE_CASH.Enabled = True
-    FRE_CHECK.Enabled = False
+    FRE_CASH.enabled = True
+    FRE_CHECK.enabled = False
     txtCheckAmount.Text = "0.00"
 End Sub
 
 Private Sub btnCheck_Click()
-    FRE_CASH.Enabled = False
-    FRE_CHECK.Enabled = True
+    FRE_CASH.enabled = False
+    FRE_CHECK.enabled = True
     txtCash.Text = "0.00"
 End Sub
 
@@ -839,7 +839,7 @@ Private Sub btnSave_Click()
         Exit Sub
     End If
                 
-    If FRE_CHECK.Enabled = True Then
+    If FRE_CHECK.enabled = True Then
         If txtCheckNumber.Text = "" Then
             MsgBox "Check number is required.", vbCritical, "PeakPOS"
             Exit Sub
@@ -916,7 +916,7 @@ Private Sub btnSave_Click()
             cmd.CommandText = "SO_Payment_Insert"
             cmd.Parameters.Append cmd.CreateParameter("@SalesOrderId", adInteger, adParamInput, , Item.SubItems(1))
             If Payment >= NVAL(Item.SubItems(6)) Then
-                If FRE_CHECK.Enabled = False Then 'IF CASH
+                If FRE_CHECK.enabled = False Then 'IF CASH
                     cmd.Parameters.Append cmd.CreateParameter("@Amount", adDecimal, adParamInput, , NVAL(Item.SubItems(6)))
                                           cmd.Parameters("@Amount").NumericScale = 2
                                           cmd.Parameters("@Amount").Precision = 18
@@ -938,7 +938,7 @@ Private Sub btnSave_Click()
                     cmd.Parameters.Append cmd.CreateParameter("@CheckDate", adDate, adParamInput, , dtCheckDate.value)
                 End If
             Else
-                If FRE_CHECK.Enabled = False Then 'IF CASH
+                If FRE_CHECK.enabled = False Then 'IF CASH
                     cmd.Parameters.Append cmd.CreateParameter("@Amount", adDecimal, adParamInput, , Payment)
                                           cmd.Parameters("@Amount").NumericScale = 2
                                           cmd.Parameters("@Amount").Precision = 18
@@ -1092,7 +1092,7 @@ Private Sub btnSave_Click()
                     '**PRINT RECEIPT******
                     Dim crxApp As New CRAXDRT.Application
                     Dim crxRpt As New CRAXDRT.Report
-                    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt_Account.rpt")
+                    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt_Account_Payment.rpt")
                     'crxRpt.RecordSelectionFormula = "{POS_Sales.POS_SalesId}= " & Val(POS_SalesId) & ""
                     crxRpt.DiscardSavedData
                     crxRpt.EnableParameterPrompting = False
@@ -1183,8 +1183,8 @@ Private Sub Form_Load()
     lvOrders.ColumnHeaders(6).width = lvOrders.width * 0.1633
     lvOrders.ColumnHeaders(7).width = lvOrders.width * 0.295
     
-    FRE_CASH.Enabled = True
-    FRE_CHECK.Enabled = False
+    FRE_CASH.enabled = True
+    FRE_CHECK.enabled = False
     
     Set con = New ADODB.Connection
     Set rec = New ADODB.Recordset

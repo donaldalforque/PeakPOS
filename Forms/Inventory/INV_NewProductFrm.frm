@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form INV_NewProductFrm 
    BorderStyle     =   1  'Fixed Single
@@ -780,10 +780,10 @@ Begin VB.Form INV_NewProductFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   330
-         Left            =   3050
+         Left            =   2565
          TabIndex        =   8
          Top             =   4560
-         Width           =   2175
+         Width           =   2655
       End
       Begin VB.Frame Frame_ProductDetails1 
          BackColor       =   &H00FFFFFF&
@@ -1053,6 +1053,68 @@ Begin VB.Form INV_NewProductFrm
             EndProperty
          EndProperty
       End
+      Begin VB.Label Label30 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Custom Pricing"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   480
+         TabIndex        =   82
+         Top             =   5000
+         Width           =   1380
+      End
+      Begin VB.Label Label29 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Custom Qty Pricing"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FF8080&
+         Height          =   225
+         Left            =   2565
+         MouseIcon       =   "INV_NewProductFrm.frx":211DA
+         MousePointer    =   99  'Custom
+         TabIndex        =   81
+         Top             =   5360
+         Width           =   1575
+      End
+      Begin VB.Image img_Auto 
+         Height          =   255
+         Left            =   1950
+         MouseIcon       =   "INV_NewProductFrm.frx":2132C
+         MousePointer    =   99  'Custom
+         Picture         =   "INV_NewProductFrm.frx":2147E
+         Stretch         =   -1  'True
+         Top             =   1950
+         Width           =   255
+      End
+      Begin VB.Image img_Print 
+         Height          =   255
+         Left            =   1500
+         MouseIcon       =   "INV_NewProductFrm.frx":3100F
+         MousePointer    =   99  'Custom
+         Picture         =   "INV_NewProductFrm.frx":31161
+         Stretch         =   -1  'True
+         Top             =   1950
+         Width           =   255
+      End
       Begin VB.Label Label23 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
@@ -1095,10 +1157,10 @@ Begin VB.Form INV_NewProductFrm
          Alignment       =   1  'Right Justify
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "Show more Prices"
+         Caption         =   "Show Unit Prices"
          BeginProperty Font 
             Name            =   "Calibri"
-            Size            =   8.25
+            Size            =   9.75
             Charset         =   0
             Weight          =   400
             Underline       =   -1  'True
@@ -1106,13 +1168,13 @@ Begin VB.Form INV_NewProductFrm
             Strikethrough   =   0   'False
          EndProperty
          ForeColor       =   &H00FF8080&
-         Height          =   195
-         Left            =   4500
-         MouseIcon       =   "INV_NewProductFrm.frx":211DA
+         Height          =   225
+         Left            =   2565
+         MouseIcon       =   "INV_NewProductFrm.frx":3220E
          MousePointer    =   99  'Custom
          TabIndex        =   64
-         Top             =   4920
-         Width           =   1245
+         Top             =   5000
+         Width           =   1380
       End
       Begin VB.Label Label22 
          Alignment       =   1  'Right Justify
@@ -1668,42 +1730,42 @@ Private Sub Initialize()
     PicPath = ""
 End Sub
 Public Sub CountQuantity()
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim Total As Double
-    For Each item In lvInventory.ListItems
-        If item.SubItems(1) < 4 Then 'SHOULD HAVE LIKE <...
-            Total = Total + Val(Replace(item.SubItems(5), ",", ""))
+    For Each Item In lvInventory.ListItems
+        If Item.SubItems(1) < 4 Then 'SHOULD HAVE LIKE <...
+            Total = Total + Val(Replace(Item.SubItems(5), ",", ""))
         End If
     Next
     lblInventory_QtyOnHand.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
 End Sub
 Private Sub isActivated(value As Boolean)
     'BASIC INFO
-    txtBasicInfo_ItemCode.Enabled = value
-    txtBasicInfo_Name.Enabled = value
-    txtBasicInfo_Barcode.Enabled = value
-    cmbBasicInfo_Category.Enabled = value
-    cmbBasicInfo_Type.Enabled = value
+    txtBasicInfo_ItemCode.enabled = value
+    txtBasicInfo_Name.enabled = value
+    txtBasicInfo_Barcode.enabled = value
+    cmbBasicInfo_Category.enabled = value
+    cmbBasicInfo_Type.enabled = value
     
     'SALES INFO
-    txtSalesInfo_Price.Enabled = value
-    txtSalesInfoSRPMarkUp.Enabled = value
-    txtSalesInfo_DP.Enabled = value
-    txtSalesInfoDPMarkUp.Enabled = value
-    txtSalesInfo_SP.Enabled = value
-    txtSalesInfoMSMarkUp.Enabled = value
-    txtSalesInfo_BCP.Enabled = value
-    txtSalesInfoBCMarkUp.Enabled = value
+    txtSalesInfo_Price.enabled = value
+    txtSalesInfoSRPMarkUp.enabled = value
+    txtSalesInfo_DP.enabled = value
+    txtSalesInfoDPMarkUp.enabled = value
+    txtSalesInfo_SP.enabled = value
+    txtSalesInfoMSMarkUp.enabled = value
+    txtSalesInfo_BCP.enabled = value
+    txtSalesInfoBCMarkUp.enabled = value
     
     'INVENTORY INFO
-    lvInventory.Enabled = value
+    lvInventory.enabled = value
     
     'COSTING INFO
-    txtCostingInfo_AverageCost.Enabled = value
-    cmbVendor.Enabled = value
+    txtCostingInfo_AverageCost.enabled = value
+    cmbVendor.enabled = value
     
     'STORAGE INFO
-    cmbStorageInfo_Uom.Enabled = value
+    cmbStorageInfo_Uom.enabled = value
 End Sub
 
 Public Sub Populate(ByVal data As String)
@@ -1788,15 +1850,15 @@ Public Sub Populate(ByVal data As String)
             cmbTaxInfo_Tax.ListIndex = 1
         Case "Location"
             Set rec = Global_Data("Location")
-            Dim item As MSComctlLib.ListItem
+            Dim Item As MSComctlLib.ListItem
             lvInventory.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
                     If rec!LocationId = 1 Then
-                        Set item = lvInventory.ListItems.add(, , "")
-                            item.SubItems(1) = rec!LocationId 'LocationId
-                            item.SubItems(3) = rec!Location 'Location
-                            item.SubItems(5) = "0.00" 'Quantity
+                        Set Item = lvInventory.ListItems.add(, , "")
+                            Item.SubItems(1) = rec!LocationId 'LocationId
+                            Item.SubItems(3) = rec!Location 'Location
+                            Item.SubItems(5) = "0.00" 'Quantity
                         Exit Do
                     End If
                     rec.MoveNext
@@ -1808,10 +1870,10 @@ Public Sub Populate(ByVal data As String)
             If Not rec.EOF Then
                 Do Until rec.EOF
                     If rec!isActive = "True" Then
-                        Set item = lvSearch.ListItems.add(, , rec!ProductId)
-                            item.SubItems(1) = rec!itemcode
-                            item.SubItems(2) = rec!Name
-                            item.SubItems(3) = rec!Category
+                        Set Item = lvSearch.ListItems.add(, , rec!ProductId)
+                            Item.SubItems(1) = rec!itemcode
+                            Item.SubItems(2) = rec!Name
+                            Item.SubItems(3) = rec!Category
                     End If
                     rec.MoveNext
                 Loop
@@ -1885,11 +1947,11 @@ Public Sub Populate(ByVal data As String)
             lvInventory.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set item = lvInventory.ListItems.add(, , rec!inventoryId)
-                        item.SubItems(1) = rec!LocationId
-                        item.SubItems(2) = rec!ProductId
-                        item.SubItems(3) = rec!Location
-                        item.SubItems(5) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
+                    Set Item = lvInventory.ListItems.add(, , rec!inventoryId)
+                        Item.SubItems(1) = rec!LocationId
+                        Item.SubItems(2) = rec!ProductId
+                        Item.SubItems(3) = rec!Location
+                        Item.SubItems(5) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
                     rec.MoveNext
                 Loop
             End If
@@ -1999,7 +2061,7 @@ Public Sub btnSearch_Click()
     cmd.ActiveConnection = con
     cmd.CommandType = adCmdStoredProc
     cmd.CommandText = "BASE_Product_Search1"
-    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, txtSearch_Name.Text)
+    cmd.Parameters.Append cmd.CreateParameter("@Name", adVarChar, adParamInput, 500, txtSearch_name.Text)
     If Trim(txtSearch_ItemCode.Text) <> "" Then
         cmd.Parameters.Append cmd.CreateParameter("@ItemCode", adVarChar, adParamInput, 50, txtSearch_ItemCode.Text)
     Else
@@ -2020,21 +2082,21 @@ Public Sub btnSearch_Click()
     
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     If Not rec.EOF Then
         Do Until rec.EOF
             'If rec!isActive = "True" Then
-                Set item = lvSearch.ListItems.add(, , rec!ProductId)
-                    item.SubItems(1) = rec!itemcode
-                    item.SubItems(2) = rec!Name
-                    item.SubItems(3) = rec!Category
+                Set Item = lvSearch.ListItems.add(, , rec!ProductId)
+                    Item.SubItems(1) = rec!itemcode
+                    Item.SubItems(2) = rec!Name
+                    Item.SubItems(3) = rec!Category
             'End If
             rec.MoveNext
         Loop
     End If
     'DistinctList lvSearch
     con.Close
-    BASE_ContainerFrm.statusBar_Main.Panels(1).Text = "Total Items: " & lvSearch.ListItems.Count
+    BASE_ContainerFrm.statusBar_Main.Panels(1).Text = "Total Items: " & lvSearch.ListItems.count
 End Sub
 
 Private Sub cmbBasicInfo_Type_Click()
@@ -2084,9 +2146,15 @@ Private Sub Form_Load()
     'StatusBarWidth Me, statusBar_Main
     
     'Access Rights
-    txtCostingInfo_AverageCost.Enabled = EditAccessRights(2)
+    txtCostingInfo_AverageCost.enabled = EditAccessRights(2)
     txtCostingInfo_AverageCost.Visible = ViewAccessRights(2)
     lblCostingInfo_Cost.Visible = ViewAccessRights(2)
+End Sub
+
+Private Sub Label29_Click()
+    If ProductId <> 0 Then
+        INV_QuantityPricingFrm.Show (1)
+    End If
 End Sub
 
 Private Sub lblClear_Click()
@@ -2153,7 +2221,7 @@ End Sub
 Private Sub lvInventory_KeyDown(KeyCode As Integer, Shift As Integer)
     Select Case KeyCode
     Case vbKeyDelete
-        If lvInventory.ListItems.Count > 0 Then
+        If lvInventory.ListItems.count > 0 Then
             If lvInventory.SelectedItem.SubItems(1) <> "1" Then 'NOT Default Location
                 If lvInventory.SelectedItem.Text <> "" Then 'Existing data
                         deleteCtr(ctr) = Val(lvInventory.SelectedItem.Text)
@@ -2169,9 +2237,9 @@ Private Sub lvInventory_KeyDown(KeyCode As Integer, Shift As Integer)
     End Select
 End Sub
 
-Public Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
+Public Sub lvSearch_ItemClick(ByVal Item As MSComctlLib.ListItem)
     With lvSearch
-        If .ListItems.Count > 0 Then
+        If .ListItems.count > 0 Then
             DialogBox.filename = ""
             picMain.Picture = Nothing
             ProductId = .SelectedItem.Text
@@ -2180,7 +2248,7 @@ Public Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
             CountQuantity
             isInsert = False
             'Access Rights
-            txtCostingInfo_AverageCost.Enabled = EditAccessRights(2)
+            txtCostingInfo_AverageCost.enabled = EditAccessRights(2)
         End If
     End With
 End Sub
@@ -2191,7 +2259,7 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
         MsgBox ErrorCodes(74), vbCritical, "Limited Rights"
         Exit Sub
     End If
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case Button.Index
         Case 1 'New
             Initialize
@@ -2329,22 +2397,22 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 cmd.Execute
                 
                 'INVENTORY
-                For Each item In lvInventory.ListItems
+                For Each Item In lvInventory.ListItems
                     Set cmd = New ADODB.Command
                     cmd.ActiveConnection = con
                     cmd.CommandType = adCmdStoredProc
 
-                    cmd.Parameters.Append cmd.CreateParameter("@InventoryId", adInteger, adParamInputOutput, , Val(item.Text))
+                    cmd.Parameters.Append cmd.CreateParameter("@InventoryId", adInteger, adParamInputOutput, , Val(Item.Text))
                     cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , ProductId)
-                    cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , Val(item.SubItems(1)))
-                    cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(item.SubItems(5), ",", "")))
+                    cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , Val(Item.SubItems(1)))
+                    cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , Val(Replace(Item.SubItems(5), ",", "")))
                                           cmd.Parameters("@Quantity").Precision = 18
                                           cmd.Parameters("@Quantity").NumericScale = 2
-                    If Trim(item.Text) = "" Then
+                    If Trim(Item.Text) = "" Then
                         cmd.CommandText = "BASE_Inventory_Insert"
                         cmd.Execute
-                        item.Text = cmd.Parameters("@InventoryId")
-                        item.SubItems(2) = ProductId
+                        Item.Text = cmd.Parameters("@InventoryId")
+                        Item.SubItems(2) = ProductId
                     Else
 '                        cmd.CommandText = "BASE_Inventory_Update"
 '                        cmd.Execute
@@ -2365,22 +2433,22 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                                 
                 Dim isFound As Boolean
                 isFound = False
-                For Each item In lvSearch.ListItems
-                    If ProductId = item.Text Then
-                        item.SubItems(1) = txtBasicInfo_ItemCode.Text
-                        item.SubItems(2) = txtBasicInfo_Name.Text
+                For Each Item In lvSearch.ListItems
+                    If ProductId = Item.Text Then
+                        Item.SubItems(1) = txtBasicInfo_ItemCode.Text
+                        Item.SubItems(2) = txtBasicInfo_Name.Text
                         isFound = True
-                        item.Selected = True
-                        item.EnsureVisible
+                        Item.Selected = True
+                        Item.EnsureVisible
                         Exit For
                     End If
                 Next
                 If isFound = False Then
-                    Set item = lvSearch.ListItems.add(, , ProductId)
-                        item.SubItems(1) = txtBasicInfo_ItemCode.Text
-                        item.SubItems(2) = txtBasicInfo_Name.Text
-                        item.Selected = True
-                        item.EnsureVisible
+                    Set Item = lvSearch.ListItems.add(, , ProductId)
+                        Item.SubItems(1) = txtBasicInfo_ItemCode.Text
+                        Item.SubItems(2) = txtBasicInfo_Name.Text
+                        Item.Selected = True
+                        Item.EnsureVisible
                 End If
                 
                 con.CommitTrans
@@ -2428,8 +2496,8 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             txtBasicInfo_ItemCode.BackColor = &HC0C0FF
             ProductId = 0
             
-            For Each item In lvInventory.ListItems
-                item.Text = ""
+            For Each Item In lvInventory.ListItems
+                Item.Text = ""
             Next
     End Select
     Exit Sub

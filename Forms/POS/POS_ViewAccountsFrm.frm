@@ -507,7 +507,7 @@ Public Sub btnSearch_Click()
     Dim Code, Name, Order, OrderNumber, Sort As Variant
     
     If Trim(txtSearch_Code.Text) = "" Then Code = Null Else Code = txtSearch_Code.Text
-    If Trim(txtSearch_Name.Text) = "" Then Name = Null Else Name = txtSearch_Name.Text
+    If Trim(txtSearch_name.Text) = "" Then Name = Null Else Name = txtSearch_name.Text
     'If Trim(txtSearch_Order.text) = "" Then OrderNumber = Null Else OrderNumber = txtSearch_Order.text
 '    If optCustomerName.value = True Then Sort = "Name"
 '    'If optOrderNumber.value = True Then Sort = "Order"
@@ -543,11 +543,16 @@ Private Sub btnSummary_Click()
     Dim crxApp As New CRAXDRT.Application
     Dim crxRpt As New CRAXDRT.Report
     
-    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_AccountsReceivableSummary.rpt")
+    If EnableInterest = True Then
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_AccountsReceivablewithInterestSummary.rpt")
+    Else
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_AccountsReceivableSummary.rpt")
+    End If
+    
     crxRpt.DiscardSavedData
     crxRpt.EnableParameterPrompting = False
-    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue "Accounts Receivable Summary"
-    crxRpt.ParameterFields.GetItemByName("@CustomerId").AddCurrentValue 0
+    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue "Accounts Summary"
+    crxRpt.ParameterFields.GetItemByName("@CustomerId").AddCurrentValue NVAL(lvSearch.SelectedItem.Text)
     Call ResetRptDB(crxRpt)
     crxRpt.EnableParameterPrompting = False
     crxRpt.PrintOut False

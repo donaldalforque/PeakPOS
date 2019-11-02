@@ -111,7 +111,7 @@ Begin VB.Form SO_SalesAdjustmentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   143327233
+            Format          =   123928577
             CurrentDate     =   41509
          End
          Begin VB.Label Label14 
@@ -626,7 +626,6 @@ Begin VB.Form SO_SalesAdjustmentFrm
                Style           =   3
             EndProperty
             BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Object.Visible         =   0   'False
                Caption         =   "Print"
                ImageIndex      =   4
             EndProperty
@@ -812,7 +811,7 @@ Begin VB.Form SO_SalesAdjustmentFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   143327233
+         Format          =   123928577
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -833,7 +832,7 @@ Begin VB.Form SO_SalesAdjustmentFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   143327233
+         Format          =   123928577
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -1004,7 +1003,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim AdjustmentId As Long
 Dim StatusId As Integer
-Dim item As MSComctlLib.ListItem
+Dim Item As MSComctlLib.ListItem
 Private Sub Initialize()
     picStatus.Visible = False
     dtOrder.value = Format(Now, "MM/DD/YY hh:mm:ss")
@@ -1024,14 +1023,14 @@ Private Sub Initialize()
 End Sub
 Public Sub CountTotal()
     Dim totalPercent As Double
-    For Each item In lvItems.ListItems
-        totalPercent = (NVAL(txtAdjustmentPercent.Text) / 100) * item.SubItems(8)
+    For Each Item In lvItems.ListItems
+        totalPercent = (NVAL(txtAdjustmentPercent.Text) / 100) * Item.SubItems(8)
         If cmbType = "DEBIT" Then
-            item.SubItems(10) = FormatNumber(totalPercent + NVAL(txtAdjustmentAmount.Text), 2, vbTrue, vbFalse)
-            item.SubItems(11) = FormatNumber(NVAL(item.SubItems(9)) + NVAL(item.SubItems(9)), 2, vbTrue, vbFalse)
+            Item.SubItems(10) = FormatNumber(totalPercent + NVAL(txtAdjustmentAmount.Text), 2, vbTrue, vbFalse)
+            Item.SubItems(11) = FormatNumber(NVAL(Item.SubItems(9)) + NVAL(Item.SubItems(9)), 2, vbTrue, vbFalse)
         Else
-            item.SubItems(10) = FormatNumber(NVAL(txtAdjustmentAmount.Text) + totalPercent, 2, vbTrue, vbFalse)
-            item.SubItems(11) = FormatNumber(NVAL(item.SubItems(9)) - NVAL(item.SubItems(10)), 2, vbTrue, vbFalse)
+            Item.SubItems(10) = FormatNumber(NVAL(txtAdjustmentAmount.Text) + totalPercent, 2, vbTrue, vbFalse)
+            Item.SubItems(11) = FormatNumber(NVAL(Item.SubItems(9)) - NVAL(Item.SubItems(10)), 2, vbTrue, vbFalse)
         End If
     Next
 End Sub
@@ -1048,13 +1047,15 @@ Public Sub Populate(ByVal data As String)
             cmd.CommandType = adCmdStoredProc
             cmd.CommandText = "SO_Adjustment_Get"
             cmd.Parameters.Append cmd.CreateParameter("@AdjustmentId", adInteger, adParamInput, , Null)
+            cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 250, Null)
+            cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , Null)
             Set rec = cmd.Execute
             lvSearch.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set item = lvSearch.ListItems.add(, , rec!AdjustmentId)
-                        item.SubItems(1) = rec!OrderNumber
-                        item.SubItems(2) = rec!Status
+                    Set Item = lvSearch.ListItems.add(, , rec!AdjustmentId)
+                        Item.SubItems(1) = rec!OrderNumber
+                        Item.SubItems(2) = rec!Status
                     rec.MoveNext
                 Loop
             End If
@@ -1085,7 +1086,7 @@ Public Sub DisplayProducts()
     On Error Resume Next
 
     Dim exists As Boolean
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
 
     If OrderSet.RecordCount <= 0 Then Exit Sub
 
@@ -1093,23 +1094,23 @@ Public Sub DisplayProducts()
     If Not OrderSet.EOF Then
         OrderSet.MoveFirst
         Do Until OrderSet.EOF
-            For Each item In lvItems.ListItems
-                If NVAL(item.SubItems(2)) = NVAL(OrderSet!SalesOrderId) Then
+            For Each Item In lvItems.ListItems
+                If NVAL(Item.SubItems(2)) = NVAL(OrderSet!SalesOrderId) Then
                     exists = True
                     Exit For
                 End If
             Next
 
             If exists = False Then
-                Set item = lvItems.ListItems.add(, , "")
-                item.SubItems(2) = OrderSet!SalesOrderId
-                item.SubItems(3) = OrderSet!CustomerId
-                item.SubItems(4) = OrderSet!Customer
-                item.SubItems(5) = OrderSet!OrderNumber
-                item.SubItems(6) = OrderSet!DueDate
-                item.SubItems(7) = OrderSet!DaysDue
-                item.SubItems(8) = OrderSet!Total
-                item.SubItems(9) = OrderSet!balance
+                Set Item = lvItems.ListItems.add(, , "")
+                Item.SubItems(2) = OrderSet!SalesOrderId
+                Item.SubItems(3) = OrderSet!CustomerId
+                Item.SubItems(4) = OrderSet!Customer
+                Item.SubItems(5) = OrderSet!OrderNumber
+                Item.SubItems(6) = OrderSet!DueDate
+                Item.SubItems(7) = OrderSet!DaysDue
+                Item.SubItems(8) = OrderSet!Total
+                Item.SubItems(9) = OrderSet!balance
             End If
             OrderSet.MoveNext
         Loop
@@ -1126,11 +1127,11 @@ Private Sub Form_Load()
     DateTo.value = Format(Now, "mm/dd/yy")
 
     Populate "Status"
-    Populate "AdjustmentLoad"
+    'Populate "AdjustmentLoad"
     Initialize
 End Sub
 
-Private Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
+Private Sub lvSearch_ItemClick(ByVal Item As MSComctlLib.ListItem)
     SelectOrders
     LoadImageStatus picStatus, GetStatus(StatusId)
 End Sub
@@ -1150,7 +1151,7 @@ Private Sub SelectOrders()
     cmd.CommandText = "SO_Adjustment_Get"
     cmd.ActiveConnection = con
     cmd.Parameters.Append cmd.CreateParameter("@AdjustmentId", adInteger, adParamInput, , lvSearch.SelectedItem.Text)
-
+    
     Set rec = cmd.Execute
     If Not rec.EOF Then
         txtOrderNumber.Text = rec!OrderNumber
@@ -1175,17 +1176,17 @@ Private Sub SelectOrders()
     lvItems.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvItems.ListItems.add(, , rec!AdjustmentLineId)
-                item.SubItems(1) = rec!AdjustmentId
-                item.SubItems(2) = rec!SalesOrderId
-                item.SubItems(3) = rec!CustomerId
-                item.SubItems(4) = rec!Customer
-                item.SubItems(5) = rec!OrderNumber
-                item.SubItems(6) = Format(rec!DueDate, "mm/dd/yy")
-                item.SubItems(7) = rec!DaysDue
-                item.SubItems(8) = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
-                item.SubItems(9) = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
-                item.SubItems(10) = FormatNumber(rec!lineamount, 2, vbTrue, vbFalse)
+            Set Item = lvItems.ListItems.add(, , rec!AdjustmentLineId)
+                Item.SubItems(1) = rec!AdjustmentId
+                Item.SubItems(2) = rec!SalesOrderId
+                Item.SubItems(3) = rec!CustomerId
+                Item.SubItems(4) = rec!Customer
+                Item.SubItems(5) = rec!OrderNumber
+                Item.SubItems(6) = Format(rec!DueDate, "mm/dd/yy")
+                Item.SubItems(7) = rec!DaysDue
+                Item.SubItems(8) = FormatNumber(rec!Total, 2, vbTrue, vbFalse)
+                Item.SubItems(9) = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
+                Item.SubItems(10) = FormatNumber(rec!lineamount, 2, vbTrue, vbFalse)
             rec.MoveNext
         Loop
     End If
@@ -1238,10 +1239,10 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
                 BASE_PrintPreviewFrm.Show
                 Dim crxApp As New CRAXDRT.Application
                 Dim crxRpt As New CRAXDRT.Report
-                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_Adjustment.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\SO_Adjustment.rpt")
                 Call ResetRptDB(crxRpt)
                 crxRpt.DiscardSavedData
-                crxRpt.RecordSelectionFormula = "{INV_Adjustment.AdjustmentId}= " & AdjustmentId & ""
+                crxRpt.RecordSelectionFormula = "{SO_Adjustment.AdjustmentId}= " & AdjustmentId & ""
 
                 'crxRpt.PrintOut False
 
@@ -1253,9 +1254,9 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
     End Select
 End Sub
 Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
-    If lvItems.ListItems.Count > 0 Then
+    If lvItems.ListItems.count > 0 Then
         'On Error GoTo ErrorHandler
-        Dim item As MSComctlLib.ListItem
+        Dim Item As MSComctlLib.ListItem
         Set con = New ADODB.Connection
         Set rec = New ADODB.Recordset
         Set cmd = New ADODB.Command
@@ -1294,25 +1295,25 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
         End If
         
         If AdjustmentId = 0 Then 'ADD TO SEARCH
-            Set item = lvSearch.ListItems.add(, , cmd.Parameters("@AdjustmentId"))
-                item.SubItems(1) = cmd.Parameters("@OrderNumber")
-                If iStatusId = 1 Then item.SubItems(2) = "Open"
-                If iStatusId = 2 Then item.SubItems(2) = "Completed"
-                item.Selected = True
-                item.EnsureVisible
+            Set Item = lvSearch.ListItems.add(, , cmd.Parameters("@AdjustmentId"))
+                Item.SubItems(1) = cmd.Parameters("@OrderNumber")
+                If iStatusId = 1 Then Item.SubItems(2) = "Open"
+                If iStatusId = 2 Then Item.SubItems(2) = "Completed"
+                Item.Selected = True
+                Item.EnsureVisible
             
             AdjustmentId = cmd.Parameters("@AdjustmentId")
             txtOrderNumber.Text = cmd.Parameters("@OrderNumber")
             
             SavePOSAuditTrail UserId, WorkstationId, "", "Created new order Adjustment: " & txtOrderNumber.Text, "SALES"
         Else
-            For Each item In lvSearch.ListItems
-                If Val(item.Text) = Val(cmd.Parameters("@AdjustmentId")) Then
-                    item.SubItems(1) = cmd.Parameters("@OrderNumber")
-                    If iStatusId = 1 Then item.SubItems(2) = "Open"
-                    If iStatusId = 2 Then item.SubItems(2) = "Completed"
-                    item.Selected = True
-                    item.EnsureVisible
+            For Each Item In lvSearch.ListItems
+                If Val(Item.Text) = Val(cmd.Parameters("@AdjustmentId")) Then
+                    Item.SubItems(1) = cmd.Parameters("@OrderNumber")
+                    If iStatusId = 1 Then Item.SubItems(2) = "Open"
+                    If iStatusId = 2 Then Item.SubItems(2) = "Completed"
+                    Item.Selected = True
+                    Item.EnsureVisible
                     Exit For
                 End If
             Next
@@ -1327,32 +1328,32 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
         
         
         'SAVE ORDER LINE
-        For Each item In lvItems.ListItems
+        For Each Item In lvItems.ListItems
             Set cmd = New ADODB.Command
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
 
-            cmd.Parameters.Append cmd.CreateParameter("AdjustmentLineId", adInteger, adParamInputOutput, , NVAL(item.Text))
+            cmd.Parameters.Append cmd.CreateParameter("AdjustmentLineId", adInteger, adParamInputOutput, , NVAL(Item.Text))
             cmd.Parameters.Append cmd.CreateParameter("@AdjustmentId", adInteger, adParamInput, , AdjustmentId)
-            cmd.Parameters.Append cmd.CreateParameter("@SalesOrderId", adInteger, adParamInput, , NVAL(item.SubItems(2)))
-            cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , NVAL(item.SubItems(3)))
-            cmd.Parameters.Append cmd.CreateParameter("@Customer", adVarChar, adParamInput, 400, item.SubItems(4))
-            cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 50, item.SubItems(5))
-            cmd.Parameters.Append cmd.CreateParameter("@DueDate", adDate, adParamInput, , item.SubItems(6))
-            cmd.Parameters.Append cmd.CreateParameter("@DaysDue", adInteger, adParamInput, , item.SubItems(7))
-            cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , NVAL(item.SubItems(8)))
+            cmd.Parameters.Append cmd.CreateParameter("@SalesOrderId", adInteger, adParamInput, , NVAL(Item.SubItems(2)))
+            cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , NVAL(Item.SubItems(3)))
+            cmd.Parameters.Append cmd.CreateParameter("@Customer", adVarChar, adParamInput, 400, Item.SubItems(4))
+            cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 50, Item.SubItems(5))
+            cmd.Parameters.Append cmd.CreateParameter("@DueDate", adDate, adParamInput, , Item.SubItems(6))
+            cmd.Parameters.Append cmd.CreateParameter("@DaysDue", adInteger, adParamInput, , Item.SubItems(7))
+            cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , NVAL(Item.SubItems(8)))
                                   cmd.Parameters("@Total").NumericScale = 2
                                   cmd.Parameters("@Total").Precision = 18
-            cmd.Parameters.Append cmd.CreateParameter("@Balance", adDecimal, adParamInput, , NVAL(item.SubItems(9)))
+            cmd.Parameters.Append cmd.CreateParameter("@Balance", adDecimal, adParamInput, , NVAL(Item.SubItems(9)))
                                   cmd.Parameters("@Balance").NumericScale = 2
                                   cmd.Parameters("@Balance").Precision = 18
-            cmd.Parameters.Append cmd.CreateParameter("@Adjustment", adDecimal, adParamInput, , NVAL(item.SubItems(10)))
+            cmd.Parameters.Append cmd.CreateParameter("@Adjustment", adDecimal, adParamInput, , NVAL(Item.SubItems(10)))
                                   cmd.Parameters("@Adjustment").NumericScale = 2
                                   cmd.Parameters("@Adjustment").Precision = 18
             cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , iStatusId)
             cmd.Parameters.Append cmd.CreateParameter("@AdjustmentDate", adDate, adParamInput, , dtOrder.value)
             cmd.Parameters.Append cmd.CreateParameter("@Type", adVarChar, adParamInput, 450, cmbType.Text)
-            If item.Text = "" Then
+            If Item.Text = "" Then
                 cmd.CommandText = "SO_AdjustmentLine_Insert"
                 cmd.Execute
             Else
@@ -1360,7 +1361,7 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
                 cmd.Execute
             End If
             'cmd.Execute
-            item.Text = cmd.Parameters("AdjustmentLineId")
+            Item.Text = cmd.Parameters("AdjustmentLineId")
         Next
         
         con.CommitTrans
@@ -1406,8 +1407,8 @@ Private Sub btnComplete_Click()
     Dim x As Variant
     x = MsgBox("This will complete the transaction. Orders will now be updated. Proceed?", vbExclamation + vbOKCancel)
     If x = vbOK Then
-        For Each item In lvItems.ListItems
-            If item.SubItems(7) = "" Then item.SubItems(7) = item.SubItems(6)
+        For Each Item In lvItems.ListItems
+            If Item.SubItems(7) = "" Then Item.SubItems(7) = Item.SubItems(6)
         Next
         'ComputeAdjustment
         Save (1)
@@ -1425,9 +1426,8 @@ Private Sub btnSearch_Click()
     cmd.ActiveConnection = con
     cmd.CommandText = "SO_Adjustment_Get"
     cmd.CommandType = adCmdStoredProc
+    cmd.Parameters.Append cmd.CreateParameter("@AdjustmentId", adInteger, adParamInput, , Null)
     cmd.Parameters.Append cmd.CreateParameter("@OrderNumber", adVarChar, adParamInput, 50, txtSearch_OrderNumber.Text)
-    cmd.Parameters.Append cmd.CreateParameter("@DateFrom", adDate, adParamInput, , DateFrom.value)
-    cmd.Parameters.Append cmd.CreateParameter("@DateTo", adDate, adParamInput, , DateTo.value)
     If cmbSearch_Status.ListIndex = 0 Then
         cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , Null)
     Else
@@ -1435,11 +1435,18 @@ Private Sub btnSearch_Click()
     End If
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
+    
+    Dim strdatefrom, strdateto As String
+    strdatefrom = DateFrom.value & " 00:00:00"
+    strdateto = DateTo.value & " 23:59:59"
+    
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvSearch.ListItems.add(, , rec!AdjustmentId)
-                item.SubItems(1) = rec!OrderNumber
-                item.SubItems(2) = rec!Status
+            If rec!Date >= CDate(strdatefrom) And rec!Date <= CDate(strdateto) Then
+                Set Item = lvSearch.ListItems.add(, , rec!AdjustmentId)
+                    Item.SubItems(1) = rec!OrderNumber
+                    Item.SubItems(2) = rec!Status
+            End If
             rec.MoveNext
         Loop
     End If

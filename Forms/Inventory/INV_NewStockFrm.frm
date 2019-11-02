@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form INV_NewStockFrm 
    BorderStyle     =   1  'Fixed Single
@@ -297,7 +297,7 @@ Begin VB.Form INV_NewStockFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   133955585
+            Format          =   113704961
             CurrentDate     =   41509
          End
          Begin VB.Label Label11 
@@ -938,7 +938,7 @@ Begin VB.Form INV_NewStockFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   133955585
+         Format          =   113704961
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -959,7 +959,7 @@ Begin VB.Form INV_NewStockFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   133955585
+         Format          =   113704961
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -1066,7 +1066,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim NewStockId As Long
 Dim StatusId As Integer
-Dim item As MSComctlLib.ListItem
+Dim Item As MSComctlLib.ListItem
 Private Sub Initialize()
     picStatus.Visible = False
     dtOrder.value = Format(Now, "MM/DD/YY hh:mm:ss")
@@ -1085,14 +1085,14 @@ Private Sub Initialize()
     txtItemSearch.SetFocus
 End Sub
 Public Sub CountTotal()
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim Total As Double
     
-    For Each item In lvItems.ListItems
-        item.SubItems(11) = FormatNumber(NVAL(item.SubItems(6)) * NVAL(item.SubItems(10)), 2, vbTrue, vbFalse)
-        Total = Total + NVAL(item.SubItems(11))
+    For Each Item In lvItems.ListItems
+        Item.SubItems(11) = FormatNumber(NVAL(Item.SubItems(6)) * NVAL(Item.SubItems(10)), 2, vbTrue, vbFalse)
+        Total = Total + NVAL(Item.SubItems(11))
     Next
-    lbltotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
+    lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
 End Sub
 Private Sub btnComplete_Click()
     If EditAccessRights(28) = False Then
@@ -1116,7 +1116,7 @@ Private Sub btnItemSearch_Click()
     Set con = New ADODB.Connection
     Set rec = New ADODB.Recordset
     Set cmd = New ADODB.Command
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     
     con.ConnectionString = ConnString
     con.Open
@@ -1130,10 +1130,10 @@ Private Sub btnItemSearch_Click()
     If Not rec.EOF Then
         Do Until rec.EOF
             If rec!isActive = "True" Then
-                Set item = lvItemList.ListItems.add(, , rec!ProductId)
-                    item.SubItems(1) = rec!itemcode
-                    item.SubItems(2) = rec!Name
-                    item.SubItems(3) = rec!Uom
+                Set Item = lvItemList.ListItems.add(, , rec!ProductId)
+                    Item.SubItems(1) = rec!itemcode
+                    Item.SubItems(2) = rec!Name
+                    Item.SubItems(3) = rec!Uom
                     'Item.SubItems(4) = FormatNumber(rec!totalQty, 2, vbTrue, vbFalse)
                 lvItemList.Visible = True
                 lvItemList.Left = 5040
@@ -1173,9 +1173,9 @@ Private Sub btnSearch_Click()
     lvSearch.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvSearch.ListItems.add(, , rec!NewStockId)
-                item.SubItems(1) = rec!OrderNumber
-                item.SubItems(2) = rec!Status
+            Set Item = lvSearch.ListItems.add(, , rec!NewStockId)
+                Item.SubItems(1) = rec!OrderNumber
+                Item.SubItems(2) = rec!Status
             rec.MoveNext
         Loop
     End If
@@ -1251,7 +1251,7 @@ Private Sub lvItemList_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub lvItems_DblClick()
-    If lvItems.ListItems.Count <= 0 Then Exit Sub
+    If lvItems.ListItems.count <= 0 Then Exit Sub
     lvItemList.Visible = False
     INV_NewStockOptFrm.Show (1)
 End Sub
@@ -1322,22 +1322,22 @@ Private Sub SelectOrders()
     lvItems.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvItems.ListItems.add(, , rec!ProductId)
-                item.SubItems(1) = rec!NewStockId
-                item.SubItems(2) = rec!LocationId
-                item.SubItems(3) = rec!NewStocklineid
-                item.SubItems(4) = rec!itemcode
-                item.SubItems(5) = rec!Name
-                item.SubItems(6) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
-                item.SubItems(7) = rec!unit
-                item.SubItems(8) = rec!lotnumber
+            Set Item = lvItems.ListItems.add(, , rec!ProductId)
+                Item.SubItems(1) = rec!NewStockId
+                Item.SubItems(2) = rec!LocationId
+                Item.SubItems(3) = rec!NewStocklineid
+                Item.SubItems(4) = rec!itemcode
+                Item.SubItems(5) = rec!Name
+                Item.SubItems(6) = FormatNumber(rec!quantity, 2, vbTrue, vbFalse)
+                Item.SubItems(7) = rec!unit
+                Item.SubItems(8) = rec!lotnumber
                 If Not IsNull(rec!expirydate) Then
-                    item.SubItems(9) = Format(rec!expirydate, "MM/DD/YY")
+                    Item.SubItems(9) = Format(rec!expirydate, "MM/DD/YY")
                 End If
-                item.SubItems(10) = FormatNumber(rec!cost, 2, vbTrue, vbFalse) 'Cost
-                item.SubItems(11) = FormatNumber(rec!subtotal, 2, vbTrue, vbFalse) 'subtotal
-                item.SubItems(12) = rec!Location
-                item.SubItems(13) = rec!ActualQuantity
+                Item.SubItems(10) = FormatNumber(rec!cost, 2, vbTrue, vbFalse) 'Cost
+                Item.SubItems(11) = FormatNumber(rec!subtotal, 2, vbTrue, vbFalse) 'subtotal
+                Item.SubItems(12) = rec!Location
+                Item.SubItems(13) = rec!ActualQuantity
             rec.MoveNext
         Loop
     End If
@@ -1359,7 +1359,7 @@ Private Sub SelectOrders()
     con.Close
 End Sub
 
-Private Sub lvSearch_ItemClick(ByVal item As MSComctlLib.ListItem)
+Private Sub lvSearch_ItemClick(ByVal Item As MSComctlLib.ListItem)
     'Initialize
     SelectOrders
     LoadImageStatus picStatus, GetStatus(StatusId)
@@ -1401,6 +1401,11 @@ Private Sub tb_Standard_ButtonClick(ByVal Button As MSComctlLib.Button)
             End If
         Case 6 'PRINT PREVIEW
             If NewStockId <> 0 Then
+'                If StatusId < 2 Then
+'                    MsgBox "Cannot print when status is not completed.", vbCritical
+'                    Exit Sub
+'                End If
+                
                 Screen.MousePointer = vbHourglass
                 BASE_PrintPreviewFrm.Show
                 Dim crxApp As New CRAXDRT.Application
@@ -1428,11 +1433,11 @@ End Sub
 
 
 Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
-    If lvItems.ListItems.Count > 0 Then
+    If lvItems.ListItems.count > 0 Then
         
         On Error GoTo ErrorHandler
         
-        Dim item As MSComctlLib.ListItem
+        Dim Item As MSComctlLib.ListItem
         Set con = New ADODB.Connection
         Set rec = New ADODB.Recordset
         Set cmd = New ADODB.Command
@@ -1451,7 +1456,7 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
         End If
         cmd.Parameters.Append cmd.CreateParameter("@Date", adDBDate, adParamInput, , dtOrder.value)
         cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , iStatusId)
-        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , NVAL(lbltotal.Caption))
+        cmd.Parameters.Append cmd.CreateParameter("@Total", adDecimal, adParamInput, , NVAL(lblTotal.Caption))
                                   cmd.Parameters("@Total").Precision = 18
                                   cmd.Parameters("@Total").NumericScale = 2
         cmd.Parameters.Append cmd.CreateParameter("@UserId", adInteger, adParamInput, , UserId)
@@ -1467,25 +1472,25 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
         cmd.Execute , , adExecuteNoRecords
     
         If NewStockId = 0 Then 'ADD TO SEARCH
-            Set item = lvSearch.ListItems.add(, , cmd.Parameters("@NewStockId"))
-                item.SubItems(1) = cmd.Parameters("@OrderNumber")
-                If iStatusId = 1 Then item.SubItems(2) = "Open"
-                If iStatusId = 2 Then item.SubItems(2) = "Completed"
-                item.Selected = True
-                item.EnsureVisible
+            Set Item = lvSearch.ListItems.add(, , cmd.Parameters("@NewStockId"))
+                Item.SubItems(1) = cmd.Parameters("@OrderNumber")
+                If iStatusId = 1 Then Item.SubItems(2) = "Open"
+                If iStatusId = 2 Then Item.SubItems(2) = "Completed"
+                Item.Selected = True
+                Item.EnsureVisible
             
             NewStockId = cmd.Parameters("@NewStockId")
             txtOrderNumber.Text = cmd.Parameters("@OrderNumber")
             
             SavePOSAuditTrail UserId, WorkstationId, "", "Created new stock order: " & txtOrderNumber.Text, "INVENTORY"
         Else
-            For Each item In lvSearch.ListItems
-                If Val(item.Text) = Val(cmd.Parameters("@NewStockId")) Then
-                    item.SubItems(1) = cmd.Parameters("@OrderNumber")
-                    If iStatusId = 1 Then item.SubItems(2) = "Open"
-                    If iStatusId = 2 Then item.SubItems(2) = "Completed"
-                    item.Selected = True
-                    item.EnsureVisible
+            For Each Item In lvSearch.ListItems
+                If Val(Item.Text) = Val(cmd.Parameters("@NewStockId")) Then
+                    Item.SubItems(1) = cmd.Parameters("@OrderNumber")
+                    If iStatusId = 1 Then Item.SubItems(2) = "Open"
+                    If iStatusId = 2 Then Item.SubItems(2) = "Completed"
+                    Item.Selected = True
+                    Item.EnsureVisible
                     Exit For
                 End If
             Next
@@ -1498,39 +1503,39 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
         End If
     
         'SAVE ORDER LINE
-        For Each item In lvItems.ListItems
+        For Each Item In lvItems.ListItems
             Set cmd = New ADODB.Command
             cmd.ActiveConnection = con
             cmd.CommandType = adCmdStoredProc
             
 
-            cmd.Parameters.Append cmd.CreateParameter("@NewStockLineId", adInteger, adParamInputOutput, , NVAL(item.SubItems(3)))
+            cmd.Parameters.Append cmd.CreateParameter("@NewStockLineId", adInteger, adParamInputOutput, , NVAL(Item.SubItems(3)))
             cmd.Parameters.Append cmd.CreateParameter("@NewStockId", adInteger, adParamInput, , NewStockId)
-            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , item.Text)
-            cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , NVAL(item.SubItems(2)))
-            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(item.SubItems(6)))
+            cmd.Parameters.Append cmd.CreateParameter("@ProductId", adInteger, adParamInput, , Item.Text)
+            cmd.Parameters.Append cmd.CreateParameter("@LocationId", adInteger, adParamInput, , NVAL(Item.SubItems(2)))
+            cmd.Parameters.Append cmd.CreateParameter("@Quantity", adDecimal, adParamInput, , NVAL(Item.SubItems(6)))
                                   cmd.Parameters("@Quantity").Precision = 18
                                   cmd.Parameters("@Quantity").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, item.SubItems(7))
-            cmd.Parameters.Append cmd.CreateParameter("@LotNumber", adVarChar, adParamInput, 250, item.SubItems(8))
-            If item.SubItems(9) = "" Then
+            cmd.Parameters.Append cmd.CreateParameter("@Uom", adVarChar, adParamInput, 250, Item.SubItems(7))
+            cmd.Parameters.Append cmd.CreateParameter("@LotNumber", adVarChar, adParamInput, 250, Item.SubItems(8))
+            If Item.SubItems(9) = "" Then
                 cmd.Parameters.Append cmd.CreateParameter("@ExpiryDate", adDate, adParamInput, , Null)
             Else
-                cmd.Parameters.Append cmd.CreateParameter("@ExpiryDate", adDate, adParamInput, , item.SubItems(9))
+                cmd.Parameters.Append cmd.CreateParameter("@ExpiryDate", adDate, adParamInput, , Item.SubItems(9))
             End If
-            cmd.Parameters.Append cmd.CreateParameter("@Cost", adDecimal, adParamInput, , NVAL(item.SubItems(10)))
+            cmd.Parameters.Append cmd.CreateParameter("@Cost", adDecimal, adParamInput, , NVAL(Item.SubItems(10)))
                                   cmd.Parameters("@Cost").Precision = 18
                                   cmd.Parameters("@Cost").NumericScale = 2
-            cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , NVAL(item.SubItems(11)))
+            cmd.Parameters.Append cmd.CreateParameter("@Subtotal", adDecimal, adParamInput, , NVAL(Item.SubItems(11)))
                                   cmd.Parameters("@Subtotal").Precision = 18
                                   cmd.Parameters("@Subtotal").NumericScale = 2
             cmd.Parameters.Append cmd.CreateParameter("@StatusId", adInteger, adParamInput, , iStatusId)
-            cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , item.SubItems(13))
+            cmd.Parameters.Append cmd.CreateParameter("@ActualQuantity", adDecimal, adParamInput, , Item.SubItems(13))
                                   cmd.Parameters("@ActualQuantity").Precision = 18
                                   cmd.Parameters("@ActualQuantity").NumericScale = 2
             cmd.Parameters.Append cmd.CreateParameter("@Supplier", adVarChar, adParamInput, 250, cmbSupplier.Text)
             
-            If item.SubItems(3) = "" Then
+            If Item.SubItems(3) = "" Then
                 cmd.CommandText = "INV_NewStockLine_Insert"
                 cmd.Execute , , adExecuteNoRecords
             Else
@@ -1538,7 +1543,7 @@ Private Sub Save(ByVal iStatusId As Integer, Optional isReopen As Variant)
                 cmd.Execute , , adExecuteNoRecords
             End If
             'cmd.Execute
-            item.SubItems(3) = cmd.Parameters("@NewStockLineId")
+            Item.SubItems(3) = cmd.Parameters("@NewStockLineId")
         Next
         
         con.CommitTrans
@@ -1620,9 +1625,9 @@ Public Sub Populate(ByVal data As String)
             lvSearch.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set item = lvSearch.ListItems.add(, , rec!NewStockId)
-                        item.SubItems(1) = rec!OrderNumber
-                        item.SubItems(2) = rec!Status
+                    Set Item = lvSearch.ListItems.add(, , rec!NewStockId)
+                        Item.SubItems(1) = rec!OrderNumber
+                        Item.SubItems(2) = rec!Status
                     rec.MoveNext
                 Loop
             End If
@@ -1660,7 +1665,7 @@ Public Sub Populate(ByVal data As String)
             lvItems.ListItems.Clear
             If Not rec.EOF Then
                 Do Until rec.EOF
-                    Set item = lvItems.ListItems.add(, , rec!NewStocklineid)
+                    Set Item = lvItems.ListItems.add(, , rec!NewStocklineid)
                         
                     rec.MoveNext
                 Loop

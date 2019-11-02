@@ -1,5 +1,6 @@
 VERSION 5.00
 Object = "{C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0"; "crviewer.dll"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form RPT_SO_AgingAccountsFrm 
    Caption         =   "Aging Accounts"
    ClientHeight    =   9015
@@ -7,7 +8,6 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
    ClientTop       =   345
    ClientWidth     =   15090
    LinkTopic       =   "Form1"
-   MDIChild        =   -1  'True
    ScaleHeight     =   9015
    ScaleWidth      =   15090
    Begin VB.Frame Frame1 
@@ -33,8 +33,9 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          Left            =   1320
          List            =   "RPT_SO_AgingAccountsFrm.frx":000D
          Style           =   2  'Dropdown List
-         TabIndex        =   6
+         TabIndex        =   4
          Top             =   2160
+         Visible         =   0   'False
          Width           =   2415
       End
       Begin VB.CommandButton btnGenerate 
@@ -50,7 +51,7 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          EndProperty
          Height          =   375
          Left            =   1920
-         TabIndex        =   5
+         TabIndex        =   3
          Top             =   3600
          Width           =   1815
       End
@@ -66,7 +67,7 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          EndProperty
          Height          =   330
          Left            =   1320
-         TabIndex        =   4
+         TabIndex        =   2
          Top             =   2520
          Width           =   2415
       End
@@ -84,44 +85,50 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          ItemData        =   "RPT_SO_AgingAccountsFrm.frx":0024
          Left            =   1320
          List            =   "RPT_SO_AgingAccountsFrm.frx":002E
-         TabIndex        =   3
-         Top             =   960
-         Width           =   2415
-      End
-      Begin VB.CheckBox chkAgingAccounts 
-         BackColor       =   &H00E0E0E0&
-         Caption         =   "Detailed Aging Accounts"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   345
-         Left            =   1320
-         TabIndex        =   2
-         Top             =   1320
-         Visible         =   0   'False
-         Width           =   2415
-      End
-      Begin VB.TextBox txtCode 
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   330
-         Left            =   1320
+         Style           =   2  'Dropdown List
          TabIndex        =   1
          Top             =   600
          Width           =   2415
+      End
+      Begin MSComCtl2.DTPicker DateAsOf 
+         Height          =   345
+         Left            =   1320
+         TabIndex        =   11
+         Top             =   960
+         Width           =   2415
+         _ExtentX        =   4260
+         _ExtentY        =   609
+         _Version        =   393216
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Calibri"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Format          =   113770497
+         CurrentDate     =   41686
+      End
+      Begin VB.Label Label2 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "As of"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   120
+         TabIndex        =   12
+         Top             =   960
+         Width           =   465
       End
       Begin VB.Label Label6 
          AutoSize        =   -1  'True
@@ -138,8 +145,9 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   12
+         TabIndex        =   9
          Top             =   2160
+         Visible         =   0   'False
          Width           =   645
       End
       Begin VB.Label Label5 
@@ -157,7 +165,7 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   11
+         TabIndex        =   8
          Top             =   2520
          Width           =   1095
       End
@@ -176,7 +184,7 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          EndProperty
          Height          =   345
          Left            =   120
-         TabIndex        =   10
+         TabIndex        =   7
          Top             =   1680
          Width           =   870
       End
@@ -195,7 +203,7 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          EndProperty
          Height          =   345
          Left            =   120
-         TabIndex        =   9
+         TabIndex        =   6
          Top             =   120
          Width           =   1005
       End
@@ -214,34 +222,15 @@ Begin VB.Form RPT_SO_AgingAccountsFrm
          EndProperty
          Height          =   270
          Left            =   120
-         TabIndex        =   8
-         Top             =   960
-         Width           =   900
-      End
-      Begin VB.Label Label2 
-         AutoSize        =   -1  'True
-         BackStyle       =   0  'Transparent
-         Caption         =   "Code"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   11.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   270
-         Left            =   120
-         TabIndex        =   7
+         TabIndex        =   5
          Top             =   600
-         Width           =   480
+         Width           =   900
       End
    End
    Begin CRVIEWERLibCtl.CRViewer CRViewer 
       Height          =   9015
       Left            =   3840
-      TabIndex        =   13
+      TabIndex        =   10
       Top             =   0
       Width           =   11295
       DisplayGroupTree=   0   'False
@@ -278,7 +267,7 @@ Option Explicit
 Dim crxApp As New CRAXDRT.Application
 Dim crxRpt As New CRAXDRT.Report
 Public Sub Populate(ByVal data As String)
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         Case "Customer"
             Set rec = New ADODB.Recordset
@@ -313,62 +302,21 @@ Private Sub btnGenerate_Click()
     Dim Status, Customer, Code As Variant
     
     Screen.MousePointer = vbHourglass
-    If chkAgingAccounts.value = 0 Then
-        Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\AgingofAccountsSummary.rpt")
-    Else
-        Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\AgingofAccounts.rpt")
-    End If
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\SO_AgingAccountsSummary.rpt")
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
     Call ResetRptDB(crxRpt)
-    
-    Select Case cmbCustomer.ListIndex
-        Case -1
-            Customer = ""
-        Case 0
-            Customer = ""
-        Case Else
-            Customer = "WHERE BASE_Customer.CustomerId = '" & cmbCustomer.ItemData(cmbCustomer.ListIndex) & "' "
-    End Select
-    
-    If Trim(txtCode.text) = "" Then
-        Code = ""
-    Else
-        Code = "AND BASE_Customer.CustomerCode LIKE '" & Replace(txtCode.text, "'", "''") & "%' "
-    End If
-    
-    Select Case cmbSort.ListIndex
-        Case 0
-            OrderBy = "ORDER BY BASE_Customer.CustomerCode ASC"
-        Case 1
-            OrderBy = "ORDER BY BASE_Customer.CustomerCode ASC"
-        Case 2
-            OrderBy = "ORDER BY BASE_Customer.Name ASC"
-    End Select
-    
-'    If chkAgingAccounts.value = 0 Then
-        sql = "SELECT BASE_Customer.CustomerId,BASE_Customer.CustomerCode,BASE_Customer.Name,BASE_CustomerAgingAccounts.OutStanding, " & _
-              "BASE_CustomerAgingAccounts.Current,BASE_CustomerAgingAccounts.31Days,BASE_CustomerAgingAccounts.61Days, " & _
-              "BASE_CustomerAgingAccounts.91Days,BASE_CustomerAgingAccounts.121Days FROM " & _
-              "Peak.dbo.BASE_Customer BASE_Customer INNER JOIN Peak.dbo.BASE_CustomerAgingAccounts BASE_CustomerAgingAccounts ON " & _
-              "BASE_Customer.CustomerId = BASE_CustomerAgingAccounts.CustomerId " & _
-              "" & Customer & Code & OrderBy
-        sql = Replace(sql, "BASE_CustomerAgingAccounts.CustomerId AND", "BASE_CustomerAgingAccounts.CustomerId WHERE ")
-'    Else
-'        sql = "SELECT SO_SalesOrder.OrderNumber,SO_SalesOrder.Date,SO_SalesOrder.DueDate,SO_SalesOrder.Balance,BASE_Customer.CustomerId," & _
-'              "BASE_Customer.Name,BASE_Terms.Terms FROM (Peak.dbo.SO_SalesOrder SO_SalesOrder INNER JOIN Peak.dbo.BASE_Customer BASE_Customer ON " & _
-'              "SO_SalesOrder.CustomerId = BASE_Customer.CustomerId) LEFT OUTER JOIN Peak.dbo.BASE_Terms BASE_Terms ON " & _
-'              "SO_SalesOrder.TermId = BASE_Terms.TermId INNER JOIN GLOBAL_DocStatus ON GLOBAL_DocStatus.StatusId = SO_SalesOrder.StatusId " & _
-'              "WHERE GLOBAL_DocStatus.StatusId = 2 AND SO_SalesOrder.Balance > 0 " & Customer & Code & OrderBy
-'        'sql = Replace(sql, "AND BASE", "BASE")
-'    End If
-    
-    crxRpt.ParameterFields(1).AddCurrentValue txtTitle.text
-    crxRpt.SQLQueryString = sql
+  
+    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.Text
+    crxRpt.ParameterFields.GetItemByName("@DateFrom").AddCurrentValue DateAsOf.value
+    crxRpt.ParameterFields.GetItemByName("@CustomerId").AddCurrentValue cmbCustomer.ItemData(cmbCustomer.ListIndex)
+       
     CRViewer.ReportSource = crxRpt
     CRViewer.ViewReport
     CRViewer.Zoom 1
     Screen.MousePointer = vbDefault
+    
+    
 End Sub
 
 Private Sub CRViewer_PrintButtonClicked(UseDefault As Boolean)
@@ -384,7 +332,8 @@ Private Sub Form_Load()
     Me.Height = 9390
     Me.width = 15180
     
-    txtTitle.text = Me.Caption
+    txtTitle.Text = Me.Caption
+    DateAsOf.value = Format(Now, "mm/dd/yy")
 End Sub
 
 

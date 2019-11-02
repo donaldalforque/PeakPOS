@@ -126,7 +126,7 @@ Begin VB.Form POS_AccountPaymentFrm
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Format          =   110166017
+      Format          =   113049601
       CurrentDate     =   41686
    End
    Begin VB.Label Label6 
@@ -587,21 +587,22 @@ Private Sub btnAccept_Click()
     x = MsgBox("Do you want to print a receipt?", vbQuestion + vbYesNo)
     If x = vbYes Then
         '**PRINT RECEIPT******
-        Dim crxApp As New CRAXDRT.Application
-        Dim crxRpt As New CRAXDRT.Report
-        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt_Account_Payment.rpt")
-        
-        Call ResetRptDB(crxRpt)
-        crxRpt.DiscardSavedData
-        crxRpt.EnableParameterPrompting = False
-        
-        crxRpt.ParameterFields.GetItemByName("Notice").AddCurrentValue ""
-        crxRpt.ParameterFields.GetItemByName("@SalesOrderId", "POS_Receipt_AccountPayment_Details.rpt").AddCurrentValue Val(SalesOrderId)
-        crxRpt.RecordSelectionFormula = "{SO_SalesOrder.SalesOrderId} = " & Val(SalesOrderId) & ""
-        
-    
-        crxRpt.PrintOut False
-        
+        Dim ctr As Integer
+        For ctr = 1 To POS_SO_PrintOutCopies
+            Dim crxApp As New CRAXDRT.Application
+            Dim crxRpt As New CRAXDRT.Report
+            Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt_Account.rpt")
+            
+            Call ResetRptDB(crxRpt)
+            crxRpt.DiscardSavedData
+            crxRpt.EnableParameterPrompting = False
+            
+            crxRpt.ParameterFields.GetItemByName("Notice").AddCurrentValue ""
+            crxRpt.ParameterFields.GetItemByName("@SalesOrderId", "POS_Receipt_AccountPayment_Details.rpt").AddCurrentValue Val(SalesOrderId)
+            crxRpt.RecordSelectionFormula = "{SO_SalesOrder.SalesOrderId} = " & Val(SalesOrderId) & ""
+            
+            crxRpt.PrintOut False
+        Next ctr
         '**END PRINT RECEIPT**
     End If
     
@@ -641,7 +642,7 @@ Private Sub Form_Load()
     Populate "Terms"
     
     On Error Resume Next
-    cmbTerms.Text = "15 Days"
+    cmbTerms.Text = "30 Days"
 End Sub
 
 Public Sub Populate(ByVal data As String)

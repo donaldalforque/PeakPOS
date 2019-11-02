@@ -13,6 +13,439 @@ Begin VB.Form BASE_SystemSettingsFrm
    ScaleHeight     =   6975
    ScaleWidth      =   9630
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame FRE_Inventory 
+      BackColor       =   &H00FFFFFF&
+      Height          =   6375
+      Left            =   1800
+      TabIndex        =   31
+      Top             =   0
+      Width           =   7695
+      Begin VB.CommandButton Command10 
+         Appearance      =   0  'Flat
+         Caption         =   "Alerts"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   41
+         Top             =   1440
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command9 
+         Appearance      =   0  'Flat
+         Caption         =   "Remove Expired"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   40
+         Top             =   1920
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command8 
+         Appearance      =   0  'Flat
+         Caption         =   "Units"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   39
+         Top             =   2400
+         Visible         =   0   'False
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command7 
+         Appearance      =   0  'Flat
+         Caption         =   "Locations"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   38
+         Top             =   2880
+         Visible         =   0   'False
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command6 
+         Appearance      =   0  'Flat
+         Caption         =   "Charges"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   37
+         Top             =   3360
+         Visible         =   0   'False
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command5 
+         Appearance      =   0  'Flat
+         Caption         =   "Shrinkages"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   36
+         Top             =   3840
+         Visible         =   0   'False
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command4 
+         Appearance      =   0  'Flat
+         Caption         =   "Banks"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   35
+         Top             =   4320
+         Visible         =   0   'False
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command3 
+         Appearance      =   0  'Flat
+         Caption         =   "Funds"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   34
+         Top             =   4800
+         Visible         =   0   'False
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command2 
+         Appearance      =   0  'Flat
+         Caption         =   "Expenses"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   33
+         Top             =   5280
+         Visible         =   0   'False
+         Width           =   2175
+      End
+      Begin VB.CommandButton Command1 
+         Appearance      =   0  'Flat
+         Caption         =   "Workstations"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   240
+         TabIndex        =   32
+         Top             =   5760
+         Visible         =   0   'False
+         Width           =   2175
+      End
+      Begin VB.Label Label23 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Create and setup inventory alert dates and frequency so you get updated with your products available quantity."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   450
+         Left            =   240
+         TabIndex        =   53
+         Top             =   720
+         Width           =   7215
+      End
+      Begin VB.Label Label22 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Inventory Settings"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   14.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   345
+         Left            =   240
+         TabIndex        =   52
+         Top             =   240
+         Width           =   2115
+      End
+      Begin VB.Label Label15 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Setup inventory alerts for products with low inventory"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   51
+         Top             =   1500
+         Width           =   4695
+      End
+      Begin VB.Label Label14 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Removes expired product information."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   50
+         Top             =   1980
+         Width           =   4695
+      End
+      Begin VB.Label Label13 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Unit of measures for products."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   49
+         Top             =   2460
+         Visible         =   0   'False
+         Width           =   4695
+      End
+      Begin VB.Label Label12 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Locations for product inventories."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   48
+         Top             =   2940
+         Visible         =   0   'False
+         Width           =   4695
+      End
+      Begin VB.Label Label11 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Purchase order charges."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   47
+         Top             =   3420
+         Visible         =   0   'False
+         Width           =   4695
+      End
+      Begin VB.Label Label10 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Purchase order product shrinkages."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   46
+         Top             =   3900
+         Visible         =   0   'False
+         Width           =   4695
+      End
+      Begin VB.Label Label9 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Banks and accounts for cash flow monitoring."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   45
+         Top             =   4380
+         Visible         =   0   'False
+         Width           =   4695
+      End
+      Begin VB.Label Label8 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Fund accounts such as petty cash funds."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   44
+         Top             =   4860
+         Visible         =   0   'False
+         Width           =   4695
+      End
+      Begin VB.Label Label2 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Company expenses such as payroll and misc."
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   43
+         Top             =   5340
+         Visible         =   0   'False
+         Width           =   4695
+      End
+      Begin VB.Label Label1 
+         BackStyle       =   0  'Transparent
+         Caption         =   "Setup for POS Workstations"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00808080&
+         Height          =   210
+         Left            =   2760
+         TabIndex        =   42
+         Top             =   5820
+         Visible         =   0   'False
+         Width           =   4695
+      End
+   End
    Begin VB.Frame Frame1 
       BorderStyle     =   0  'None
       Height          =   7095
@@ -114,6 +547,24 @@ Begin VB.Form BASE_SystemSettingsFrm
          TabIndex        =   54
          Top             =   0
          Width           =   7695
+         Begin VB.TextBox txtPrintOut 
+            Alignment       =   1  'Right Justify
+            BeginProperty Font 
+               Name            =   "Calibri"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   285
+            Left            =   240
+            TabIndex        =   77
+            Text            =   "1"
+            Top             =   1920
+            Width           =   2175
+         End
          Begin VB.OptionButton optInterestDisable 
             BackColor       =   &H00FFFFFF&
             Caption         =   "Disabled"
@@ -127,10 +578,10 @@ Begin VB.Form BASE_SystemSettingsFrm
                Strikethrough   =   0   'False
             EndProperty
             Height          =   255
-            Left            =   1320
-            TabIndex        =   76
+            Left            =   1440
+            TabIndex        =   75
             Top             =   1560
-            Width           =   1095
+            Width           =   1215
          End
          Begin VB.OptionButton optInterestEnable 
             BackColor       =   &H00FFFFFF&
@@ -146,28 +597,10 @@ Begin VB.Form BASE_SystemSettingsFrm
             EndProperty
             Height          =   255
             Left            =   240
-            TabIndex        =   75
+            TabIndex        =   74
             Top             =   1560
             Value           =   -1  'True
             Width           =   975
-         End
-         Begin VB.CommandButton Command19 
-            Appearance      =   0  'Flat
-            BeginProperty Font 
-               Name            =   "Calibri"
-               Size            =   9.75
-               Charset         =   0
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            Height          =   375
-            Left            =   240
-            TabIndex        =   63
-            Top             =   1920
-            Visible         =   0   'False
-            Width           =   2175
          End
          Begin VB.CommandButton Command18 
             Appearance      =   0  'Flat
@@ -336,7 +769,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   77
+            TabIndex        =   76
             Top             =   1560
             Width           =   4695
          End
@@ -355,7 +788,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   450
             Left            =   240
-            TabIndex        =   74
+            TabIndex        =   73
             Top             =   720
             Width           =   7215
          End
@@ -375,13 +808,13 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   345
             Left            =   240
-            TabIndex        =   73
+            TabIndex        =   72
             Top             =   240
             Width           =   2310
          End
          Begin VB.Label Label32 
             BackStyle       =   0  'Transparent
-            Caption         =   "Allows you to enable user validation on POS Buttons"
+            Caption         =   "# of print out copies of receipt using POS for accounts."
             BeginProperty Font 
                Name            =   "Calibri"
                Size            =   9
@@ -394,9 +827,8 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   72
+            TabIndex        =   71
             Top             =   1980
-            Visible         =   0   'False
             Width           =   4695
          End
          Begin VB.Label Label31 
@@ -414,7 +846,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   71
+            TabIndex        =   70
             Top             =   2460
             Visible         =   0   'False
             Width           =   4695
@@ -434,7 +866,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   70
+            TabIndex        =   69
             Top             =   2940
             Visible         =   0   'False
             Width           =   4695
@@ -454,7 +886,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   69
+            TabIndex        =   68
             Top             =   3420
             Visible         =   0   'False
             Width           =   4695
@@ -474,7 +906,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   68
+            TabIndex        =   67
             Top             =   3900
             Visible         =   0   'False
             Width           =   4695
@@ -494,7 +926,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   67
+            TabIndex        =   66
             Top             =   4380
             Visible         =   0   'False
             Width           =   4695
@@ -514,7 +946,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   66
+            TabIndex        =   65
             Top             =   4860
             Visible         =   0   'False
             Width           =   4695
@@ -534,7 +966,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   65
+            TabIndex        =   64
             Top             =   5340
             Visible         =   0   'False
             Width           =   4695
@@ -554,7 +986,7 @@ Begin VB.Form BASE_SystemSettingsFrm
             ForeColor       =   &H00808080&
             Height          =   210
             Left            =   2760
-            TabIndex        =   64
+            TabIndex        =   63
             Top             =   5820
             Visible         =   0   'False
             Width           =   4695
@@ -1020,439 +1452,6 @@ Begin VB.Form BASE_SystemSettingsFrm
          TabIndex        =   12
          Top             =   6480
          Width           =   1335
-      End
-   End
-   Begin VB.Frame FRE_Inventory 
-      BackColor       =   &H00FFFFFF&
-      Height          =   6375
-      Left            =   1800
-      TabIndex        =   31
-      Top             =   0
-      Width           =   7695
-      Begin VB.CommandButton Command10 
-         Appearance      =   0  'Flat
-         Caption         =   "Alerts"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   41
-         Top             =   1440
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command9 
-         Appearance      =   0  'Flat
-         Caption         =   "Remove Expired"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   40
-         Top             =   1920
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command8 
-         Appearance      =   0  'Flat
-         Caption         =   "Units"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   39
-         Top             =   2400
-         Visible         =   0   'False
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command7 
-         Appearance      =   0  'Flat
-         Caption         =   "Locations"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   38
-         Top             =   2880
-         Visible         =   0   'False
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command6 
-         Appearance      =   0  'Flat
-         Caption         =   "Charges"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   37
-         Top             =   3360
-         Visible         =   0   'False
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command5 
-         Appearance      =   0  'Flat
-         Caption         =   "Shrinkages"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   36
-         Top             =   3840
-         Visible         =   0   'False
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command4 
-         Appearance      =   0  'Flat
-         Caption         =   "Banks"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   35
-         Top             =   4320
-         Visible         =   0   'False
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command3 
-         Appearance      =   0  'Flat
-         Caption         =   "Funds"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   34
-         Top             =   4800
-         Visible         =   0   'False
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command2 
-         Appearance      =   0  'Flat
-         Caption         =   "Expenses"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   33
-         Top             =   5280
-         Visible         =   0   'False
-         Width           =   2175
-      End
-      Begin VB.CommandButton Command1 
-         Appearance      =   0  'Flat
-         Caption         =   "Workstations"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   240
-         TabIndex        =   32
-         Top             =   5760
-         Visible         =   0   'False
-         Width           =   2175
-      End
-      Begin VB.Label Label23 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Create and setup inventory alert dates and frequency so you get updated with your products available quantity."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   450
-         Left            =   240
-         TabIndex        =   53
-         Top             =   720
-         Width           =   7215
-      End
-      Begin VB.Label Label22 
-         AutoSize        =   -1  'True
-         BackStyle       =   0  'Transparent
-         Caption         =   "Inventory Settings"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   14.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   345
-         Left            =   240
-         TabIndex        =   52
-         Top             =   240
-         Width           =   2115
-      End
-      Begin VB.Label Label15 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Setup inventory alerts for products with low inventory"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   51
-         Top             =   1500
-         Width           =   4695
-      End
-      Begin VB.Label Label14 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Removes expired product information."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   50
-         Top             =   1980
-         Width           =   4695
-      End
-      Begin VB.Label Label13 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Unit of measures for products."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   49
-         Top             =   2460
-         Visible         =   0   'False
-         Width           =   4695
-      End
-      Begin VB.Label Label12 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Locations for product inventories."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   48
-         Top             =   2940
-         Visible         =   0   'False
-         Width           =   4695
-      End
-      Begin VB.Label Label11 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Purchase order charges."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   47
-         Top             =   3420
-         Visible         =   0   'False
-         Width           =   4695
-      End
-      Begin VB.Label Label10 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Purchase order product shrinkages."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   46
-         Top             =   3900
-         Visible         =   0   'False
-         Width           =   4695
-      End
-      Begin VB.Label Label9 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Banks and accounts for cash flow monitoring."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   45
-         Top             =   4380
-         Visible         =   0   'False
-         Width           =   4695
-      End
-      Begin VB.Label Label8 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Fund accounts such as petty cash funds."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   44
-         Top             =   4860
-         Visible         =   0   'False
-         Width           =   4695
-      End
-      Begin VB.Label Label2 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Company expenses such as payroll and misc."
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   43
-         Top             =   5340
-         Visible         =   0   'False
-         Width           =   4695
-      End
-      Begin VB.Label Label1 
-         BackStyle       =   0  'Transparent
-         Caption         =   "Setup for POS Workstations"
-         BeginProperty Font 
-            Name            =   "Calibri"
-            Size            =   9
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00808080&
-         Height          =   210
-         Left            =   2760
-         TabIndex        =   42
-         Top             =   5820
-         Visible         =   0   'False
-         Width           =   4695
       End
    End
 End
@@ -2002,9 +2001,32 @@ Private Sub btnSalesOrder_Click()
     
     optInterestDisable.value = True
     If EnableInterest = True Then optInterestEnable.value = True
+    
+    txtPrintOut.Text = POS_SO_PrintOutCopies
 End Sub
 
 Private Sub btnSave_Click()
+    'Save Sales Settings
+    Dim con As New ADODB.Connection
+    con.ConnectionString = ConnString
+    con.Open
+    Set cmd = New ADODB.Command
+    cmd.ActiveConnection = con
+    cmd.CommandType = adCmdStoredProc
+    If optInterestEnable.value = True Then
+        cmd.Parameters.Append cmd.CreateParameter("@EnableInterest", adBoolean, adParamInput, , True)
+        EnableInterest = True
+    Else
+        cmd.Parameters.Append cmd.CreateParameter("@EnableInterest", adBoolean, adParamInput, , False)
+        EnableInterest = False
+    End If
+    cmd.Parameters.Append cmd.CreateParameter("@PrintOutCopies", adInteger, adParamInput, , NVAL(txtPrintOut.Text))
+    cmd.CommandText = "SO_Settings_Update"
+    cmd.Execute
+    con.Close
+    
+    
+    
     Unload Me
 End Sub
 
@@ -2015,6 +2037,7 @@ End Sub
 Private Sub btnTransferStock_Click()
     FRE_POS.Visible = False
     FRE_Inventory.Visible = True
+    FRE_Sales.Visible = False
 End Sub
 
 Private Sub btnUnits_Click()
@@ -2044,4 +2067,8 @@ End Sub
 
 Private Sub Form_Load()
     btnPOS_Click
+End Sub
+
+Private Sub txtPrintOut_Change()
+    If IsNumeric(txtPrintOut.Text) = False Then txtPrintOut.Text = "1"
 End Sub
