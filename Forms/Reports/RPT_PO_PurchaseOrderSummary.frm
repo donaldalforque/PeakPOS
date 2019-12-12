@@ -143,7 +143,7 @@ Begin VB.Form RPT_PO_PurchaseOrderSummary
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   96272385
+         Format          =   112263169
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -164,7 +164,7 @@ Begin VB.Form RPT_PO_PurchaseOrderSummary
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   96272385
+         Format          =   112263169
          CurrentDate     =   41686
       End
       Begin VB.Label Label10 
@@ -379,7 +379,7 @@ Option Explicit
 Dim crxApp As New CRAXDRT.Application
 Dim crxRpt As New CRAXDRT.Report
 Public Sub Populate(ByVal data As String)
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         Case "Status"
             Set rec = New ADODB.Recordset
@@ -432,27 +432,31 @@ Private Sub btnGenerate_Click()
     Dim Status, Customer, Terms, DateRange As Variant
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\PO_PurchaseOrderSummary.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\PO_PurchaseOrderSummary.rpt")
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
     Call ResetRptDB(crxRpt)
     
-    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.text
+    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.Text
     crxRpt.ParameterFields.GetItemByName("DateFrom").AddCurrentValue Str(DateFrom.value)
     crxRpt.ParameterFields.GetItemByName("DateTo").AddCurrentValue Str(DateTo.value)
     
     crxRpt.ParameterFields.GetItemByName("@StatusId").AddCurrentValue cmbStatus.ItemData(cmbStatus.ListIndex)
     crxRpt.ParameterFields.GetItemByName("@SupplierId").AddCurrentValue cmbVendor.ItemData(cmbVendor.ListIndex)
-    crxRpt.ParameterFields.GetItemByName("@OrderNumber").AddCurrentValue txtOR.text
+    crxRpt.ParameterFields.GetItemByName("@OrderNumber").AddCurrentValue txtOR.Text
     crxRpt.ParameterFields.GetItemByName("@DateFrom").AddCurrentValue DateFrom.value
     crxRpt.ParameterFields.GetItemByName("@DateTo").AddCurrentValue DateTo.value
-    crxRpt.ParameterFields.GetItemByName("@SortBy").AddCurrentValue cmbSort.text
+    crxRpt.ParameterFields.GetItemByName("@SortBy").AddCurrentValue cmbSort.Text
     
     
     CRViewer.ReportSource = crxRpt
     CRViewer.ViewReport
     CRViewer.Zoom 1
     Screen.MousePointer = vbDefault
+    
+    crxApp.CanClose
+    Set crxRpt = Nothing
+    Set crxApp = Nothing
 End Sub
 
 Private Sub CRViewer_PrintButtonClicked(UseDefault As Boolean)
@@ -474,7 +478,7 @@ Private Sub Form_Load()
     DateFrom.value = Format(Now, "MM/DD/YY")
     DateTo.value = Format(Now, "MM/DD/YY")
     
-    txtTitle.text = Me.Caption
+    txtTitle.Text = Me.Caption
 End Sub
 
 

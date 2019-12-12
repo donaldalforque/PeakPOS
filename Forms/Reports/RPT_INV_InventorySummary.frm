@@ -75,6 +75,7 @@ Begin VB.Form RPT_INV_InventorySummaryFrm
          Style           =   2  'Dropdown List
          TabIndex        =   16
          Top             =   3240
+         Visible         =   0   'False
          Width           =   2415
       End
       Begin VB.TextBox txtDescription 
@@ -218,6 +219,7 @@ Begin VB.Form RPT_INV_InventorySummaryFrm
          Left            =   120
          TabIndex        =   18
          Top             =   2760
+         Visible         =   0   'False
          Width           =   1095
       End
       Begin VB.Label Label7 
@@ -237,6 +239,7 @@ Begin VB.Form RPT_INV_InventorySummaryFrm
          Left            =   120
          TabIndex        =   17
          Top             =   3240
+         Visible         =   0   'False
          Width           =   570
       End
       Begin VB.Label Label8 
@@ -413,7 +416,7 @@ Option Explicit
 Dim crxApp As New CRAXDRT.Application
 Dim crxRpt As New CRAXDRT.Report
 Public Sub Populate(ByVal data As String)
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         Case "Category"
             Set rec = New ADODB.Recordset
@@ -460,20 +463,20 @@ Private Sub btnGenerate_Click()
     If cmbOrientation.ListIndex = 0 Then 'Landscape
         Select Case cmbGroup.ListIndex
             Case 0 'None
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_InventoryReport_Simple.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_InventoryReport_Simple.rpt")
             Case 1 'Supplier
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_InventoryReport_Supplier.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_InventoryReport_Supplier.rpt")
             Case 2 'Category
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_InventoryReport_Simple_Category.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_InventoryReport_Simple_Category.rpt")
         End Select
     Else 'Portrait
         Select Case cmbGroup.ListIndex
             Case 0 'None
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_InventoryReport_Portrait_Simple.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_InventoryReport_Portrait_Simple.rpt")
             Case 1 'Supplier
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_InventoryReport_Portrait_Supplier.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_InventoryReport_Portrait_Supplier.rpt")
             Case 2 'Category
-                Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_InventoryReport_Portrait_Category.rpt")
+                Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_InventoryReport_Portrait_Category.rpt")
         End Select
     End If
     
@@ -494,12 +497,16 @@ Private Sub btnGenerate_Click()
     crxRpt.ParameterFields.GetItemByName("@CategoryId").AddCurrentValue cmbCategory.ItemData(cmbCategory.ListIndex)
     crxRpt.ParameterFields.GetItemByName("@SupplierId").AddCurrentValue cmbSupplier.ItemData(cmbSupplier.ListIndex)
     crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.Text
+    crxRpt.ParameterFields.GetItemByName("@Description").AddCurrentValue txtDescription.Text
     crxRpt.ParameterFields.GetItemByName("@DisplayZero").AddCurrentValue DisplayZero
     
     CRViewer.ReportSource = crxRpt
     CRViewer.ViewReport
     CRViewer.Zoom 1
     Screen.MousePointer = vbDefault
+    
+    crxApp.CanClose
+    Set crxApp = Nothing
 End Sub
 
 Private Sub CRViewer_PrintButtonClicked(UseDefault As Boolean)

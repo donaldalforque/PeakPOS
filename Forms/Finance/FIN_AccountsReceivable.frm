@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Begin VB.Form FIN_AccountsReceivable 
    BackColor       =   &H00E0E0E0&
    BorderStyle     =   1  'Fixed Single
@@ -445,7 +445,7 @@ Attribute VB_Exposed = False
 Option Explicit
 Public Sub Populate(ByVal data As String)
     Set rec = New ADODB.Recordset
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         
         Case "City"
@@ -467,11 +467,11 @@ Public Sub Populate(ByVal data As String)
 End Sub
 
 Private Sub CountTotal()
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim Total As Double
     Total = 0
-    For Each item In lvSearch.ListItems
-        Total = Total + Val(Replace(item.SubItems(3), ",", ""))
+    For Each Item In lvSearch.ListItems
+        Total = Total + Val(Replace(Item.SubItems(3), ",", ""))
     Next
     lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
 End Sub
@@ -482,11 +482,11 @@ End Sub
 
 Private Function isValidated() As Boolean
     Dim hasPayment As Boolean
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     
-    For Each item In lvSearch.ListItems
-        If item.SubItems(10) <> "" Then
-            If Val(Replace(item.SubItems(10), ",", "")) > 0 Then
+    For Each Item In lvSearch.ListItems
+        If Item.SubItems(10) <> "" Then
+            If Val(Replace(Item.SubItems(10), ",", "")) > 0 Then
                 hasPayment = True
                 Exit For
             End If
@@ -582,7 +582,7 @@ Public Sub btnSearch_Click()
     Dim Code, Name, Order, OrderNumber, Sort As Variant
     
     If Trim(txtSearch_Code.Text) = "" Then Code = Null Else Code = txtSearch_Code.Text
-    If Trim(txtSearch_Name.Text) = "" Then Name = Null Else Name = txtSearch_Name.Text
+    If Trim(txtSearch_name.Text) = "" Then Name = Null Else Name = txtSearch_name.Text
     'If Trim(txtSearch_Order.text) = "" Then OrderNumber = Null Else OrderNumber = txtSearch_Order.text
     If optCustomerName.value = True Then Sort = "Name"
     'If optOrderNumber.value = True Then Sort = "Order"
@@ -598,15 +598,15 @@ Public Sub btnSearch_Click()
     cmd.Parameters.Append cmd.CreateParameter("@Sort", adVarChar, adParamInput, 250, Sort)
     cmd.Parameters.Append cmd.CreateParameter("@Order", adVarChar, adParamInput, 50, Order)
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Set rec = cmd.Execute
     lvSearch.ListItems.Clear
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvSearch.ListItems.add(, , rec!CustomerId)
-                item.SubItems(1) = rec!CustomerCode
-                item.SubItems(2) = rec!Name
-                item.SubItems(3) = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
+            Set Item = lvSearch.ListItems.add(, , rec!CustomerId)
+                Item.SubItems(1) = rec!CustomerCode
+                Item.SubItems(2) = rec!Name
+                Item.SubItems(3) = FormatNumber(rec!balance, 2, vbTrue, vbFalse)
             rec.MoveNext
         Loop
     End If
@@ -616,23 +616,23 @@ Public Sub btnSearch_Click()
     ComputeInterest
 End Sub
 Private Sub ComputeInterest()
-    Dim item As MSComctlLib.ListItem
-    Dim con As New ADODB.Connection
-    Set rec = New ADODB.Recordset
-    
-    con.ConnectionString = ConnString
-    con.Open
-    
-    For Each item In lvSearch.ListItems
-        Set cmd = New ADODB.Command
-        cmd.ActiveConnection = con
-        cmd.CommandType = adCmdStoredProc
-        cmd.CommandText = "SO_ComputeInterest"
-        cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , item.Text)
-        cmd.Execute
-    Next
-    con.Close
-    btnSearch_Click
+'    Dim Item As MSComctlLib.ListItem
+'    Dim con As New ADODB.Connection
+'    Set rec = New ADODB.Recordset
+'
+'    con.ConnectionString = ConnString
+'    con.Open
+'
+''    For Each Item In lvSearch.ListItems
+''        Set cmd = New ADODB.Command
+''        cmd.ActiveConnection = con
+''        cmd.CommandType = adCmdStoredProc
+''        cmd.CommandText = "SO_ComputeInterest"
+''        cmd.Parameters.Append cmd.CreateParameter("@CustomerId", adInteger, adParamInput, , Item.Text)
+''        cmd.Execute
+''    Next
+'    con.Close
+'    btnSearch_Click
 End Sub
 
 Private Sub Form_Load()

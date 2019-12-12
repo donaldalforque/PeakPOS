@@ -17,6 +17,7 @@ Begin VB.Form BASE_PrintPreviewFrm
       Left            =   0
       TabIndex        =   1
       Top             =   0
+      Visible         =   0   'False
       Width           =   11775
       _ExtentX        =   20770
       _ExtentY        =   582

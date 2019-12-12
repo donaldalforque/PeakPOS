@@ -412,7 +412,7 @@ Dim crxApp As New CRAXDRT.Application
 Dim crxRpt As New CRAXDRT.Report
 Dim VendorId, CategoryId As Long
 Public Sub Populate(ByVal data As String)
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         Case "Category"
             Set rec = New ADODB.Recordset
@@ -467,15 +467,15 @@ Private Sub btnGenerate_Click()
     Dim Status, Customer, Terms, DateRange As Variant
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_ProductPricing.rpt")
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_ProductPricing.rpt")
     
     Select Case cmbGroup.ListIndex
         Case 0 'None
-            Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_ProductPricing.rpt")
+            Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_ProductPricing.rpt")
         Case 1 'Supplier
-            Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_ProductPricing_Supplier.rpt")
+            Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_ProductPricing_Supplier.rpt")
         Case 2 'Category
-            Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\INV_ProductPricing_Category.rpt")
+            Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_ProductPricing_Category.rpt")
     End Select
     
     crxRpt.EnableParameterPrompting = False
@@ -485,7 +485,7 @@ Private Sub btnGenerate_Click()
     ShowCost = False
     If chkCost.value = 1 Then ShowCost = True
     
-    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.text
+    crxRpt.ParameterFields.GetItemByName("ReportTitle").AddCurrentValue txtTitle.Text
     crxRpt.ParameterFields.GetItemByName("ShowCost").AddCurrentValue ShowCost
 '    If chkShowOtherPrice.value = Checked Then
 '        crxRpt.ParameterFields.GetItemByName("IncludePrices").AddCurrentValue "NO"
@@ -498,16 +498,20 @@ Private Sub btnGenerate_Click()
     'crxRpt.ParameterFields.GetItemByName("@CodeTo").AddCurrentValue txtCodeTo.text
     crxRpt.ParameterFields.GetItemByName("@VendorId").AddCurrentValue VendorId
     crxRpt.ParameterFields.GetItemByName("@CategoryId").AddCurrentValue CategoryId
-    crxRpt.ParameterFields.GetItemByName("@Name").AddCurrentValue txtName.text
+    crxRpt.ParameterFields.GetItemByName("@Name").AddCurrentValue txtName.Text
     
     CRViewer.ReportSource = crxRpt
     CRViewer.ViewReport
     CRViewer.Zoom 1
     Screen.MousePointer = vbDefault
+    
+    crxApp.CanClose
+    Set crxRpt = Nothing
+    Set crxApp = Nothing
 End Sub
 
 Private Sub cmbCategory_Click()
-     If cmbCategory.text = "" Then
+     If cmbCategory.Text = "" Then
         CategoryId = 0
     Else
         CategoryId = cmbCategory.ItemData(cmbCategory.ListIndex)
@@ -515,7 +519,7 @@ Private Sub cmbCategory_Click()
 End Sub
 
 Private Sub cmbVendor_Click()
-    If cmbVendor.text = "" Then
+    If cmbVendor.Text = "" Then
         VendorId = 0
     Else
         VendorId = cmbVendor.ItemData(cmbVendor.ListIndex)
@@ -537,7 +541,7 @@ Private Sub Form_Load()
     Me.Height = 9390
     Me.width = 15180
     
-    txtTitle.text = Me.Caption
+    txtTitle.Text = Me.Caption
 End Sub
 
 

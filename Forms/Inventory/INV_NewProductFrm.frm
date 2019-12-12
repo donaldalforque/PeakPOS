@@ -2151,6 +2151,60 @@ Private Sub Form_Load()
     lblCostingInfo_Cost.Visible = ViewAccessRights(2)
 End Sub
 
+Private Sub img_Auto_Click()
+    txtBasicInfo_Barcode.Text = Barcode_AutoGenerate
+End Sub
+
+Private Sub img_Print_Click()
+    If ProductId <= 0 Then
+        MsgBox "Error. No product selected.", vbCritical
+        Exit Sub
+    End If
+    
+    '**PRINT RECEIPT******
+    Dim crxApp As New CRAXDRT.Application
+    Dim crxRpt As New CRAXDRT.Report
+    Dim Barcode, price As String
+    
+    Barcode = "*" & txtBasicInfo_Barcode.Text & "*"
+    price = FormatNumber(NVAL(txtSalesInfo_Price.Text), 2, vbTrue, vbFalse)
+    
+    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\Barcode.rpt")
+    
+    Call ResetRptDB(crxRpt)
+    
+    crxRpt.DiscardSavedData
+    crxRpt.EnableParameterPrompting = False
+
+    Dim ctr As String
+    ctr = InputBox("No. of copies:")
+    
+    If IsNumeric(ctr) = False Then
+        MsgBox "Invalid value.", vbCritical
+    Else
+        Dim x As Variant
+        x = MsgBox("Do you want to include price in printout?", vbYesNo)
+        If x = vbYes Then
+            crxRpt.ParameterFields.GetItemByName("Barcode").AddCurrentValue Barcode
+            crxRpt.ParameterFields.GetItemByName("Price").AddCurrentValue price
+        Else
+            crxRpt.ParameterFields.GetItemByName("Barcode").AddCurrentValue Barcode
+            crxRpt.ParameterFields.GetItemByName("Price").AddCurrentValue ""
+        End If
+        
+        crxRpt.ParameterFields.GetItemByName("Name").AddCurrentValue txtBasicInfo_Name.Text
+        
+        Dim Y As Integer
+        Y = 1
+        Do While Y <= NVAL(ctr)
+            crxRpt.PrintOut False
+            Y = Y + 1
+        Loop
+    End If
+    
+    
+End Sub
+
 Private Sub Label29_Click()
     If ProductId <> 0 Then
         INV_QuantityPricingFrm.Show (1)

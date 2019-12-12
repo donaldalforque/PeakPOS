@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form FIN_VendorPaymentFrm 
    BackColor       =   &H00FFFFFF&
@@ -334,7 +334,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   112721921
+            Format          =   111280129
             CurrentDate     =   41646
          End
          Begin VB.Label Label4 
@@ -486,7 +486,7 @@ Begin VB.Form FIN_VendorPaymentFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   112721921
+            Format          =   111280129
             CurrentDate     =   41646
          End
          Begin VB.Label Label11 
@@ -855,19 +855,19 @@ Public Sub Populate(ByVal data As String)
 End Sub
 
 Private Sub btnCash_Click()
-    FRE_CASH.Enabled = True
-    FRE_CHECK.Enabled = False
+    FRE_CASH.enabled = True
+    FRE_CHECK.enabled = False
     txtCheckAmount.Text = "0.00"
 End Sub
 
 Private Sub btnCheck_Click()
-    FRE_CASH.Enabled = False
-    FRE_CHECK.Enabled = True
+    FRE_CASH.enabled = False
+    FRE_CHECK.enabled = True
     txtCash.Text = "0.00"
 End Sub
 
 Private Sub btnSave_Click()
-    If FRE_CHECK.Enabled = True Then
+    If FRE_CHECK.enabled = True Then
         If txtCheckNumber.Text = "" Then
             MsgBox "Check number is required.", vbCritical, "PeakPOS"
             txtCheckNumber.SetFocus
@@ -951,10 +951,10 @@ Private Sub btnSave_Click()
             cmd.CommandType = adCmdStoredProc
             cmd.CommandText = "PO_Payment_Insert"
             cmd.Parameters.Append cmd.CreateParameter("@PurchaseOrderId", adInteger, adParamInput, , Item.SubItems(1))
-            cmd.Parameters.Append cmd.CreateParameter("@PurchaseInvoiceId", adInteger, adParamInput, , Item.SubItems(7))
-            If Payment >= NVAL(Item.SubItems(6)) Then
-                If FRE_CHECK.Enabled = False Then 'IF CASH
-                    cmd.Parameters.Append cmd.CreateParameter("@Amount", adDecimal, adParamInput, , NVAL(Item.SubItems(6)))
+            cmd.Parameters.Append cmd.CreateParameter("@PurchaseInvoiceId", adInteger, adParamInput, , Item.SubItems(8))
+            If Payment >= NVAL(Item.SubItems(7)) Then
+                If FRE_CHECK.enabled = False Then 'IF CASH
+                    cmd.Parameters.Append cmd.CreateParameter("@Amount", adDecimal, adParamInput, , NVAL(Item.SubItems(7)))
                                           cmd.Parameters("@Amount").NumericScale = 2
                                           cmd.Parameters("@Amount").Precision = 18
                     cmd.Parameters.Append cmd.CreateParameter("@Date", adDate, adParamInput, , dtDate.value)
@@ -975,7 +975,7 @@ Private Sub btnSave_Click()
                     cmd.Parameters.Append cmd.CreateParameter("@CheckDate", adDate, adParamInput, , dtCheckDate.value)
                 End If
             Else
-                If FRE_CHECK.Enabled = False Then 'IF CASH
+                If FRE_CHECK.enabled = False Then 'IF CASH
                     cmd.Parameters.Append cmd.CreateParameter("@Amount", adDecimal, adParamInput, , Payment)
                                           cmd.Parameters("@Amount").NumericScale = 2
                                           cmd.Parameters("@Amount").Precision = 18
@@ -1114,9 +1114,9 @@ Private Sub chkOnline_Click()
         'cmbBank.Visible = True
         lblAccount.Visible = True
         cmbAccount.Visible = True
-        txtCash.Enabled = False
+        txtCash.enabled = False
     Else
-        txtCash.Enabled = True
+        txtCash.enabled = True
         lblBank.Visible = False
         'cmbBank.Visible = False
         lblAccount.Visible = False
@@ -1160,8 +1160,8 @@ Private Sub Form_Load()
     lvOrders.ColumnHeaders(8).width = lvOrders.width * 0.16
 
     
-    FRE_CASH.Enabled = True
-    FRE_CHECK.Enabled = False
+    FRE_CASH.enabled = True
+    FRE_CHECK.enabled = False
     
     Set con = New ADODB.Connection
     Set rec = New ADODB.Recordset

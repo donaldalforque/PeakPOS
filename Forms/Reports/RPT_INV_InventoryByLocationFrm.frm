@@ -463,6 +463,10 @@ Private Sub btnGenerate_Click()
     CRViewer.ViewReport
     CRViewer.Zoom 1
     Screen.MousePointer = vbDefault
+    
+    crxApp.CanClose
+    Set crxRpt = Nothing
+    Set crxApp = Nothing
 End Sub
 Private Sub CRViewer_PrintButtonClicked(UseDefault As Boolean)
     UseDefault = False

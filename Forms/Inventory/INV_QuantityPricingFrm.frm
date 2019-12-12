@@ -350,38 +350,38 @@ Public Sub Populate(ByVal data As String)
     End Select
 End Sub
 
-Private Sub chkShow_Click()
-    Dim Item As MSComctlLib.ListItem
-    Set rec = New ADODB.Recordset
-    Set rec = Global_Data("Tax")
-    lvPricing.ListItems.Clear
-    If Not rec.EOF Then
-        Do Until rec.EOF
-            If chkShow.value = 1 Then
-                Set Item = lvPricing.ListItems.add(, , "")
-                    Item.SubItems(1) = rec!PricingId
-                    Item.SubItems(2) = rec!TaxName
-                    Item.SubItems(3) = rec!percentage
-                If rec!isActive = "True" Then Item.Checked = True
-                lvPricing.ColumnHeaders(1).width = lvPricing.width * 0.06
-                lvPricing.ColumnHeaders(3).width = lvPricing.width * 0.44
-                lvPricing.ColumnHeaders(4).width = lvPricing.width * 0.44
-            Else
-                If rec!isActive = "True" Then
-                    Set Item = lvPricing.ListItems.add(, , "")
-                        Item.SubItems(1) = rec!PricingId
-                        Item.SubItems(2) = rec!TaxName
-                        Item.SubItems(3) = rec!percentage
-                    If rec!isActive = "True" Then Item.Checked = True
-                    lvPricing.ColumnHeaders(1).width = lvPricing.width * 0
-                    lvPricing.ColumnHeaders(3).width = lvPricing.width * 0.47
-                    lvPricing.ColumnHeaders(4).width = lvPricing.width * 0.47
-                End If
-            End If
-            rec.MoveNext
-        Loop
-    End If
-End Sub
+'Private Sub chkShow_Click()
+'    Dim Item As MSComctlLib.ListItem
+'    Set rec = New ADODB.Recordset
+'    Set rec = Global_Data("Tax")
+'    lvPricing.ListItems.Clear
+'    If Not rec.EOF Then
+'        Do Until rec.EOF
+'            If chkShow.value = 1 Then
+'                Set Item = lvPricing.ListItems.add(, , "")
+'                    Item.SubItems(1) = rec!PricingId
+'                    Item.SubItems(2) = rec!TaxName
+'                    Item.SubItems(3) = rec!percentage
+'                If rec!isActive = "True" Then Item.Checked = True
+'                lvPricing.ColumnHeaders(1).width = lvPricing.width * 0.06
+'                lvPricing.ColumnHeaders(3).width = lvPricing.width * 0.44
+'                lvPricing.ColumnHeaders(4).width = lvPricing.width * 0.44
+'            Else
+'                If rec!isActive = "True" Then
+'                    Set Item = lvPricing.ListItems.add(, , "")
+'                        Item.SubItems(1) = rec!PricingId
+'                        Item.SubItems(2) = rec!TaxName
+'                        Item.SubItems(3) = rec!percentage
+'                    If rec!isActive = "True" Then Item.Checked = True
+'                    lvPricing.ColumnHeaders(1).width = lvPricing.width * 0
+'                    lvPricing.ColumnHeaders(3).width = lvPricing.width * 0.47
+'                    lvPricing.ColumnHeaders(4).width = lvPricing.width * 0.47
+'                End If
+'            End If
+'            rec.MoveNext
+'        Loop
+'    End If
+'End Sub
 
 Private Sub Form_Load()
     lvPricing.ColumnHeaders(1).width = lvPricing.width * 0

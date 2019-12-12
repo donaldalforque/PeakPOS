@@ -173,10 +173,15 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub btnAnalysis_Click()
-    AllowAccess = False
-    POS_UserPinFrm.Show (1)
-    If AllowAccess = False Then Exit Sub
-    POS_SalesAnalysisFrm.Show (1)
+    If POS_CashierFrm.SalesAnalysisPass = True Then
+        POS_UserPinFrm.Show (1)
+    Else
+        AllowAccess = True
+    End If
+    
+    If AllowAccess = True Then
+        POS_SalesAnalysisFrm.Show (1)
+    End If
 End Sub
 
 Private Sub btnCancel_Click()

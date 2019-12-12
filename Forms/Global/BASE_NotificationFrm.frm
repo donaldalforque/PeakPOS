@@ -376,7 +376,7 @@ Private Sub lblPurchase_OverdueNotification_Click()
     
     CornerChildForm PO_PurchaseOrderFrm
     PO_PurchaseOrderFrm.Show
-    PO_PurchaseOrderFrm.cmbSearch_Status.text = "Overdue"
+    PO_PurchaseOrderFrm.cmbSearch_Status.Text = "Overdue"
     PO_PurchaseOrderFrm.DateFrom.value = currdate
     PO_PurchaseOrderFrm.btnSearch_Click
     PO_PurchaseOrderFrm.ZOrder 0
@@ -396,7 +396,7 @@ Private Sub lblPurchasing_OpenSalesReturn_Click()
     
     CornerChildForm PO_PurchaseReturnFrm
     PO_PurchaseReturnFrm.Show
-    PO_PurchaseReturnFrm.cmbSearch_Status.text = "Open"
+    PO_PurchaseReturnFrm.cmbSearch_Status.Text = "Open"
     PO_PurchaseReturnFrm.DateFrom.value = currdate
     PO_PurchaseReturnFrm.btnSearch_Click
     PO_PurchaseReturnFrm.ZOrder 0
@@ -416,7 +416,7 @@ Private Sub lblPurchasing_OpenStatus_Click()
     
     CornerChildForm PO_PurchaseOrderFrm
     PO_PurchaseOrderFrm.Show
-    PO_PurchaseOrderFrm.cmbSearch_Status.text = "Open"
+    PO_PurchaseOrderFrm.cmbSearch_Status.Text = "Open"
     PO_PurchaseOrderFrm.DateFrom.value = currdate
     PO_PurchaseOrderFrm.btnSearch_Click
     PO_PurchaseOrderFrm.ZOrder 0
@@ -451,7 +451,7 @@ Private Sub lblSales_OpenSalesReturn_Click()
     
     CornerChildForm SO_SalesReturnFrm
     SO_SalesReturnFrm.Show
-    SO_SalesReturnFrm.cmbSearch_Status.text = "Open"
+    SO_SalesReturnFrm.cmbSearch_Status.Text = "Open"
     SO_SalesReturnFrm.DateFrom.value = currdate
     SO_SalesReturnFrm.btnSearch_Click
     SO_SalesReturnFrm.ZOrder 0
@@ -470,7 +470,7 @@ Private Sub lblSales_OpenStatus_Click()
     
     CornerChildForm SO_SalesOrderFrm
     SO_SalesOrderFrm.Show
-    SO_SalesOrderFrm.cmbSearch_Status.text = "Open"
+    SO_SalesOrderFrm.cmbSearch_Status.Text = "Open"
     SO_SalesOrderFrm.DateFrom.value = currdate
     SO_SalesOrderFrm.btnSearch_Click
     SO_SalesOrderFrm.ZOrder 0
@@ -490,7 +490,7 @@ Private Sub lblSales_OverDueNotification_Click()
     
     CornerChildForm SO_SalesOrderFrm
     SO_SalesOrderFrm.Show
-    SO_SalesOrderFrm.cmbSearch_Status.text = "Overdue"
+    SO_SalesOrderFrm.cmbSearch_Status.Text = "Overdue"
     SO_SalesOrderFrm.DateFrom.value = currdate
     SO_SalesOrderFrm.btnSearch_Click
     SO_SalesOrderFrm.ZOrder 0
@@ -577,7 +577,7 @@ Private Sub GetNotification()
     Else
         lblPurchase_CheckDue.ForeColor = &H404040
     End If
-    lblPurchase_CheckDue.Caption = "Check to be deposited by Supplier - " & FormatNumber(Total, 0, vbTrue, vbFalse)
+    lblPurchase_CheckDue.Caption = "Check to be deposited by Supplier (w/n 5 Days) - " & FormatNumber(Total, 0, vbTrue, vbFalse)
     
     'PURCHASE OVERDUE STATUS
     Total = Val(GetNotifications("POOverdue"))

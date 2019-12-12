@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Begin VB.MDIForm BASE_ContainerFrm 
    BackColor       =   &H8000000C&
    Caption         =   "PeakPOS"
@@ -242,7 +242,7 @@ Begin VB.MDIForm BASE_ContainerFrm
             ImageIndex      =   7
             Style           =   5
             BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
-               NumButtonMenus  =   16
+               NumButtonMenus  =   18
                BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Key             =   "Banks"
@@ -258,56 +258,66 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "-"
                EndProperty
                BeginProperty ButtonMenu4 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
+                  Key             =   "CashVoucher"
+                  Text            =   "Cash Voucher"
+               EndProperty
+               BeginProperty ButtonMenu5 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
+                  Key             =   "CheckVoucher"
+                  Text            =   "Check Voucher"
+               EndProperty
+               BeginProperty ButtonMenu6 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "Expenses"
                   Text            =   "Expenses"
                EndProperty
-               BeginProperty ButtonMenu5 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu7 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "ExpenseList"
                   Text            =   "Expense List"
                EndProperty
-               BeginProperty ButtonMenu6 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu8 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu7 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu9 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Key             =   "AccountFunding"
                   Text            =   "Account Funding"
                EndProperty
-               BeginProperty ButtonMenu8 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu10 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Key             =   "BalanceForwarding"
                   Text            =   "Balance Forwarding"
                EndProperty
-               BeginProperty ButtonMenu9 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu11 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu10 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu12 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Key             =   "CheckRegistry"
                   Text            =   "Check Registry"
                EndProperty
-               BeginProperty ButtonMenu11 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu13 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu12 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu14 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "AccountsReceivable"
                   Text            =   "Accounts Receivable"
                EndProperty
-               BeginProperty ButtonMenu13 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu15 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "AccountsPayable"
                   Text            =   "Accounts Payable"
                EndProperty
-               BeginProperty ButtonMenu14 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu16 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Text            =   "-"
                EndProperty
-               BeginProperty ButtonMenu15 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu17 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Object.Visible         =   0   'False
                   Key             =   "CustomerLedger"
                   Text            =   "Customer Ledger"
                EndProperty
-               BeginProperty ButtonMenu16 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+               BeginProperty ButtonMenu18 {66833FEE-8583-11D1-B16A-00C0F0283628} 
                   Key             =   "PaymentHistory"
                   Text            =   "Payment History"
                EndProperty
@@ -323,10 +333,12 @@ Begin VB.MDIForm BASE_ContainerFrm
             BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
                NumButtonMenus  =   45
                BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "GeneralSalesTransaction"
                   Text            =   "General Transaction Summary"
                EndProperty
                BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Text            =   "-"
                EndProperty
                BeginProperty ButtonMenu3 {66833FEE-8583-11D1-B16A-00C0F0283628} 
@@ -367,14 +379,17 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Purchase Order by Product"
                EndProperty
                BeginProperty ButtonMenu13 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "SupplierPaymentHistory"
                   Text            =   "Supplier Payment History"
                EndProperty
                BeginProperty ButtonMenu14 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "SupplierStatement"
                   Text            =   "Supplier Statement of Account"
                EndProperty
                BeginProperty ButtonMenu15 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "SupplierLedger"
                   Text            =   "Supplier Ledger"
                EndProperty
@@ -413,10 +428,12 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Customer Invoice Transactions"
                EndProperty
                BeginProperty ButtonMenu25 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "CustomerSalesVolume"
                   Text            =   "Customer by Sales Volume"
                EndProperty
                BeginProperty ButtonMenu26 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "CustomerLedger"
                   Text            =   "Customer Ledger"
                EndProperty
@@ -467,6 +484,7 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Aging Accounts Summary"
                EndProperty
                BeginProperty ButtonMenu39 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "CollectionSummary"
                   Text            =   "Collection Summary"
                EndProperty
@@ -476,10 +494,12 @@ Begin VB.MDIForm BASE_ContainerFrm
                   Text            =   "Accounts Payable Summary"
                EndProperty
                BeginProperty ButtonMenu41 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "-"
                   Text            =   "-"
                EndProperty
                BeginProperty ButtonMenu42 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Object.Visible         =   0   'False
                   Key             =   "ExpensesReport"
                   Text            =   "Expenses Report"
                EndProperty
@@ -945,6 +965,10 @@ Private Sub Toolbar_Main_ButtonMenuClick(ByVal ButtonMenu As MSComctlLib.ButtonM
             CornerChildForm RPT_POS_SalesReturn
             RPT_POS_SalesReturn.Show
             RPT_POS_SalesReturn.ZOrder 0
+        Case "CashVoucher"
+            'CornerChildForm FIN_CashVoucherFrm
+            FIN_CashVoucherFrm.Show
+            FIN_CashVoucherFrm.ZOrder 0
           
     End Select
 End Sub

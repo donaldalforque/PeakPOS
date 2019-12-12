@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form PO_PurchaseReturnFrm 
    BorderStyle     =   1  'Fixed Single
@@ -11,6 +11,7 @@ Begin VB.Form PO_PurchaseReturnFrm
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
+   MDIChild        =   -1  'True
    MinButton       =   0   'False
    ScaleHeight     =   9015
    ScaleWidth      =   15090
@@ -171,7 +172,7 @@ Begin VB.Form PO_PurchaseReturnFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   113770497
+         Format          =   61145089
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -192,7 +193,7 @@ Begin VB.Form PO_PurchaseReturnFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   113770497
+         Format          =   61145089
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -774,7 +775,7 @@ Begin VB.Form PO_PurchaseReturnFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   113770497
+            Format          =   61145089
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtReceived 
@@ -796,7 +797,7 @@ Begin VB.Form PO_PurchaseReturnFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   113770497
+            Format          =   61145089
             CurrentDate     =   41509
          End
          Begin VB.Label Label11 

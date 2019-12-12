@@ -20,9 +20,9 @@ Sub Main()
         
         'GEN_PatchExtendedFRM.Show
         BASE_UserLoginFrm.Show
-        'DefaultPrinter (BackOffice_Printer)
-'
-        POS_UserLoginFrm.Show
+        DefaultPrinter (BackOffice_Printer)
+
+'        POS_UserLoginFrm.Show
 '        DefaultPrinter (POS_Printer)
 '    Else
 '        MsgBox "Invalid license.", vbCritical, "PeakPOS"

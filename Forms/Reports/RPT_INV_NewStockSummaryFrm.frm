@@ -19,7 +19,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
       TabIndex        =   0
       Top             =   0
       Width           =   3855
-      Begin VB.ComboBox cmbSort 
+      Begin VB.ComboBox cmbReport 
          BeginProperty Font 
             Name            =   "Calibri"
             Size            =   9.75
@@ -32,10 +32,65 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   345
          ItemData        =   "RPT_INV_NewStockSummaryFrm.frx":0000
          Left            =   1320
-         List            =   "RPT_INV_NewStockSummaryFrm.frx":0016
+         List            =   "RPT_INV_NewStockSummaryFrm.frx":000D
+         Style           =   2  'Dropdown List
+         TabIndex        =   18
+         Top             =   600
+         Width           =   2415
+      End
+      Begin VB.TextBox txtProduct 
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   330
+         Left            =   1320
+         TabIndex        =   16
+         Top             =   2400
+         Width           =   2415
+      End
+      Begin VB.CheckBox chkGroup 
+         BackColor       =   &H00E0E0E0&
+         Caption         =   "Group by Product"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   1320
+         TabIndex        =   15
+         Top             =   2040
+         Visible         =   0   'False
+         Width           =   1935
+      End
+      Begin VB.ComboBox cmbSort 
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   345
+         ItemData        =   "RPT_INV_NewStockSummaryFrm.frx":0051
+         Left            =   1320
+         List            =   "RPT_INV_NewStockSummaryFrm.frx":0067
          Style           =   2  'Dropdown List
          TabIndex        =   4
-         Top             =   2400
+         Top             =   3720
          Width           =   2415
       End
       Begin VB.CommandButton btnGenerate 
@@ -52,7 +107,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   375
          Left            =   1920
          TabIndex        =   3
-         Top             =   3240
+         Top             =   4560
          Width           =   1815
       End
       Begin VB.TextBox txtTitle 
@@ -68,7 +123,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   330
          Left            =   1320
          TabIndex        =   2
-         Top             =   2760
+         Top             =   4080
          Width           =   2415
       End
       Begin VB.ComboBox cmbStatus 
@@ -82,18 +137,39 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
             Strikethrough   =   0   'False
          EndProperty
          Height          =   345
-         ItemData        =   "RPT_INV_NewStockSummaryFrm.frx":005F
+         ItemData        =   "RPT_INV_NewStockSummaryFrm.frx":00B0
          Left            =   1320
-         List            =   "RPT_INV_NewStockSummaryFrm.frx":0061
+         List            =   "RPT_INV_NewStockSummaryFrm.frx":00B2
          Style           =   2  'Dropdown List
          TabIndex        =   1
-         Top             =   600
+         Top             =   960
          Width           =   2415
       End
       Begin MSComCtl2.DTPicker DateTo 
          Height          =   345
          Left            =   1320
          TabIndex        =   5
+         Top             =   1680
+         Width           =   2415
+         _ExtentX        =   4260
+         _ExtentY        =   609
+         _Version        =   393216
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Calibri"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Format          =   112263169
+         CurrentDate     =   41686
+      End
+      Begin MSComCtl2.DTPicker DateFrom 
+         Height          =   345
+         Left            =   1320
+         TabIndex        =   6
          Top             =   1320
          Width           =   2415
          _ExtentX        =   4260
@@ -108,29 +184,46 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   142016513
+         Format          =   112263169
          CurrentDate     =   41686
       End
-      Begin MSComCtl2.DTPicker DateFrom 
-         Height          =   345
-         Left            =   1320
-         TabIndex        =   6
-         Top             =   960
-         Width           =   2415
-         _ExtentX        =   4260
-         _ExtentY        =   609
-         _Version        =   393216
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+      Begin VB.Label Label9 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Report"
+         BeginProperty Font 
             Name            =   "Calibri"
-            Size            =   8.25
+            Size            =   11.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   142016513
-         CurrentDate     =   41686
+         Height          =   270
+         Left            =   120
+         TabIndex        =   19
+         Top             =   600
+         Width           =   630
+      End
+      Begin VB.Label Label8 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Description"
+         BeginProperty Font 
+            Name            =   "Calibri"
+            Size            =   11.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   270
+         Left            =   120
+         TabIndex        =   17
+         Top             =   2400
+         Width           =   1065
       End
       Begin VB.Label Label6 
          AutoSize        =   -1  'True
@@ -148,7 +241,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   270
          Left            =   120
          TabIndex        =   13
-         Top             =   2400
+         Top             =   3720
          Width           =   645
       End
       Begin VB.Label Label5 
@@ -167,7 +260,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   270
          Left            =   120
          TabIndex        =   12
-         Top             =   2760
+         Top             =   4080
          Width           =   1095
       End
       Begin VB.Label Label4 
@@ -186,7 +279,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   345
          Left            =   120
          TabIndex        =   11
-         Top             =   1920
+         Top             =   3240
          Width           =   870
       End
       Begin VB.Label Label2 
@@ -205,7 +298,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   270
          Left            =   120
          TabIndex        =   10
-         Top             =   960
+         Top             =   1320
          Width           =   960
       End
       Begin VB.Label Label3 
@@ -224,7 +317,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   270
          Left            =   120
          TabIndex        =   9
-         Top             =   600
+         Top             =   960
          Width           =   570
       End
       Begin VB.Label Label1 
@@ -262,7 +355,7 @@ Begin VB.Form RPT_INV_NewStockSummaryFrm
          Height          =   270
          Left            =   120
          TabIndex        =   7
-         Top             =   1320
+         Top             =   1680
          Width           =   705
       End
    End
@@ -306,7 +399,7 @@ Option Explicit
 Dim crxApp As New CRAXDRT.Application
 Dim crxRpt As New CRAXDRT.Report
 Public Sub Populate(ByVal data As String)
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Select Case data
         Case "Status"
             Set rec = New ADODB.Recordset
@@ -330,7 +423,15 @@ Private Sub btnGenerate_Click()
     Dim Status, Customer, Terms, DateRange As Variant
     
     Screen.MousePointer = vbHourglass
-    Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_NewStockSummary.rpt")
+    
+    If cmbReport.ListIndex = 0 Then
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_NewStockSummary.rpt")
+    ElseIf cmbReport.ListIndex = 1 Then
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_NewStockDetails.rpt")
+    ElseIf cmbReport.ListIndex = 2 Then
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\INV_NewStockDetailsByInventory.rpt")
+    End If
+    
     crxRpt.EnableParameterPrompting = False
     crxRpt.DiscardSavedData
     Call ResetRptDB(crxRpt)
@@ -343,12 +444,40 @@ Private Sub btnGenerate_Click()
     crxRpt.ParameterFields.GetItemByName("@DateFrom").AddCurrentValue DateFrom.value
     crxRpt.ParameterFields.GetItemByName("@DateTo").AddCurrentValue DateTo.value
     crxRpt.ParameterFields.GetItemByName("@Sort").AddCurrentValue cmbSort.Text
-    
+    If cmbReport.ListIndex > 0 Then
+        crxRpt.ParameterFields.GetItemByName("@Name").AddCurrentValue txtProduct.Text
+    End If
     
     CRViewer.ReportSource = crxRpt
     CRViewer.ViewReport
     CRViewer.Zoom 1
     Screen.MousePointer = vbDefault
+
+End Sub
+
+Private Sub chkGroup_Click()
+'    If chkGroup.value = Checked Then
+'        txtProduct.enabled = True
+'    Else
+'        txtProduct.enabled = False
+'    End If
+End Sub
+
+Private Sub cmbReport_Change()
+    txtTitle.Text = cmbReport.Text
+End Sub
+
+Private Sub cmbReport_Click()
+     If cmbReport.ListIndex = 0 Then
+        txtTitle.Text = "New Stock Summary"
+        txtProduct.enabled = False
+    ElseIf cmbReport.ListIndex = 1 Then
+        txtTitle.Text = "New Stock Report - Product Cost Details"
+        txtProduct.enabled = True
+    ElseIf cmbReport.ListIndex = 2 Then
+        txtTitle.Text = "New Stock Report - Product Inventory Details"
+        txtProduct.enabled = True
+    End If
 End Sub
 
 Private Sub CRViewer_PrintButtonClicked(UseDefault As Boolean)
@@ -358,6 +487,7 @@ Private Sub CRViewer_PrintButtonClicked(UseDefault As Boolean)
 End Sub
 
 Private Sub Form_Load()
+    cmbReport.ListIndex = 0
     Populate "Status"
     
     cmbStatus.ListIndex = 0

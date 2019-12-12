@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Begin VB.Form POS_RecentReceiptsFrm 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Recent Receipts"
@@ -146,11 +146,11 @@ Private Sub btnCash_Click()
     lvList.ListItems.Clear
     Set rec = New ADODB.Recordset
     Set rec = Global_Data("RecentReceipts")
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvList.ListItems.add(, , rec!POS_SalesId)
-                item.SubItems(1) = rec!pos_ordernumber
+            Set Item = lvList.ListItems.add(, , rec!POS_SalesId)
+                Item.SubItems(1) = rec!pos_ordernumber
             rec.MoveNext
         Loop
     End If
@@ -161,11 +161,11 @@ Private Sub btnCredit_Click()
     lvList.ListItems.Clear
     Set rec = New ADODB.Recordset
     Set rec = Global_Data("RecentCreditReceipts")
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     If Not rec.EOF Then
         Do Until rec.EOF
-            Set item = lvList.ListItems.add(, , rec!SalesOrderId)
-                item.SubItems(1) = rec!OrderNumber
+            Set Item = lvList.ListItems.add(, , rec!SalesOrderId)
+                Item.SubItems(1) = rec!OrderNumber
             rec.MoveNext
         Loop
     End If
@@ -195,7 +195,7 @@ Private Sub btnPrint_Click()
     
     If isCredit = False Then
         '**PRINT RECEIPT******
-        Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_Receipt.rpt")
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt.rpt")
         crxRpt.DiscardSavedData
         crxRpt.EnableParameterPrompting = False
         crxRpt.ParameterFields.GetItemByName("Notice").AddCurrentValue "***THIS IS A REPRINT***"
@@ -205,7 +205,7 @@ Private Sub btnPrint_Click()
         crxRpt.PrintOut False
     Else
         '**PRINT RECEIPT******
-        Set crxRpt = crxApp.OpenReport(App.Path & "\Reports\POS_Receipt_Account.rpt")
+        Set crxRpt = crxApp.OpenReport(App.path & "\Reports\POS_Receipt_Account.rpt")
         crxRpt.DiscardSavedData
         crxRpt.EnableParameterPrompting = False
         crxRpt.ParameterFields.GetItemByName("Notice").AddCurrentValue ""

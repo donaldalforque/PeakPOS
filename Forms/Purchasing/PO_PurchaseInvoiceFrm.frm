@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form PO_PurchaseInvoiceFrm 
    BorderStyle     =   3  'Fixed Dialog
@@ -141,7 +141,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   111869953
+         Format          =   112001025
          CurrentDate     =   41686
       End
       Begin MSComCtl2.DTPicker DateFrom 
@@ -162,7 +162,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   111869953
+         Format          =   112001025
          CurrentDate     =   41686
       End
       Begin VB.Label Label13 
@@ -1179,7 +1179,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   111869953
+            Format          =   112001025
             CurrentDate     =   41509
          End
          Begin MSComCtl2.DTPicker dtDue 
@@ -1200,7 +1200,7 @@ Begin VB.Form PO_PurchaseInvoiceFrm
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   111869953
+            Format          =   112001025
             CurrentDate     =   41509
          End
          Begin VB.Label Label18 
@@ -1771,7 +1771,7 @@ Public Sub CountTotal()
 
     lblSubTotal.Caption = FormatNumber(subtotal1, 2, vbTrue, vbFalse)
     
-    Total = (subtotal1 - discount - NVAL(txtRefunds.Text) - NVAL(txtFees.Text)) + NVAL(txtVAT.Text)
+    Total = (subtotal1 - discount - NVAL(txtRefunds.Text) - NVAL(txtFees.Text)) + NVAL(txtVAT.Text) + NVAL(txtFreight.Text)
     lblTotal.Caption = FormatNumber(Total, 2, vbTrue, vbFalse)
 End Sub
 Private Sub lblInvoice_Click()
@@ -1979,7 +1979,7 @@ Private Sub Form_Load()
     Populate "Status"
 '    Populate "InvoiceLineGet"
     
-    DateFrom.value = Format(Now, "MM/DD/YY")
+    DateFrom.value = Format(Now - 30, "MM/DD/YY")
     DateTo.value = Format(Now, "MM/DD/YY")
     CountTotal
     
@@ -2264,6 +2264,13 @@ End Sub
 Private Sub txtFees_Change()
     If IsNumeric(txtFees.Text) = False Then
         txtFees.Text = "0.00"
+    End If
+    CountTotal
+End Sub
+
+Private Sub txtFreight_Change()
+    If IsNumeric(txtFreight.Text) = False Then
+        txtFreight.Text = "0.00"
     End If
     CountTotal
 End Sub

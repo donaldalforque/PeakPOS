@@ -105,6 +105,7 @@ Public Sub ResetRptDB(ByRef crxReport As CRAXDRT.Report)
             End If
         Next
     Next
+    
 End Sub
 Public Sub ResetRptDB_try(ByRef crxReport As CRAXDRT.Report)
     Dim DBProviderName As String ' i.e SQLOLEDB.1;
@@ -641,7 +642,7 @@ End Sub
 Public Function GetAccessRightsByModule(ByVal UserRoleId As Integer, ByVal ModuleId As Integer) As Boolean
     Dim ModuleCtr, RightsCtr As Integer
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim rrCon As New ADODB.Connection
     Dim cmd As New ADODB.Command
     Dim rrRec As New ADODB.Recordset
@@ -672,7 +673,7 @@ End Function
 Public Sub GetAccessRights(ByVal UserRoleId As Integer)
     Dim ModuleCtr, RightsCtr As Integer
     
-    Dim item As MSComctlLib.ListItem
+    Dim Item As MSComctlLib.ListItem
     Dim rrCon As New ADODB.Connection
     Dim cmd As New ADODB.Command
     Dim rrRec As New ADODB.Recordset
@@ -1128,4 +1129,18 @@ Function ComputeInterest(ByVal enabled As Boolean)
         cmd.CommandText = "UpdateInterest"
         cmd.Execute
     End If
+End Function
+
+Public Function Barcode_AutoGenerate() As String
+    Dim con As New ADODB.Connection
+    Dim cmd As New ADODB.Command
+    Set rec = New ADODB.Recordset
+    
+    con.ConnectionString = ConnString
+    con.Open
+    cmd.ActiveConnection = con
+    cmd.CommandType = adCmdStoredProc
+    cmd.CommandText = "INV_Barcode_AutoGenerate"
+    Set rec = cmd.Execute
+    If Not rec.EOF Then Barcode_AutoGenerate = rec!Barcode
 End Function
