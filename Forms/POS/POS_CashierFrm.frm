@@ -24,6 +24,162 @@ Begin VB.Form POS_CashierFrm
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WindowState     =   2  'Maximized
+   Begin MSComctlLib.ListView lvList 
+      Height          =   4455
+      Left            =   6120
+      TabIndex        =   2
+      Top             =   2880
+      Width           =   7815
+      _ExtentX        =   13785
+      _ExtentY        =   7858
+      View            =   3
+      LabelEdit       =   1
+      LabelWrap       =   -1  'True
+      HideSelection   =   0   'False
+      FullRowSelect   =   -1  'True
+      _Version        =   393217
+      ForeColor       =   10485760
+      BackColor       =   -2147483643
+      Appearance      =   0
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Calibri"
+         Size            =   14.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      NumItems        =   25
+      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Text            =   "Name"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Alignment       =   1
+         SubItemIndex    =   1
+         Text            =   "QTY"
+         Object.Width           =   15478
+      EndProperty
+      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   2
+         Text            =   "UNIT"
+         Object.Width           =   15478
+      EndProperty
+      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Alignment       =   1
+         SubItemIndex    =   3
+         Text            =   "PRICE"
+         Object.Width           =   15478
+      EndProperty
+      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Alignment       =   1
+         SubItemIndex    =   4
+         Text            =   "DISCOUNT"
+         Object.Width           =   2540
+      EndProperty
+      BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         Alignment       =   1
+         SubItemIndex    =   5
+         Text            =   "SUBTOTAL"
+         Object.Width           =   15478
+      EndProperty
+      BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   6
+         Text            =   "Unit Cost"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(8) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   7
+         Text            =   "Quantity"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(9) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   8
+         Text            =   "ProductId"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(10) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   9
+         Text            =   "Price"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(11) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   10
+         Text            =   "Price1"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(12) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   11
+         Text            =   "Price2"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(13) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   12
+         Text            =   "Price3"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(14) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   13
+         Text            =   "Tax"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(15) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   14
+         Text            =   "TaxComputation"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(16) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   15
+         Text            =   "DiscountType"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(17) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   16
+         Text            =   "DeductInventory"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(18) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   17
+         Text            =   "DISCOUNTED"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(19) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   18
+         Text            =   "ReserveId"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(20) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   19
+         Text            =   "DISCOUNT PERCENT"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(21) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   20
+         Text            =   "isTaxExempt"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(22) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   21
+         Text            =   "POS_OrderId"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(23) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   22
+         Text            =   "POS_OrderLineId"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(24) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   23
+         Text            =   "QtyRequired"
+         Object.Width           =   0
+      EndProperty
+      BeginProperty ColumnHeader(25) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
+         SubItemIndex    =   24
+         Text            =   "PriceForQty"
+         Object.Width           =   0
+      EndProperty
+   End
    Begin VB.TextBox txtBarcode 
       Appearance      =   0  'Flat
       BorderStyle     =   0  'None
@@ -842,161 +998,13 @@ Begin VB.Form POS_CashierFrm
          Width           =   1815
       End
    End
-   Begin MSComctlLib.ListView lvList 
+   Begin VB.Image imgCompanyLogo 
       Height          =   4455
       Left            =   120
-      TabIndex        =   2
+      Picture         =   "POS_CashierFrm.frx":6673
+      Stretch         =   -1  'True
       Top             =   2880
-      Width           =   7815
-      _ExtentX        =   13785
-      _ExtentY        =   7858
-      View            =   3
-      LabelEdit       =   1
-      LabelWrap       =   -1  'True
-      HideSelection   =   0   'False
-      FullRowSelect   =   -1  'True
-      _Version        =   393217
-      ForeColor       =   10485760
-      BackColor       =   -2147483643
-      Appearance      =   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Calibri"
-         Size            =   14.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      NumItems        =   25
-      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Text            =   "Name"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Alignment       =   1
-         SubItemIndex    =   1
-         Text            =   "QTY"
-         Object.Width           =   15478
-      EndProperty
-      BeginProperty ColumnHeader(3) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   2
-         Text            =   "UNIT"
-         Object.Width           =   15478
-      EndProperty
-      BeginProperty ColumnHeader(4) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Alignment       =   1
-         SubItemIndex    =   3
-         Text            =   "PRICE"
-         Object.Width           =   15478
-      EndProperty
-      BeginProperty ColumnHeader(5) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Alignment       =   1
-         SubItemIndex    =   4
-         Text            =   "DISCOUNT"
-         Object.Width           =   2540
-      EndProperty
-      BeginProperty ColumnHeader(6) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         Alignment       =   1
-         SubItemIndex    =   5
-         Text            =   "SUBTOTAL"
-         Object.Width           =   15478
-      EndProperty
-      BeginProperty ColumnHeader(7) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   6
-         Text            =   "Unit Cost"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(8) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   7
-         Text            =   "Quantity"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(9) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   8
-         Text            =   "ProductId"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(10) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   9
-         Text            =   "Price"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(11) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   10
-         Text            =   "Price1"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(12) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   11
-         Text            =   "Price2"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(13) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   12
-         Text            =   "Price3"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(14) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   13
-         Text            =   "Tax"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(15) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   14
-         Text            =   "TaxComputation"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(16) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   15
-         Text            =   "DiscountType"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(17) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   16
-         Text            =   "DeductInventory"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(18) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   17
-         Text            =   "DISCOUNTED"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(19) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   18
-         Text            =   "ReserveId"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(20) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   19
-         Text            =   "DISCOUNT PERCENT"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(21) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   20
-         Text            =   "isTaxExempt"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(22) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   21
-         Text            =   "POS_OrderId"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(23) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   22
-         Text            =   "POS_OrderLineId"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(24) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   23
-         Text            =   "QtyRequired"
-         Object.Width           =   0
-      EndProperty
-      BeginProperty ColumnHeader(25) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
-         SubItemIndex    =   24
-         Text            =   "PriceForQty"
-         Object.Width           =   0
-      EndProperty
+      Width           =   5895
    End
    Begin VB.Label lblUserNumber 
       BackColor       =   &H00FFFFFF&
@@ -1021,7 +1029,7 @@ Begin VB.Form POS_CashierFrm
    Begin VB.Image imgLogo 
       Height          =   2040
       Left            =   120
-      Picture         =   "POS_CashierFrm.frx":6673
+      Picture         =   "POS_CashierFrm.frx":137F1
       Top             =   120
       Width           =   4980
    End
@@ -1048,7 +1056,7 @@ Begin VB.Form POS_CashierFrm
    Begin VB.Image ImgTotal 
       Height          =   2040
       Left            =   120
-      Picture         =   "POS_CashierFrm.frx":13FBD
+      Picture         =   "POS_CashierFrm.frx":2113B
       Stretch         =   -1  'True
       Top             =   120
       Width           =   15000
@@ -1657,12 +1665,13 @@ Private Sub Form_Activate()
     txtBarcode.width = ImgTotal.width
     'txtBarcode.width = btnFood1.Left - 300
     'txtQuantity.Height = txtBarcode.Height
-    lvList.width = ImgTotal.width
+    lvList.width = ImgTotal.width - lvList.Left + 120
     'lvList.width = btnFood1.Left - 300
     FRE_Controls.width = ImgTotal.width
     FRE_Details.width = txtBarcode.width 'lvList.width
-    FRE_Details.Left = lvList.Left
+    FRE_Details.Left = txtBarcode.Left
     FRE_Details.Top = FRE_Details.Top + 10
+    imgCompanyLogo.Height = lvList.Height
     
     btnNull.width = FRE_Controls.width - btnNull.Left - 100
     lblDate.Left = lvList.width - lblDate.width - 120
